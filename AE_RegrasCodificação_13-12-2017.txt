@@ -1,0 +1,44 @@
+﻿//OBRIGATÓRIO fazer identação: 4 espaços ou 1 TAB
+//Comentar o mais possivel com os formatos equivalentes a um javadoc
+//Utilizar sempre <?php ?>
+
+
+<?php 
+	//definir variaveis
+	$var_a= '';
+
+	//definir variável global, e sua nomenclatura
+	global $_var_c;
+
+	/** 
+	 * Comentário de classe
+	 * 
+	 * @author Pessoa Abcd
+	 * @version 0.1
+	 */
+	class DAO_Utilizador{
+		
+	    //variaveis
+		private $database_handler = null;
+
+		//Construtor
+		/**
+		 *
+		 * Comentário de construtor
+ 		 */ 
+		public function __construct(){
+		    //conteúdo
+		}
+		
+		//funções
+		/**
+		 *
+		 * Comentário de função
+ 		 */ 
+		public function insere(){
+		    //conteúdo
+		}
+	
+	}
+	
+?>
