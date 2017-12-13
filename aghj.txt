@@ -35,9 +35,7 @@
 		 *
 		 * Comentário de função
  		 */ 
-		public function insere(){
-		    //conteúdo
-		}
+
 	
 	}
 	
