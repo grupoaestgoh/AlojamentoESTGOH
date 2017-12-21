@@ -1,0 +1,322 @@
+
+
+  @media (max-width: 333px) {
+    .navtitle {
+      font-size: x-large;
+    }
+  }/*!
+ * Start Bootstrap - Landing Page (http://startbootstrap.com/template-overviews/landing-page)
+ * Copyright 2013-2017 Start Bootstrap
+ * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap-landing-page/blob/master/LICENSE)
+ */
+
+body, html {
+  width: 100%;
+  height: 100%;
+}
+
+.nav-item img {
+  width: 35px;
+  height: 35px;
+}
+
+.hidden {
+  visibility: hidden;
+  width: 10px;
+}
+
+ h2, h4, h5, h6 {
+  font-family: "Germania One", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: 700;
+}
+.especialBotao{
+  background-color:  #0775b8;
+  border:none;
+}
+.bg-light {
+    background-color: #f8f8f8!important;
+  }
+  .navtitle {
+      font-size: xx-large;
+      color: #0775b8;
+      padding: 0;
+      margin: 0;
+      border: 0;
+    }
+
+
+.alertaImg{
+  width: 40px;
+  height: 40px;
+}
+
+.certo{
+  width: 20px;
+  height: 20px;
+
+}
+.especialBotao2{
+  background-color: white;
+  border:none;
+}
+.especialBotao2:hover {
+    background-color: #cbe7ef;
+    border-radius: 10px;
+    color:white!important;
+}
+.navbar-light .navbar-nav .nav-link {
+    color: #0775b8;;
+  }
+
+ h3{
+  font-family: "Montserrat Alternates", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: 700;
+}
+ h1{
+  font-family: "Arvo", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: 700;
+}
+body {
+  background-color:#0775b8;
+}
+.list-inline-item{
+  margin: 10px 0px 0px 0px;
+  padding: 10px 10px 10px 10px;
+  border-radius: 10px 0px 10px 0px;
+
+}
+
+.fundoPreto{
+  background-color: black !important;
+}
+.espacosRA{
+  padding: 10px 70px 0px 70px;
+}
+
+
+.img-fluid{
+  width: 400px;
+  height: 450px;
+}
+
+.intro-header {
+  padding-top: 50px;
+  padding-bottom: 50px;
+  text-align: center;
+  color: #f8f8f8;
+  background: url(../img/img_aplicacao/mapa.png) no-repeat center center;
+  background-size: cover;
+}
+.posicaoPI{
+  padding-top: 15%;
+  padding-bottom: 20%;
+}
+.posicaoRA{
+  padding-bottom: 1%;
+}
+
+.intro-message {
+  position: relative;
+}
+
+.intro-message>h1 {
+  margin: 0;
+  color: #0775b8;
+  font-size: 5em;
+
+}
+.navbar-brand{
+  font-family: "Germania One";
+}
+
+.nav-link {
+  display: block;
+  font-family: "Germania One";
+  color:  #0775b8;
+}
+
+.nav-link:hover{
+  background-color: #0775b8;
+  color:white!important;
+  border-radius: 10px;
+}
+.nav-link.active{
+  background-color: #0775b8;
+  color:white!important;
+  border-radius: 10px;
+}
+.divAzul {
+  color:#0775b8;
+}
+.text-muted {
+    color: black!important;
+}
+.corAzul{
+  color: #0775b8;
+}
+.corAzul:hover{
+  color: #0775b8;
+
+}
+.corBranca{
+  color: white;
+}
+.corBrancahover:hover{
+  color: white;
+}
+.fundoBranco{
+  background-color: white;
+}
+.corPreta{
+  color: black;
+}
+.colorTex{
+  color: #0775b8;
+}
+.intro-divider {
+  width: 400px;
+  border-top: 1px solid #f8f8f8;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.intro-message>h3 {
+  text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.6);
+}
+
+.intro-social-buttons i {
+  font-size: 80%;
+}
+
+@media(max-width:767px) {
+  .posicaoRA{
+    padding-bottom: 25%;
+  }
+  .intro-message>h1 {
+    font-size: 3em;
+  }
+  ul.intro-social-buttons>li {
+    display: block;
+    margin-bottom: 20px;
+    padding: 0;
+  }
+  ul.intro-social-buttons>li:last-child {
+    margin-bottom: 0;
+  }
+  .intro-divider {
+    width: 100%;
+  }
+}
+
+.network-name {
+  text-transform: uppercase;
+  font-size: 14px;
+  font-weight: bold;
+  letter-spacing: 2px;
+  color:white;
+  font-family: "Ropa Sans";
+
+}
+
+.content-section-a {
+  padding: 50px 0;
+  background-color: #f8f8f8;
+}
+
+.content-section-b {
+  padding: 50px 0;
+  border-top: 1px solid #e7e7e7;
+  border-bottom: 1px solid #e7e7e7;
+
+}
+
+
+
+.section-heading-spacer {
+  float: left;
+  width: 200px;
+  border-top: 3px solid black;
+}
+
+.btn{
+  text-align: center;
+    margin: 0px 0px 15px 0px;
+}
+
+.banner {
+  padding: 100px 0;
+  color: #f8f8f8;
+  background: url(../img/banner-bg.jpg) no-repeat center center;
+  background-size: cover;
+}
+label{
+  font-family: "Ropa Sans";
+  font-size: 20px;
+  color: white;
+}
+.labelModal{
+  color: black;
+}
+.aumentar{
+  width: 900px;
+}
+
+.banner h2 {
+  margin: 0;
+  text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.6);
+  font-size: 3em;
+}
+
+.banner ul {
+  margin-bottom: 0;
+}
+
+.banner-social-buttons {
+  float: right;
+  margin-top: 0;
+}
+@media (max-width: 333px) {
+  .navtitle {
+    font-size: x-large;
+  }
+}
+@media(max-width:1199px) {
+  ul.banner-social-buttons {
+    float: left;
+    margin-top: 15px;
+  }
+  .aumentar{
+    width: 600px;
+  }
+}
+
+@media(max-width:767px) {
+  .banner h2 {
+    margin: 0;
+    text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.6);
+    font-size: 3em;
+  }
+  .aumentar{
+    width: 400px;
+  }
+  .aumentar2{
+    width: 300px;
+  }
+  ul.banner-social-buttons>li {
+    display: block;
+    margin-bottom: 20px;
+    padding: 0;
+  }
+  ul.banner-social-buttons>li:last-child {
+    margin-bottom: 0;
+  }
+}
+
+footer {
+  background-color: #f8f8f8;
+  text-align: center;
+  padding-bottom: 15px;
+}
+
+p.copyright {
+  margin: 15px 0 0;
+}
