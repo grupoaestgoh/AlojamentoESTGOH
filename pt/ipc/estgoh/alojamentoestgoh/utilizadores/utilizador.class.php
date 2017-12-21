@@ -4,15 +4,15 @@ class Utilizador
 {
 
   //Atributos de um Utilizador
-  private $Id_Utilizador;
-  private $Nome;
-  private $Email;
-  private $Password;
-  private $Tipo;
-  private $Data_Inscricao;
+  public $Id_Utilizador;
+  public $Nome;
+  public $Email;
+  public $Password;
+  public $Tipo;
+  public $Data_Inscricao;
 
   //Construtor da classe utilizador
-  public function_construct ($Id_Utilizador,$Nome,$Email,$Password,$Tipo,$Data_Inscricao)
+  public function __construct ($Id_Utilizador,$Nome,$Email,$Password,$Tipo,$Data_Inscricao)
   {
     $this->Id_Utilizador=$Id_Utilizador;
     $this->Nome=$Nome;
