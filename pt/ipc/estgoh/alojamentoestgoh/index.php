@@ -23,15 +23,15 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top"  >
       <ul class="navbar-nav ml-auto">
         <li class="nav-item">
-           <img  src="./img/img_aplicacao/pt.jpg" alt="">
+					<a  href="<?php print($filename . "?lingua=pt"); ?>"><img src=<?php  print("./img/img_aplicacao/pt.jpg")?>></a>
         </li>
         <li class="nav-item hidden"> </li>
         <li class="nav-item">
-          <img src="./img/img_aplicacao/UK.jpg" alt="">
+					<a  href="<?php print($filename . "?lingua=en"); ?>"><img src=<?php  print("./img/img_aplicacao/UK.jpg")?>></a>
         </li>
       </ul>
       <div class="container">
-        <a class="navbar-brand"  href="PaginaInicial.html" ><p class="navtitle">AlojamentoESTGOH</p></a>
+        <a class="navbar-brand"  href="#" ><p class="navtitle">AlojamentoESTGOH</p></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
