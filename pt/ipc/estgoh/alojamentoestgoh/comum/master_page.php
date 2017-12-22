@@ -25,34 +25,34 @@
         <div class="container">
           <ul class="list-inline">
             <li class="list-inline-item">
-              <a class="corAzul" href="http://websrv2.estgoh.ipc.pt/portal2/">Estgoh</a>
+              <a class="corAzul" href="http://websrv2.estgoh.ipc.pt/portal2/"><?php print $GLOBALS['estgohR']; ?></a>
             </li>
             <li class="footer-menu-divider list-inline-item divAzul">&sdot;</li>
             <li class="list-inline-item">
-              <a class="corAzul" href="https://mailsecure.estgoh.ipc.pt/horde/imp/login.php">E-mail</a>
+              <a class="corAzul" href="https://mailsecure.estgoh.ipc.pt/horde/imp/login.php"><?php print $GLOBALS['emailR']; ?></a>
             </li>
             <li class="footer-menu-divider list-inline-item divAzul">&sdot;</li>
             <li class="list-inline-item">
-              <a class="corAzul" href="http://elearning.estgoh.ipc.pt/">E-learning</a>
+              <a class="corAzul" href="http://elearning.estgoh.ipc.pt/"><?php print $GLOBALS['elearningR']; ?></a>
             </li>
             <li class="footer-menu-divider list-inline-item divAzul">&sdot;</li>
             <li class="list-inline-item">
-              <a class="corAzul" href="http://biblio.estgoh.ipc.pt/">Biblioteca</a>
+              <a class="corAzul" href="http://biblio.estgoh.ipc.pt/"><?php print $GLOBALS['bibliotecaR']; ?></a>
             </li>
             <li class="footer-menu-divider list-inline-item divAzul">&sdot;</li>
             <li class="list-inline-item">
-              <a class="corAzul" href="http://netpa.estgoh.ipc.pt/netpa/page">NetPA(Portal Académico)</a>
+              <a class="corAzul" href="http://netpa.estgoh.ipc.pt/netpa/page"><?php print $GLOBALS['netpaR']; ?></a>
             </li>
             <li class="footer-menu-divider list-inline-item divAzul">&sdot;</li>
             <li class="list-inline-item">
-              <a class="corAzul" href="#sobre">Sobre nós</a>
+              <a class="corAzul" href="#sobre"><?php print $GLOBALS['sobreNosR']; ?></a>
             </li>
             <li class="footer-menu-divider list-inline-item divAzul">&sdot;</li>
             <li class="list-inline-item">
-              <a class="corAzul" href="#contactos">Contatos</a>
+              <a class="corAzul" href="#contactos"><?php print $GLOBALS['contactosR']; ?></a>
             </li>
           </ul>
-          <p class="copyright text-muted small">Copyright &copy; AlojamentoESTGOH 2017. Todos direitos reservados.</p>
+          <p class="copyright text-muted small">Copyright &copy; <?php print $GLOBALS['direitosR']; ?></p>
         </div>
      	</footer>
 

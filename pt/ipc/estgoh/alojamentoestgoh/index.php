@@ -31,17 +31,17 @@
         </li>
       </ul>
       <div class="container">
-        <a class="navbar-brand"  href="PaginaInicial.html" ><p class="navtitle">AlojamentoESTGOH</p></a>
+        <a class="navbar-brand"  href="PaginaInicial.html" ><p class="navtitle"><?php print $GLOBALS['logotipo']; ?></p></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
             <li class="nav-item" id="muda">
-              <a class="nav-link" href="#Log" ><font  size="4" >Login</font></a>
+              <a class="nav-link" href="#Log" ><font  size="4" ><?php print $GLOBALS['login']; ?></font></a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#Reg"><font  size="4" >Registo</font></a>
+              <a class="nav-link" href="#Reg"><font  size="4" ><?php print $GLOBALS['registo']; ?></font></a>
             </li>
           </ul>
         </div>
@@ -52,17 +52,17 @@
 <header class="intro-header" >
 <div class="container">
 <div class="intro-message posicaoPI">
-<h1>Alojamento ESTGOH</h1>
-<h3>Escola superior Tecnologia e Gestão de Oliveira do Hospital</h3>
+<h1><?php print $GLOBALS['logotipo']; ?></h1>
+<h3><?php print $GLOBALS['nomeEscola']; ?></h3>
 <hr class="intro-divider aumentar">
 <ul class="list-inline intro-social-buttons">
   <li class="list-inline-item" style="background-color: rgba(100,100,100,0.6);">
-      <span class="network-name">Estas á procura de alojamento e ainda
-                                  e ainda não encontrastes?
+      <span class="network-name">
+				<?php print $GLOBALS['frase1']; ?>
       </span>
       <br>
-      <span class="network-name">Então junta te a nós e procura o teu quarto ideal
-                                  ao melhor preço.
+      <span class="network-name">
+				<?php print $GLOBALS['frase2']; ?>
       </span>
   </li>
 
@@ -78,15 +78,15 @@
 <div class="row">
 <div class="col-lg-5 ml-auto">
   <div class="clearfix"></div>
-  <h2 class="section-heading corAzul">Login</h2>
+  <h2 class="section-heading corAzul"><?php print $GLOBALS['login']; ?></h2>
   <hr class="section-heading-spacer" >
     <br>
     <br>
   <form action="PaginaInicial.html">
-      <label class="corPreta"><b>Email:</b></label><br>
+      <label class="corPreta"><b><?php print $GLOBALS['email']; ?>:</b></label><br>
       <input class="form-control" type="email" placeholder="Email" name="eml" required>
       <br>
-      <label class="corPreta"><b>Password:</b></label><br>
+      <label class="corPreta"><b><?php print $GLOBALS['password']; ?>:</b></label><br>
       <input class="form-control" type="password" placeholder="Password" name="psw" required>
       <br>
 
@@ -96,11 +96,11 @@
           <img class="alertaImg" src="./img/img_aplicacao/alerta.png" alt="">
           </div>
           <div class="col-lg-6">
-            <span class="glyphicon glyphicon-alert">Credenciais erradas!<br>Tente novamente.</span>
+            <span class="glyphicon glyphicon-alert"><?php print $GLOBALS['credenciaisErradas']; ?><br><?php print $GLOBALS['tenteNovamente']; ?></span>
           </div>
         </div>
       </div>
-      <button class="btn btn-primary navbar-btn" onclick="Mudarestado('Aviso')" type="submit">Entrar</button>
+      <button class="btn btn-primary navbar-btn" onclick="Mudarestado('Aviso')" type="submit"><?php print $GLOBALS['entrar']; ?></button>
 
   </form>
 
@@ -120,21 +120,21 @@
 <div class="row">
 <div class="col-lg-5 mr-auto order-lg-2">
   <div class="clearfix"></div>
-  <h2 class="section-heading corBranca">Registo</h2>
+  <h2 class="section-heading corBranca"><?php print $GLOBALS['registo']; ?></h2>
   <hr class="section-heading-spacer">
   <br><br>
   <form action="PaginaInicial.html">
-      <label class="corPreta" ><b>Email:</b></label>
+      <label class="corPreta" ><b><?php print $GLOBALS['email']; ?>:</b></label>
       <br>
       <div class="form-group input-group">
         <input type="email" class="form-control" placeholder="Email" id="inlineFormInputGroup" required>
         <div class="input-group-addon" ><img class="certo" src="./img/img_aplicacao/certo.png" alt=""></div>
 
       </div>
-      <label class="corPreta"><b>Password:</b></label><br>
+      <label class="corPreta"><b><?php print $GLOBALS['password']; ?>:</b></label><br>
       <input class="form-control" type="password" placeholder="Password" name="psw" required>
       <br>
-      <label class="corPreta"><b>Nome:</b></label><br>
+      <label class="corPreta"><b><?php print $GLOBALS['nome']; ?>:</b></label><br>
       <input class="form-control" type="text" placeholder="Nome" name="nme" required>
       <br>
       <div id="Aviso2" class="alert alert-success" role="alert" style="display:none">
@@ -143,11 +143,11 @@
           <img class="alertaImg" src="./img/img_aplicacao/certo.png" alt="">
           </div>
           <div class="col-lg-8">
-            <span class="glyphicon glyphicon-alert">Registado com sucesso!</span>
+            <span class="glyphicon glyphicon-alert"><?php print $GLOBALS['sucesso']; ?></span>
           </div>
         </div>
       </div>
-      <button class="btn btn-default" onclick="Mudarestado('Aviso2')"  type="submit">Registar</button>
+      <button class="btn btn-default" onclick="Mudarestado('Aviso2')"  type="submit"><?php print $GLOBALS['registar']; ?></button>
 
   </form>
 
