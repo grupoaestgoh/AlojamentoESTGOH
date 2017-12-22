@@ -31,7 +31,7 @@
         </li>
       </ul>
       <div class="container">
-        <a class="navbar-brand"  href="PaginaInicial.html" ><p class="navtitle"><?php print $GLOBALS['logotipo']; ?></p></a>
+        <a class="navbar-brand"  href="#" ><p class="navtitle"><?php print $GLOBALS['logotipo']; ?></p></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -82,7 +82,7 @@
   <hr class="section-heading-spacer" >
     <br>
     <br>
-  <form action="PaginaInicial.html">
+  <form action="index.php">
       <label class="corPreta"><b><?php print $GLOBALS['email']; ?>:</b></label><br>
       <input class="form-control" type="email" placeholder="Email" name="eml" required>
       <br>
@@ -123,7 +123,7 @@
   <h2 class="section-heading corBranca"><?php print $GLOBALS['registo']; ?></h2>
   <hr class="section-heading-spacer">
   <br><br>
-  <form action="PaginaInicial.html">
+  <form action="index.php">
       <label class="corPreta" ><b><?php print $GLOBALS['email']; ?>:</b></label>
       <br>
       <div class="form-group input-group">
