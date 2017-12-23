@@ -23,11 +23,11 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top"  >
       <ul class="navbar-nav ml-auto">
         <li class="nav-item">
-           <img  src="./img/img_aplicacao/pt.jpg" alt="">
+           <a href="?lingua=pt"> <img src="./img/img_aplicacao/pt.jpg" alt=""> </a>
         </li>
         <li class="nav-item hidden"> </li>
         <li class="nav-item">
-          <img src="./img/img_aplicacao/UK.jpg" alt="">
+           <a href="?lingua=en"> <img src="./img/img_aplicacao/UK.jpg" alt=""> </a>
         </li>
       </ul>
       <div class="container">
@@ -49,27 +49,26 @@
     </nav>
 <!-- Header -->
 <section class="content-section-c" >
-<header class="intro-header" >
-<div class="container">
-<div class="intro-message posicaoPI">
-<h1><?php print $logotipo; ?></h1>
-<h3><?php print $nomeEscola; ?></h3>
-<hr class="intro-divider aumentar">
-<ul class="list-inline intro-social-buttons">
-  <li class="list-inline-item" style="background-color: rgba(100,100,100,0.6);">
-      <span class="network-name">
-				<?php print $frase1; ?>
-      </span>
-      <br>
-      <span class="network-name">
-				<?php print $frase2; ?>
-      </span>
-  </li>
-
-</ul>
-</div>
-</div>
-</header>
+	<header class="intro-header" >
+		<div class="container">
+			<div class="intro-message posicaoPI">
+			<h1><?php print $logotipo; ?></h1>
+			<h3><?php print $nomeEscola; ?></h3>
+			<hr class="intro-divider aumentar">
+			<ul class="list-inline intro-social-buttons">
+			  <li class="list-inline-item" style="background-color: rgba(100,100,100,0.6);">
+			      <span class="network-name">
+							<?php print $frase1; ?>
+			      </span>
+			      <br>
+			      <span class="network-name">
+							<?php print $frase2; ?>
+			      </span>
+			  </li>
+			</ul>
+			</div>
+		</div>
+	</header>
 </section>
 <!-- Page Content -->
 <section class="content-section-a"  id="Log">
