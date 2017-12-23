@@ -21,9 +21,11 @@ class DAOUtilizadores{
     $STH->setFetchMode(PDO::FETCH_OBJ);
 		while($row = $STH->fetch())
     {
-			return new Utilizador($row->uti_id,$row->uti_nome,$row->uti_email,$row->uti_password,$row->uti_estado,$row->uti_tipo,$row->uti_inscricao);
-		}
-    return new Utilizador=null;
+      if(!strcmp($row->uti_tipo,'anunciante'))return new Anunciante($row->uti_id,$row->uti_nome,$row->uti_email,$row->uti_password,$row->uti_estado,$row->uti_tipo,$row->uti_inscricao,$row->uti_estado);
+      if(!strcmp($row->uti_tipo,'estudante'))return new Utilizador($row->uti_id,$row->uti_nome,$row->uti_email,$row->uti_password,$row->uti_estado,$row->uti_tipo,$row->uti_inscricao);
+      if(!strcmp($row->uti_tipo,'gestor'))return new Gestor($row->uti_id,$row->uti_nome,$row->uti_email,$row->uti_password,$row->uti_estado,$row->uti_tipo,$row->uti_inscricao,$row->uti_estado);
+    }
+    return null;
   }
 
   //Obtem um Utilizador através do seu id
@@ -38,7 +40,7 @@ class DAOUtilizadores{
           {
             return new Utilizador($row->uti_id,$row->uti_nome,$row->uti_email,$row->uti_password,$row->uti_estado,$row->uti_tipo,$row->uti_inscricao);
     			}
-    			return new utilizador=null;
+    			return null;
   }
 
   //Edita os dados (password) de um utilizador existente na base de dados

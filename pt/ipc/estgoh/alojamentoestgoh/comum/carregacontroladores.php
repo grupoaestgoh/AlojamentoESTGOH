@@ -6,6 +6,8 @@
 include('./comum/basedados.class.php');
 //Ficheiro de varias configurações
 include('./comum/config.php');
+
+include('./utilizadores/DAOutilizador.class.php');
 //Ficheiro da internacionalização
 if (file_exists ( "./lang/i18n_" . $lingua . ".php" ))
   include "./lang/i18n_" . $lingua . ".php";
