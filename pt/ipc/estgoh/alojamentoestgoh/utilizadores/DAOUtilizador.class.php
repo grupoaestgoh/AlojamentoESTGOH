@@ -2,9 +2,9 @@
 class DAOUtilizadores{
 
   //Insere um utilizador na base de dados, se falhar devolve false, se tiver sucesso devolve true
-  function inserir_utilizador(Utilizador $utilizador){//o utilizador não tem estado, como é que ele vai buscar o ":es"??
+  function inserir_utilizador(Utilizador $utilizador){
     global $mybd;
-    $STH=$mybd->DBH->prepare("Insert into utilizador (uti_nome,uti_email,uti_password,uti_estado,uti_tipo,uti_inscricao) values (:n,:e,:p,:t,:d,:es);");
+      $STH=$mybd->DBH->prepare("Insert into utilizador (uti_nome,uti_email,uti_password,uti_estado,uti_tipo,uti_inscricao) values (:n,:e,:p,0,:t,:d);");
     if(!$STH->execute($utilizador->to_array_sem_id()))return false;
     return true;
   }

@@ -6,6 +6,7 @@
 include('./comum/basedados.class.php');
 //Ficheiro de varias configurações
 include('./comum/config.php');
+include('./utilizadores/utilizador.class.php');
 
 include('./utilizadores/DAOutilizador.class.php');
 //Ficheiro da internacionalização

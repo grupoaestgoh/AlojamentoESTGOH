@@ -89,7 +89,7 @@
       <input class="form-control"  type="password" placeholder="Password" name="password" required>
       <br>
 
-      <div id="Aviso" class="alert alert-danger" role="alert" style="display:none">
+      <div id="Aviso" class="alert alert-danger" role="alert"  style="display:none">
           <div class="row leftCaracteris">
           <div class="col-lg-2 ">
           <img class="alertaImg" src="./img/img_aplicacao/alerta.png" alt="">
@@ -99,7 +99,7 @@
           </div>
         </div>
       </div>
-      <button name="entrar" class="btn btn-primary navbar-btn"  type="submit"><?php print $entrar; ?></button>
+      <button name="entrar" type="submit" class="btn btn-primary navbar-btn"  ><?php print $entrar; ?></button>
 
   </form>
 
@@ -119,7 +119,7 @@
 		}
 		else
 		{
-			echo"<script>document.getElementById('Aviso').style.display = 'none';</script>";
+		echo "<script>document.getElementById('Aviso').style.display = 'hidden';</script>";
 		}
 		$mybd->desligar_bd();
 	}
@@ -147,20 +147,21 @@
   <h2 class="section-heading corBranca"><?php print $registo; ?></h2>
   <hr class="section-heading-spacer">
   <br><br>
-  <form action="index.php">
+  <form action="index.php" method="POST">
       <label class="corPreta" ><b><?php print $email; ?>:</b></label>
       <br>
       <div class="form-group input-group">
-        <input type="email" class="form-control" placeholder="Email" id="inlineFormInputGroup" required>
+				<input class="form-control" id="inlineFormInputGroup" type="text" name="email" placeholder="Email" pattern="^[a-z0-9.]+@[a-z0-9]+\.[a-z]+\.([a-z]+)" required>
         <div class="input-group-addon" ><img class="certo" src="./img/img_aplicacao/certo.png" alt=""></div>
 
       </div>
       <label class="corPreta"><b><?php print $password; ?>:</b></label><br>
-      <input class="form-control" type="password" placeholder="Password" name="psw" required>
+      <input class="form-control" type="password" placeholder="Password" name="passwordR" required>
       <br>
       <label class="corPreta"><b><?php print $nome; ?>:</b></label><br>
-      <input class="form-control" type="text" placeholder="Nome" name="nme" required>
+      <input class="form-control" type="text" placeholder="Nome" name="nome" required>
       <br>
+
       <div id="Aviso2" class="alert alert-success" role="alert" style="display:none">
           <div class="row leftCaracteris">
           <div class="col-lg-2 ">
@@ -171,10 +172,43 @@
           </div>
         </div>
       </div>
-      <button class="btn btn-default" onclick="Mudarestado('Aviso2')"  type="submit"><?php print $registar; ?></button>
+			<div id="Aviso3" class="alert alert-danger" role="alert"  style="display:none">
+          <div class="row leftCaracteris">
+          <div class="col-lg-2 ">
+          <img class="alertaImg" src="./img/img_aplicacao/alerta.png" alt="">
+          </div>
+          <div class="col-lg-6">
+            <span class="glyphicon glyphicon-alert"><?php print $insucesso; ?><br><?php print $tenteNovamente; ?></span>
+          </div>
+        </div>
+      </div>
+      <button name="registar" class="btn btn-default"  type="submit"><?php print $registar; ?></button>
 
   </form>
+	<?php
+	//verifica o login
+	if(isset($_POST["registar"]))
+	{
+		$mybd=new BaseDados();
+		$mybd->ligar_bd();
+		$DaoUtilizadores=new DAOUtilizadores();
+		$utilizador= new utilizador(0,verifica_nome(),$_POST["emailR"],encripta_password(),2,date("Y-m-d"));
+		if(encripta_password()!=false)
+		{
+			$DaoUtilizadores->inserir_utilizador($utilizador);
+			echo "<script>document.getElementById('Aviso2').style.display = 'hidden';</script>";
+			echo "<script>document.getElementById('Aviso3').style.display = 'none';</script>";
+			print "registou";
+		}
+		else
+		{
+			echo "<script>document.getElementById('Aviso2').style.display = 'none';</script>";
+			echo "<script>document.getElementById('Aviso3').style.display = 'hidden';</script>";
+		}
 
+		$mybd->desligar_bd();
+	}
+	?>
   </div>
 <div class="col-lg-5 ml-auto order-lg-1">
   <img class="img-fluid" src="./img/img_aplicacao/dog.png" alt="">
@@ -187,8 +221,8 @@
 </section>
 <!-- /.content-section-b -->
 
-<!-- /.content-section-a -->
-
+<!--
+.content-section-a -->
 
 
 <?php
@@ -197,4 +231,25 @@
 
 	//master page
 	include($layout);
+
+	function verifica_nome(){
+		$valor=$_POST["nomeR"];
+		//Verifica se não tem numeros
+		if(preg_match('/[1-9]/',$valor)==1)$valor=false;
+		return $valor;
+	}
+
+	function encripta_password(){
+		$valor=password_hash($_POST["passwordR"],PASSWORD_DEFAULT);
+		//verifica se tem pelo menos um caracter maiusculo
+		if(preg_match('/[A-Z]/', $_POST["passwordR"])!=1)$valor=false;
+		//verifica se tem pelo menos 9 carcteres
+		if(strlen($_POST["passwordR"])<9) $valor=false;
+
+		if(preg_match('/[1-9]/', $_POST["passwordR"])!=1)$valor=false;
+
+		return $valor;
+	}
+
+
 ?>

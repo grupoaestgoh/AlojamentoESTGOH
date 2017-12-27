@@ -30,5 +30,5 @@
 	$nome="Nome";
 	$sucesso="Registado com sucesso!";
 	$caracPassword="Password deve ter pelo menos 1 caracter Maiúsculo e um numero num total de pelo menos oito caracteres.";
-
+	$insucesso="Password deve ter pelo menos 1 caracter Maiúsculo e 1 numero num total de pelo menos oito caracteres"
 ?>
