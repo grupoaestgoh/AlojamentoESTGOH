@@ -89,7 +89,7 @@
       <input class="form-control"  type="password" placeholder="Password" name="password" required>
       <br>
 
-      <div id="Aviso" class="alert alert-danger" role="alert"  style="display:none">
+      <div id="Aviso" class="alert alert-danger" role="alert"  style="display:<?php if(isset($_SESSION['avisos'])){ if(!strcmp($_SESSION['avisos'],'login')) print 'hidden'; else print 'none';}else{print 'none';}?>">
           <div class="row leftCaracteris">
           <div class="col-lg-2 ">
           <img class="alertaImg" src="./img/img_aplicacao/alerta.png" alt="">
@@ -110,18 +110,22 @@
 		$mybd=new BaseDados();
 		$mybd->ligar_bd();
 		$DaoUtilizadores=new DAOUtilizadores();
-		$utilizador=$DaoUtilizadores->obter_utilizador($_POST["email"],$_POST["password"]);
+		$utilizador=$DaoUtilizadores->obter_utilizador($_POST["email"],password_hash($_POST["password"],PASSWORD_DEFAULT));
 		if($utilizador!=null)
 		{
-			if(!strcmp($utilizador->Tipo.'anunciante') && !strcmp($utilizador->Estado.'ativo'))	header("Location: meus_anuncios.php");
-			if(!strcmp($utilizador->Tipo.'estudante'))	header("Location: ver_todos_anuncios.php");
-			if(!strcmp($utilizador->Tipo.'gestor') && !strcmp($utilizador->Estado.'ativo'))	header("Location: meus_anuncios.php");
+			if(isset($_SESSION["avisos"])) unset($_SESSION["avisos"]);
+			if($utilizador->Tipo==2 && $utilizador->Estado==1)	header("Location: meus_anuncios.php");//anunciante
+			else $_SESSION["avisos"]="login";
+			if($utilizador->Tipo==1)	header("Location: ver_todos_anuncios.php");//aluno
+			if($utilizador->Tipo==0 && $utilizador->Estado==1)	header("Location: meus_anuncios.php");//gestor
+			else $_SESSION["avisos"]="login";
 		}
 		else
 		{
-		echo "<script>document.getElementById('Aviso').style.display = 'hidden';</script>";
+			$_SESSION["avisos"]="login";
 		}
 		$mybd->desligar_bd();
+		//echo "<meta HTTP-EQUIV='refresh' CONTENT='0;URL=index.php'>";
 	}
 	?>
 
@@ -151,7 +155,7 @@
       <label class="corPreta" ><b><?php print $email; ?>:</b></label>
       <br>
       <div class="form-group input-group">
-				<input class="form-control" id="inlineFormInputGroup" type="text" name="email" placeholder="Email" pattern="^[a-z0-9.]+@[a-z0-9]+\.[a-z]+\.([a-z]+)" required>
+				<input class="form-control" id="inlineFormInputGroup" type="text" name="emailR" placeholder="Email"  required>
         <div class="input-group-addon" ><img class="certo" src="./img/img_aplicacao/certo.png" alt=""></div>
 
       </div>
@@ -159,10 +163,10 @@
       <input class="form-control" type="password" placeholder="Password" name="passwordR" required>
       <br>
       <label class="corPreta"><b><?php print $nome; ?>:</b></label><br>
-      <input class="form-control" type="text" placeholder="Nome" name="nome" required>
+      <input class="form-control" type="text" placeholder="Nome" name="nomeR" required>
       <br>
 
-      <div id="Aviso2" class="alert alert-success" role="alert" style="display:none">
+      <div id="Aviso2" class="alert alert-success" role="alert"  style="display:<?php if(isset($_SESSION['avisos'])){ if(!strcmp($_SESSION['avisos'],'sucesso')) print 'hidden'; else print 'none';}else{print 'none';}?>">
           <div class="row leftCaracteris">
           <div class="col-lg-2 ">
           <img class="alertaImg" src="./img/img_aplicacao/certo.png" alt="">
@@ -172,13 +176,13 @@
           </div>
         </div>
       </div>
-			<div id="Aviso3" class="alert alert-danger" role="alert"  style="display:none">
+			<div id="Aviso3" class="alert alert-danger" role="alert"  style="display:<?php if(isset($_SESSION['avisos'])){ if(!strcmp($_SESSION['avisos'],'insucesso')) print 'hidden'; else print 'none';}else{print 'none';}?>">
           <div class="row leftCaracteris">
           <div class="col-lg-2 ">
           <img class="alertaImg" src="./img/img_aplicacao/alerta.png" alt="">
           </div>
           <div class="col-lg-6">
-            <span class="glyphicon glyphicon-alert"><?php print $insucesso; ?><br><?php print $tenteNovamente; ?></span>
+            <span class="glyphicon glyphicon-alert"><?php if(isset($_POST["nomeR"])){if(verifica_nome($_POST["nomeR"])!=false) print $insucesso; else print $insucessoNome; }?><br><?php print $tenteNovamente; ?></span>
           </div>
         </div>
       </div>
@@ -186,27 +190,28 @@
 
   </form>
 	<?php
-	//verifica o login
+	//verifica o registo
 	if(isset($_POST["registar"]))
 	{
 		$mybd=new BaseDados();
 		$mybd->ligar_bd();
 		$DaoUtilizadores=new DAOUtilizadores();
 		$utilizador= new utilizador(0,verifica_nome(),$_POST["emailR"],encripta_password(),2,date("Y-m-d"));
-		if(encripta_password()!=false)
+		if(encripta_password()!=false && verifica_nome()!=false)
 		{
 			$DaoUtilizadores->inserir_utilizador($utilizador);
-			echo "<script>document.getElementById('Aviso2').style.display = 'hidden';</script>";
-			echo "<script>document.getElementById('Aviso3').style.display = 'none';</script>";
-			print "registou";
+			$_SESSION["avisos"]="sucesso";
+
 		}
 		else
 		{
-			echo "<script>document.getElementById('Aviso2').style.display = 'none';</script>";
-			echo "<script>document.getElementById('Aviso3').style.display = 'hidden';</script>";
+			$_SESSION["avisos"]="insucessoNome";
+			$_SESSION["avisos"]="insucesso";
 		}
 
 		$mybd->desligar_bd();
+		echo "<meta HTTP-EQUIV='refresh' CONTENT='0;URL=index.php'>";
+
 	}
 	?>
   </div>
@@ -223,8 +228,16 @@
 
 <!--
 .content-section-a -->
+<script>
 
-
+function Mudarestado(el) {
+        var display = document.getElementById(el).style.display;
+        if(display == "none")
+            document.getElementById(el).style.display = 'block';
+        else
+            document.getElementById(el).style.display = 'none';
+    }
+</script>
 <?php
 	$conteudo_principal = ob_get_contents();
 	ob_end_clean();
@@ -244,7 +257,7 @@
 		//verifica se tem pelo menos um caracter maiusculo
 		if(preg_match('/[A-Z]/', $_POST["passwordR"])!=1)$valor=false;
 		//verifica se tem pelo menos 9 carcteres
-		if(strlen($_POST["passwordR"])<9) $valor=false;
+		if(strlen($_POST["passwordR"])<8) $valor=false;
 
 		if(preg_match('/[1-9]/', $_POST["passwordR"])!=1)$valor=false;
 

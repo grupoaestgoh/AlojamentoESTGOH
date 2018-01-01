@@ -12,16 +12,18 @@ class DAOUtilizadores{
   //Obtem um Utilizador através do seu e-mail e password, a password vem já encriptada!
   function obter_utilizador($stringUm,$StringDois){
     global $mybd;
-    $STH=$mybd->DBH->prepare("Select  uti_id,uti_nome,uti_email,uti_password,uti_estado,uti_tipo,uti_inscricao from utilizador where uti_email=? and uti_password=?;");
+    $STH=$mybd->DBH->prepare("Select uti_id,uti_nome,uti_email,uti_password,uti_estado,uti_tipo,uti_inscricao from utilizador where uti_email=? and uti_password=?;");
     $STH->bindParam(1,$stringUm);
     $STH->bindParam(2,$stringDois);
     $STH->execute();
     $STH->setFetchMode(PDO::FETCH_OBJ);
 		while($row = $STH->fetch()){
-      if(!strcmp($row->uti_tipo,'anunciante'))return new Anunciante($row->uti_id,$row->uti_nome,$row->uti_email,$row->uti_password,$row->uti_estado,$row->uti_tipo,$row->uti_inscricao,$row->uti_estado);
-      if(!strcmp($row->uti_tipo,'estudante'))return new Utilizador($row->uti_id,$row->uti_nome,$row->uti_email,$row->uti_password,$row->uti_estado,$row->uti_tipo,$row->uti_inscricao);
-      if(!strcmp($row->uti_tipo,'gestor'))return new Gestor($row->uti_id,$row->uti_nome,$row->uti_email,$row->uti_password,$row->uti_estado,$row->uti_tipo,$row->uti_inscricao,$row->uti_estado);
+
+      if($row->uti_tipo==2)return new Anunciante($row->uti_id,$row->uti_nome,$row->uti_email,$row->uti_password,$row->uti_estado,$row->uti_tipo,$row->uti_inscricao,$row->uti_estado);
+      if($row->uti_tipo==1)return new Estudante($row->uti_id,$row->uti_nome,$row->uti_email,$row->uti_password,$row->uti_estado,$row->uti_tipo,$row->uti_inscricao);
+      if($row->uti_tipo==0)return new Gestor($row->uti_id,$row->uti_nome,$row->uti_email,$row->uti_password,$row->uti_estado,$row->uti_tipo,$row->uti_inscricao,$row->uti_estado);
     }
+
     return null;
   }
 
