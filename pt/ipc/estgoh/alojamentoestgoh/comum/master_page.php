@@ -6,17 +6,13 @@
   <meta name="description" content="">
   <meta name="author" content="">
   <title><?php print $titulo_pagina; ?></title>
+  <link href="./css/bootstrap.min.css" rel="stylesheet">
+	<link href="./css/estilos.css" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" >
   <link href="https://fonts.googleapis.com/css?family=Germania+One|Ropa+Sans" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Montserrat+Alternates" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Arvo" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
-  <link href="./css/bootstrap.min.css" rel="stylesheet">
-	<link href="./css/estilos.css" rel="stylesheet">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script> 
-  <script src="./javascript/bootstrap.min.js"></script>
-  <script src="./javascript/codigo_javascript.js"></script>
 
 </head>
     <body>
@@ -63,3 +59,6 @@
 
     </body>
 </html>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="./javascript/bootstrap.min.js"></script>
+<script src="./javascript/codigo_javascript.js"></script>
