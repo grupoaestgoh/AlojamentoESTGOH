@@ -1,8 +1,6 @@
 <?php
 	//sessao
 	session_start();
-
-
 	//carregar controladores
 	include("./comum/carregacontroladores.php");
 /*
@@ -10,12 +8,10 @@
 	if (isset($_SESSION["dtd_id_utilizador"])){
 		header("Location: ./home_page.php");
 	}
-
 	//verifica se existe admin
 	if ($dao_utilizador->verficar_existe_admin () == false) {
 		header ( "Location: ./registo_utilizador.php?admin" );
 	}*/
-
 	//conteudo principal
 	ob_start();
 ?>
@@ -157,33 +153,6 @@
 </section>
 
 <?php
-
-
-
-
-<<<<<<< HEAD
-<div class="row">
-<div class="col-lg-5 mr-auto order-lg-2">
-  <div class="clearfix"></div>
-  <h2 class="section-heading corBranca"><?php print $registo; ?></h2>
-  <hr class="section-heading-spacer">
-  <br><br>
-  <form action="index.php" method="POST">
-      <label class="corPreta" ><b><?php print $email; ?>:</b></label>
-      <br>
-      <div class="form-group input-group">
-				<input class="form-control" id="inlineFormInputGroup" type="text" name="emailR" placeholder="Email"  required>
-        <div class="input-group-addon" ><img class="certo" src="./img/img_aplicacao/certo.png" alt=""></div>
-
-      </div>
-      <label class="corPreta"><b><?php print $password; ?>:</b></label><br>
-      <input class="form-control" type="password" placeholder="Password" name="passwordR" required>
-      <br>
-      <label class="corPreta"><b><?php print $nome; ?>:</b></label><br>
-      <input class="form-control" type="text" placeholder="Nome" name="nomeR" required>
-      <br>
-=======
-
 //verifica o login
 if(isset($_POST["entrar"])){
 	$mybd->ligar_bd();
@@ -203,18 +172,14 @@ if(isset($_POST["entrar"])){
 	*/
 	$mybd->desligar_bd();
 }
->>>>>>> fdf95cd88f4095c28cd8c0539e57408292782189
-
 //verifica o registo
 if(isset($_POST["registar"]) && !empty($_POST["registar"])){
 	$mybd->ligar_bd();
 	$flag=0;
-
 	if(isset($_POST["nomeR"]) && !empty($_POST["nomeR"])){
 		if(verifica_nome($_POST["nomeR"])==false){
 			$flag++;
 		}else{
-
 		}
 		$flag++;
 	}
@@ -229,10 +194,8 @@ if(isset($_POST["registar"]) && !empty($_POST["registar"])){
 			$flag++;
 		}
 	}
-
 	if(isset($_POST["passwordR"]) && !empty($_POST["passwordR"])){
 		if(verifca_password($_POST["passwordR"])==false){
-
 		}else{
 			$flag++;
 		}
@@ -249,10 +212,6 @@ if(isset($_POST["registar"]) && !empty($_POST["registar"])){
 	}
 	$mybd->desligar_bd();
 }
-
-
-
-
 	function verifica_nome(){
 		$valor=$_POST["nomeR"];
 		//Verifica se tem numeros
@@ -260,7 +219,6 @@ if(isset($_POST["registar"]) && !empty($_POST["registar"])){
 			return true;//nao tem numeros
 		return false;//nao tem numeros
 	}
-
 	function verifca_password(){
 		//verifica se tem pelo menos um caracter maiusculo
 		if(preg_match('/[A-Z]/', $_POST["passwordR"])!=1)
@@ -273,11 +231,8 @@ if(isset($_POST["registar"]) && !empty($_POST["registar"])){
 			return false;
 		return true;
 	}
-
 	$conteudo_principal = ob_get_contents();
 	ob_end_clean();
-
 	//master page
 	include($layout);
-
 ?>
