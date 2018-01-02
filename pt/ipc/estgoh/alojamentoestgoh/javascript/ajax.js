@@ -34,9 +34,11 @@ $mybd->ligar_bd();
 $DaoUtilizadores=new DAOUtilizadores();
 
 if($DaoUtilizadores->verificar_email($_POST['emailindex']){
-  echo 1;
+  $response->result = true;
 }else{
-  exho 2;
+  $response->result = false;
 }
+
+echo json_encode($response);
 
 */
