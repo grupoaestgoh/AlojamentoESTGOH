@@ -155,9 +155,8 @@
       <label class="corPreta" ><b><?php print $email; ?>:</b></label>
       <br>
       <div class="form-group input-group">
-				<input class="form-control" id="inlineFormInputGroup" type="text" name="emailR" placeholder="Email"  required>
+				<input class="form-control" id="emailindex" type="text" name="emailR" placeholder="Email"  required>
         <div class="input-group-addon" ><img class="certo" src="./img/img_aplicacao/certo.png" alt=""></div>
-
       </div>
       <label class="corPreta"><b><?php print $password; ?>:</b></label><br>
       <input class="form-control" type="password" placeholder="Password" name="passwordR" required>
