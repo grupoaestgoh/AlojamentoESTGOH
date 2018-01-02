@@ -17,7 +17,9 @@ else
 
 $path = ".";
 
-$mybd = new basedados ();
 
+//variaies com os objetos das classes
+$mybd=new BaseDados();
+$dao_utilizadores=new DAOUtilizadores();
 
  ?>
