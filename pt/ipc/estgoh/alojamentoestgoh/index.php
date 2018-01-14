@@ -80,23 +80,25 @@
 			  <form action="index.php" method="POST">
 			      <label class="corPreta"><b><?php print $email; ?>:</b></label>
 						<br>
-			      <input class="form-control" type="email" placeholder="Email" name="email" required>
+			      <input class="form-control" type="email" placeholder="Email" name="emailL" required>
 			      <br>
 			      <label class="corPreta"><b><?php print $password; ?>:</b></label>
 						<br>
-			      <input class="form-control"  type="password" placeholder="Password" name="password" required>
+			      <input class="form-control"  type="password" placeholder="Password" name="passwordL" required>
 			      <br>
-			      <div id="Aviso" class="alert alert-danger" role="alert">
-			          <div class="row leftCaracteris">
-				          <div class="col-lg-2 ">
-				          	<img class="alertaImg" src="./img/img_aplicacao/alerta.png" alt="">
-				          </div>
-				          <div class="col-lg-6">
-				            <span class="glyphicon glyphicon-alert"><?php print $credenciaisErradas; ?><br><?php print $tenteNovamente; ?></span>
-				          </div>
-			        </div>
-			      </div>
-			      <button name="entrar" type="submit" class="btn btn-primary navbar-btn"  ><?php print $entrar; ?></button>
+						<div>
+				      <div id="aviso_login_insucesso" class="alert alert-danger aviso_login_insucesso" role="alert">
+				          <div class="row leftCaracteris">
+					          <div class="col-lg-2 ">
+					          	<img class="alertaImg" src="./img/img_aplicacao/alerta.png" alt="">
+					          </div>
+					          <div class="col-lg-6">
+					            <span class="glyphicon glyphicon-alert"><?php print $credenciaisErradas; ?><br><?php print $tenteNovamente; ?></span>
+					          </div>
+				        </div>
+				      </div>
+						</div>
+						<input name="entrar" class="btn btn-secondary navbar-btn"  type="submit" value="<?php print $entrar; ?>">
 			  </form>
 			</div>
 			<div class="col-lg-5 mr-auto">
@@ -132,16 +134,48 @@
 						<br>
 			      <input class="form-control" type="text" placeholder="Nome" name="nomeR" required>
 			      <br>
-			      <div id="Aviso2" class="alert alert-success" role="alert">
-			         <div class="row leftCaracteris">
-			         	<div class="col-lg-2 ">
-			         		<img class="alertaImg" src="./img/img_aplicacao/certo.png" alt="">
-			         	</div>
-			         	<div class="col-lg-8">
-			           	<span class="glyphicon glyphicon-alert"><?php print $sucesso; ?></span>
-			         	</div>
-			       	</div>
-			      </div>
+			      <div>
+							<div id="aviso_registo_sucesso" class="alert alert-success aviso_registo_sucesso" role="alert">
+								<div class="row leftCaracteris">
+				         	<div class="col-lg-2 ">
+				         		<img class="alertaImg" src="./img/img_aplicacao/certo.png" alt="">
+				         	</div>
+				         	<div class="col-lg-8">
+				           	<span class="glyphicon glyphicon-alert"><?php print $sucesso; ?></span>
+				         	</div>
+				       	</div>
+				      </div>
+							<div id="aviso_registo_insucesso_email" class="alert alert-danger aviso_registo_insucesso_email" role="alert">
+								<div class="row leftCaracteris">
+				         	<div class="col-lg-2 ">
+				         		<img class="alertaImg" src="./img/img_aplicacao/alerta.png" alt="">
+				         	</div>
+				         	<div class="col-lg-8">
+				           	<span class="glyphicon glyphicon-alert"><?php print $insucesso_email; ?></span>
+				         	</div>
+				       	</div>
+				      </div>
+							<div id="aviso_registo_insucesso_password" class="alert alert-danger aviso_registo_insucesso_password" role="alert">
+								<div class="row leftCaracteris">
+				         	<div class="col-lg-2 ">
+				         		<img class="alertaImg" src="./img/img_aplicacao/alerta.png" alt="">
+				         	</div>
+				         	<div class="col-lg-8">
+				           	<span class="glyphicon glyphicon-alert"><?php print $insucesso_password; ?></span>
+				         	</div>
+				       	</div>
+				      </div>
+							<div id="aviso_registo_insucesso_nome" class="alert alert-danger aviso_registo_insucesso_nome" role="alert">
+								<div class="row leftCaracteris">
+				         	<div class="col-lg-2 ">
+				         		<img class="alertaImg" src="./img/img_aplicacao/alerta.png" alt="">
+				         	</div>
+				         	<div class="col-lg-8">
+				           	<span class="glyphicon glyphicon-alert"><?php print $insucesso_nome; ?></span>
+				         	</div>
+				       	</div>
+				      </div>
+						</div>
 			      <input name="registar" class="btn btn-secondary"  type="submit" value="<?php print $registar; ?>">
 			  </form>
 			</div>
@@ -154,22 +188,65 @@
 
 <?php
 //verifica o login
-if(isset($_POST["entrar"])){
+if(isset($_POST["entrar"]) && !empty($_POST["entrar"])){
 	$mybd->ligar_bd();
-	/*
-	$utilizador=$dao_utilizadores->obter_utilizador($_POST["email"],password_hash($_POST["password"],PASSWORD_DEFAULT));
-	if($utilizador!=null)
-	{
-		if(isset($_SESSION["avisos"])) unset($_SESSION["avisos"]);
-		if($utilizador->Tipo==2 && $utilizador->Estado==1)	header("Location: meus_anuncios.php");//anunciante
-		else $_SESSION["avisos"]="login";
-		if($utilizador->Tipo==1)	header("Location: ver_todos_anuncios.php");//aluno
-		if($utilizador->Tipo==0 && $utilizador->Estado==1)	header("Location: meus_anuncios.php");//gestor
-		else $_SESSION["avisos"]="login";
-	}else{
-		$_SESSION["avisos"]="login";
+	$flag=0;
+	if(isset($_POST["emailL"]) && !empty($_POST["emailL"])){
+		$flag++;
 	}
-	*/
+	if(isset($_POST["passwordL"]) && !empty($_POST["passwordL"])){
+		$flag++;
+	}
+	if($flag==2){//se estiverem os dados todos inseridos e corretos regista o utilizador
+		//criar o utilizador
+		$utilizador=$dao_utilizadores->obter_utilizador($_POST["emailL"],"");
+		if($utilizador!=null){
+			if(password_verify($_POST["passwordL"], $utilizador->Password)==true){
+				print('<script>
+						jQuery(document).ready(function( $ ) {
+								jQuery("#aviso_login_insucesso").hide();
+						});
+				</script>');
+				//iniciar sessão
+				if ($obj instanceof Anunciante) {
+					 $_SESSION["AE_id_utilizador"] = $utilizador->id_utilizador;
+					 $_SESSION["AE_nome_utilizador"] = $utilizador->nome;
+					 $_SESSION["AE_email_utilizador"] = $utilizador->email;
+					 $_SESSION["AE_estado_utilizador"] = $utilizador->Estado;
+					 $_SESSION["AE_tipo_utilizador"] = $utilizador->Tipo;
+					 $_SESSION["AE_data_incricao_utilizador"] = $utilizador->Data_Inscricao;
+				}
+				if ($obj instanceof Estudante) {
+					 $_SESSION["AE_email_utilizador"] = $utilizador->email;
+				}
+				if ($obj instanceof Gestor) {
+					 $_SESSION["AE_id_utilizador"] = $utilizador->id_utilizador;
+					 $_SESSION["AE_nome_utilizador"] = $utilizador->nome;
+					 $_SESSION["AE_email_utilizador"] = $utilizador->email;
+					 $_SESSION["AE_estado_utilizador"] = $utilizador->Estado;
+				}
+				header("Location: ./home_page.php");
+			}else{
+				print('<script>
+								jQuery(document).ready(function( $ ) {
+										jQuery("#aviso_login_insucesso").show();
+								});
+						</script>');
+			}
+		}else{
+			print('<script>
+							jQuery(document).ready(function( $ ) {
+									jQuery("#aviso_login_insucesso").show();
+							});
+					</script>');
+		}
+	}else{
+		print('<script>
+						jQuery(document).ready(function( $ ) {
+								jQuery("#aviso_login_insucesso").show();
+						});
+				</script>');
+	}
 	$mybd->desligar_bd();
 }
 //verifica o registo
@@ -177,59 +254,108 @@ if(isset($_POST["registar"]) && !empty($_POST["registar"])){
 	$mybd->ligar_bd();
 	$flag=0;
 	if(isset($_POST["nomeR"]) && !empty($_POST["nomeR"])){
-		if(verifica_nome($_POST["nomeR"])==false){
+		if(verifica_nome($_POST["nomeR"])==true){
 			$flag++;
-		}else{
-		}
-		$flag++;
-	}
-	if(isset($_POST["emailR"]) && !empty($_POST["emailR"])){
-		if($dao_utilizadores->verificar_email($_POST["emailR"])==true){
 			print('<script>
 							jQuery(document).ready(function( $ ) {
-									jQuery("#img_email").attr("src","./img/img_aplicacao/errado.png");
+									jQuery("#aviso_registo_insucesso_nome").hide();
 							});
 					</script>');
 		}else{
-			$flag++;
+			print('<script>
+							jQuery(document).ready(function( $ ) {
+									jQuery("#aviso_registo_insucesso_nome").show();
+							});
+					</script>');
 		}
+	}else{
+		print('<script>
+						jQuery(document).ready(function( $ ) {
+								jQuery("#aviso_registo_insucesso_nome").show();
+						});
+				</script>');
+	}
+	if(isset($_POST["emailR"]) && !empty($_POST["emailR"])){
+		if($dao_utilizadores->verificar_email($_POST["emailR"])==false){
+			$flag++;
+			print('<script>
+							jQuery(document).ready(function( $ ) {
+									jQuery("#aviso_registo_insucesso_email").hide();
+							});
+					</script>');
+		}else{
+			print('<script>
+							jQuery(document).ready(function( $ ) {
+									jQuery("#aviso_registo_insucesso_email").show();
+							});
+					</script>');
+		}
+	}else{
+		print('<script>
+						jQuery(document).ready(function( $ ) {
+								jQuery("#aviso_registo_insucesso_email").show();
+						});
+				</script>');
 	}
 	if(isset($_POST["passwordR"]) && !empty($_POST["passwordR"])){
-		if(verifca_password($_POST["passwordR"])==false){
-		}else{
+		if(verifca_password($_POST["passwordR"])==true){
 			$flag++;
+			print('<script>
+							jQuery(document).ready(function( $ ) {
+									jQuery("#aviso_registo_insucesso_password").hide();
+							});
+					</script>');
+		}else{
+			print('<script>
+							jQuery(document).ready(function( $ ) {
+									jQuery("#aviso_registo_insucesso_password").show();
+							});
+					</script>');
 		}
-		$flag++;
+	}else{
+		print('<script>
+						jQuery(document).ready(function( $ ) {
+								jQuery("#aviso_registo_insucesso_password").show();
+						});
+				</script>');
 	}
 	if($flag==3){//se estiverem os dados todos inseridos e corretos regista o utilizador
 		//criar o utilizador
 		$password=password_hash($_POST["passwordR"],PASSWORD_DEFAULT);
 		$utilizador= new utilizador(0,$_POST["nomeR"],$_POST["emailR"],$password,2,date("Y-m-d"));
 		//insere o utilizador na bd
-		print $dao_utilizadores->inserir_utilizador($utilizador);
+		$dao_utilizadores->inserir_utilizador($utilizador);
+		print('<script>
+						jQuery(document).ready(function( $ ) {
+								jQuery("#aviso_registo_sucesso").show();
+						});
+				</script>');
 		//volta a pagina principal
-		//header("Location: ./index.php");
+		header("Location: ./index.php");
 	}
 	$mybd->desligar_bd();
 }
+
+
+//funções de php
 	function verifica_nome(){
 		$valor=$_POST["nomeR"];
 		//Verifica se tem numeros
 		if(preg_match('/[1-9]/',$valor)!=1)
-			return true;//nao tem numeros
-		return false;//nao tem numeros
+			return true;//nao tem numeros (correto)
+		return false;//tem numeros
 	}
 	function verifca_password(){
 		//verifica se tem pelo menos um caracter maiusculo
 		if(preg_match('/[A-Z]/', $_POST["passwordR"])!=1)
-			return false;
+			return false;// nao tem maisculas
 		//verifica se tem pelo menos 9 carcteres
 		if(strlen($_POST["passwordR"])<8)
-			return false;
+			return false;//tamanho invalido
 		//verifica se tem numeros
 		if(preg_match('/[1-9]/', $_POST["passwordR"])!=1)
-			return false;
-		return true;
+			return false;//nao tem numeros
+		return true;// (correto)
 	}
 	$conteudo_principal = ob_get_contents();
 	ob_end_clean();

@@ -256,6 +256,24 @@ body{
   width: 200px;
   border-top: 3px solid black;
 }
+
+.aviso_registo_sucesso{
+  display:none;
+}
+.aviso_registo_insucesso_nome{
+  display:none;
+}
+.aviso_registo_insucesso_email{
+  display:none;
+}
+.aviso_registo_insucesso_password{
+  display:none;
+}
+
+.aviso_login_insucesso{
+  display:none;
+}
+
 /*Fim CSS Index*/
 
 /*Outros ??*/

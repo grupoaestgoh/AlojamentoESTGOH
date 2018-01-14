@@ -1,14 +1,16 @@
 <?php
 
-
-
 //Ficheiro Ligacao a Base de dados
 include('./comum/basedados.class.php');
 //Ficheiro de varias configurações
 include('./comum/config.php');
-include('./utilizadores/utilizador.class.php');
+
 
 include('./utilizadores/DAOutilizador.class.php');
+include('./utilizadores/utilizador.class.php');
+include('./utilizadores/anunciante.class.php');
+include('./utilizadores/gestor.class.php');
+include('./utilizadores/estudante.class.php');
 //Ficheiro da internacionalização
 if (file_exists ( "./lang/i18n_" . $lingua . ".php" ))
   include "./lang/i18n_" . $lingua . ".php";

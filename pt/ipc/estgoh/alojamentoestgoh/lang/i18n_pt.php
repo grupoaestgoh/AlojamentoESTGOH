@@ -30,6 +30,7 @@
 	$nome="Nome";
 	$sucesso="Registado com sucesso!";
 	$caracPassword="Password deve ter pelo menos 1 caracter Maiúsculo e um numero num total de pelo menos oito caracteres.";
-	$insucesso="Password deve ter pelo menos 1 caracter Maiúsculo e 1 Numero e um total de pelo menos oito caracteres.";
-	$insucessoNome="O nome só pode ser constutuido por palavras.";
+	$insucesso_password="Password deve ter pelo menos 1 caracter Maiúsculo e 1 Numero e um total de pelo menos oito caracteres.";
+	$insucesso_nome="O nome só pode ser constutuido por palavras.";
+	$insucesso_email="O email já se encontra registado.";
 ?>
