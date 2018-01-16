@@ -31,7 +31,6 @@
 
 
     <!-- Custom styles for this template -->
-    <link href="css/landing-page.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Germania+One|Ropa+Sans" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Montserrat+Alternates" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Arvo" rel="stylesheet">
@@ -181,7 +180,7 @@
               		$password=password_hash($_POST["passwordR"],PASSWORD_DEFAULT);
               		$utilizador= new utilizador(0,$_POST["nomeR"],$_POST["emailR"],$password,0,date("Y-m-d"));
               		//insere o utilizador na bd
-              		if($dao_utilizadores->inserir_utilizador($utilizador)=true)	header("Location: ./index.php");
+              		if($dao_utilizadores->inserir_utilizador($utilizador)==true)	header("Location: ./index.php");
               	}
               	$mybd->desligar_bd();
               }
