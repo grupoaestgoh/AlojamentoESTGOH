@@ -1,42 +1,24 @@
 
 <?php
-	//sessao
-	session_start();
-	//carregar controladores
-	include("./comum/carregacontroladores.php");
+		//sessao
+		session_start();
+		//carregar controladores
+		include("./comum/carregacontroladores.php");
+		$dao_utilizador=new DAOUtilizadores();
 
-  ob_start();
-
-
+		//verificar autorização
+		if (isset($_SESSION["dtd_id_utilizador"])){
+			//se tiver sessãon vai buscar utilizador e ve o tipo para poder redirecionar para a pagina correta//Falta isso !!
+			header("Location: ./home_page.php");
+		}
+		//verifica se existe admin
+		if ($dao_utilizador->verificar_gestor() == true) {
+			header ( "Location: ./index.php" );
+		}
+		//conteudo principal
+		ob_start();
 ?>
-<!DOCTYPE html>
-<html lang="en">
 
-  <head>
-
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <title>AlojamentoESTGOH-RegistoGestor</title>
-
-    <!-- Bootstrap core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/estilos.css" rel="stylesheet">
-
-    <!-- Custom fonts for this template -->
-    <link href="fonts/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
-
-
-    <!-- Custom styles for this template -->
-    <link href="https://fonts.googleapis.com/css?family=Germania+One|Ropa+Sans" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Montserrat+Alternates" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Arvo" rel="stylesheet">
-  </head>
-
-  <body>
     <!-- Header -->
     <header class="intro-header" >
       <div class="container">
@@ -101,98 +83,94 @@
                       </div>
                     </div>
                   </div>
-
                   <input name="registar" class="btn btn-primary navbar-btn"  type="submit" value="<?php print $registar; ?>">
               </form>
-              <?php
-              //verifica o registo
-              if(isset($_POST["registar"]) && !empty($_POST["registar"])){
-              	$mybd->ligar_bd();
-              	$flag=0;
-              	if(isset($_POST["nomeR"]) && !empty($_POST["nomeR"])){
-              		if(verifica_nome($_POST["nomeR"])==true){
-              			$flag++;
-              			print('<script>
-              							jQuery(document).ready(function( $ ) {
-              									jQuery("#aviso_registo_insucesso_nome").hide();
-              							});
-              					</script>');
-              		}else{
-              			print('<script>
-              							jQuery(document).ready(function( $ ) {
-              									jQuery("#aviso_registo_insucesso_nome").show();
-              							});
-              					</script>');
-              		}
-              	}else{
-              		print('<script>
-              						jQuery(document).ready(function( $ ) {
-              								jQuery("#aviso_registo_insucesso_nome").show();
-              						});
-              				</script>');
-              	}
-              	if(isset($_POST["emailR"]) && !empty($_POST["emailR"])){
-              		if($dao_utilizadores->verificar_email($_POST["emailR"])==false){
-              			$flag++;
-              			print('<script>
-              							jQuery(document).ready(function( $ ) {
-              									jQuery("#aviso_registo_insucesso_email").hide();
-              							});
-              					</script>');
-              		}else{
-              			print('<script>
-              							jQuery(document).ready(function( $ ) {
-              									jQuery("#aviso_registo_insucesso_email").show();
-              							});
-              					</script>');
-              		}
-              	}else{
-              		print('<script>
-              						jQuery(document).ready(function( $ ) {
-              								jQuery("#aviso_registo_insucesso_email").show();
-              						});
-              				</script>');
-              	}
-              	if(isset($_POST["passwordR"]) && !empty($_POST["passwordR"])){
-              		if(verifca_password($_POST["passwordR"])==true){
-              			$flag++;
-              			print('<script>
-              							jQuery(document).ready(function( $ ) {
-              									jQuery("#aviso_registo_insucesso_password").hide();
-              							});
-              					</script>');
-              		}else{
-              			print('<script>
-              							jQuery(document).ready(function( $ ) {
-              									jQuery("#aviso_registo_insucesso_password").show();
-              							});
-              					</script>');
-              		}
-              	}else{
-              		print('<script>
-              						jQuery(document).ready(function( $ ) {
-              								jQuery("#aviso_registo_insucesso_password").show();
-              						});
-              				</script>');
-              	}
-              	if($flag==3){//se estiverem os dados todos inseridos e corretos regista o utilizador
-              		//criar o utilizador
-              		$password=password_hash($_POST["passwordR"],PASSWORD_DEFAULT);
-              		$utilizador= new utilizador(0,$_POST["nomeR"],$_POST["emailR"],$password,0,date("Y-m-d"));
-              		//insere o utilizador na bd
-              		if($dao_utilizadores->inserir_utilizador($utilizador)==true)	header("Location: ./index.php");
-              	}
-              	$mybd->desligar_bd();
-              }
-              ?>
             </li>
-
           </ul>
         </div>
       </div>
     </header>
 
 <?php
+		//verifica o registo
+		if(isset($_POST["registar"]) && !empty($_POST["registar"])){
+			$mybd->ligar_bd();
+			$flag=0;
+			if(isset($_POST["nomeR"]) && !empty($_POST["nomeR"])){
+				if(verifica_nome($_POST["nomeR"])==true){
+					$flag++;
+					print('<script>
+									jQuery(document).ready(function( $ ) {
+											jQuery("#aviso_registo_insucesso_nome").hide();
+									});
+							</script>');
+				}else{
+					print('<script>
+									jQuery(document).ready(function( $ ) {
+											jQuery("#aviso_registo_insucesso_nome").show();
+									});
+							</script>');
+				}
+			}else{
+				print('<script>
+								jQuery(document).ready(function( $ ) {
+										jQuery("#aviso_registo_insucesso_nome").show();
+								});
+						</script>');
+			}
+			if(isset($_POST["emailR"]) && !empty($_POST["emailR"])){
+				if($dao_utilizadores->verificar_email($_POST["emailR"])==false){
+					$flag++;
+					print('<script>
+									jQuery(document).ready(function( $ ) {
+											jQuery("#aviso_registo_insucesso_email").hide();
+									});
+							</script>');
+				}else{
+					print('<script>
+									jQuery(document).ready(function( $ ) {
+											jQuery("#aviso_registo_insucesso_email").show();
+									});
+							</script>');
+				}
+			}else{
+				print('<script>
+								jQuery(document).ready(function( $ ) {
+										jQuery("#aviso_registo_insucesso_email").show();
+								});
+						</script>');
+			}
+			if(isset($_POST["passwordR"]) && !empty($_POST["passwordR"])){
+				if(verifca_password($_POST["passwordR"])==true){
+					$flag++;
+					print('<script>
+									jQuery(document).ready(function( $ ) {
+											jQuery("#aviso_registo_insucesso_password").hide();
+									});
+							</script>');
+				}else{
+					print('<script>
+									jQuery(document).ready(function( $ ) {
+											jQuery("#aviso_registo_insucesso_password").show();
+									});
+							</script>');
+				}
+			}else{
+				print('<script>
+								jQuery(document).ready(function( $ ) {
+										jQuery("#aviso_registo_insucesso_password").show();
+								});
+						</script>');
+			}
+			if($flag==3){//se estiverem os dados todos inseridos e corretos regista o utilizador
+				//criar o utilizador
+				$password=password_hash($_POST["passwordR"],PASSWORD_DEFAULT);
+				$utilizador= new utilizador(0,$_POST["nomeR"],$_POST["emailR"],$password,0,date("Y-m-d"));
+				//insere o utilizador na bd
+				if($dao_utilizadores->inserir_utilizador($utilizador)==true)	header("Location: ./index.php");
+			}
+			$mybd->desligar_bd();
+		}
     //funções de php
     	function verifica_nome(){
     		$valor=$_POST["nomeR"];
@@ -213,15 +191,9 @@
     			return false;//nao tem numeros
     		return true;// (correto)
     	}
+
+			$conteudo_principal = ob_get_contents();
+			ob_end_clean();
+			//master page
+			include($layout);
 ?>
-
-
-
-    <!-- Bootstrap core JavaScript -->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/popper/popper.min.js"></script>
-    <script src="javascript/bootstrap.min.js"></script>
-
-  </body>
-
-</html>

@@ -359,6 +359,8 @@ if(isset($_POST["registar"]) && !empty($_POST["registar"])){
 			return false;//nao tem numeros
 		return true;// (correto)
 	}
+
+	$rodape=true;
 	$conteudo_principal = ob_get_contents();
 	ob_end_clean();
 	//master page

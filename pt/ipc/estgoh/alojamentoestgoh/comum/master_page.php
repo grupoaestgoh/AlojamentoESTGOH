@@ -14,7 +14,7 @@
   <link href="./css/bootstrap.min.css" rel="stylesheet">
 	<link href="./css/estilos.css" rel="stylesheet">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script> 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
   <script src="./javascript/bootstrap.min.js"></script>
   <script src="./javascript/codigo_javascript.js"></script>
 
@@ -23,42 +23,50 @@
 
 					<?php if(isset($conteudo_principal)) print $conteudo_principal;  ?>
 
+          <?php if(isset($rodape)){
+            print "
+            <!-- Footer -->
+              <footer class=\"panel-footer  navbar-fixed-bottom\">
+                <div class=\"container\">
+                  <ul class=\"list-inline\">
+                    <li class=\"list-inline-item\">
+                      <a class=\"corAzul\" href=\"http://websrv2.estgoh.ipc.pt/portal2/\">$estgohR</a>
+                    </li>
+                    <li class=\"footer-menu-divider list-inline-item divAzul\">&sdot;</li>
+                    <li class=\"list-inline-item\">
+                      <a class=\"corAzul\" href=\"https://mailsecure.estgoh.ipc.pt/horde/imp/login.php\">$emailR</a>
+                    </li>
+                    <li class=\"footer-menu-divider list-inline-item divAzul\">&sdot;</li>
+                    <li class=\"list-inline-item\">
+                      <a class=\"corAzul\" href=\"http://elearning.estgoh.ipc.pt/\">$elearningR></a>
+                    </li>
+                    <li class=\"footer-menu-divider list-inline-item divAzul\">&sdot;</li>
+                    <li class=\"list-inline-item\">
+                      <a class=\"corAzul\" href=\"http://biblio.estgoh.ipc.pt/\">$bibliotecaR></a>
+                    </li>
+                    <li class=\"footer-menu-divider list-inline-item divAzul\">&sdot;</li>
+                    <li class=\"list-inline-item\">
+                      <a class=\"corAzul\" href=\"http://netpa.estgoh.ipc.pt/netpa/page\">$netpaR></a>
+                    </li>
+                    <li class=\"footer-menu-divider list-inline-item divAzul\">&sdot;</li>
+                    <li class=\"list-inline-item\">
+                      <a class=\"corAzul\" href=\"#sobre\">$sobreNosR></a>
+                    </li>
+                    <li class=\"footer-menu-divider list-inline-item divAzul\">&sdot;</li>
+                    <li class=\"list-inline-item\">
+                      <a class=\"corAzul\" href=\"#contactos\">$contactosR></a>
+                    </li>
+                  </ul>
+                  <p class=\"copyright text-muted small\">Copyright &copy; $direitosR></p>
+                </div>
+              </footer>
 
-    <!-- Footer -->
-    	<footer class="panel-footer  navbar-fixed-bottom">
-        <div class="container">
-          <ul class="list-inline">
-            <li class="list-inline-item">
-              <a class="corAzul" href="http://websrv2.estgoh.ipc.pt/portal2/"><?php print $GLOBALS['estgohR']; ?></a>
-            </li>
-            <li class="footer-menu-divider list-inline-item divAzul">&sdot;</li>
-            <li class="list-inline-item">
-              <a class="corAzul" href="https://mailsecure.estgoh.ipc.pt/horde/imp/login.php"><?php print $GLOBALS['emailR']; ?></a>
-            </li>
-            <li class="footer-menu-divider list-inline-item divAzul">&sdot;</li>
-            <li class="list-inline-item">
-              <a class="corAzul" href="http://elearning.estgoh.ipc.pt/"><?php print $GLOBALS['elearningR']; ?></a>
-            </li>
-            <li class="footer-menu-divider list-inline-item divAzul">&sdot;</li>
-            <li class="list-inline-item">
-              <a class="corAzul" href="http://biblio.estgoh.ipc.pt/"><?php print $GLOBALS['bibliotecaR']; ?></a>
-            </li>
-            <li class="footer-menu-divider list-inline-item divAzul">&sdot;</li>
-            <li class="list-inline-item">
-              <a class="corAzul" href="http://netpa.estgoh.ipc.pt/netpa/page"><?php print $GLOBALS['netpaR']; ?></a>
-            </li>
-            <li class="footer-menu-divider list-inline-item divAzul">&sdot;</li>
-            <li class="list-inline-item">
-              <a class="corAzul" href="#sobre"><?php print $GLOBALS['sobreNosR']; ?></a>
-            </li>
-            <li class="footer-menu-divider list-inline-item divAzul">&sdot;</li>
-            <li class="list-inline-item">
-              <a class="corAzul" href="#contactos"><?php print $GLOBALS['contactosR']; ?></a>
-            </li>
-          </ul>
-          <p class="copyright text-muted small">Copyright &copy; <?php print $GLOBALS['direitosR']; ?></p>
-        </div>
-     	</footer>
+            ";
+          }
+
+
+          ?>
+
 
 
     </body>
