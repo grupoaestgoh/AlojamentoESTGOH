@@ -71,10 +71,10 @@ class DAOUtilizadores{
     return $arrayUtilizadores;
   }
 
-  //Verificar se já existe gestor OU ADMISTRADOR??
+  //Verificar se já existe gestor/ 0-admistrador/1-gestor/2-anunciante/3-aluno
   function verificar_gestor(){
     global $mybd;
-    $STH=$mybd->DBH->prepare("Select uti_email from utilizador where uti_tipo='gestor';");
+    $STH=$mybd->DBH->prepare("Select uti_email from utilizador where uti_tipo=0;");
     $STH->execute();
     $STH->setFetchMode(PDO::FETCH_OBJ);
     while($row = $STH->fetch()){

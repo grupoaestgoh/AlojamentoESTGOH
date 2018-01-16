@@ -169,6 +169,10 @@ body{
   background-color: white;
   border:none;
 }
+.botaoentrar{
+  background-color: #0775b8 !important;
+  border-color: #0775b8 !important;
+}
 
 .especialBotao2:hover{
     background-color: #cbe7ef;
@@ -230,6 +234,7 @@ body{
   color: #0775b8;
   font-size: 5em;
 }
+
 
 .network-name{
   text-transform: uppercase;
