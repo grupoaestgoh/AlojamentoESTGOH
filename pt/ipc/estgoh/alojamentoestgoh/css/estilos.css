@@ -52,9 +52,11 @@ h1{
   font-weight: 700;
 }
 
+/* retirado porque não faz sentido termos o fundo a azul do body quanda há paginas com fundo branco!
 body{
   background-color:#0775b8;
 }
+*/
 
 .fundoPreto{
   background-color: black !important;
@@ -105,6 +107,11 @@ body{
   }
 }
 
+.dropdown-message{
+  white-space: initial;
+  padding-top: 5px;
+}
+
 .bg-light{
     background-color: #f8f8f8!important;
 }
@@ -117,8 +124,8 @@ body{
   border: 0;
 }
 
-.navbar-light .navbar-nav .nav-link{
-    color: #0775b8;;
+.navbar-light .navbar-nav .nav-link {
+    color: #0775b8;
 }
 
 .nav-item img{
@@ -126,26 +133,42 @@ body{
   height: 35px;
 }
 
-.navbar-brand{
+.navbar-brand, .nav-link, .navtitle {
   font-family: "Germania One";
 }
 
 .nav-link{
   display: block;
-  font-family: "Germania One";
-  color:  #0775b8;
 }
 
-.nav-link:hover{
+.nav-link:hover .nav-link.active{
   background-color: #0775b8;
   color:white!important;
   border-radius: 10px;
 }
 
-.nav-link.active{
-  background-color: #0775b8;
-  color:white!important;
-  border-radius: 10px;
+@media (max-width: 333px) {
+  .navtitle {
+    font-size: x-large;
+  }
+}
+
+@media (max-width: 235px) {
+  .navtitle {
+    font-size: medium;
+  }
+}
+
+@media (max-width: 333px){
+  .navtitle {
+    font-size: x-large;
+  }
+}
+
+@media (max-width: 991px) {
+    .notificacoes {
+      width: auto!important;
+    }
 }
 /*Fim CSS Nav*/
 
@@ -154,8 +177,6 @@ body{
   width: 40px;
   height: 40px;
 }
-
-
 
 .certo{
   width: 20px;
@@ -190,6 +211,271 @@ body{
     margin: 0px 0px 15px 0px;
 }
 /* Fim CSS Botoes*/
+
+/* CSS adicionar anuncio anunciante */
+@media (min-width: 992px) {
+    #fadanun {
+        padding-top: 56px;
+    }
+}
+
+.mesquerda {
+  float: left;
+}
+
+.list-group {
+  padding-bottom: 7px;
+  padding-top: 25px;
+}
+
+.list-group-item.active {
+  background-color: rgb(7, 117, 184)!important;
+}
+
+@media (max-width: 456px) {
+  .file{
+    margin-left: -70px;
+  }
+}
+
+.imageSO {
+  padding-top: 11px;
+  text-align: center;
+}
+
+.abaixu {
+  padding-top: 5px;
+}
+
+.arquivo {
+  display: none;
+  visibility: hidden;
+}
+
+.file {
+  line-height: 30px;
+  height: 30px;
+  border: 1px solid #A7A7A7;
+  padding: 5px;
+  box-sizing: border-box;
+  font-size: 15px;
+  vertical-align: middle;
+  width: auto;
+}
+
+.btnx {
+  border: none;
+  box-sizing: border-box;
+  padding: 2px 10px;
+  background-color: rgb(7, 117, 184);
+  color: #FFF;
+  height: 32px;
+  font-size: 15px;
+  vertical-align: middle;
+}
+
+.especific {
+  font-size: 13px;
+}
+
+.tinyy {
+  font-size: 10px!important;
+}
+
+.sublinha{
+  border-bottom: solid 1px rgba(0,0,0,0.3);
+  padding-top: 11px;
+}
+
+.addanuncio{
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+
+.baixo{
+  padding-top: 15pX;
+}
+
+#signup {
+    padding: 0px 25px 25px;
+    background: #fff;
+    box-shadow:
+        0px 0px 0px 5px rgba( 255,255,255,0.4 ),
+        0px 4px 20px rgba( 0,0,0,0.33 );
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    display: table;
+    position: static;
+    width: 100%;
+}
+
+#signup .header {
+    margin-bottom: 20px;
+}
+
+#signup .header h3 {
+    color: #333333;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+#signup .header p {
+    color: #8f8f8f;
+    font-size: 14px;
+    font-weight: 300;
+}
+
+#signup .sep {
+    height: 1px;
+    background: #e8e8e8;
+    width: 100%;
+}
+
+#signup .inputs {
+    margin-top: 25px;
+}
+
+#signup .inputs label {
+    color: #8f8f8f;
+    font-size: 12px;
+    font-weight: 300;
+    letter-spacing: 1px;
+    margin-bottom: 7px;
+    display: block;
+}
+
+input::-webkit-input-placeholder {
+    color:    #b5b5b5;
+}
+
+textarea::-webkit-input-placeholder {
+    color:    #b5b5b5;
+}
+
+textarea:-moz-placeholder {
+    color:    #b5b5b5;
+}
+
+input:-moz-placeholder {
+    color:    #b5b5b5;
+}
+
+#signup .inputs input[type=email], input[type=PrimeiroNome], input[type=UltimoNome], input[type=Telefone], .inputs input[type=morada] {
+    background: #f5f5f5;
+    font-size: 0.8rem;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    border: none;
+    padding: 13px 10px;
+    width: 100%;
+    margin-bottom: 20px;
+    box-shadow: inset 0px 2px 3px rgba( 0,0,0,0.1 );
+    clear: both;
+}
+
+#signup textarea {
+  background: #f5f5f5;
+  font-size: 0.8rem;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  border: none;
+  box-shadow: inset 0px 2px 3px rgba( 0,0,0,0.1 );
+  clear: both;
+  width: 100%;
+}
+
+#signup .inputs input[type=postal] {
+    background: #f5f5f5;
+    font-size: 0.8rem;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    border: none;
+    padding: 13px 10px;
+    width: 75%;
+    margin-bottom: 20px;
+    box-shadow: inset 0px 2px 3px rgba( 0,0,0,0.1 );
+    clear: both;
+}
+
+#signup .inputs input[type=postal2]{
+    background: #f5f5f5;
+    font-size: 0.8rem;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    border: none;
+    padding: 13px 10px;
+    width: 20%;
+    margin-bottom: 20px;
+    box-shadow: inset 0px 2px 3px rgba( 0,0,0,0.1 );
+    clear: both;
+}
+
+#signup .inputs input[type=email]:focus, input[type=PrimeiroNome]:focus , input[type=UltimoNome]:focus, input[type=Telefone]:focus, input[type=morada]:focus{
+    background: #fff;
+    box-shadow: 0px 0px 0px 3px #f8f9fa, inset 0px 2px 3px rgba( 0,0,0,0.2 ), 0px 5px 5px rgba( 0,0,0,0.15 );
+    outline: none;
+}
+
+.botaoaddanuncio{
+  text-align: center;
+}
+
+.aviso{
+  color: red;
+  padding-left: 5px;
+  padding-top: 5px;
+  font-size: 11px;
+}
+
+#signup .inputs #submit {
+    width: 100%;
+    margin-top: 20px;
+    padding: 15px 0;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-align: center;
+    text-decoration: none;
+    background-color: rgb(7, 117, 184);
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    border: 1px solid #737b8d;
+    -moz-box-shadow:
+        0px 5px 5px rgba(000,000,000,0.1),
+        inset 0px 1px 0px rgba(255,255,255,0.5);
+    -webkit-box-shadow:
+        0px 5px 5px rgba(000,000,000,0.1),
+        inset 0px 1px 0px rgba(255,255,255,0.5);
+    box-shadow:
+        0px 5px 5px rgba(000,000,000,0.1),
+        inset 0px 1px 0px rgba(255,255,255,0.5);
+    text-shadow:
+        0px 1px 3px rgba(000,000,000,0.3),
+        0px 0px 0px rgba(255,255,255,0);
+    display: table;
+    position: static;
+    clear: both;
+}
+
+#signup .inputs #submit:hover {
+    background: -moz-linear-gradient(
+        top,
+        #a4b0cb 0%,
+        #b9c5dd);
+    background: -webkit-gradient(
+        linear, left top, left bottom,
+        from(#a4b0cb),
+        to(#b9c5dd));
+}
+/* Fim  CSS adicionar anuncio anunciante */
 
 /*CSS Index*/
 .intro-divider{

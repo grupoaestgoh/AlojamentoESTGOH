@@ -38,26 +38,26 @@
                     </li>
                     <li class=\"footer-menu-divider list-inline-item divAzul\">&sdot;</li>
                     <li class=\"list-inline-item\">
-                      <a class=\"corAzul\" href=\"http://elearning.estgoh.ipc.pt/\">$elearningR></a>
+                      <a class=\"corAzul\" href=\"http://elearning.estgoh.ipc.pt/\">$elearningR</a>
                     </li>
                     <li class=\"footer-menu-divider list-inline-item divAzul\">&sdot;</li>
                     <li class=\"list-inline-item\">
-                      <a class=\"corAzul\" href=\"http://biblio.estgoh.ipc.pt/\">$bibliotecaR></a>
+                      <a class=\"corAzul\" href=\"http://biblio.estgoh.ipc.pt/\">$bibliotecaR</a>
                     </li>
                     <li class=\"footer-menu-divider list-inline-item divAzul\">&sdot;</li>
                     <li class=\"list-inline-item\">
-                      <a class=\"corAzul\" href=\"http://netpa.estgoh.ipc.pt/netpa/page\">$netpaR></a>
+                      <a class=\"corAzul\" href=\"http://netpa.estgoh.ipc.pt/netpa/page\">$netpaR</a>
                     </li>
                     <li class=\"footer-menu-divider list-inline-item divAzul\">&sdot;</li>
                     <li class=\"list-inline-item\">
-                      <a class=\"corAzul\" href=\"#sobre\">$sobreNosR></a>
+                      <a class=\"corAzul\" href=\"#sobre\">$sobreNosR</a>
                     </li>
                     <li class=\"footer-menu-divider list-inline-item divAzul\">&sdot;</li>
                     <li class=\"list-inline-item\">
-                      <a class=\"corAzul\" href=\"#contactos\">$contactosR></a>
+                      <a class=\"corAzul\" href=\"#contactos\">$contactosR</a>
                     </li>
                   </ul>
-                  <p class=\"copyright text-muted small\">Copyright &copy; $direitosR></p>
+                  <p class=\"copyright text-muted small\">Copyright &copy; $direitosR</p>
                 </div>
               </footer>
 
