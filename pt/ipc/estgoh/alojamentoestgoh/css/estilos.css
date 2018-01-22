@@ -14,6 +14,7 @@ footer{
 p.copyright{
   margin: 15px 0 0;
 }
+
 .footerGestor{
   background-color: #0775b8!important;
 }
@@ -67,6 +68,23 @@ body{
 .divAzul{
   background-color: #0775b8;
 }
+
+#imgbandeira {
+  padding-right: 30px;
+  width:100%;
+}
+
+.bandeira img {
+  width: 35px;
+  height: 35px;
+}
+
+.bandeira {
+  text-align: right;
+  margin-top: 75px;
+  margin-bottom: 0;
+}
+
 .divBranca{
   background-color: white;
   color: #0775b8;
@@ -106,7 +124,30 @@ body{
 }
 /*Fim CSS Geral*/
 
+/*CSS  para gestor */
+.titulo {
+  color:#0775b8;
+  margin: 30px 0px 30px 0px;
+  font-size: 30px;
+  font-family: "Germania One";
+}
+
+.aumenta {
+     padding-bottom: 260px;
+}
+
+/*Fim CSS  para gestor */
+
 /*CSS Nav*/
+
+.notificacoes {
+    width: 430px;
+    height: 250px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    font-size: 14px;
+}
+
 @media (max-width: 333px){
   .navtitle {
     font-size: x-large;

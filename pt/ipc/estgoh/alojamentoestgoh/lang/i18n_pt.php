@@ -67,7 +67,7 @@
 	$insucesso_nome="O nome só pode ser constituido por palavras.";
 	$insucesso_email="O email já se encontra registado.";
 
-	//Pagina Auncios_novos_pendentes.php
+//Pagina Auncios_novos_pendentes.php
 	$titulo="Titulo";
 	$Preco="Preço";
 	$local="Localização";
@@ -87,7 +87,10 @@
 	$Animais="Animais";
 	$Localizacao="Localização";
 
-	//Pagina Auncios_editados_pendentes.php
+//pagina registo_outros_gestores.phpinfo
+	$registogestor="Registo Gestor";
+	
+//Pagina Auncios_editados_pendentes.php
 
 	$AnuEdiPend="Anuncios Editados Pendentes";
 

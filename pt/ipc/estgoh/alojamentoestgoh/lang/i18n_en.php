@@ -31,4 +31,7 @@
 	$sucesso="Registered successfully!";
 	$caracPassword="Password must have at least 1 uppercase character and a total number of at least eight characters.";
 
+////pagina registo_outros_gestores.phpinfo
+	$registogestor="Register Manager";
+
 ?>
