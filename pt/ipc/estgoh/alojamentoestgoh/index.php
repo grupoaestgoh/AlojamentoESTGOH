@@ -5,7 +5,7 @@
 	include("./comum/carregacontroladores.php");
 	$dao_utilizador=new DAOUtilizadores();
 
-	//verificar autorização
+	/*//verificar autorização
 	if (isset($_SESSION["dtd_id_utilizador"])){
 		//se tiver sessãon vai buscar utilizador e ve o tipo para poder redirecionar para a pagina correta//Falta isso !!
 		header("Location: ./home_page.php");
@@ -13,7 +13,7 @@
 	//verifica se existe admin
 	if ($dao_utilizador->verificar_gestor() == false) {
 		header ( "Location: ./registo_primeiro_gestor.php?admin" );
-	}
+	}*/
 	//conteudo principal
 	ob_start();
 ?>
