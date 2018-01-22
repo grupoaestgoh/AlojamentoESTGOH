@@ -184,14 +184,14 @@ ob_start();
        <form action="#">
        <div class="modal-header">
          <button type="button" class="close" data-dismiss="modal">&times;</button>
-         <h4 class="modal-title">Desactivar Conta</h4>
+         <h4 class="modal-title"><?php print $desativaConta; ?></h4>
        </div>
        <div class="modal-body aumenta">
-         <p>Tem a certeza que quer desativar a conta?</p>
+         <p><?php print $certeza; ?></p>
        </div>
        <div class="modal-footer">
-         <button type="button" class="btn btn-danger" data-dismiss="modal">Desativar</button>
-         <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+         <button type="button" class="btn btn-danger" data-dismiss="modal"><?php print $desativar; ?></button>
+         <button type="button" class="btn btn-default" data-dismiss="modal"><?php print $Fechar; ?></button>
        </div>
      </form>
      </div>

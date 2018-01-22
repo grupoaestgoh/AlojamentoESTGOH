@@ -10,7 +10,11 @@ $dao_utilizador=new DAOUtilizadores();
 /*if (!isset($_SESSION["AE_id_utilizador"]) && !isset($_SESSION["AE_nome_utilizador"]) && !isset($_SESSION["AE_email_utilizador"]) && !isset($_SESSION["AE_estado_utilizador"]) ){
   //Se não tiver sessao manda para pagina index.php
   header("Location: ./index.php");
-}*/
+}
+if(isset($_SESSION["id_anuncio_editar"])){
+  //vai buscar o anuncio
+}
+*/
 
 
 
@@ -18,10 +22,7 @@ $dao_utilizador=new DAOUtilizadores();
 ob_start();
 
 ?>
-
-    <!-- Navigation -->
-
-
+  <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top navGestor" id="mainNav">
      <div class="container">
        <a class="navbar-brand"  href="index.php" ><font  size="6" color="white"><?php print $logotipo; ?></font></a>
@@ -173,11 +174,7 @@ ob_start();
      </div>
     </nav>
 
-
-
-
-
-       <div id="myModal20" class="modal fade" role="dialog">
+  <div id="myModal20" class="modal fade" role="dialog">
          <!-- Modal ELiminar -->
          <div class="modal fade" id="myModalDesativar" role="dialog">
            <div class="modal-dialog">
@@ -186,14 +183,14 @@ ob_start();
            <form action="#">
            <div class="modal-header">
              <button type="button" class="close" data-dismiss="modal">&times;</button>
-             <h4 class="modal-title">Desactivar Conta</h4>
+             <h4 class="modal-title"><?php print $desativaConta; ?></h4>
            </div>
            <div class="modal-body aumenta">
-             <p>Tem a certeza que quer desativar a conta?</p>
+             <p><?php print $certeza; ?></p>
            </div>
            <div class="modal-footer">
-             <button type="button" class="btn btn-danger" data-dismiss="modal">Desativar</button>
-             <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+             <button type="button" class="btn btn-danger" data-dismiss="modal"><?php print $desativar; ?></button>
+             <button type="button" class="btn btn-default" data-dismiss="modal"><?php print $Fechar; ?></button>
            </div>
          </form>
          </div>
@@ -275,15 +272,15 @@ ob_start();
             <div class="addanuncio col-12">
               <form id="signup" onsubmit="return Mudarestado('aceite')">
                   <div class="header">
-                      <h3 class="baixo">Inserir/Editar Anúncio</h3>
-                      <p>Preencha o formulário</p>
+                      <h3 class="baixo"><?php if(isset($_SESSION["id_anuncio_editar"])) print $edita; else print $insere;?></h3>
+                      <p><?php if(isset($_SESSION["id_anuncio_editar"])) print $formulario;?></p>
                   </div>
                   <div class="sep"></div>
-                  <p class="aviso">* Obrigatório</p>
+                  <p class="aviso"><?php print $obrigatorio;?></p>
                   <div class="inputs">
                       <div class="sep"></div>
                       <div class="header">
-                          <p class="bold">Proprietário:</p>
+                          <p class="bold"><?php print $proprietario;?></p>
                       </div>
                       <div class="row">
                         <div class="col-lg-6">
@@ -312,7 +309,7 @@ ob_start();
                       </div>
                       <div class="sep"></div>
                       <div class="header">
-                          <p class="bold">Anúncio:</p>
+                          <p class="bold"><?php print $anuncio1;?></p>
                       </div>
                       <div class="row">
                         <div class="col-lg-12">
@@ -326,21 +323,21 @@ ob_start();
                       </div>
                       <div class="sep"></div>
                       <div class="header">
-                          <p class="bold">Especificações do Quarto:</p>
+                          <p class="bold"><?php print $caracteristicasQ;?></p>
                       </div>
                       <div class="sublinha">
                         <div class="row">
                           <div class="col-4">
-                            <p class="especific">Casa de Banho Privativa:
+                            <p class="especific"><?php print $casabanho;?>
                           </div>
                           <div class="col-4">
                             <label class="radio-inline">
-                              <input type="radio" name="Banho" checked>Sim
+                              <input type="radio" name="Banho" checked><?php print $sim;?>
                             </label>
                           </div>
                           <div class="col-4">
                             <label class="radio-inline">
-                                <input type="radio" name="Banho">Não
+                                <input type="radio" name="Banho"><?php print $nao;?>
                             </label>
                           </div>
                         </div>
@@ -348,33 +345,16 @@ ob_start();
                       <div class="sublinha">
                         <div class="row">
                           <div class="col-4">
-                            <p class="especific">Internet:
+                            <p class="especific"><?php print $internet1;?>
                           </div>
                           <div class="col-4">
                             <label class="radio-inline">
-                              <input type="radio" name="Internet" checked>Sim
+                              <input type="radio" name="Internet" checked><?php print $sim;?>
                             </label>
                           </div>
                           <div class="col-4">
                             <label class="radio-inline">
-                                <input type="radio" name="Internet">Não
-                            </label>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="sublinha">
-                        <div class="row">
-                          <div class="col-4">
-                            <p class="especific">Despesas Incluídas:
-                          </div>
-                          <div class="col-4">
-                            <label class="radio-inline">
-                              <input type="radio" name="Renda" checked>Sim
-                            </label>
-                          </div>
-                          <div class="col-4">
-                            <label class="radio-inline">
-                                <input type="radio" name="Renda">Não
+                                <input type="radio" name="Internet"><?php print $nao;?>
                             </label>
                           </div>
                         </div>
@@ -382,33 +362,16 @@ ob_start();
                       <div class="sublinha">
                         <div class="row">
                           <div class="col-4">
-                            <p class="especific">Mobília:
+                            <p class="especific"><?php print $despesas;?>
                           </div>
                           <div class="col-4">
                             <label class="radio-inline">
-                              <input type="radio" name="Mobília" checked>Sim
+                              <input type="radio" name="Renda" checked><?php print $sim;?>
                             </label>
                           </div>
                           <div class="col-4">
                             <label class="radio-inline">
-                                <input type="radio" name="Mobília">Não
-                            </label>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="sublinha">
-                        <div class="row">
-                          <div class="col-4">
-                            <p class="especific">Utensílios:
-                          </div>
-                          <div class="col-4">
-                            <label class="radio-inline">
-                              <input type="radio" name="Utensílios" checked>Sim
-                            </label>
-                          </div>
-                          <div class="col-4">
-                            <label class="radio-inline">
-                                <input type="radio" name="Utensílios">Não
+                                <input type="radio" name="Renda"><?php print $nao;?>
                             </label>
                           </div>
                         </div>
@@ -416,16 +379,16 @@ ob_start();
                       <div class="sublinha">
                         <div class="row">
                           <div class="col-4">
-                            <p class="especific">Animais:
+                            <p class="especific"><?php print $mobilia;?>
                           </div>
                           <div class="col-4">
                             <label class="radio-inline">
-                              <input type="radio" name="Animais" checked>Sim
+                              <input type="radio" name="Mobília" checked><?php print $sim;?>
                             </label>
                           </div>
                           <div class="col-4">
                             <label class="radio-inline">
-                                <input type="radio" name="Animais">Não
+                                <input type="radio" name="Mobília"><?php print $nao;?>
                             </label>
                           </div>
                         </div>
@@ -433,23 +396,57 @@ ob_start();
                       <div class="sublinha">
                         <div class="row">
                           <div class="col-4">
-                            <p class="especific">Sexo Permitido:
+                            <p class="especific"><?php print $utensilios1;?>
                           </div>
                           <div class="col-4">
                             <label class="radio-inline">
-                              <input type="checkbox" name="Animais" checked>Rapaz
+                              <input type="radio" name="Utensílios" checked><?php print $sim;?>
                             </label>
                           </div>
                           <div class="col-4">
                             <label class="radio-inline">
-                                <input type="checkbox" name="Animais">Rapariga
+                                <input type="radio" name="Utensílios"><?php print $nao;?>
+                            </label>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="sublinha">
+                        <div class="row">
+                          <div class="col-4">
+                            <p class="especific"><?php print $Animais1;?>
+                          </div>
+                          <div class="col-4">
+                            <label class="radio-inline">
+                              <input type="radio" name="Animais" checked><?php print $sim;?>
+                            </label>
+                          </div>
+                          <div class="col-4">
+                            <label class="radio-inline">
+                                <input type="radio" name="Animais"><?php print $nao;?>
+                            </label>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="sublinha">
+                        <div class="row">
+                          <div class="col-4">
+                            <p class="especific"><?php print $sexoPermitido;?>
+                          </div>
+                          <div class="col-4">
+                            <label class="radio-inline">
+                              <input type="checkbox" name="Animais" checked><?php print $rapaz;?>
+                            </label>
+                          </div>
+                          <div class="col-4">
+                            <label class="radio-inline">
+                                <input type="checkbox" name="Animais"><?php print $rapariga;?>
                             </label>
                           </div>
                         </div>
                       </div>
                       <div class="header">
-                          <p class="bold">Imagens do Quarto:</p>
-                          <p class="tinyy">Colocar pelo menos 3 imagens.</p>
+                          <p class="bold"><?php print $fotos;?></p>
+                          <p class="tinyy"><?php print $minimoimg;?></p>
                       </div>
                       <div class="col-lg-12">
                         <div class="row abaixu">
@@ -522,7 +519,7 @@ ob_start();
                           <div class="row col-12">
                             <div class="col-12">
                               <div class="header">
-                                  <p class="bold">Localização da Casa:</p>
+                                  <p class="bold"><?php print $Localizacao1;?></p>
                               </div>
                             </div>
                           </div>
@@ -559,7 +556,7 @@ ob_start();
                       <div id="aceite" style="display:none;">
                         <div class="row">
                           <div class="col-12">
-                              <p> O seu anúncio foi submetido com sucesso! </p>
+                              <p><?php print $anuncioSucesso;?></p>
                           </div>
                         </div>
                       </div>
@@ -576,7 +573,6 @@ ob_start();
       </div>
     </div>
     <!-- /.container -->
-
 
 
 

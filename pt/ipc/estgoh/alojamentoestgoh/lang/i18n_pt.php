@@ -38,6 +38,8 @@
 	$motivoRej="Motivo da rejeição:";
 	$rejetadoSuce="Rejeitado com sucesso!";
 	$rejeitar="Rejeitar";
+	$certeza="Tem a certeza que quer desativar a conta?";
+	$desativar="Desativar";
 
 
 //Rodape
@@ -86,10 +88,34 @@
 	$despesas="Despesa";
 	$Animais="Animais";
 	$Localizacao="Localização";
+//pagina registo_anuncio.php (gestor)
+$edita="Editar Anúncio";
+$insere="Inserir Anúncio";
+$formulario="Preencha o formulário";
+$obrigatorio="* Obrigatório";
+$proprietario="Proprietário:";
+$anuncio1="Anuncio:";
+$caracteristicasQ="Especificações do Quarto:";
+$casabanho="Casa de Banho Privativa:";
+$sim="Sim";
+$nao="Não";
+$internet1="Internet:";
+$despesas="Despesas Incluídas:";
+$mobilia="Mobília:";
+$utensilios1="Utensílios:";
+$Animais1="Animais:";
+$sexoPermitido="Sexo Permitido:";
+$rapaz="Rapaz";
+$rapariga="Rapariga";
+$fotos="Imagens do Quarto:";
+$minimoimg="Colocar pelo menos 3 imagens.";
+$Localizacao1="Localização da Casa:";
+$anuncioSucesso="O seu anúncio foi submetido com sucesso!";
+
 
 //pagina registo_outros_gestores.phpinfo
 	$registogestor="Registo Gestor";
-	
+
 //Pagina Auncios_editados_pendentes.php
 
 	$AnuEdiPend="Anuncios Editados Pendentes";
