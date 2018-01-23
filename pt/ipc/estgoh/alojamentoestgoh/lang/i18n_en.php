@@ -34,4 +34,8 @@
 ////pagina registo_outros_gestores.phpinfo
 	$registogestor="Register Manager";
 
+//pagina ver_anuncios_proprietarios (gestor)
+	$disponibilidade="Availability";
+	$livre="Unoccupied ";
+	$ocupado="Occupied ";
 ?>

@@ -112,6 +112,10 @@ $minimoimg="Colocar pelo menos 3 imagens.";
 $Localizacao1="Localização da Casa:";
 $anuncioSucesso="O seu anúncio foi submetido com sucesso!";
 
+//pagina ver_anuncios_proprietarios (gestor)
+$disponibilidade="Disponibilidade";
+$livre="Livre";
+$ocupado="Ocupado";
 
 //pagina registo_outros_gestores.phpinfo
 	$registogestor="Registo Gestor";
