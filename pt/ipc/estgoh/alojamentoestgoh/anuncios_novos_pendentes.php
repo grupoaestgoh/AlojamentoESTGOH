@@ -3,7 +3,7 @@
 session_start();
 //carregar controladores
 include("./comum/carregacontroladores.php");
-$dao_utilizador=new DAOUtilizadores();
+
 
 //verifica se gestor está autenticado
 /*if (!isset($_SESSION["AE_id_utilizador"]) && !isset($_SESSION["AE_nome_utilizador"]) && !isset($_SESSION["AE_email_utilizador"]) && !isset($_SESSION["AE_estado_utilizador"]) ){
@@ -331,6 +331,7 @@ ob_start();
                         </tr>
                       </tfoot>
                       <tbody>
+        aaaaaaaaa
                         <tr>
                           <td>Tiger Nixon</td>
                           <td>Edinburgh</td>
