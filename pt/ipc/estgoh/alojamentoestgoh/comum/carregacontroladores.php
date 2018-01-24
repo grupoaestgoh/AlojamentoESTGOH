@@ -11,6 +11,11 @@ include('./utilizadores/utilizador.class.php');
 include('./utilizadores/anunciante.class.php');
 include('./utilizadores/gestor.class.php');
 include('./utilizadores/estudante.class.php');
+include('./anuncios/anuncio.class.php');
+include('./anuncios/foto.class.php');
+include('./anuncios/DAOAnuncio.class.php');
+include('./anuncios/DAOFotos.class.php');
+
 //Ficheiro da internacionalização
 if (file_exists ( "./lang/i18n_" . $lingua . ".php" ))
   include "./lang/i18n_" . $lingua . ".php";
@@ -23,5 +28,6 @@ $path = ".";
 //variaies com os objetos das classes
 $mybd=new BaseDados();
 $dao_utilizadores=new DAOUtilizadores();
+$dao_anuncios=new DAOAnuncios();
 
  ?>

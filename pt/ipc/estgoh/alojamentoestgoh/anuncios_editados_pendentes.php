@@ -24,7 +24,7 @@ ob_start();
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top navGestor" id="mainNav">
  <div class="container">
-   <a class="navbar-brand"  href="index.php" ><font  size="6" color="white"><?php print $logotipo; ?></font></a>
+   <a class="navbar-brand"  href="meus_anuncios.php" ><font  size="6" color="white"><?php print $logotipo; ?></font></a>
    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
      <span class="navbar-toggler-icon"></span>
    </button>

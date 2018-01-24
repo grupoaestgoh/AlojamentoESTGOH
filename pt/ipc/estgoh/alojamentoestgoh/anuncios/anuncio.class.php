@@ -36,7 +36,7 @@ class Anuncio{
     $this->Morada=$Morada;
     $this->Telefone=$Telefone;
     $this->Email=$Email;
-    $this->Codigo_postal=$codigo_postal;
+    $this->Codigo_postal=$Codigo_postal;
     $this->Data_Submetido=$Data_Submetido;
     $this->Disponibilidade=$Disponibilidade;
     $this->Estado=$Estado;

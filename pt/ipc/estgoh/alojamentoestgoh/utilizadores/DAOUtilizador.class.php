@@ -1,5 +1,16 @@
 <?php
 class DAOUtilizadores{
+  /*
+  0-adimistrador
+  1-gestor
+  2-anunciantes
+  3-estudante
+
+  Estado
+  1-ativo
+  2-pendente
+  4-inativo
+  */
 
   //Insere um utilizador na base de dados, se falhar devolve false, se tiver sucesso devolve true
   function inserir_utilizador(Utilizador $utilizador){
@@ -66,7 +77,7 @@ class DAOUtilizadores{
     if($opcao==2)$STH = $mybd->DBH->prepare("Select  uti_id,uti_nome,uti_email,uti_password,uti_estado,uti_tipo,uti_inscricao from utilizador  where uti_estado='ativo' and uti_tipo='anunciante' ;");
 			$STH->setFetchMode(PDO::FETCH_OBJ);
 			while($row = $STH->fetch()){
-				$arrayUtilizadores[$arrayUtilizadores.length]=new Utilizador($row->uti_id,$row->uti_nome,$row->uti_email,$row->uti_password,$row->uti_estado,$row->uti_tipo,$row->uti_inscricao);
+				$arrayUtilizadores[sizeof($arrayUtilizadores)]=new Utilizador($row->uti_id,$row->uti_nome,$row->uti_email,$row->uti_password,$row->uti_estado,$row->uti_tipo,$row->uti_inscricao);
 			}
     return $arrayUtilizadores;
   }
