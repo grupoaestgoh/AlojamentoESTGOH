@@ -179,6 +179,7 @@
     			return true;//nao tem numeros (correto)
     		return false;//tem numeros
     	}
+			
     	function verifca_password(){
     		//verifica se tem pelo menos um caracter maiusculo
     		if(preg_match('/[A-Z]/', $_POST["passwordR"])!=1)
