@@ -116,7 +116,10 @@ $anuncioSucesso="Your Advertisement Was Successfully Added!";
 //pagina ver_anuncios_proprietarios (gestor)
 $disponibilidade="Availability";
 $livre="Free";
-$ocupado="Not Free";
+$ocupado="Busy";
+$pesquisar="Search";
+$naoanuncios="There are no advertisements!";
+$placeholder_pesquisa="Title, Location or Freeholder";
 
 //pagina registo_outros_gestores.phpinfo
 	$registogestor="Register Manager";
