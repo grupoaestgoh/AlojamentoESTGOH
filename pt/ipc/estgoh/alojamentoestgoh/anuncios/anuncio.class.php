@@ -58,9 +58,9 @@ class Anuncio{
   public function to_array_sem_id(){
     return array("ti"=>$this->Titulo,"de"=>$this->Descricao,"pr"=>$this->Proprietario,"mo"=>$this->Morada,"te"=>$this->Telefone,"em"=>$this->Email,"co"=>$this->Codigo_postal,"da"=>$this->Data_Submetido,"di"=>$this->Disponibilidade,"es"=>$this->Estado,"pre"=>$this->Preco,"fo"=>$this->Fotos,"wc"=>$this->Wc,"mob"=>$this->Mobilia,"ut"=>$this->Utensilios,"in"=>$this->Internet,"ra"=>$this->Rapariga,"rap"=>$this->Rapaz,"des"=>$this->Despesas,"ani"=>$this->Animais,"la"=>$this->Latitude,"lo"=>$this->Longitude);
   }
-  //Devolve utilizador em array sem atributo id
+  //Devolve utilizador em array com atributo id
   public function to_array_com_id(){
-    return array("an"=>$this->Id_Anuncio,"ti"=>$this->Titulo,"de"=>$this->Descricao,"pr"=>$this->Proprietario,"mo"=>$this->Morada,"te"=>$this->Telefone,"em"=>$this->Email,"co"=>$this->Codigo_postal,"da"=>$this->Data_Submetido,"di"=>$this->Disponibilidade,"es"=>$this->Estado,"pre"=>$this->Preco,"fo"=>$this->Fotos,"wc"=>$this->Wc,"mob"=>$this->Mobilia,"ut"=>$this->Utensilios,"in"=>$this->Internet,"ra"=>$this->Rapariga,"rap"=>$this->Rapaz,"des"=>$this->Despesas,"ani"=>$this->Animais,"la"=>$this->Latitude,"lo"=>$this->Longitude);
+    return array("an"=>$this->Id_Anuncio,"ti"=>$this->Titulo,"de"=>$this->Descricao,"pr"=>$this->Proprietario,"mo"=>$this->Morada,"te"=>$this->Telefone,"em"=>$this->Email,"co"=>$this->Codigo_postal,"da"=>$this->Data_Submetido,"di"=>$this->Disponibilidade,"es"=>$this->Estado,"pre"=>$this->Preco,"wc"=>$this->Wc,"mob"=>$this->Mobilia,"ut"=>$this->Utensilios,"in"=>$this->Internet,"ra"=>$this->Rapariga,"rap"=>$this->Rapaz,"des"=>$this->Despesas,"ani"=>$this->Animais,"la"=>$this->Latitude,"lo"=>$this->Longitude);
   }
 }
  ?>

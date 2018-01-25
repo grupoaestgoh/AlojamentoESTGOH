@@ -165,7 +165,7 @@ ob_start();
            </div>
          </li>
          <li class="nav-item">
-           <a class="nav-link navGestorimg" data-toggle="modal" data-target="#exampleModal">
+           <a href="./index.php" class="nav-link navGestorimg" >
              <i class="fa fa-fw fa-sign-out"></i><?php print $terminaSessao; ?></a>
          </li>
        </ul>
@@ -271,38 +271,7 @@ ob_start();
             </div>
               <div class="card mb-3">
 
-                <!-- Modal ELiminar -->
-                <div class="modal fade" id="myModalEliminar" role="dialog">
-                  <div class="modal-dialog">
-                <!-- Modal content-->
-                <div class="modal-content">
-                  <form action="#">
-                  <div class="modal-header divAzul">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title corBranca"><?php print $rejeitarAnu;?></h4>
-                  </div>
-                  <div class="modal-body">
-                    <p><?php print $motivoRej;?></p>
-                    <textarea class="form-control" rows="3" required></textarea>
-                  </div>
-                  <div id="Aviso3" class="alert alert-success" role="alert" style="display:none;" >
-                      <div class="row leftCaracteris">
-                      <div class="col-lg-2 ">
-                      <img class="alertaImg" src="img/certo.png" alt="">
-                      </div>
-                      <div class="col-lg-8">
-                        <span class="glyphicon glyphicon-alert"><?php print $rejetadoSuce;?></span>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="modal-footer">
-                    <button type="submit" class="btn btn-danger" onclick="Mudarestado('Aviso3')"><?php print $rejeitar;?></button>
-                    <button type="button" class="btn btn-default" data-dismiss="modal"><?php print $Fechar;?></button>
-                  </div>
-                </form>
-                </div>
-              </div>
-            </div>
+
 
 
                 <div class="card-body">
@@ -347,10 +316,46 @@ ob_start();
                             echo('<td>'.$anuncios->Preco.'</td>');
                             echo('<td>'.$anuncios->Morada.'</td>');
                             echo('<td>'.$Proprietario->Nome.'</td>');
-                            echo('<td><a data-toggle="modal" href="#a'.$anuncios->Id_Anuncio.'"><i class="fa fa-eye" style="font-size:24px"></i></a>');
-                            echo('<td><button type="button" class="btn btn-success">'.$aceitar.'</button></td>');
-                            echo('<td><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModalEliminar">'.$rejeitar.'</button></td>');
+                            echo('<td><a data-toggle="modal" href="#a'.$anuncios->Id_Anuncio.'"><i class="fa fa-eye" style="font-size:24px"></i></a></td>');
+                            echo('<td><form action="anuncios_novos_pendentes.php" Method="POST"><input type="hidden" name="idAnuA" value='.$anuncios->Id_Anuncio.'>  <input name="aceitar" class="btn btn-success"  type="submit" value='.$aceitar.'></form></td>');
+                            echo('<td><a data-toggle="modal" class="btn btn-danger" href="#b'.$anuncios->Id_Anuncio.'">'.$rejeitar.'</a></td>');
                             echo('</tr>');
+                            //modal para eliminar anuncios
+                            echo('<div class="modal fade" id="b'.$anuncios->Id_Anuncio.'">
+                              <div class="modal-dialog">
+                            <div class="modal-content">
+                              <form action="anuncios_novos_pendentes.php" Method="POST">
+
+                              <div class="modal-header divAzul">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title corBranca">'.$rejeitarAnu.'</h4>
+                              </div>
+                              <div class="modal-body">
+                                <p>'.$motivoRej.'</p>
+                                <textarea class="form-control" rows="3" required></textarea>
+                              </div>
+                              <input type="hidden" name="idAnuR" value='.$anuncios->Id_Anuncio.'>
+
+                            <div id="aviso_login_insucesso" class="alert alert-success aviso_login_insucesso" role="alert">
+                                  <div class="row leftCaracteris">
+                                  <div class="col-lg-2 ">
+                                  <img class="alertaImg" src="img/certo.png" alt="">
+                                  </div>
+                                  <div class="col-lg-8">
+                                    <span class="glyphicon glyphicon-alert">'.$rejetadoSuce.'</span>
+                                  </div>
+                                </div>
+                              </div>
+
+                             <div class="modal-footer">
+                             <input name="elimina" class="btn btn-danger"  type="submit" value='.$rejeitar.'>
+                                <button type="button" class="btn btn-default" data-dismiss="modal">'.$Fechar.'</button>
+
+                              </div>
+                            </form>
+                            </div>
+                            </div>
+                            </div>');
                             //modal para ver anuncios
                             echo('<div class="modal fade" id="a'.$anuncios->Id_Anuncio.'">
                             <div class="modal-dialog modal-lg">
@@ -434,35 +439,33 @@ ob_start();
                                           <div class="row leftCaracteris">
                                             <div class="col-lg-6 ">
                                                   <ul class="list-unstyled mb-0 comPontos">
-                                                    <li class="fa fa-check-circle-o">
-                                                      '.$wc.'
-                                                    </li>
-                                                    <li class="	fa fa-times-circle-o">
-                                                        '. $mobilada.'
-                                                      </li>
-                                                      <li class="	fa fa-times-circle-o">
-                                                          '.$utensilios.'
-                                                        </li>
-                                                        <li class="fa fa-check-circle-o">
-                                                            '.$internet.'
-                                                      </li>
+
+                                                    <li ');
+                                                    if($anuncios->Wc==true) print("class=\"fa fa-check-circle-o\""); else print("class=\"	fa fa-times-circle-o\"");
+                                                    echo('>'.$wc.' </li>  <li ');
+                                                    if($anuncios->Mobilia==true) print("class=\"fa fa-check-circle-o\""); else print("class=\"	fa fa-times-circle-o\"");
+                                                    echo('>'. $mobilada.'  </li><li ');
+                                                    if($anuncios->Utensilios==true) print("class=\"fa fa-check-circle-o\""); else print("class=\"	fa fa-times-circle-o\"");
+                                                    echo('>'.$utensilios.'  </li><li ');
+                                                    if($anuncios->Internet==true) print("class=\"fa fa-check-circle-o\""); else print("class=\"	fa fa-times-circle-o\"");
+                                                    echo('>'.$internet.'</li>
                                                   </ul>
                                               </div>
-                                              <div class="col-lg-6">
+                                              <div class="col-lg-6 ">
                                                     <ul class="list-unstyled mb-0 comPontos">
-                                                      <li class="fa fa-times-circle-o">
-                                                        '.$raparigas.'
-                                                      </li>
-                                                      <li class="fa fa-check-circle-o">
-                                                        '.$rapazes.'
-                                                      </li>
-                                                      <li class="fa fa-check-circle-o">
-                                                          '.$despesas.';
-                                                          <li class="fa fa-times-circle-o">
-                                                         '.$Animais.'
-                                                        </li>
+
+                                                      <li ');
+                                                      if($anuncios->Rapariga==true) print("class=\"fa fa-check-circle-o\""); else print("class=\"	fa fa-times-circle-o\"");
+                                                      echo('>'.$raparigas.' </li>  <li ');
+                                                      if($anuncios->Rapaz==true) print("class=\"fa fa-check-circle-o\""); else print("class=\"	fa fa-times-circle-o\"");
+                                                      echo('>'. $rapazes.'  </li><li ');
+                                                      if($anuncios->Despesas==true) print("class=\"fa fa-check-circle-o\""); else print("class=\"	fa fa-times-circle-o\"");
+                                                      echo('>'.$despesas.'  </li><li ');
+                                                      if($anuncios->Animais==true) print("class=\"fa fa-check-circle-o\""); else print("class=\"	fa fa-times-circle-o\"");
+                                                      echo('>'.$Animais.'</li>
                                                     </ul>
-                                        </div>
+                                                </div>
+
                                         </div>
                                         </div>
                                       </div>
@@ -512,20 +515,38 @@ ob_start();
 
 
     <?php
-    $rodape=false;
-    $conteudo_principal = ob_get_contents();
-    ob_end_clean();
-    //master page
-    include($layout);
+    //altera estado de anuncio novo pendente para ativo
+    //FALTA ADICIONAR NOTIFICAÇAO
+    if(isset($_POST["aceitar"]) && !empty($_POST["aceitar"])){
+      $mybd->ligar_bd();
+      $anuncioEdita=$dao_anuncios->listar_anuncios_id($_POST["idAnuA"]);
+        $anuncioEdita->Estado=1;
+        $dao_anuncios->editar_anuncio($anuncioEdita);
+      $mybd->desligar_bd();
+      header("Refresh:0; url=anuncios_novos_pendentes.php");
+    }
+//altera estado de anuncio novo pendente para inativo
+//fALTA ADICIONAR NOTIFICAÇAÕ
+    if(isset($_POST["elimina"]) && !empty($_POST["elimina"])){
+      $mybd->ligar_bd();
+      $anuncioEdita=$dao_anuncios->listar_anuncios_id($_POST["idAnuR"]);
+      $anuncioEdita->Estado=4;
+      $dao_anuncios->editar_anuncio($anuncioEdita);
+            print('<script>
+                    jQuery(document).ready(function( $ ) {
+                      jQuery("#aviso_login_insucesso").show();
+                    });
+                </script>');
+      $mybd->desligar_bd();
+      header("Location: ./anuncios_novos_pendentes.php");
+
+    }
+
     ?>
 
 
   <script>
-  $(document).ready(function() {
-      $('#dataTables-example').DataTable({
-          responsive: true
-      });
-  });
+
 
 
   function Mudarestado(el) {
@@ -538,3 +559,14 @@ ob_start();
   $(document).ready(function(){
       $('[data-toggle="tooltip"]').tooltip();
   });
+</script>
+
+
+<?php
+
+    $rodape=false;
+    $conteudo_principal = ob_get_contents();
+    ob_end_clean();
+    //master page
+    include($layout);
+?>
