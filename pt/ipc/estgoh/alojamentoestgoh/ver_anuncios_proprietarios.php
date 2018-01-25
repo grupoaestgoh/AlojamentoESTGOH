@@ -3,13 +3,14 @@
 session_start();
 //carregar controladores
 include("./comum/carregacontroladores.php");
-$dao_utilizador=new DAOUtilizadores();
 
 //verifica se gestor está autenticado
 /*if (!isset($_SESSION["AE_id_utilizador"]) && !isset($_SESSION["AE_nome_utilizador"]) && !isset($_SESSION["AE_email_utilizador"]) && !isset($_SESSION["AE_estado_utilizador"]) ){
   //Se não tiver sessao manda para pagina index.php
   header("Location: ./index.php");
 }*/
+
+
 
 //conteudo principal
 ob_start();
@@ -69,7 +70,7 @@ ob_start();
                <a href="registo_outros_gestores.php"><?php print $RegGestor; ?></a>
              </li>
              <li>
-               <a href="desativa_proprietario.phpl"><?php print $DesaProprietario; ?></a>
+               <a href="desativa_proprietario.php"><?php print $DesaProprietario; ?></a>
              </li>
              <li>
                <a href="desativa_gestor.php"><?php print $DesaGestor; ?></a>
@@ -243,45 +244,47 @@ ob_start();
    </div>
    <!-- End modal -->
     <!-- Page Content -->
-    <div class="container">
       <div class="row">
-        <div class="col-12">
-          <div class="bandeira">
-            <a href="#">
-                <img  src="bandeiras/pt.jpg" alt="">
-            </a>
-            <a href="#">
-              <img src="bandeiras/UK.jpg" alt="">
-            </a>
+        <div id="imgbandeira">
+          <div class="col-12">
+            <div class="bandeira">
+              <a href="?lingua=pt">
+                  <img  src="img/img_aplicacao/pt.jpg" alt="">
+              </a>
+              <a href="?lingua=en">
+                <img src="img/img_aplicacao/UK.jpg" alt="">
+              </a>
+            </div>
           </div>
         </div>
       </div>
       <div class="row">
-
         <div class="col-lg-3"></div>
-
         <div class="col-lg-9">
-
           <div class="container">
             <div class="linhaflex">
               <div class="titulo">
               <?php print $AnuProprietarios;
 
-			  /*if(isset($_POST["btnPesquisar"])){
-				if(!empty($_POST["nome_pesquisa"]))
-					$apresentaAnuncio= $anuncios->obter_anuncios($_POST["nome_pesquisa"]);
-				else
-					$apresentaAnuncio= $anuncios->obter_todos_anuncios();
-				}else
-					$apresentaAnuncio= $anuncios->obter_todos_anuncios();*/
-
+			  if(isset($_POST["btnPesquisar"])){
+          if(!empty($_POST["nome_pesquisa"]))
+					     $todos_anuncios=$dao_anuncios->pesquisar_anuncios(0, $_POST["nome_pesquisa"]); //pesquisar_anuncios() ainda não existe
+          else
+					     $todos_anuncios=$dao_anuncios->listar_anuncios(0);
+        }else
+				    $todos_anuncios=$dao_anuncios->listar_anuncios(0);
 			  ?>
             </div>
+			<?php
+			if($todos_anuncios == null)
+        print $naoanuncios;
+            else{
+			?>
+			<form class="navbar-form" action="" method="post">
+				<input type="text" name="nome_pesquisa" placeholder="<?php print $placeholder_pesquisa;?>" class="form-control" id="nome_pesquisa"><br>
+				<button type="submit" name="btnPesquisar" class="btn btn-default"><?php print $pesquisar;?></button>
+			</form>
               <div class="card mb-3">
-				<form class="navbar-form" action="" method="post">
-					<input type="text" name="nome_pesquisa" placeholder="Título, Localidade ou Anunciante" class="form-control" id="nome_pesquisa">
-					<button type="submit" name="btnPesquisar" class="btn btn-default">Pesquisar</button>
-				</form>
                 <div class="card-body">
                   <div class="table-responsive">
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -290,7 +293,7 @@ ob_start();
                           <th><?php print $titulo;?></th>
                           <th><?php print $Preco;?></th>
                           <th><?php print $local;?></th>
-						              <th><?php print $disponibilidade;?></th>
+                          <th><?php print $disponibilidade;?></th>
                           <th><?php print $Anunciante;?></th>
                           <th></th>
                         </tr>
@@ -306,412 +309,219 @@ ob_start();
                         </tr>
                       </tfoot>
                       <tbody>
-                        <tr>
-                          <td>Tiger Nixon</td>
-                          <td>Edinburgh</td>
-                          <td>Edinburgh</td>
-                          <td>
-                            <div class="radiodisponibilidadeTabela">
-                              <form>
-                                <div class="row">
-                                  <div class="col-lg-12">
-                                    <label class="radio-inline">
-										                  <input type="radio" name="optradio" value="livre" checked> <?php print $livre;?><br>
-                                    </label>
-                                  </div>
-                                </div>
-                                <div class="row">
-                                  <div class="col-lg-12">
-                                    <label class="radio-inline">
-                                        <input type="radio" name="optradio" value="ocupado"> <?php print $ocupado;?><br>
-                                    </label>
-                                  </div>
-                                </div>
-                              </form>
-                            </div>
-                          </td>
-                          <td>João Manuel</td>
-                          <td><button type="button" class="btn btn-default"  data-toggle="modal" data-target=".bd-example-modal-lg"><i class="fa fa-eye" style="font-size:24px"></i></button></td>
-                          </tr>
-                        <tr>
-                          <td>Garrett Winters</td>
-                          <td>Tokyo</td>
-                          <td>Edinburgh</td>
-                          <td>
-                            <div class="radiodisponibilidadeTabela">
-                              <form>
-                                <div class="row">
-                                  <div class="col-lg-12">
-                                    <label class="radio-inline">
-										<input type="radio" name="optradio" value="livre"> <?php print $livre;?><br>
-                                    </label>
-                                  </div>
-                                </div>
-                                <div class="row">
-                                  <div class="col-lg-12">
-                                    <label class="radio-inline">
-                                        <input type="radio" name="optradio" value="ocupado" checked> <?php print $ocupado;?><br>
-                                    </label>
-                                  </div>
-                                </div>
-                              </form>
-                            </div>
-                          </td>
-                          <td>João Manuel</td>
-                          <td><button type="button" class="btn btn-default"  data-toggle="modal" data-target=".bd-example-modal-lg"><i class="fa fa-eye" style="font-size:24px"></i></button></td>
-                        </tr>
-                        <tr>
-                          <td>Ashton Cox</td>
-                          <td>San Francisco</td>
-                          <td>Edinburgh</td>
-                          <td>
-                            <div class="radiodisponibilidadeTabela">
-                              <form>
-                                <div class="row">
-                                  <div class="col-lg-12">
-                                    <label class="radio-inline">
-										<input type="radio" name="optradio" value="livre"> <?php print $livre;?><br>
-                                    </label>
-                                  </div>
-                                </div>
-                                <div class="row">
-                                  <div class="col-lg-12">
-                                    <label class="radio-inline">
-                                        <input type="radio" name="optradio" value="ocupado" checked> <?php print $ocupado;?><br>
-                                    </label>
-                                  </div>
-                                </div>
-                              </form>
-                            </div>
-                          </td>
-                          <td>João Manuel</td>
-                          <td><button type="button" class="btn btn-default"  data-toggle="modal" data-target=".bd-example-modal-lg"><i class="fa fa-eye" style="font-size:24px"></i></button></td>
-                          </tr>
+						          <?php
+						  $mybd->ligar_bd();
 
-                        <tr>
-                          <td>Lael Greer</td>
-                          <td>London</td>
-                          <td>Edinburgh</td>
-                          <td>
-                            <div class="radiodisponibilidadeTabela">
-                              <form>
-                                <div class="row">
-                                  <div class="col-lg-12">
-                                    <label class="radio-inline">
-										<input type="radio" name="optradio" value="livre" checked> <?php print $livre;?><br>
-                                    </label>
+              for ($i=0; $i <sizeof($todos_anuncios); $i++) {
+                            $anuncios=$todos_anuncios[$i];
+							              $Proprietario=$dao_utilizadores->obter_utilizador_id($anuncios->Proprietario);
+                            echo('<tr>');
+                            echo('<td>'.$anuncios->Titulo.'</td>');
+                            echo('<td>'.$anuncios->Preco.'</td>');
+                            echo('<td>'.$anuncios->Morada.'</td>');
+							?>
+							<td>
+							<?php
+							if($anuncios->Disponibilidade == 1){?>
+								<div class="radiodisponibilidadeTabela" id="disponibilidade">
+									<form>
+										<div class="row">
+											<div class="col-lg-12">
+												<label class="radio-inline">
+													<input type="radio" name="optradio" value="livre" checked> <?php print $livre;?><br>
+												</label>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-lg-12">
+												<label class="radio-inline">
+													<input type="radio" name="optradio" value="ocupado"> <?php print $ocupado;?><br>
+												</label>
+											</div>
+										</div>
+									</form>
+								</div>
+							<?php
+							}else{?>
+								<div class="radiodisponibilidadeTabela">
+									<form>
+										<div class="row">
+											<div class="col-lg-12">
+												<label class="radio-inline">
+													<input type="radio" name="optradio" value="livre"><?php print $livre;?><br>
+												</label>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-lg-12">
+												<label class="radio-inline">
+													<input type="radio" name="optradio" value="ocupado" checked><?php print $ocupado;?><br>
+												</label>
+											</div>
+										</div>
+									</form>
+								</div>
+							<?php
+							}?>
+							</td>
+							<?php
+                            echo('<td>'.$Proprietario->Nome.'</td>');
+                            echo('<td><button type="button" class="btn btn-default"  data-toggle="modal" data-target=".bd-example-modal-lg"><i class="fa fa-eye" style="font-size:24px"></i></button></td>');
+                            //modal para ver anuncios
+                            echo('<div class="modal fade" id="a'.$anuncios->Id_Anuncio.'">
+                            <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                              <div class="modal-header divAzul">
+                                <button type="button" class="close " data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title corBranca">'.$anuncio.'</h4>
+                              </div>
+                              <div class="modal-body">
+                                <!-- Page Content -->
+                                <div class="container espaco">
+                                  <div class="row">
+                                    <!-- Blog Entries Column -->
+                                    <div class="col-md-8">
+                                      <h1 class="my-4">'.$anuncios->Titulo.'
+                                      </h1>
+                                      <!-- Blog Post -->
+                                      <div class="card mb-4">
+                                        <div class="card-body">
+                                        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                                          <ol class="carousel-indicators" >
+                                            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                                            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                                            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                                          </ol>
+                                          <div class="carousel-inner" role="listbox">
+                                            <!-- Slide One - Set the background image for this slide in the line below -->
+                                            <div class="carousel-item active" >
+                                              <img src="img/1.jpg" alt="" width="100%">
+                                            </div>
+                                            <!-- Slide Two - Set the background image for this slide in the line below -->
+                                            <div class="carousel-item" >
+                                              <img src="img/2.jpg" alt="" width="100%">
+                                            </div>
+                                            <!-- Slide Three - Set the background image for this slide in the line below -->
+                                            <div class="carousel-item" >
+                                              <img src="img/3.jpg" alt="" width="100%">
+                                            </div>
+                                          </div>
+                                        </div>
+                                        </div>
+                                        <div class="card-body ">
+                                          <p class="card-text">
+                                            '.$anuncios->Descricao.'
+                                        </div>
+                                        <div class="card-footer text-muted ">
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <!-- Sidebar Widgets Column -->
+                                    <div class="col-md-4 ">
+                                      <!-- Search Widget -->
+                                      <div class="card my-4 ">
+                                        <h5 class="card-header corPreta divAzul">'.$Preco.'</h5>
+                                        <div class="card-body">
+                                            '.$anuncios->Preco.''.$eurosmes.'
+                                        </div>
+                                      </div>
+                                      <!-- Categories Widget -->
+                                      <div class="card my-4 ">
+                                        <h5 class="card-header corPreta divAzul">'.$contacto.'</h5>
+                                        <div class="card-body">
+                                          <div class="row">
+                                            <div class="col-lg-12">
+                                              <ul class="list-unstyled mb-0">
+                                                <li>
+                                                  '.$Proprietario->Nome.'
+                                                </li>
+                                                <li>
+                                                  '.$anuncios->Telefone.'
+                                                </li>
+                                              </ul>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <!-- Side Widget -->
+                                      <div class="card my-4 ">
+                                        <h5 class="card-header corPreta divAzul">'.$caracteristicas.'</h5>
+                                        <div class="card-body">
+                                          <div class="row leftCaracteris">
+                                            <div class="col-lg-6 ">
+                                                  <ul class="list-unstyled mb-0 comPontos">
+
+                                                    <li ');
+                                                    if($anuncios->Wc==true) print("class=\"fa fa-check-circle-o\""); else print("class=\"	fa fa-times-circle-o\"");
+                                                    echo('>'.$wc.' </li>  <li ');
+                                                    if($anuncios->Mobilia==true) print("class=\"fa fa-check-circle-o\""); else print("class=\"	fa fa-times-circle-o\"");
+                                                    echo('>'. $mobilada.'  </li><li ');
+                                                    if($anuncios->Utensilios==true) print("class=\"fa fa-check-circle-o\""); else print("class=\"	fa fa-times-circle-o\"");
+                                                    echo('>'.$utensilios.'  </li><li ');
+                                                    if($anuncios->Internet==true) print("class=\"fa fa-check-circle-o\""); else print("class=\"	fa fa-times-circle-o\"");
+                                                    echo('>'.$internet.'</li>
+                                                  </ul>
+                                              </div>
+                                              <div class="col-lg-6 ">
+                                                    <ul class="list-unstyled mb-0 comPontos">
+
+                                                      <li ');
+                                                      if($anuncios->Rapariga==true) print("class=\"fa fa-check-circle-o\""); else print("class=\"	fa fa-times-circle-o\"");
+                                                      echo('>'.$raparigas.' </li>  <li ');
+                                                      if($anuncios->Rapaz==true) print("class=\"fa fa-check-circle-o\""); else print("class=\"	fa fa-times-circle-o\"");
+                                                      echo('>'. $rapazes.'  </li><li ');
+                                                      if($anuncios->Despesas==true) print("class=\"fa fa-check-circle-o\""); else print("class=\"	fa fa-times-circle-o\"");
+                                                      echo('>'.$despesas.'  </li><li ');
+                                                      if($anuncios->Animais==true) print("class=\"fa fa-check-circle-o\""); else print("class=\"	fa fa-times-circle-o\"");
+                                                      echo('>'.$Animais.'</li>
+                                                    </ul>
+                                                </div>
+
+                                        </div>
+                                        </div>
+                                      </div>
+                                      <div class="card my-4">
+                                        <h5 class="card-header corPreta divAzul">'.$Localizacao.'</h5>
+                                          <div id="map" class="card-header mapa"></div>
+                                         <script>
+                                           function myMap() {
+                                         var mapCanvas = document.getElementById("map");
+                                         var mapOptions = {
+                                           center: new google.maps.LatLng(40.360336, -7.855718), zoom: 18, mapTypeId: google.maps.MapTypeId.HYBRID
+                                         };
+                                         var map = new google.maps.Map(mapCanvas, mapOptions);
+                                         }
+                                         </script>
+                                         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB7jRD8m5aG-UagIgKot__F7MkwVxS6nls&callback=myMap"></script>
+                                      </div>
+                                    </div>
                                   </div>
+                                  <!-- /.row -->
                                 </div>
-                                <div class="row">
-                                  <div class="col-lg-12">
-                                    <label class="radio-inline">
-                                        <input type="radio" name="optradio" value="ocupado"> <?php print $ocupado;?><br>
-                                    </label>
-                                  </div>
-                                </div>
-                              </form>
+                                <!-- /.container -->
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">'.$Fechar.'</button>
+                              </div>
                             </div>
-                          </td>
-                          <td>João Manuel</td>
-                          <td><button type="button" class="btn btn-default"  data-toggle="modal" data-target=".bd-example-modal-lg"><i class="fa fa-eye" style="font-size:24px"></i></button></td>
-                          </tr>
-                        <tr>
-                          <td>Jonas Alexander</td>
-                          <td>San Francisco</td>
-                          <td>Edinburgh</td>
-                          <td>
-                            <div class="radiodisponibilidadeTabela">
-                              <form>
-                                <div class="row">
-                                  <div class="col-lg-12">
-                                    <label class="radio-inline">
-										<input type="radio" name="optradio" value="livre"> <?php print $livre;?><br>
-                                    </label>
-                                  </div>
-                                </div>
-                                <div class="row">
-                                  <div class="col-lg-12">
-                                    <label class="radio-inline">
-                                        <input type="radio" name="optradio" value="ocupado" checked> <?php print $ocupado;?><br>
-                                    </label>
-                                  </div>
-                                </div>
-                              </form>
                             </div>
-                          </td>
-                          <td>João Manuel</td>
-                          <td><button type="button" class="btn btn-default"  data-toggle="modal" data-target=".bd-example-modal-lg"><i class="fa fa-eye" style="font-size:24px"></i></button></td>
-                        </tr>
-                        <tr>
-                          <td>Shad Decker</td>
-                          <td>Edinburgh</td>
-                          <td>Edinburgh</td>
-                          <td>
-                            <div class="radiodisponibilidadeTabela">
-                              <form>
-                                <div class="row">
-                                  <div class="col-lg-12">
-                                    <label class="radio-inline">
-										<input type="radio" name="optradio" value="livre"> <?php print $livre;?><br>
-                                    </label>
-                                  </div>
-                                </div>
-                                <div class="row">
-                                  <div class="col-lg-12">
-                                    <label class="radio-inline">
-                                        <input type="radio" name="optradio" value="ocupado" checked> <?php print $ocupado;?><br>
-                                    </label>
-                                  </div>
-                                </div>
-                              </form>
-                            </div>
-                          </td>
-                          <td>João Manuel</td>
-                          <td><button type="button" class="btn btn-default"  data-toggle="modal" data-target=".bd-example-modal-lg"><i class="fa fa-eye" style="font-size:24px"></i></button></td>
-                          </tr>
-                        <tr>
-                          <td>Michael Bruce</td>
-                          <td>Singapore</td>
-                          <td>Edinburgh</td>
-                          <td>
-                            <div class="radiodisponibilidadeTabela">
-                              <form>
-                                <div class="row">
-                                  <div class="col-lg-12">
-                                    <label class="radio-inline">
-										<input type="radio" name="optradio" value="livre" checked> <?php print $livre;?><br>
-                                    </label>
-                                  </div>
-                                </div>
-                                <div class="row">
-                                  <div class="col-lg-12">
-                                    <label class="radio-inline">
-                                        <input type="radio" name="optradio" value="ocupado"> <?php print $ocupado;?><br>
-                                    </label>
-                                  </div>
-                                </div>
-                              </form>
-                            </div>
-                          </td>
-                          <td>João Manuel</td>
-                          <td><button type="button" class="btn btn-default"  data-toggle="modal" data-target=".bd-example-modal-lg"><i class="fa fa-eye" style="font-size:24px"></i></button></td>
-                        </tr>
-                        <tr>
-                          <td>Donna Snider</td>
-                          <td>New York</td>
-                          <td>Edinburgh</td>
-                          <td>
-                            <div class="radiodisponibilidadeTabela">
-                              <form>
-                                <div class="row">
-                                  <div class="col-lg-12">
-                                    <label class="radio-inline">
-										<input type="radio" name="optradio" value="livre" checked> <?php print $livre;?><br>
-                                    </label>
-                                  </div>
-                                </div>
-                                <div class="row">
-                                  <div class="col-lg-12">
-                                    <label class="radio-inline">
-                                        <input type="radio" name="optradio" value="ocupado"> <?php print $ocupado;?><br>
-                                    </label>
-                                  </div>
-                                </div>
-                              </form>
-                            </div>
-                          </td>
-                          <td>João Manue</td>
-                          <td><button type="button" class="btn btn-default" data-toggle="modal" data-target=".bd-example-modal-lg"><i class="fa fa-eye" style="font-size:24px"></i></button></td>
-                          </tr>
+                            </div>');
+                          }
+                        }
+                        $mybd->desligar_bd();
+                        ?>
                       </tbody>
                     </table>
                   </div>
                 </div>
               </div>
               <!-- Modal ELiminar -->
-
-
-              <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-                <div class="modal-header divAzul">
-                  <button type="button" class="close " data-dismiss="modal">&times;</button>
-                  <h4 class="modal-title corBranca"><?php print $anuncio;?></h4>
-                </div>
-                <div class="modal-body">
-
-                  <!-- Page Content -->
-                  <div class="container espaco">
-
-                    <div class="row">
-
-                      <!-- Blog Entries Column -->
-                      <div class="col-md-8">
-
-                        <h1 class="my-4">Quarto perto do Pingo Doce
-                        </h1>
-
-                        <!-- Blog Post -->
-
-                        <div class="card mb-4">
-                          <div class="card-body">
-
-                          <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-                            <ol class="carousel-indicators" >
-                              <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-                              <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-                              <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-                            </ol>
-                            <div class="carousel-inner" role="listbox">
-                              <!-- Slide One - Set the background image for this slide in the line below -->
-                              <div class="carousel-item active" >
-                                <img src="img/1.jpg" alt="" width="100%">
-
-                              </div>
-                              <!-- Slide Two - Set the background image for this slide in the line below -->
-                              <div class="carousel-item" >
-                                <img src="img/2.jpg" alt="" width="100%">
-
-                              </div>
-                              <!-- Slide Three - Set the background image for this slide in the line below -->
-                              <div class="carousel-item" >
-                                <img src="img/3.jpg" alt="" width="100%">
-
-                              </div>
-                            </div>
-
-                          </div>
-                          </div>
-                          <div class="card-body ">
-                            <p class="card-text">
-                              O apartamento está situado a uma distancia de 10 minutos a pé da ESTGOH, é um espaço tranquilo, com muito movimento de pessoas
-                              e bom ambiente entre vizinhos. Está perto de todos os supermercados, bares e parques.
-
-                          </div>
-                          <div class="card-footer text-muted ">
-                          </div>
-                        </div>
-
-
-
-
-
-
-                      </div>
-
-                      <!-- Sidebar Widgets Column -->
-                      <div class="col-md-4 ">
-
-                        <!-- Search Widget -->
-                        <div class="card my-4 ">
-                          <h5 class="card-header corPreta divAzul"><?php print $Preco;?></h5>
-                          <div class="card-body">
-                              2200 <?php print $eurosmes;?>
-                          </div>
-                        </div>
-
-                        <!-- Categories Widget -->
-                        <div class="card my-4 ">
-                          <h5 class="card-header corPreta divAzul"><?php print $contacto;?></h5>
-                          <div class="card-body">
-                            <div class="row">
-                              <div class="col-lg-12">
-                                <ul class="list-unstyled mb-0">
-                                  <li>
-                                    Maria Almeida
-                                  </li>
-                                  <li>
-                                    98465198
-                                  </li>
-
-                                </ul>
-                              </div>
-
-                            </div>
-                          </div>
-                        </div>
-
-                        <!-- Side Widget -->
-                        <div class="card my-4 ">
-                          <h5 class="card-header corPreta divAzul"><?php print $caracteristicas;?></h5>
-                          <div class="card-body">
-                            <div class="row leftCaracteris">
-                              <div class="col-lg-6 ">
-                                    <ul class="list-unstyled mb-0 comPontos">
-                                      <li class="fa fa-check-circle-o">
-                                        <?php print $wc;?>
-                                      </li>
-                                      <li class="	fa fa-times-circle-o">
-                                          <?php print $mobilada;?>
-                                        </li>
-                                        <li class="	fa fa-times-circle-o">
-                                            <?php print $utensilios;?>
-                                          </li>
-                                          <li class="fa fa-check-circle-o">
-                                              <?php print $internet;?>
-                                        </li>
-
-                                    </ul>
-                                </div>
-                                <div class="col-lg-6">
-                                      <ul class="list-unstyled mb-0 comPontos">
-                                        <li class="fa fa-times-circle-o">
-                                          <?php print $raparigas;?>
-                                        </li>
-                                        <li class="fa fa-check-circle-o">
-                                          <?php print $rapazes;?>
-                                        </li>
-                                        <li class="fa fa-check-circle-o">
-                                            <?php print $despesas;?>
-                                            <li class="fa fa-times-circle-o">
-                                            <?php print $Animais;?>
-                                          </li>
-
-                                      </ul>
-                          </div>
-                          </div>
-                          </div>
-                        </div>
-                        <div class="card my-4">
-                          <h5 class="card-header corPreta divAzul"><?php print $Localizacao;?></h5>
-
-                            <div id="map" class="card-header mapa"></div>
-
-                           <script>
-                             function myMap() {
-                           var mapCanvas = document.getElementById("map");
-                           var mapOptions = {
-                             center: new google.maps.LatLng(40.360336, -7.855718), zoom: 18, mapTypeId: google.maps.MapTypeId.HYBRID
-                           };
-                           var map = new google.maps.Map(mapCanvas, mapOptions);
-                           }
-                           </script>
-
-                           <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB7jRD8m5aG-UagIgKot__F7MkwVxS6nls&callback=myMap"></script>
-                        </div>
-                      </div>
-
-                    </div>
-                    <!-- /.row -->
-
-                  </div>
-                  <!-- /.container -->
-
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-danger" data-dismiss="modal"><?php print $Fechar;?></button>
-                </div>
-              </div>
-            </div>
-          </div>
-
           </div> <!-- /.linhaflex -->
         </div><!-- /.container -->
        </div> <!-- /.col-lg-9 -->
       </div>
     </div>
     <!-- /.container -->
-
 
     <?php
     $rodape=false;
@@ -721,14 +531,12 @@ ob_start();
     include($layout);
     ?>
 
-
   <script>
   $(document).ready(function() {
       $('#dataTables-example').DataTable({
           responsive: true
       });
   });
-
 
   function Mudarestado(el) {
     var display = document.getElementById(el).style.display;

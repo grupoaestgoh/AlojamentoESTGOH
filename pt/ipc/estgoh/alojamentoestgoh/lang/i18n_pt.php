@@ -117,6 +117,9 @@ $anuncioSucesso="O seu anúncio foi submetido com sucesso!";
 $disponibilidade="Disponibilidade";
 $livre="Livre";
 $ocupado="Ocupado";
+$pesquisar="Pesquisar";
+$naoanuncios="Não tem anúncios!";
+$placeholder_pesquisa="Título, Localidade ou Anunciante";
 
 //pagina registo_outros_gestores.phpinfo
 	$registogestor="Registo Gestor";

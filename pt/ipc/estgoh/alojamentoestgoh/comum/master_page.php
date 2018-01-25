@@ -99,7 +99,7 @@
                           <a class=\"corBranca\" href=\"#contactos\">$contactosR</a>
                         </li>
                       </ul>
-                      <p class=\"copyright text-muted small\">Copyright &copy; $direitosR</p>
+                      <p class=\"copyright text-muted small corBranca\">Copyright &copy; $direitosR</p>
                     </div>
                   </div>
                 </footer>
