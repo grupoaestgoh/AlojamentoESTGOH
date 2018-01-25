@@ -9,6 +9,7 @@ class DAOUtilizadores{
   Estado
   1-ativo
   2-pendente
+  3-desativacao
   4-inativo
   */
 

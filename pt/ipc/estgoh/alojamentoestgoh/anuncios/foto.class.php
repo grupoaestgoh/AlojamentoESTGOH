@@ -10,7 +10,7 @@ class Foto{
 
 
   //Construtor da classe utilizador
-  public function __construct ($Id_Fot,$Id_anuncio,$Caminho,$Nome){
+  public function __construct ($Id_Foto,$Id_anuncio,$Caminho,$Nome){
     $this->Id_Foto=$Id_Foto;
     $this->Id_anuncio=$Id_anuncio;
     $this->Caminho=$Caminho;

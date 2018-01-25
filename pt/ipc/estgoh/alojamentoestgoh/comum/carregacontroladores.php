@@ -29,5 +29,5 @@ $path = ".";
 $mybd=new BaseDados();
 $dao_utilizadores=new DAOUtilizadores();
 $dao_anuncios=new DAOAnuncios();
-
+$dao_fotos=new DAOFoto();
  ?>

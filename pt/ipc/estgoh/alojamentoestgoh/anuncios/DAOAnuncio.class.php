@@ -32,19 +32,25 @@ Disponibilidade
   function listar_anuncios_anunciante($id_anunciante,$estado_anuncio){
     $arrayAnuncios=[];
     global $mybd;
-    //Devolve todos gestores ativos
-    $STH = $mybd->DBH->prepare("Select  *  where uti_id=? and anu_estado=? Order by anu_estado;");
+    if($id_anunciante==-1){
+       $STH = $mybd->DBH->prepare("Select anu_id,uti_id,anu_titulo,anu_descricao,anu_morada,anu_email,anu_estado,anu_telefone,anu_codigopostal,anu_disponibilidade,anu_wcprivativo,anu_mobilada,anu_utensilios,anu_internet,anu_rapazes,anu_raparigas,anu_despesas,anu_animais,anu_latitude,anu_longitude,anu_data,anu_preco from anuncio where anu_estado=?;");
+$STH->bindParam(1, $estado_anuncio);
+    }else{ $STH = $mybd->DBH->prepare("Select anu_id,uti_id,anu_titulo,anu_descricao,anu_morada,anu_email,anu_estado,anu_telefone,anu_codigopostal,anu_disponibilidade,anu_wcprivativo,anu_mobilada,anu_utensilios,anu_internet,anu_rapazes,anu_raparigas,anu_despesas,anu_animais,anu_latitude,anu_longitude,anu_data,anu_preco from anuncio where uti_id=? and anu_estado=?;");
     $STH->bindParam(1, $id_anunciante);
     $STH->bindParam(2, $estado_anuncio);
+  }
+    $STH->execute();
       $STH->setFetchMode(PDO::FETCH_OBJ);
+      $i=0;
 			while($row = $STH->fetch()){
-				$arrayAnuncios[$arrayAnuncios.length]=new Anuncio($row->anu_id,$row->anu_titulo,$row->anu_descricao,$row->uti_id,$row->anu_morada,$row->anu_telefone,$row->anu_email,$row->anu_codigopostal,$row->anu_data,$row->anu_disponibilidade,$row->anu_estado,$row->anu_preco,null,$row->anu_wcprivativo,$row->anu_mobilada,$row->anu_utensilios,$row->anu_internet,$row->anu_raparigas,$row->anu_rapazes,$row->anu_despesas,$row->anu_animais,$row->anu_latitude,$row->anu_longitude);
-			}
+				$arrayAnuncios[$i]=new Anuncio($row->anu_id,$row->anu_titulo,$row->anu_descricao,$row->uti_id,$row->anu_morada,$row->anu_telefone,$row->anu_email,$row->anu_codigopostal,$row->anu_data,$row->anu_disponibilidade,$row->anu_estado,$row->anu_preco,null,$row->anu_wcprivativo,$row->anu_mobilada,$row->anu_utensilios,$row->anu_internet,$row->anu_raparigas,$row->anu_rapazes,$row->anu_despesas,$row->anu_animais,$row->anu_latitude,$row->anu_longitude);
+        $i++;
+      }
     return $arrayAnuncios;
   }
 
   //busca anuncio por id
-    function listar_anuncios_id($id_anuncio){
+    function obter_anuncio($id_anuncio){
       global $mybd;
       $STH = $mybd->DBH->prepare("Select anu_id,uti_id,anu_titulo,anu_descricao,anu_morada,anu_email,anu_estado,anu_telefone,anu_codigopostal,anu_disponibilidade,anu_wcprivativo,anu_mobilada,anu_utensilios,anu_internet,anu_rapazes,anu_raparigas,anu_despesas,anu_animais,anu_latitude,anu_longitude,anu_data,anu_preco from anuncio where anu_id=?;");
       $STH->bindParam(1, $id_anuncio);
@@ -59,32 +65,8 @@ Disponibilidade
   function listar_anuncios($opcao){
     $arrayAnuncios=[];
     global $mybd;
-    // se opção 0-Devolve todos anuncios
-    if($opcao==0){
     $STH = $mybd->DBH->prepare("Select anu_id,uti_id,anu_titulo,anu_descricao,anu_morada,anu_email,anu_estado,anu_telefone,anu_codigopostal,anu_disponibilidade,anu_wcprivativo,anu_mobilada,anu_utensilios,anu_internet,anu_rapazes,anu_raparigas,anu_despesas,anu_animais,anu_latitude,anu_longitude,anu_data,anu_preco from anuncio;");
     $STH->bindParam(1, $opcao);
-  }
-    //se opcao 1-anuncios novos pendentes
-    if($opcao==1){
-      $STH = $mybd->DBH->prepare("Select anu_id,uti_id,anu_titulo,anu_descricao,anu_morada,anu_email,anu_estado,anu_telefone,anu_codigopostal,anu_disponibilidade,anu_wcprivativo,anu_mobilada,anu_utensilios,anu_internet,anu_rapazes,anu_raparigas,anu_despesas,anu_animais,anu_latitude,anu_longitude,anu_data,anu_preco from anuncio where anu_estado=2;");
-      $STH->bindParam(1, $opcao);
-    }
-    //se opcao 2-anuncios editados pendentes
-    if($opcao==2){
-      $STH = $mybd->DBH->prepare("Select anu_id,uti_id,anu_titulo,anu_descricao,anu_morada,anu_email,anu_estado,anu_telefone,anu_codigopostal,anu_disponibilidade,anu_wcprivativo,anu_mobilada,anu_utensilios,anu_internet,anu_rapazes,anu_raparigas,anu_despesas,anu_animais,anu_latitude,anu_longitude,anu_data,anu_preco from anuncio where anu_estado=3;");
-      $STH->bindParam(1, $opcao);
-    }
-    //se opcao 3-anuncios dos proprietarios
-    if($opcao==3){
-      $STH = $mybd->DBH->prepare("Select anu_id,uti_id,anu_titulo,anu_descricao,anu_morada,anu_email,anu_estado,anu_telefone,anu_codigopostal,anu_disponibilidade,anu_wcprivativo,anu_mobilada,anu_utensilios,anu_internet,anu_rapazes,anu_raparigas,anu_despesas,anu_animais,anu_latitude,anu_longitude,anu_data,anu_preco from anuncio where uti_id!=0 and uti_id!=1;");
-      $STH->bindParam(1, $opcao);
-    }
-    //se opcao 4-verificar se anuncio é de proprietario e esta pendente
-    if($opcao==4){
-      $STH = $mybd->DBH->prepare("Select anu_id,anuncio.uti_id,anu_titulo,anu_descricao,anu_morada,anu_email,anu_estado,anu_telefone,anu_codigopostal,anu_disponibilidade,anu_wcprivativo,anu_mobilada,anu_utensilios,anu_internet,anu_rapazes,anu_raparigas,anu_despesas,anu_animais,anu_latitude,anu_longitude,anu_data,anu_preco,utilizador.uti_id,uti_tipo from anuncio,utilizador where utilizador.uti_id=anuncio.uti_id and anu_estado=2 and uti_tipo=2;");
-      $STH->bindParam(1, $opcao);
-    }
-    //FALTA UM METODO PARA SABENDO O ID DO ANUNCIO, ELE ME IR BUSCAR O ANUNCIO
     $STH->execute();
     $STH->setFetchMode(PDO::FETCH_OBJ);
     $i=0;

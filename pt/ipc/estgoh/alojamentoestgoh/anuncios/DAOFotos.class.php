@@ -17,7 +17,15 @@ class DAOFoto{
     if(!$STH->execute($anuncio->to_array_com_id()))return false;
     return true;
   }
-
+  //Edita anuncio
+  function obter_foto($idFoto){
+  global $mybd;
+  $STH = $mybd->DBH->prepare("Select fot_id,anu_id,fot_caminho,fot_nome from foto where fot_id=?");
+  $STH->bindParam(1, $idFoto);
+  $STH->setFetchMode(PDO::FETCH_OBJ);
+  $STH->execute();
+  return new Foto($row->fot_id,$row->anu_id,$row->fot_caminho,$row->fot_nome);
+}
 //remove uma foto de um anuncio
   function remover_foto($idFoto){
   global $mybd;
@@ -35,9 +43,12 @@ class DAOFoto{
     $STH = $mybd->DBH->prepare("Select fot_id,anu_id,fot_caminho,fot_nome from foto where anu_id=? ;");
     $STH->bindParam(1, $idAnuncio);
     $STH->setFetchMode(PDO::FETCH_OBJ);
+    $STH->execute();
+    $i=0;
 			while($row = $STH->fetch()){
-        $arrayFotos[sizeof($arrayFotos)]=new Foto($row->fot_id,$row->anu_id,$row->fot_caminho,$row->fot_nome);
-			}
+        $arrayFotos[$i]=new Foto($row->fot_id,$row->anu_id,$row->fot_caminho,$row->fot_nome);
+        $i++;
+      }
     return $arrayFotos;
   }
 

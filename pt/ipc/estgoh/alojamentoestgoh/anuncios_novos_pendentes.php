@@ -6,11 +6,10 @@ include("./comum/carregacontroladores.php");
 
 
 //verifica se gestor está autenticado
-/*if (!isset($_SESSION["AE_id_utilizador"]) && !isset($_SESSION["AE_nome_utilizador"]) && !isset($_SESSION["AE_email_utilizador"]) && !isset($_SESSION["AE_estado_utilizador"]) ){
+/*if (!isset($_SESSION["AE_id_utilizador"]) && !isset($_SESSION["AE_nome_utilizador"]) && !isset($_SESSION["AE_email_utilizador"]) && !isset($_SESSION["AE_estado_utilizador"] && $_SESSION["AE_estado_utilizador"]!=1){
   //Se não tiver sessao manda para pagina index.php
   header("Location: ./index.php");
 }*/
-//vai buscar anuncios novos pendentes
 
 
 //conteudo principal
@@ -178,7 +177,7 @@ ob_start();
        <div class="modal-dialog">
      <!-- Modal content-->
      <div class="modal-content">
-       <form action="#">
+       <form action="anuncios_novos_pendentes.php"  Method="POST">
        <div class="modal-header">
          <button type="button" class="close" data-dismiss="modal">&times;</button>
          <h4 class="modal-title"><?php print $desativaConta; ?></h4>
@@ -187,7 +186,7 @@ ob_start();
          <p><?php print $certeza; ?></p>
        </div>
        <div class="modal-footer">
-         <button type="button" class="btn btn-danger" data-dismiss="modal"><?php print $desativar; ?></button>
+          <input type="submit" name="DesativaConta" class="btn btn-danger"   value=<?php print $desativar; ?>>
          <button type="button" class="btn btn-default" data-dismiss="modal"><?php print $Fechar; ?></button>
        </div>
      </form>
@@ -203,28 +202,19 @@ ob_start();
            <h4 class="modal-title corBranca"><?php print $alteraPass;?></h4>
          </div>
          <div class="modal-body">
-           <form action="#">
+           <form action="anuncios_novos_pendentes.php" method="POST">
              <br>
                <label class="corPreta" ><b><?php print $PassNova;?></b></label><br>
-               <input class="form-control" type="email" placeholder="Password" name="eml" data-toggle="tooltip" title="Se quer alterar o email insira um novo e edite!Caso contrario deixe o inicial!">
+               <input class="form-control" type="password" placeholder="Password" name="password1" data-toggle="tooltip" title="Se quer alterar o email insira um novo e edite!Caso contrario deixe o inicial!">
                <br>
                <label class="corPreta"><b><?php print $PassNovaRepete;?></b></label><br>
-               <input class="form-control" type="password" placeholder="Repetir password" name="psw" data-toggle="tooltip" title="Se quer alterar a password insira uma nova e edite!">
+               <input class="form-control" type="password" placeholder="Repetir password" name="password2" data-toggle="tooltip" title="Se quer alterar a password insira uma nova e edite!">
                <br>
 
-               <div id="Aviso2" class="alert alert-success" role="alert" style="display:none;" >
-                   <div class="row leftCaracteris">
-                   <div class="col-lg-2 ">
-                   <img class="alertaImg" src="img/certo.png" alt="">
-                   </div>
-                   <div class="col-lg-8">
-                     <span class="glyphicon glyphicon-alert"><?php print $alteradaSucesso;?></span>
-                   </div>
-                 </div>
-               </div>
+
                <div class="row" style="text-align:center;">
                <div class="col-12">
-               <button class="btn btn-primary navbar-btn" onclick="Mudarestado('Aviso2')" type="submit" ><?php print $editar;?></button>
+                 <input type="submit" name="EditarPassword" class="btn btn-primary navbar-btn"  value=<?php print $editar;?>>
                </div>
                </div>
            </form>
@@ -265,6 +255,48 @@ ob_start();
         <div class="col-lg-9">
 
           <div class="container">
+
+            <div id="aviso_registo_sucesso" class="alert alert-success aviso_registo_sucesso" role="alert">
+                  <div class="row leftCaracteris">
+                  <div class="col-lg-2 ">
+                  <img class="alertaImg" src="img/certo.png" alt="">
+                  </div>
+                  <div class="col-lg-8">
+                    <span class="glyphicon glyphicon-alert"><?php print $alteradaSucessoPass;?></span>
+                  </div>
+                </div>
+              </div>
+              <div id="aviso_registo_insucesso_password" class="alert alert-danger aviso_registo_insucesso_password" role="alert">
+                    <div class="row leftCaracteris">
+                    <div class="col-lg-2 ">
+                    <img class="alertaImg" src="img/certo.png" alt="">
+                    </div>
+                    <div class="col-lg-8">
+                      <span class="glyphicon glyphicon-alert"><?php print $caracPassword;?></span>
+                    </div>
+                  </div>
+                </div>
+                <div id="aviso_login_insucesso" class="alert alert-danger aviso_login_insucesso" role="alert">
+                      <div class="row leftCaracteris">
+                      <div class="col-lg-2 ">
+                      <img class="alertaImg" src="img/certo.png" alt="">
+                      </div>
+                      <div class="col-lg-8">
+                        <span class="glyphicon glyphicon-alert"><?php print $PasswordIguais;?></span>
+                      </div>
+                    </div>
+                  </div>
+                  <div id="aviso_registo_insucesso_password" class="alert alert-success aviso_registo_insucesso_password" role="alert">
+                        <div class="row leftCaracteris">
+                        <div class="col-lg-2 ">
+                        <img class="alertaImg" src="img/certo.png" alt="">
+                        </div>
+                        <div class="col-lg-8">
+                          <span class="glyphicon glyphicon-alert"><?php print $rejetadoSuce;?></span>
+                        </div>
+                      </div>
+                    </div>
+
             <div class="linhaflex">
               <div class="titulo">
               <?php print $AnuNovosPend;?>
@@ -302,7 +334,8 @@ ob_start();
                     <tbody>
                       <?php
                       $mybd->ligar_bd();
-                      $anuncios_novos_pendentes=$dao_anuncios->listar_anuncios(1);
+                      $anuncios_novos_pendentes=$dao_anuncios->listar_anuncios_anunciante(-1,2);
+
                         if(sizeof($anuncios_novos_pendentes)==0){
                           echo('<tr>');
                           echo('<td>Não tem anuncios novos pendentes!</td>');
@@ -310,7 +343,8 @@ ob_start();
                         }else{
                           for ($i=0; $i <sizeof($anuncios_novos_pendentes); $i++) {
                             $anuncios=$anuncios_novos_pendentes[$i];
-                           $Proprietario=$dao_utilizadores->obter_utilizador_id($anuncios->Proprietario);
+                            $fotosAnuncio=$dao_fotos->listar_fotos_anuncio($anuncios->Id_Anuncio);
+                            $Proprietario=$dao_utilizadores->obter_utilizador_id($anuncios->Proprietario);
                             echo('<tr>');
                             echo('<td>'.$anuncios->Titulo.'</td>');
                             echo('<td>'.$anuncios->Preco.'</td>');
@@ -336,16 +370,6 @@ ob_start();
                               </div>
                               <input type="hidden" name="idAnuR" value='.$anuncios->Id_Anuncio.'>
 
-                            <div id="aviso_login_insucesso" class="alert alert-success aviso_login_insucesso" role="alert">
-                                  <div class="row leftCaracteris">
-                                  <div class="col-lg-2 ">
-                                  <img class="alertaImg" src="img/certo.png" alt="">
-                                  </div>
-                                  <div class="col-lg-8">
-                                    <span class="glyphicon glyphicon-alert">'.$rejetadoSuce.'</span>
-                                  </div>
-                                </div>
-                              </div>
 
                              <div class="modal-footer">
                              <input name="elimina" class="btn btn-danger"  type="submit" value='.$rejeitar.'>
@@ -382,19 +406,14 @@ ob_start();
                                             <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
                                           </ol>
                                           <div class="carousel-inner" role="listbox">
-                                            <!-- Slide One - Set the background image for this slide in the line below -->
-                                            <div class="carousel-item active" >
-                                              <img src="img/1.jpg" alt="" width="100%">
-                                            </div>
-                                            <!-- Slide Two - Set the background image for this slide in the line below -->
-                                            <div class="carousel-item" >
-                                              <img src="img/2.jpg" alt="" width="100%">
-                                            </div>
-                                            <!-- Slide Three - Set the background image for this slide in the line below -->
-                                            <div class="carousel-item" >
-                                              <img src="img/3.jpg" alt="" width="100%">
-                                            </div>
-                                          </div>
+                                          ');
+                                          for($l=0;$l<sizeof($fotosAnuncio);$l++){
+                                            $foto=$fotosAnuncio[$l];
+                                            echo('<div class="carousel-item active" >
+                                              <img src="./'.$foto->Caminho.'/'.$foto->Nome.'" alt="" width="100%">
+                                            </div>');
+                                          }
+                                          echo('</div>
                                         </div>
                                         </div>
                                         <div class="card-body ">
@@ -515,13 +534,48 @@ ob_start();
 
 
     <?php
+    if(isset($_POST["EditarPassword"]) && !empty($_POST["EditarPassword"])){
+      if(!strcmp($_POST["password1"],$_POST["password2"])){
+        if(verifca_password($_POST["password1"])==true){
+        /*$password=password_hash($_POST["password1"],PASSWORD_DEFAULT);
+        $utilizador_edita_pass=new Gestor($_SESSION['AE_id_utilizador'],"","",$password,"","");
+        $dao_utilizadores->editar_utilizador($utilizador_edita_pass);*/
+        print('<script>
+                jQuery(document).ready(function( $ ) {
+                  jQuery("#aviso_registo_sucesso").show();
+                });
+            </script>');
+        }else{//caracteristicas mal
+          print('<script>
+                  jQuery(document).ready(function( $ ) {
+                    jQuery("#aviso_registo_insucesso_password").show();
+                  });
+              </script>');
+        }
+      }else{//password diferentes
+        print('<script>
+                jQuery(document).ready(function( $ ) {
+                  jQuery("#aviso_login_insucesso").show();
+                });
+            </script>');
+          }
+    }
+//desativa a conta e vai para a pagina index e elimina session
+      if(isset($_POST["DesativaConta"]) && !empty($_POST["DesativaConta"])){
+        $dao_utilizadores->alterar_estado($_SESSION["AE_id_utilizador"],3);
+        unset($_SESSION['AE_id_utilizador']);
+        unset($_SESSION['AE_nome_utilizador']);
+        unset($_SESSION['AE_email_utilizador']);
+        unset($_SESSION['AE_estado_utilizador']);
+        header('Location: index.php');
+      }
     //altera estado de anuncio novo pendente para ativo
     //FALTA ADICIONAR NOTIFICAÇAO
     if(isset($_POST["aceitar"]) && !empty($_POST["aceitar"])){
       $mybd->ligar_bd();
-      $anuncioEdita=$dao_anuncios->listar_anuncios_id($_POST["idAnuA"]);
-        $anuncioEdita->Estado=1;
-        $dao_anuncios->editar_anuncio($anuncioEdita);
+      $anuncioEdita=$dao_anuncios->obter_anuncio($_POST["idAnuA"]);
+      $anuncioEdita->Estado=1;
+      $dao_anuncios->editar_anuncio($anuncioEdita);
       $mybd->desligar_bd();
       header("Refresh:0; url=anuncios_novos_pendentes.php");
     }
@@ -529,18 +583,31 @@ ob_start();
 //fALTA ADICIONAR NOTIFICAÇAÕ
     if(isset($_POST["elimina"]) && !empty($_POST["elimina"])){
       $mybd->ligar_bd();
-      $anuncioEdita=$dao_anuncios->listar_anuncios_id($_POST["idAnuR"]);
+      $anuncioEdita=$dao_anuncios->obter_anuncio($_POST["idAnuR"]);
       $anuncioEdita->Estado=4;
       $dao_anuncios->editar_anuncio($anuncioEdita);
             print('<script>
                     jQuery(document).ready(function( $ ) {
-                      jQuery("#aviso_login_insucesso").show();
+                      jQuery("#aviso_registo_insucesso_password").show();
                     });
                 </script>');
       $mybd->desligar_bd();
       header("Location: ./anuncios_novos_pendentes.php");
 
     }
+
+    function verifca_password(){
+  		//verifica se tem pelo menos um caracter maiusculo
+  		if(preg_match('/[A-Z]/', $_POST["password1"])!=1)
+  			return false;// nao tem maisculas
+  		//verifica se tem pelo menos 9 carcteres
+  		if(strlen($_POST["password1"])<8)
+  			return false;//tamanho invalido
+  		//verifica se tem numeros
+  		if(preg_match('/[1-9]/', $_POST["password1"])!=1)
+  			return false;//nao tem numeros
+  		return true;// (correto)
+  	}
 
     ?>
 
