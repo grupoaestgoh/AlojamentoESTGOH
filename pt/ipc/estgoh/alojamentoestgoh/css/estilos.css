@@ -139,9 +139,12 @@ body{
 /*Fim CSS  para gestor */
 
 /*CSS Nav*/
-
+.dados{
+    height: 280px;
+    width: 190px;
+}
 .notificacoes {
-    width: 430px;
+  width: 270px;
     height: 250px;
     overflow-y: scroll;
     overflow-x: hidden;
@@ -196,7 +199,14 @@ body{
 .navbar-brand, .nav-link, .navtitle {
   font-family: "Germania One";
 }
-
+.formabotao{
+  border:none;
+  background-color: #0775b8;
+}
+.formabotao:hover{
+  border:none;
+  background-color: whitec;
+}
 .nav-link {
   display: block;
   font-family: "Germania One";

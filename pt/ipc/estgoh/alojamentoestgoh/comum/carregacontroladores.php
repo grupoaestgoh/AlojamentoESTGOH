@@ -15,7 +15,8 @@ include('./anuncios/anuncio.class.php');
 include('./anuncios/foto.class.php');
 include('./anuncios/DAOAnuncio.class.php');
 include('./anuncios/DAOFotos.class.php');
-
+include('./notificacoes/DAONotificacao.class.php');
+include('./notificacoes/notificacao.class.php');
 //Ficheiro da internacionalização
 if (file_exists ( "./lang/i18n_" . $lingua . ".php" ))
   include "./lang/i18n_" . $lingua . ".php";
@@ -30,4 +31,6 @@ $mybd=new BaseDados();
 $dao_utilizadores=new DAOUtilizadores();
 $dao_anuncios=new DAOAnuncios();
 $dao_fotos=new DAOFoto();
+$dao_notificacao=new DAONotificacoes();
+
  ?>

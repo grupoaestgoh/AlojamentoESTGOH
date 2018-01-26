@@ -6,10 +6,10 @@ include("./comum/carregacontroladores.php");
 
 
 //verifica se gestor está autenticado
-/*if (!isset($_SESSION["AE_id_utilizador"]) && !isset($_SESSION["AE_nome_utilizador"]) && !isset($_SESSION["AE_email_utilizador"]) && !isset($_SESSION["AE_estado_utilizador"] && $_SESSION["AE_estado_utilizador"]!=1){
+if (!isset($_SESSION["AE_id_utilizador"]) && !isset($_SESSION["AE_nome_utilizador"]) && !isset($_SESSION["AE_email_utilizador"]) && !isset($_SESSION["AE_estado_utilizador"] && $_SESSION["AE_estado_utilizador"]!=1){
   //Se não tiver sessao manda para pagina index.php
   header("Location: ./index.php");
-}*/
+}
 
 
 //conteudo principal
@@ -106,23 +106,28 @@ ob_start();
            <div class="dropdown-menu notificacoes" aria-labelledby="alertsDropdown">
              <h6 class="dropdown-header"><?php print $NovasNotifica; ?></h6>
              <div class="dropdown-divider"></div>
-             <a class="dropdown-item" href="#">
-               <span class="text-success">
-                 <strong>
-                   <i class="fa"></i>Tem anuncio para aprovação</strong>
-               </span>
-               <span class="small float-right text-muted">11:21 horas</span>
-               <div class="dropdown-message small">Tem anuncio editado para aprovar.</div>
-             </a>
-             <div class="dropdown-divider"></div>
-             <a class="dropdown-item" href="#">
-               <span class="text-warning">
-                 <strong>
-                   <i class="fa"></i>Tem pedido de desativação</strong>
-               </span>
-               <span class="small float-right text-muted">11:21 horas</span>
-               <div class="dropdown-message small">O utilizador Manuel pediu para desativar a conta.</div>
-             </a>
+             <?php
+
+             $mybd->ligar_bd();
+             $notificacoes_uti=$dao_notificacao->listar_notificacoes($_SESSION["AE_id_utilizador"]);
+             if (sizeof($notificacoes_uti)>0) {
+               for($i=0;$i<sizeof($notificacoes_uti);$i++){
+                 $notificacao=$notificacoes_uti[$i];
+                  echo(' <a class="dropdown-item" > <span class="text-');
+                     if($notificacao->Estado==1) print "warning"; else print "success";
+                    echo('"><!--successwarning/danger --> <strong>
+                         <i class="fa"></i>'.$notificacao->Descricao.'</strong>
+                     </span>
+                     <span class="small float-right text-muted">'.$notificacao->Hora.' horas</span>
+                     <div class="dropdown-message small">'.$notificacao->Descricao.'</div>
+                   </a>');
+                   if($i<sizeof($notificacoes_uti))echo('<div class="dropdown-divider"></div>');
+                 }
+               }else{
+                 print"Não tem notificações!";
+               }
+                $mybd->desligar_bd();
+             ?>
 
 
            </div>
@@ -135,7 +140,7 @@ ob_start();
              </span>
 
            </a>
-           <div class="dropdown-menu " aria-labelledby="alertsDropdown">
+           <div class="dropdown-menu dados" aria-labelledby="alertsDropdown">
              <h6 class="dropdown-header"><?php print $MeusDados1; ?></h6>
              <div class="dropdown-divider"></div>
 
@@ -151,7 +156,6 @@ ob_start();
                <div class="dropdown-message small"><?php print $_SESSION["AE_email_utilizador"]; ?></div>
              </a>
 
-             <div class="dropdown-divider"></div>
 
              <a class="dropdown-item" href="#">
                <strong>
@@ -164,8 +168,11 @@ ob_start();
            </div>
          </li>
          <li class="nav-item">
-           <a href="./index.php" class="nav-link navGestorimg" >
-             <i class="fa fa-fw fa-sign-out"></i><?php print $terminaSessao; ?></a>
+           <form action="anuncios_novos_pendentes.php" Method="POST">
+             <!--<i class="fa fa-fw fa-sign-out">-->
+               <input name="TerminarSessao" class="nav-link navGestorimg formabotao" type="submit" value="<?php print $terminaSessao; ?>">
+            </form>
+
          </li>
        </ul>
      </div>
@@ -232,6 +239,8 @@ ob_start();
        </div>
 
      </div>
+
+
    </div>
    <!-- End modal -->
     <!-- Page Content -->
@@ -537,9 +546,9 @@ ob_start();
     if(isset($_POST["EditarPassword"]) && !empty($_POST["EditarPassword"])){
       if(!strcmp($_POST["password1"],$_POST["password2"])){
         if(verifca_password($_POST["password1"])==true){
-        /*$password=password_hash($_POST["password1"],PASSWORD_DEFAULT);
+        $password=password_hash($_POST["password1"],PASSWORD_DEFAULT);
         $utilizador_edita_pass=new Gestor($_SESSION['AE_id_utilizador'],"","",$password,"","");
-        $dao_utilizadores->editar_utilizador($utilizador_edita_pass);*/
+        $dao_utilizadores->editar_utilizador($utilizador_edita_pass);
         print('<script>
                 jQuery(document).ready(function( $ ) {
                   jQuery("#aviso_registo_sucesso").show();
@@ -563,6 +572,14 @@ ob_start();
 //desativa a conta e vai para a pagina index e elimina session
       if(isset($_POST["DesativaConta"]) && !empty($_POST["DesativaConta"])){
         $dao_utilizadores->alterar_estado($_SESSION["AE_id_utilizador"],3);
+        unset($_SESSION['AE_id_utilizador']);
+        unset($_SESSION['AE_nome_utilizador']);
+        unset($_SESSION['AE_email_utilizador']);
+        unset($_SESSION['AE_estado_utilizador']);
+        header('Location: index.php');
+      }
+      //termina sessão
+      if(isset($_POST["TerminarSessao"]) && !empty($_POST["TerminarSessao"])){
         unset($_SESSION['AE_id_utilizador']);
         unset($_SESSION['AE_nome_utilizador']);
         unset($_SESSION['AE_email_utilizador']);
