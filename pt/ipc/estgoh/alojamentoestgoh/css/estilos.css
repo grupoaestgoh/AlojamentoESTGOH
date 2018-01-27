@@ -68,7 +68,9 @@ body{
 .divAzul{
   background-color: #0775b8;
 }
-
+.divBranca{
+  background-color: white!important;
+}
 #imgbandeira {
   padding-right: 30px;
   width:100%;

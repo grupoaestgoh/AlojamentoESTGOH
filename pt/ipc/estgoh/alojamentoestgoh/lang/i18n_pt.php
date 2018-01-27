@@ -40,7 +40,12 @@
 	$rejeitar="Rejeitar";
 	$certeza="Tem a certeza que quer desativar a conta?";
 	$desativar="Desativar";
-
+	$anu_aprovado="Anuncio Aprovado!";
+	$anu_pendente="Tem anuncio pendente!" ;
+	$pro_pendente="Tem proprietario pendente!";
+	$den_denuncia="Denuncia de um anuncio!" ;
+	$anu_reprovado="Anuncio reprovado!" ;
+	$pro_desativa="Pedidos de desativacao de conta!";
 
 //Rodape
 	$estgohR="Estgoh";
