@@ -1,13 +1,20 @@
 <?php
-		//sessao
-		session_start();
+//sessao
+session_start();
+//carregar controladores
+include("./comum/carregacontroladores.php");
 
-		//carregar controladores
-		include("./comum/carregacontroladores.php");
-		$dao_utilizador=new DAOUtilizadores();
+//verifica se gestor está autenticado
+if (isset($_SESSION["AE_id_utilizador"]) && isset($_SESSION["AE_nome_utilizador"]) && isset($_SESSION["AE_email_utilizador"]) && isset($_SESSION["AE_estado_utilizador"])){
+	//Se não tiver sessao manda para pagina index.php
+	if($_SESSION["AE_estado_utilizador"]!=1 )header("Location: ./index.php");
+}else{
+	header("Location: ./index.php");
+}
 
-		//conteudo principal
-		ob_start();
+
+//conteudo principal
+ob_start();
 ?>
 
 <!-- Navigation -->

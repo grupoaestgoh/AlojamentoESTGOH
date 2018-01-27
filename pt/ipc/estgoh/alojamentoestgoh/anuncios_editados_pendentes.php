@@ -4,15 +4,14 @@
 session_start();
 //carregar controladores
 include("./comum/carregacontroladores.php");
-$dao_utilizador=new DAOUtilizadores();
 
 //verifica se gestor está autenticado
-if (isset($_SESSION["AE_id_utilizador"]) && isset($_SESSION["AE_nome_utilizador"]) && isset($_SESSION["AE_email_utilizador"]) && isset($_SESSION["AE_estado_utilizador"])){
+/*if (isset($_SESSION["AE_id_utilizador"]) && isset($_SESSION["AE_nome_utilizador"]) && isset($_SESSION["AE_email_utilizador"]) && isset($_SESSION["AE_estado_utilizador"])){
   //Se não tiver sessao manda para pagina index.php
   if($_SESSION["AE_estado_utilizador"]!=1)header("Location: ./index.php");
 }else{
   header("Location: ./index.php");
-}
+}*/
 
 
 
@@ -74,15 +73,15 @@ ob_start();
            <a href="registo_outros_gestores.php"><?php print $RegGestor; ?></a>
          </li>
          <li>
-           <a href="desativa_proprietario.phpl"><?php print $DesaProprietario; ?></a>
+           <a href="desativar_proprietario.php"><?php print $DesaProprietario; ?></a>
          </li>
          <li>
-           <a href="desativa_gestor.php"><?php print $DesaGestor; ?></a>
+           <a href="desativar_gestor.php"><?php print $DesaGestor; ?></a>
          </li>
        </ul>
      </li>
      <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Example Pages">
-       <a class="nav-link "  href="anuncios_denuncioados.php" >
+       <a class="nav-link "  href="anuncios_denunciados.php" >
          <i class="fa fa-fw fa-file"></i>
          <span ><?php print $AnunDenunciados; ?></span>
        </a>
@@ -236,7 +235,7 @@ ob_start();
                <div id="aviso_registo_sucesso" class="alert alert-success aviso_registo_sucesso" role="alert">
                      <div class="row leftCaracteris">
                      <div class="col-lg-2 ">
-                     <img class="alertaImg" src="img/img_aplicacao/alerta.png" alt="">
+                     <img class="alertaImg" src="img/img_aplicacao/certo.png" alt="">
                      </div>
                      <div class="col-lg-8">
                        <span class="glyphicon glyphicon-alert"><?php print $alteradaSucessoPass;?></span>
@@ -256,7 +255,7 @@ ob_start();
                    <div id="aviso_login_insucesso" class="alert alert-danger aviso_login_insucesso" role="alert">
                          <div class="row leftCaracteris">
                          <div class="col-lg-2 ">
-                         <img class="alertaImg" src="img/img_aplicacao/certo.png" alt="">
+                         <img class="alertaImg" src="img/img_aplicacao/alerta.png" alt="">
                          </div>
                          <div class="col-lg-8">
                            <span class="glyphicon glyphicon-alert"><?php print $PasswordIguais;?></span>
@@ -301,10 +300,10 @@ ob_start();
         <div class="col-12">
           <div class="bandeira">
             <a href="#">
-                <img  src="bandeiras/pt.jpg" alt="">
+                <img  src="img/img_aplicacao/pt.jpg" alt="">
             </a>
             <a href="#">
-              <img src="bandeiras/UK.jpg" alt="">
+              <img src="img/img_aplicacao/UK.jpg" alt="">
             </a>
           </div>
         </div>
@@ -623,6 +622,8 @@ ob_start();
           $("#myModal20").modal();
       });
           </script>');
+          header("refresh: 1;anuncios_editados_pendentes.php");
+
       }else{//caracteristicas mal
         print('<script>
                 jQuery(document).ready(function( $ ) {
@@ -644,6 +645,7 @@ ob_start();
           </script>');
 
         }
+
   }
 
   //desativa a conta e vai para a pagina index e elimina session
@@ -674,7 +676,7 @@ ob_start();
           $dao_anuncios->editar_anuncio($anuncioEdita);
           $dao_notificacao->inserir_notificacao(new Notificacao(0,$anuncioEdita->Proprietario,2,"Agora todos os alunos poderao ver o seu anuncio!",date("Y-m-d"),date('H:i:s'),0,1));
           $mybd->desligar_bd();
-        //  header("Refresh:0; url=anuncios_editados_pendentes.php");
+          header("Refresh:0; url=anuncios_editados_pendentes.php");
         }
         //altera estado de anuncio novo pendente para inativo
         //fALTA ADICIONAR NOTIFICAÇAÕ
@@ -698,13 +700,13 @@ ob_start();
 
   function verifca_password(){
     //verifica se tem pelo menos um caracter maiusculo
-    if(preg_match('/[A-Z]/', $_POST["password1"])!=1)
+    if(preg_match('/[A-Z]/',$pass)!=1)
       return false;// nao tem maisculas
     //verifica se tem pelo menos 9 carcteres
-    if(strlen($_POST["password1"])<8)
+    if(strlen($pass)<8)
       return false;//tamanho invalido
     //verifica se tem numeros
-    if(preg_match('/[1-9]/', $_POST["password1"])!=1)
+    if(preg_match('/[1-9]/',$pass)!=1)
       return false;//nao tem numeros
     return true;// (correto)
   }

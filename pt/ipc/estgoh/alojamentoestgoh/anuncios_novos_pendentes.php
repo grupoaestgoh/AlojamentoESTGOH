@@ -5,12 +5,12 @@ session_start();
 include("./comum/carregacontroladores.php");
 
 //verifica se gestor está autenticado
-if (isset($_SESSION["AE_id_utilizador"]) && isset($_SESSION["AE_nome_utilizador"]) && isset($_SESSION["AE_email_utilizador"]) && isset($_SESSION["AE_estado_utilizador"])){
+/*if (isset($_SESSION["AE_id_utilizador"]) && isset($_SESSION["AE_nome_utilizador"]) && isset($_SESSION["AE_email_utilizador"]) && isset($_SESSION["AE_estado_utilizador"])){
   //Se não tiver sessao manda para pagina index.php
   if($_SESSION["AE_estado_utilizador"]!=1 )header("Location: ./index.php");
 }else{
   header("Location: ./index.php");
-}
+}*/
 
 
 //conteudo principal
@@ -71,15 +71,15 @@ ob_start();
                <a href="registo_outros_gestores.php"><?php print $RegGestor; ?></a>
              </li>
              <li>
-               <a href="desativa_proprietario.phpl"><?php print $DesaProprietario; ?></a>
+               <a href="desativa_proprietario.php"><?php print $DesaProprietario; ?></a>
              </li>
              <li>
-               <a href="desativa_gestor.php"><?php print $DesaGestor; ?></a>
+               <a href="desativar_gestor.php"><?php print $DesaGestor; ?></a>
              </li>
            </ul>
          </li>
          <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Example Pages">
-           <a class="nav-link "  href="anuncios_denuncioados.php" >
+           <a class="nav-link "  href="anuncios_denunciados.php" >
              <i class="fa fa-fw fa-file"></i>
              <span ><?php print $AnunDenunciados; ?></span>
            </a>
@@ -182,9 +182,7 @@ ob_start();
            </div>
          </li>
          <li class="nav-item">
-             <!---->
                <a href="anuncios_novos_pendentes.php?TerminarSessao=TS" class="nav-link navGestorimg formabotao" ><i class="fa fa-fw fa-sign-out"></i><?php print $terminaSessao; ?></a>
-
          </li>
        </ul>
      </div>
@@ -291,10 +289,10 @@ ob_start();
         <div class="col-12">
           <div class="bandeira">
             <a href="#">
-                <img  src="bandeiras/pt.jpg" alt="">
+                <img  src="img/img_aplicacao/pt.jpg" alt="">
             </a>
             <a href="#">
-              <img src="bandeiras/UK.jpg" alt="">
+              <img src="img/img_aplicacao/UK.jpg" alt="">
             </a>
           </div>
         </div>
@@ -591,6 +589,9 @@ ob_start();
             $("#myModal20").modal();
         });
             </script>');
+            header("refresh: 1;anuncios_novos_pendentes.php");
+
+
         }else{//caracteristicas mal
           print('<script>
                   jQuery(document).ready(function( $ ) {
@@ -612,6 +613,8 @@ ob_start();
             </script>');
 
           }
+
+
     }
 //desativa a conta e vai para a pagina index e elimina session
       if(isset($_POST["DesativaConta"]) && !empty($_POST["DesativaConta"])){
@@ -630,6 +633,20 @@ ob_start();
         unset($_SESSION['AE_estado_utilizador']);
         header('Location: index.php');
       }
+
+          function verifca_password($pass){
+        		//verifica se tem pelo menos um caracter maiusculo
+        		if(preg_match('/[A-Z]/',$pass)!=1)
+        			return false;// nao tem maisculas
+        		//verifica se tem pelo menos 9 carcteres
+        		if(strlen($pass)<8)
+        			return false;//tamanho invalido
+        		//verifica se tem numeros
+        		if(preg_match('/[1-9]/',$pass)!=1)
+        			return false;//nao tem numeros
+        		return true;// (correto)
+        	}
+
     //altera estado de anuncio novo pendente para ativo
     if(isset($_POST["aceitar"]) && !empty($_POST["aceitar"])){
       $mybd->ligar_bd();
@@ -657,18 +674,6 @@ $mybd->desligar_bd();
 header("refresh: 1;anuncios_novos_pendentes.php");
 }
 
-    function verifca_password(){
-  		//verifica se tem pelo menos um caracter maiusculo
-  		if(preg_match('/[A-Z]/', $_POST["password1"])!=1)
-  			return false;// nao tem maisculas
-  		//verifica se tem pelo menos 9 carcteres
-  		if(strlen($_POST["password1"])<8)
-  			return false;//tamanho invalido
-  		//verifica se tem numeros
-  		if(preg_match('/[1-9]/', $_POST["password1"])!=1)
-  			return false;//nao tem numeros
-  		return true;// (correto)
-  	}
 
     ?>
 
