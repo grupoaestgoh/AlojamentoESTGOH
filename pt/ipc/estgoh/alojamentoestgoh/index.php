@@ -210,24 +210,25 @@ if(isset($_POST["entrar"]) && !empty($_POST["entrar"])){
 						});
 				</script>');
 				//iniciar sessão
-				if ($obj instanceof Anunciante) {
+				if ($utilizador instanceof Anunciante) {
 					 $_SESSION["AE_id_utilizador"] = $utilizador->id_utilizador;
 					 $_SESSION["AE_nome_utilizador"] = $utilizador->nome;
 					 $_SESSION["AE_email_utilizador"] = $utilizador->email;
 					 $_SESSION["AE_estado_utilizador"] = $utilizador->Estado;
 					 $_SESSION["AE_tipo_utilizador"] = $utilizador->Tipo;
 					 $_SESSION["AE_data_incricao_utilizador"] = $utilizador->Data_Inscricao;
+					 header("Location: ./anuncios.php");
 				}
-				if ($obj instanceof Estudante) {
-					 $_SESSION["AE_email_utilizador"] = $utilizador->email;
-				}
-				if ($obj instanceof Gestor) {
+				if ($utilizador instanceof Gestor) {
 					 $_SESSION["AE_id_utilizador"] = $utilizador->id_utilizador;
 					 $_SESSION["AE_nome_utilizador"] = $utilizador->nome;
 					 $_SESSION["AE_email_utilizador"] = $utilizador->email;
 					 $_SESSION["AE_estado_utilizador"] = $utilizador->Estado;
+					 $_SESSION["AE_tipo_utilizador"] = $utilizador->Tipo;
+					 $_SESSION["AE_data_incricao_utilizador"] = $utilizador->Data_Inscricao;
+					 header("Location: ./anuncios_novos_pendentes.php");
 				}
-				header("Location: ./home_page.php");
+
 			}else{
 				print('<script>
 								jQuery(document).ready(function( $ ) {
@@ -236,12 +237,42 @@ if(isset($_POST["entrar"]) && !empty($_POST["entrar"])){
 						</script>');
 			}
 		}else{
+			$array_email=explode("@",$_POST['emailL']);
+			$utilizador=$array_email[0];
+			$password=$_POST['passwordL'];
+			$ldap_host = "192.168.135.1";
+			$ldap_utilizador  = 'uid='.$utilizador.',ou=Users,dc=estgoh,dc=ipc.pt';
+			$ldap_pass = $password;
+			// efetuar a conexao ao ldap
+			$ldap_conexao = ldap_connect($ldap_host) or die("Could not connect to LDAP server.");
+			// opcoes do ldap
+			ldap_set_option($ldap_conexao, LDAP_OPT_NETWORK_TIMEOUT, 2); /* 2 segundos timeout */
+			ldap_set_option($ldap_conexao, LDAP_OPT_PROTOCOL_VERSION, 3);
+			ldap_set_option($ldap_conexao, LDAP_OPT_REFERRALS, 0);
+			if ($ldap_conexao) {
+							//fazer um bind ao ldap
+							$ldap_bind = @ldap_bind($ldap_conexao,$ldap_utilizador,$ldap_pass);
+							// testar o bind
+							if ($ldap_bind) {
+									$_SESSION["AE_email_utilizador"] = $utilizador->email;
+									$_SESSION["AE_tipo_utilizador"] = $utilizador->Tipo;
+									header("Location: ./ver_todos_anuncios.php");
+							} else {
+								print('<script>
+												jQuery(document).ready(function( $ ) {
+														jQuery("#aviso_login_insucesso").show();
+												});
+										</script>');
+							}
+			}
+
 			print('<script>
 							jQuery(document).ready(function( $ ) {
 									jQuery("#aviso_login_insucesso").show();
 							});
 					</script>');
 		}
+
 	}else{
 		print('<script>
 						jQuery(document).ready(function( $ ) {
@@ -324,7 +355,7 @@ if(isset($_POST["registar"]) && !empty($_POST["registar"])){
 	if($flag==3){//se estiverem os dados todos inseridos e corretos regista o utilizador
 		//criar o utilizador
 		$password=password_hash($_POST["passwordR"],PASSWORD_DEFAULT);
-		$utilizador= new utilizador(0,$_POST["nomeR"],$_POST["emailR"],$password,2,date("Y-m-d"));
+		$utilizador= new utilizador(0,$_POST["nomeR"],$_POST["emailR"],$password,1,date("Y-m-d"));
 		//insere o utilizador na bd
 		$dao_utilizadores->inserir_utilizador($utilizador);
 		print('<script>

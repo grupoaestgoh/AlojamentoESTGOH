@@ -1,7 +1,7 @@
 # AlojamentoESTGOH
 
 
-Bruno: pagina index     [falta a parte do ldap para os alunos entrarem]
+Bruno: pagina index    
 
 Bruno: pagina registo_primeiro_gestor     [falta enviar corretamente os dados]
 
@@ -9,7 +9,7 @@ Bruno: pagina home_page (todos)
 
 Bruno: pagina anuncios(anunciante)
 
-Bruno: pagina registo_anuncio(anunciante)
+Bruno: pagina adicionar_anuncio (anunciante)
 
 
 Fabio: pagina desativar_gestor (gestor)
@@ -20,7 +20,7 @@ Fabio: pagina registo_outros_gestores(gestor)
 
 
 
-Jessica: pagina adicionar_anuncio (gestor)
+Jessica: pagina  registo_anuncio(gestor)
 
 Jessica: pagina anuncios_novos_pendentes (gestor)
 

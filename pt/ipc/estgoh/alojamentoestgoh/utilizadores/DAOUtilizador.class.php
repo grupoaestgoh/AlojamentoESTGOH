@@ -1,10 +1,9 @@
 <?php
 class DAOUtilizadores{
   /*
-  0-adimistrador
+  0-administrador
   1-gestor
   2-anunciantes
-  3-estudante
 
   Estado
   1-ativo
@@ -30,8 +29,7 @@ class DAOUtilizadores{
     $STH->setFetchMode(PDO::FETCH_OBJ);
     while($row = $STH->fetch()){
       if($row->uti_tipo==2)return new Anunciante($row->uti_id,$row->uti_nome,$row->uti_email,$row->uti_password,$row->uti_estado,$row->uti_tipo,$row->uti_inscricao,$row->uti_estado);
-      if($row->uti_tipo==1)return new Estudante($row->uti_id,$row->uti_nome,$row->uti_email,$row->uti_password,$row->uti_estado,$row->uti_tipo,$row->uti_inscricao);
-      if($row->uti_tipo==0)return new Gestor($row->uti_id,$row->uti_nome,$row->uti_email,$row->uti_password,$row->uti_estado,$row->uti_tipo,$row->uti_inscricao,$row->uti_estado);
+      if($row->uti_tipo==0 || $row->uti_tipo==1)return new Gestor($row->uti_id,$row->uti_nome,$row->uti_email,$row->uti_password,$row->uti_estado,$row->uti_tipo,$row->uti_inscricao,$row->uti_estado);
     }
 
     return null;
