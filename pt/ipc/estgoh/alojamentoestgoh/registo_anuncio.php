@@ -13,7 +13,11 @@ include("./comum/carregacontroladores.php");
   header("Location: ./index.php");
 }
 */
-
+//Id_Anuncio,Titulo,Descricao,Proprietario,
+//Morada,Telefone,Email,Codigo_postal,Data_Submetido
+//Disponibilidade,Estado,Preco,Fotos,Wc,Mobilia
+//Utensilios,Internet,Rapariga,Rapaz,Despesas,Animais,Latitude,Longitude
+$anuncio=new Anuncio(null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null);
 
 
 

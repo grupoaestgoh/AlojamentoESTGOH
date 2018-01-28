@@ -5,12 +5,12 @@ session_start();
 include("./comum/carregacontroladores.php");
 
 //verifica se gestor está autenticado
-if (isset($_SESSION["AE_id_utilizador"]) && isset($_SESSION["AE_nome_utilizador"]) && isset($_SESSION["AE_email_utilizador"]) && isset($_SESSION["AE_estado_utilizador"])){
+/*if (isset($_SESSION["AE_id_utilizador"]) && isset($_SESSION["AE_nome_utilizador"]) && isset($_SESSION["AE_email_utilizador"]) && isset($_SESSION["AE_estado_utilizador"])){
 	//Se não tiver sessao manda para pagina index.php
 	if($_SESSION["AE_estado_utilizador"]!=1 )header("Location: ./index.php");
 }else{
 	header("Location: ./index.php");
-}
+}*/
 
 
 //conteudo principal
@@ -20,7 +20,7 @@ ob_start();
 <!-- Navigation -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top" id="mainNav">
 	 <div class="container">
-		 <a class="navbar-brand"  href="AnunciosAnunciante.html" ><p class="navtitle">AlojamentoESTGOH</p></a>
+		 <a class="navbar-brand"  href="AnunciosAnunciante.html" ><p class="navtitle"><?php print$logotipo;?></p></a>
 		 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
 			 <span class="navbar-toggler-icon"></span>
 		 </button>

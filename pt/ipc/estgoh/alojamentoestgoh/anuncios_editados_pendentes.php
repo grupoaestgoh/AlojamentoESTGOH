@@ -455,17 +455,21 @@ ob_start();
                                         <div class="card mb-4">
                                           <div class="card-body">
                                           <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-                                            <ol class="carousel-indicators" >
-                                              <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-                                              <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-                                              <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-                                            </ol>
+                                            <ol class="carousel-indicators" >');
+                                            for($l=0;$l<sizeof($fotosAnuncio);$l++){
+                                              echo('<li data-target="#carouselExampleIndicators" data-slide-to="'.$l.'"');
+                                              if($l==0)print "class='active'";
+                                              echo('></li>');
+                                            }
+                                            echo('</ol>
                                             <div class="carousel-inner" role="listbox">
                                             ');
                                             for($l=0;$l<sizeof($fotosAnuncio);$l++){
                                               $foto=$fotosAnuncio[$l];
-                                              echo('<div class="carousel-item active" >
-                                                <img src="./'.$foto->Caminho.'/'.$foto->Nome.'" alt="" width="100%">
+                                              echo('<div class="carousel-item');
+                                              if($l==0)print " active";
+                                              echo(' " >
+                                                <img src="./img/'.$foto->Caminho.'/'.$foto->Nome.'" alt="" width="100%">
                                               </div>');
                                             }
                                             echo('</div>

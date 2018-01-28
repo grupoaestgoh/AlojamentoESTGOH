@@ -284,6 +284,8 @@ ob_start();
        </div>
        <!-- End modal -->
     <!-- Page Content -->
+    <div class="container">
+
       <div class="row">
         <div id="imgbandeira">
           <div class="col-12">
@@ -310,11 +312,11 @@ ob_start();
 
 			  if(isset($_POST["btnPesquisar"])){
           if(!empty($_POST["nome_pesquisa"]))
-					     $todos_anuncios=$dao_anuncios->pesquisar_anuncios(0, $_POST["nome_pesquisa"]);
+					     $todos_anuncios=$dao_anuncios->listar_anuncios($_POST["nome_pesquisa"]);
           else
-					     $todos_anuncios=$dao_anuncios->listar_anuncios(0);
+					     $todos_anuncios=$dao_anuncios->listar_anuncios_anunciante(-2,0);
         }else
-				    $todos_anuncios=$dao_anuncios->listar_anuncios(0);
+				    $todos_anuncios=$dao_anuncios->listar_anuncios_anunciante(-2,0);
             $mybd->desligar_bd();
 
 			  ?>
@@ -324,9 +326,9 @@ ob_start();
         print $naoanuncios;
             else{
 			?>
-			<form class="navbar-form" action="" method="post">
-				<input type="text" name="nome_pesquisa" placeholder="<?php print $placeholder_pesquisa;?>" class="form-control" id="nome_pesquisa"><br>
-				<button type="submit" name="btnPesquisar" class="btn btn-default"><?php print $pesquisar;?></button>
+			<form class="navbar-form" action="ver_anuncios_proprietarios.php" method="post">
+				<input type="text" name="nome_pesquisa" placeholder="<?php print $placeholder_pesquisa;?>" class="form-control" ><br>
+				<input type="submit" name="btnPesquisar" class="btn btn-default" value="<?php print $pesquisar?>">
 			</form>
               <div class="card mb-3">
                 <div class="card-body">
@@ -366,41 +368,22 @@ ob_start();
 
 							?>
 							<td>
-							<?php
-							if($anuncios->Disponibilidade == 1){?>
+
 								<div>
 									<form>
 										<div class="row">
 											<div class="col-lg-12">
-												<input type="radio" name="optradio" value="livre" checked> <?php print $livre;?><br>
+												<input type="radio" name="optradio" value="livre" <?php if($anuncios->Disponibilidade == 1) print"checked" ;?>> <?php print $Ativo;?><br>
 											</div>
 										</div>
 										<div class="row">
 											<div class="col-lg-12">
-												<input type="radio" name="optradio" value="ocupado"> <?php print $ocupado;?><br>
+												<input type="radio" name="optradio" value="ocupado" <?php if($anuncios->Disponibilidade ==2) print"checked";?>> <?php print $Inativo;?><br>
 											</div>
 										</div>
 									</form>
 								</div>
-							<?php
-							}else{?>
-								<div>
-									<form>
-										<div class="row">
-											<div class="col-lg-12">
-												<input type="radio" name="optradio" value="livre"> <?php print $livre;?><br>
-											</div>
-										</div>
-										<div class="row">
-											<div class="col-lg-12">
-												<input type="radio" name="optradio" value="ocupado" checked> <?php print $ocupado;?><br>
-											</div>
-										</div>
-									</form>
-								</div>
-							<?php
-							}
-              ?>
+
 							</td>
 							<?php
 
