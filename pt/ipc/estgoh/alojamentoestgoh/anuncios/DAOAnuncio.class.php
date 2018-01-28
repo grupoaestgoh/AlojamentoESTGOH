@@ -77,5 +77,22 @@ $STH->bindParam(1, $estado_anuncio);
     return $arrayAnuncios;
   }
 
+//pesquisa todos os anuncios
+  function pesquisar_anuncios($opcao,$chave){
+    $arrayAnuncios=[];
+    global $mybd;
+    $STH = $mybd->DBH->prepare("Select anu_id,uti_id,anu_titulo,anu_descricao,anu_morada,anu_email,anu_estado,anu_telefone,anu_codigopostal,anu_disponibilidade,anu_wcprivativo,anu_mobilada,anu_utensilios,anu_internet,anu_rapazes,anu_raparigas,anu_despesas,anu_animais,anu_latitude,anu_longitude,anu_data,anu_preco from anuncio WHERE (anu_titulo LIKE '%$chave%' OR anu_morada LIKE '%$chave%');");
+    $STH->bindParam(1, $opcao);
+    $STH->execute();
+    $STH->setFetchMode(PDO::FETCH_OBJ);
+    $i=0;
+
+    while($row = $STH->fetch()){
+  		$arrayAnuncios[$i]=new Anuncio($row->anu_id,$row->anu_titulo,$row->anu_descricao,$row->uti_id,$row->anu_morada,$row->anu_telefone,$row->anu_email,$row->anu_codigopostal,$row->anu_data,$row->anu_disponibilidade,$row->anu_estado,$row->anu_preco,null,$row->anu_wcprivativo,$row->anu_mobilada,$row->anu_utensilios,$row->anu_internet,$row->anu_raparigas,$row->anu_rapazes,$row->anu_despesas,$row->anu_animais,$row->anu_latitude,$row->anu_longitude);
+        $i++;
+  	}
+    return $arrayAnuncios;
+  }
+  
 }
  ?>

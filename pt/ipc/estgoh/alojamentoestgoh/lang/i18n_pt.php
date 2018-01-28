@@ -124,7 +124,7 @@ $livre="Livre";
 $ocupado="Ocupado";
 $pesquisar="Pesquisar";
 $naoanuncios="Não tem anúncios!";
-$placeholder_pesquisa="Título, Localidade ou Anunciante";
+$placeholder_pesquisa="Título ou Localidade";
 
 //pagina registo_outros_gestores.phpinfo
 	$registogestor="Registo Gestor";

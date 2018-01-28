@@ -299,7 +299,7 @@ ob_start();
         </div>
       </div>
       <div class="row">
-        <div class="col-lg-3"></div>
+        <div class="col-lg-2"></div>
         <div class="col-lg-9">
           <div class="container">
             <div class="linhaflex">
@@ -310,7 +310,7 @@ ob_start();
 
 			  if(isset($_POST["btnPesquisar"])){
           if(!empty($_POST["nome_pesquisa"]))
-					     $todos_anuncios=$dao_anuncios->pesquisar_anuncios(0, $_POST["nome_pesquisa"]); //pesquisar_anuncios() ainda não existe
+					     $todos_anuncios=$dao_anuncios->pesquisar_anuncios(0, $_POST["nome_pesquisa"]);
           else
 					     $todos_anuncios=$dao_anuncios->listar_anuncios(0);
         }else
@@ -368,40 +368,32 @@ ob_start();
 							<td>
 							<?php
 							if($anuncios->Disponibilidade == 1){?>
-								<div class="radiodisponibilidadeTabela" id="disponibilidade">
+								<div>
 									<form>
 										<div class="row">
 											<div class="col-lg-12">
-												<label class="radio-inline">
-													<input type="radio" name="optradio" value="livre" checked> <?php print $livre;?><br>
-												</label>
+												<input type="radio" name="optradio" value="livre" checked> <?php print $livre;?><br>
 											</div>
 										</div>
 										<div class="row">
 											<div class="col-lg-12">
-												<label class="radio-inline">
-													<input type="radio" name="optradio" value="ocupado"> <?php print $ocupado;?><br>
-												</label>
+												<input type="radio" name="optradio" value="ocupado"> <?php print $ocupado;?><br>
 											</div>
 										</div>
 									</form>
 								</div>
 							<?php
 							}else{?>
-								<div class="radiodisponibilidadeTabela">
+								<div>
 									<form>
 										<div class="row">
 											<div class="col-lg-12">
-												<label class="radio-inline">
-													<input type="radio" name="optradio" value="livre"><?php print $livre;?><br>
-												</label>
+												<input type="radio" name="optradio" value="livre"> <?php print $livre;?><br>
 											</div>
 										</div>
 										<div class="row">
 											<div class="col-lg-12">
-												<label class="radio-inline">
-													<input type="radio" name="optradio" value="ocupado" checked><?php print $ocupado;?><br>
-												</label>
+												<input type="radio" name="optradio" value="ocupado" checked> <?php print $ocupado;?><br>
 											</div>
 										</div>
 									</form>
@@ -413,7 +405,8 @@ ob_start();
 							<?php
 
                             echo('<td>'.$Proprietario->Nome.'</td>');
-                            echo('<td><button type="button" class="btn btn-default"  data-toggle="modal" data-target=".bd-example-modal-lg"><i class="fa fa-eye" style="font-size:24px"></i></button></td>');
+                            echo('<td><center><a data-toggle="modal" href="#a'.$anuncios->Id_Anuncio.'"><i class="fa fa-eye" style="font-size:24px"></i></a></center></td>');
+                            //echo('<td><button type="button" class="btn btn-default"  data-toggle="modal" data-target=".bd-example-modal-lg"><i class="fa fa-eye" style="font-size:24px"></i></button></td>');
                             //modal para ver anuncios
                             echo('<div class="modal fade" id="a'.$anuncios->Id_Anuncio.'">
                             <div class="modal-dialog modal-lg">
