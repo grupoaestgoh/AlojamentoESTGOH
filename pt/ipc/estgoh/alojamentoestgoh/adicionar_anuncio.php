@@ -140,11 +140,11 @@ ob_start();
 				<div class="row">
 					<div class="col-12">
 						<div class="bandeira">
-							<a href="#">
-									<img  src="bandeiras/pt.jpg" alt="">
+							<a href="?lingua=pt">
+									<img  src="img/img_aplicacao/pt.jpg" alt="">
 							</a>
-							<a href="#">
-								<img src="bandeiras/UK.jpg" alt="">
+							<a href="?lingua=en">
+								<img src="img/img_aplicacao/UK.jpg" alt="">
 							</a>
 						</div>
 					</div>

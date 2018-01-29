@@ -97,7 +97,7 @@ ob_start();
    <ul class="navbar-nav ml-auto ">
 
      <li class="nav-item dropdown">
-       <a class="nav-link dropdown-toggle mr-lg-2 navGestorimg" id="alertsDropdown" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+       <a class="nav-link dropdown-toggle mr-lg-2 navGestorimg" id="alertsDropdown"   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
          <i class="fa fa-fw fa-bell"></i>
          <span class="d-lg-none"><?php print $Notificacao; ?>
            <span class="badge badge-pill badge-warning">6 <?php print $novas; ?></span>
@@ -149,7 +149,7 @@ ob_start();
        </div>
      </li>
      <li class="nav-item dropdown">
-       <a class="nav-link dropdown-toggle mr-lg-2 navGestorimg" id="alertsDropdown" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+       <a class="nav-link dropdown-toggle mr-lg-2 navGestorimg" id="alertsDropdown"   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
          <i class="fa fa-user" aria-hidden="true"></i>
          <span class="d-lg-none"><?php print $MeusDados; ?>
            <span class="badge badge-pill badge-warning">6 <?php print $novas; ?></span>
@@ -160,20 +160,20 @@ ob_start();
          <h6 class="dropdown-header"><?php print $MeusDados1; ?></h6>
          <div class="dropdown-divider"></div>
 
-         <a class="dropdown-item" href="#">
+         <a class="dropdown-item"  >
           <strong> <?php print $nome; ?></strong>
            <div class="dropdown-message small"><?php print $_SESSION["AE_nome_utilizador"]; ?></div>
          </a>
 
          <div class="dropdown-divider"></div>
 
-         <a class="dropdown-item" href="#">
+         <a class="dropdown-item"  >
           <strong><?php print $email; ?> </strong>
            <div class="dropdown-message small"><?php print $_SESSION["AE_email_utilizador"]; ?></div>
          </a>
 
 
-         <a class="dropdown-item" href="#">
+         <a class="dropdown-item"  >
            <strong>
              <i class="fa"></i>
              <button type="button" class="nav-link especialBotao"  data-toggle="modal" data-target="#myModal20"><font  size="4" color="black"><?php print $alteraDados; ?></font></button>
@@ -299,10 +299,10 @@ ob_start();
       <div class="row">
         <div class="col-12">
           <div class="bandeira">
-            <a href="#">
+            <a href="?lingua=pt">
                 <img  src="img/img_aplicacao/pt.jpg" alt="">
             </a>
-            <a href="#">
+            <a href="?lingua=en">
               <img src="img/img_aplicacao/UK.jpg" alt="">
             </a>
           </div>

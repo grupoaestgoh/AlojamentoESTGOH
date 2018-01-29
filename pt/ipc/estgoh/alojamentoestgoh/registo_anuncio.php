@@ -17,16 +17,76 @@ include("./comum/carregacontroladores.php");
 //Morada,Telefone,Email,Codigo_postal,Data_Submetido
 //Disponibilidade,Estado,Preco,Fotos,Wc,Mobilia
 //Utensilios,Internet,Rapariga,Rapaz,Despesas,Animais,Latitude,Longitude
-$anuncio=new Anuncio(null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null);
+$anuncio=new Anuncio(null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,0,0,null,null,null,null);
+$Codigo_postal2=null;
+$arrayFotos=[null,null,null,null,null,null];
 
 
+if(isset($_POST["mail"]) && !empty($_POST["mail"])){
+  $anuncio->Email=$_POST["mail"];
+}
+if(isset($_POST["tele"]) && !empty($_POST["tele"])){
+  $anuncio->Telefone=$_POST["tele"];
+}
+if(isset($_POST["morada"]) && !empty($_POST["morada"])){
+  $anuncio->Morada=$_POST["morada"];
+}
+if(isset($_POST["codigo"]) && !empty($_POST["codigo"])){
+  $anuncio->Codigo_postal=$_POST["codigo"];
+}
+if(isset($_POST["codigo2"]) && !empty($_POST["codigo2"])){
+  $Codigo_postal2=$_POST["codigo2"];
+}
+if(isset($_POST["titulo"]) && !empty($_POST["titulo"])){
+  $anuncio->Titulo=$_POST["titulo"];
+}
+if(isset($_POST["informacao"]) && !empty($_POST["informacao"])){
+  $anuncio->Descricao=$_POST["informacao"];
+}
 
 
+if(isset($_POST["casasim"]) ){
+  if(!strcmp("sim",$_POST["casasim"]))$anuncio->Wc=1;
+  else $anuncio->Wc=2;
+}
+if(isset($_POST["internetsim"])){
+  if(!strcmp("sim",$_POST["internetsim"]))$anuncio->Internet=1;
+  else $anuncio->Internet=2;
+}
+if(isset($_POST["despesasim"])){
+  if(!strcmp("sim",$_POST["despesasim"]))$anuncio->Despesas=1;
+  else $anuncio->Despesas=2;
+}
+if(isset($_POST["mobiliasim"])){
+  if(!strcmp("sim",$_POST["mobiliasim"]))$anuncio->Mobilia=1;
+  else $anuncio->Mobilia=2;
+}
+if(isset($_POST["utensiliosim"])){
+  if(!strcmp("sim",$_POST["utensiliosim"]))$anuncio->Utensilios=1;
+  else $anuncio->Utensilios=2;
+}
+if(isset($_POST["animalsim"])){
+  if(!strcmp("sim",$_POST["animalsim"]))$anuncio->Animais=1;
+  else $anuncio->Animais=2;
+}
+if(isset($_POST["raparigasim"])){
+if($anuncio->Rapariga==1)   $anuncio->Rapariga=0;
+if($anuncio->Rapariga==0)   $anuncio->Rapariga=1;
+
+
+}
+if(isset($_POST["rapazsim"])){
+    if($anuncio->Rapaz==1)   $anuncio->Rapaz=0;
+    if($anuncio->Rapaz==0)   $anuncio->Rapaz=1;
+
+
+}
 //conteudo principal
 ob_start();
 
 ?>
   <!-- Navigation -->
+
     <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top navGestor" id="mainNav">
      <div class="container">
        <a class="navbar-brand"  href="meus_anuncios.php" ><font  size="6" color="white"><?php print $logotipo; ?></font></a>
@@ -101,7 +161,7 @@ ob_start();
        <ul class="navbar-nav ml-auto ">
 
          <li class="nav-item dropdown">
-           <a class="nav-link dropdown-toggle mr-lg-2 navGestorimg" id="alertsDropdown" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+           <a class="nav-link dropdown-toggle mr-lg-2 navGestorimg" id="alertsDropdown"   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
              <i class="fa fa-fw fa-bell"></i>
              <span class="d-lg-none"><?php print $Notificacao; ?>
                <span class="badge badge-pill badge-warning">6 <?php print $novas; ?></span>
@@ -155,7 +215,7 @@ ob_start();
            </div>
          </li>
          <li class="nav-item dropdown">
-           <a class="nav-link dropdown-toggle mr-lg-2 navGestorimg" id="alertsDropdown" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+           <a class="nav-link dropdown-toggle mr-lg-2 navGestorimg" id="alertsDropdown"   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
              <i class="fa fa-user" aria-hidden="true"></i>
              <span class="d-lg-none"><?php print $MeusDados; ?>
                <span class="badge badge-pill badge-warning">6 <?php print $novas; ?></span>
@@ -166,18 +226,18 @@ ob_start();
              <h6 class="dropdown-header"><?php print $MeusDados1; ?></h6>
              <div class="dropdown-divider"></div>
 
-             <a class="dropdown-item" href="#">
+             <a class="dropdown-item"  >
               <strong> <?php print $nome; ?></strong>
                <div class="dropdown-message small"><?php print $_SESSION["AE_nome_utilizador"]; ?></div>
              </a>
 
              <div class="dropdown-divider"></div>
 
-             <a class="dropdown-item" href="#">
+             <a class="dropdown-item"  >
               <strong><?php print $email; ?> </strong>
                <div class="dropdown-message small"><?php print $_SESSION["AE_email_utilizador"]; ?></div>
            </a>
-             <a class="dropdown-item" href="#">
+             <a class="dropdown-item"  >
                <strong>
                  <i class="fa"></i>
                  <button type="button" class="nav-link especialBotao"  data-toggle="modal" data-target="#myModal20"><font  size="4" color="black"><?php print $alteraDados; ?></font></button>
@@ -302,18 +362,18 @@ ob_start();
            <div class="row">
              <div class="col-12">
                <div class="bandeira">
-                 <a href="#">
-                     <img  src="img/img_aplicacao/pt.jpg" alt="">
-                 </a>
-                 <a href="#">
-                   <img src="img/img_aplicacao/UK.jpg" alt="">
-                 </a>
+                 <a href="?lingua=pt">
+   									<img  src="img/img_aplicacao/pt.jpg" alt="">
+   							</a>
+   							<a href="?lingua=en">
+   								<img src="img/img_aplicacao/UK.jpg" alt="">
+   							</a>
                </div>
              </div>
            </div>
-          <div class="=row">
+          <div class="row">
             <div class="addanuncio col-12">
-              <form id="signup" onsubmit="return Mudarestado('aceite')">
+              <form id="signup" action="registo_anuncio.php" method="post">
                   <div class="header">
                       <h3 class="baixo"><?php if(isset($_GET["id_anuncio_editar"])) print $edita; else print $insere;?></h3>
                       <p><?php if(isset($_SESSION["id_anuncio_editar"])) print $formulario;?></p>
@@ -325,29 +385,30 @@ ob_start();
                       <div class="header">
                           <p class="bold"><?php print $proprietario;?></p>
                       </div>
+
                       <div class="row">
                         <div class="col-lg-6">
-                          <input type="PrimeiroNome" placeholder="Primeiro Nome*" required autofocus/>
+                          <input type="PrimeiroNome" placeholder="Primeiro Nome*" name="nome" value='<?php print $_SESSION["AE_nome_utilizador"];?>' disabled   autofocus/>
                         </div>
                         <div class="col-lg-6">
-                          <input type="UltimoNome" placeholder="Último Nome*" required/>
+                          <input type="UltimoNome" placeholder="Último Nome*" name="ultimonome" value='<?php print $_SESSION["AE_nome_utilizador"];?>' disabled  />
                         </div>
                       </div>
                       <div class="row">
                         <div class="col-lg-6">
-                          <input type="email" placeholder="E-mail" required/>
+                          <input type="email" placeholder="E-mail" name="mail"<?php if($anuncio->Email!=null) print (" value='".$anuncio->Email."' "); ?>  />
                         </div>
                         <div class="col-lg-6">
-                         <input type="telefone" placeholder="Telefone*" required/>
+                         <input type="telefone" placeholder="Telefone*" name="tele" <?php if($anuncio->Telefone!=null) print (" value='".$anuncio->Telefone."' "); ?>   />
                         </div>
                       </div>
                       <div class="row">
                         <div class="col-lg-6">
-                          <input type="morada" placeholder="Morada*" required/>
+                          <input type="morada" placeholder="Morada*"  name="morada"<?php if($anuncio->Morada!=null) print (" value='".$anuncio->Morada."' "); ?>  />
                         </div>
                         <div class="col-lg-6">
-                          <input type="postal" placeholder="Código Postal*" required/>
-                          <input type="postal2" placeholder="" required/>
+                          <input type="postal" placeholder="Código Postal*"   name="codigo"<?php if($anuncio->Codigo_postal!=null) print (" value='".$anuncio->Codigo_postal."' "); ?>  />
+                          <input type="postal2" placeholder="" name="codigo2" <?php if($Codigo_postal2!=null) print (" value='".$Codigo_postal2."' "); ?> />
                         </div>
                       </div>
                       <div class="sep"></div>
@@ -356,12 +417,12 @@ ob_start();
                       </div>
                       <div class="row">
                         <div class="col-lg-12">
-                          <input type="morada" placeholder="Título do anúncio*" required/>
+                          <input type="morada" placeholder="Título do anúncio*"  name="titulo"<?php if($anuncio->Titulo!=null) print (" value='".$anuncio->Titulo."' "); ?>  />
                         </div>
                       </div>
                       <div class="row">
                         <div class="col-lg-12">
-                          <textarea name="comment" form="signup" placeholder="  Descrição*" rows="3" required></textarea>
+                          <textarea  form="signup" placeholder="  Descrição*"  name="informacao" rows="3"   ><?php if($anuncio->Descricao!=null) print ($anuncio->Descricao); ?></textarea>
                         </div>
                       </div>
                       <div class="sep"></div>
@@ -373,14 +434,15 @@ ob_start();
                           <div class="col-4">
                             <p class="especific"><?php print $casabanho;?>
                           </div>
+
                           <div class="col-4">
                             <label class="radio-inline">
-                              <input type="radio" name="Banho" checked><?php print $sim;?>
+                              <input type="radio"    value="sim" name="casasim" <?php if($anuncio->Wc!=null && $anuncio->Wc==1) print ( 'checked'); ?> ><?php print $sim;?>
                             </label>
                           </div>
                           <div class="col-4">
                             <label class="radio-inline">
-                                <input type="radio" name="Banho"><?php print $nao;?>
+                              <input type="radio"    value="nao" name="casasim" <?php if($anuncio->Wc!=null && $anuncio->Wc==2) print ( 'checked'); ?> ><?php print $nao;?>
                             </label>
                           </div>
                         </div>
@@ -392,12 +454,12 @@ ob_start();
                           </div>
                           <div class="col-4">
                             <label class="radio-inline">
-                              <input type="radio" name="Internet" checked><?php print $sim;?>
+                              <input type="radio"  value="sim" name="internetsim" <?php if($anuncio->Internet!=null && $anuncio->Internet==1) print ( 'checked'); ?>><?php print $sim;?>
                             </label>
                           </div>
                           <div class="col-4">
                             <label class="radio-inline">
-                                <input type="radio" name="Internet"><?php print $nao;?>
+                                <input type="radio"  value="nao" name="internetsim" <?php if($anuncio->Internet!=null && $anuncio->Internet==2) print ( 'checked'); ?>><?php print $nao;?>
                             </label>
                           </div>
                         </div>
@@ -409,16 +471,17 @@ ob_start();
                           </div>
                           <div class="col-4">
                             <label class="radio-inline">
-                              <input type="radio" name="Renda" checked><?php print $sim;?>
+                              <input type="radio"  value="sim" name="despesasim" <?php if($anuncio->Despesas!=null && $anuncio->Despesas==1) print ( 'checked'); ?>><?php print $sim;?>
                             </label>
                           </div>
                           <div class="col-4">
                             <label class="radio-inline">
-                                <input type="radio" name="Renda"><?php print $nao;?>
+                                <input type="radio"    value="nao"  name="despesasim" <?php if($anuncio->Despesas!=null && $anuncio->Despesas==2) print ( 'checked'); ?>><?php print $nao;?>
                             </label>
                           </div>
                         </div>
                       </div>
+
                       <div class="sublinha">
                         <div class="row">
                           <div class="col-4">
@@ -426,12 +489,12 @@ ob_start();
                           </div>
                           <div class="col-4">
                             <label class="radio-inline">
-                              <input type="radio" name="Mobília" checked><?php print $sim;?>
+                              <input type="radio"  value="sim" name="mobiliasim" <?php if($anuncio->Mobilia!=null && $anuncio->Mobilia==1) print ( 'checked'); ?>><?php print $sim;?>
                             </label>
                           </div>
                           <div class="col-4">
                             <label class="radio-inline">
-                                <input type="radio" name="Mobília"><?php print $nao;?>
+                                <input type="radio"    value="nao" name="mobiliasim" <?php if($anuncio->Mobilia!=null && $anuncio->Mobilia==2) print ( 'checked'); ?>><?php print $nao;?>
                             </label>
                           </div>
                         </div>
@@ -443,12 +506,12 @@ ob_start();
                           </div>
                           <div class="col-4">
                             <label class="radio-inline">
-                              <input type="radio" name="Utensílios" checked><?php print $sim;?>
+                              <input type="radio"   value="sim" name="utensiliosim" <?php if($anuncio->Utensilios!=null && $anuncio->Utensilios==1) print ( 'checked'); ?>><?php print $sim;?>
                             </label>
                           </div>
                           <div class="col-4">
                             <label class="radio-inline">
-                                <input type="radio" name="Utensílios"><?php print $nao;?>
+                                <input type="radio"   value="nao"  name="utensiliosim" <?php if($anuncio->Utensilios!=null && $anuncio->Utensilios==2) print ( 'checked'); ?>><?php print $nao;?>
                             </label>
                           </div>
                         </div>
@@ -460,12 +523,12 @@ ob_start();
                           </div>
                           <div class="col-4">
                             <label class="radio-inline">
-                              <input type="radio" name="Animais" checked><?php print $sim;?>
+                              <input type="radio"   value="sim" name="animalsim" <?php if($anuncio->Animais!=null && $anuncio->Animais==1) print ( 'checked'); ?>><?php print $sim;?>
                             </label>
                           </div>
                           <div class="col-4">
                             <label class="radio-inline">
-                                <input type="radio" name="Animais"><?php print $nao;?>
+                                <input type="radio"   value="nao" name="animalsim" <?php if($anuncio->Animais!=null && $anuncio->Animais==2) print ( 'checked'); ?>><?php print $nao;?>
                             </label>
                           </div>
                         </div>
@@ -477,87 +540,37 @@ ob_start();
                           </div>
                           <div class="col-4">
                             <label class="radio-inline">
-                              <input type="checkbox" name="Animais" checked><?php print $rapaz;?>
+                              <input type="checkbox"  name="rapazsim" <?php if( $anuncio->Rapaz==1) print ( 'checked'); ?>><?php print $rapaz;?>
                             </label>
                           </div>
                           <div class="col-4">
                             <label class="radio-inline">
-                                <input type="checkbox" name="Animais"><?php print $rapariga;?>
+                                <input type="checkbox"   name="raparigasim" <?php if( $anuncio->Rapariga==1) print ( 'checked'); ?>><?php print $rapariga;?>
                             </label>
                           </div>
                         </div>
                       </div>
+
                       <div class="header">
                           <p class="bold"><?php print $fotos;?></p>
                           <p class="tinyy"><?php print $minimoimg;?></p>
                       </div>
+
+
                       <div class="col-lg-12">
-                        <div class="row abaixu">
+                        <?php
+                        for ($i=0; $i <6 ; $i++) {
+
+                        echo('<div class="row abaixu">
                             <div class="col-3">
-                              <input type="file" name="arquivo" id="arquivo1" class="arquivo">
+                              <input type="file" name="'.$i.'"');
+                              if($fotos[$i]!=null) print "value=".$fotos[$i];
+                              echo(' class="btn btnx" >
                             </div>
-                            <div class="col-3">
-                              <input type="text" name="file" id="file" class="file" placeholder="Arquivo" readonly="readonly">
-                            </div>
-                            <div class="col-3">
-                              <input type="button" class="btn btnx" value="SELECIONAR">
-                            </div>
-                        </div>
-                        <div class="row abaixu">
-                            <div class="col-3">
-                              <input type="file" name="arquivo" id="arquivo2" class="arquivo">
-                            </div>
-                            <div class="col-3">
-                              <input type="text" name="file" id="file2" class="file" placeholder="Arquivo" readonly="readonly">
-                            </div>
-                            <div class="col-3">
-                              <input type="button" class="btn btnx" value="SELECIONAR">
-                            </div>
-                        </div>
-                        <div class="row abaixu">
-                            <div class="col-3">
-                              <input type="file" name="arquivo" id="arquivo3" class="arquivo">
-                            </div>
-                            <div class="col-3">
-                              <input type="text" name="file" id="file3" class="file" placeholder="Arquivo" readonly="readonly">
-                            </div>
-                            <div class="col-3">
-                              <input type="button" class="btn btnx" value="SELECIONAR">
-                            </div>
-                        </div>
-                        <div class="row abaixu">
-                            <div class="col-3">
-                              <input type="file" name="arquivo" id="arquivo4" class="arquivo">
-                            </div>
-                            <div class="col-3">
-                              <input type="text" name="file" id="file4" class="file" placeholder="Arquivo" readonly="readonly">
-                            </div>
-                            <div class="col-3">
-                              <input type="button" class="btn btnx" value="SELECIONAR">
-                            </div>
-                        </div>
-                        <div class="row abaixu">
-                            <div class="col-3">
-                              <input type="file" name="arquivo" id="arquivo5" class="arquivo">
-                            </div>
-                            <div class="col-3">
-                              <input type="text" name="file" id="file5" class="file" placeholder="Arquivo" readonly="readonly">
-                            </div>
-                            <div class="col-3">
-                              <input type="button" class="btn btnx" value="SELECIONAR">
-                            </div>
-                        </div>
-                        <div class="row abaixu">
-                            <div class="col-3">
-                              <input type="file" name="arquivo" id="arquivo6" class="arquivo">
-                            </div>
-                            <div class="col-3">
-                              <input type="text" name="file" id="file6" class="file" placeholder="Arquivo" readonly="readonly">
-                            </div>
-                            <div class="col-3">
-                              <input type="button" class="btn btnx" value="SELECIONAR">
-                            </div>
-                        </div>
+                        </div>');
+                      }
+                      ?>
+
                         <div class="row abaixu">
                           <div class="row col-12">
                             <div class="col-12">
@@ -574,6 +587,7 @@ ob_start();
                               </div>
                             </div>
                           </div>
+
                           <script>
                             var previousMarker=null;
                             function myMap() {
@@ -589,7 +603,11 @@ ob_start();
                                 previousMarker = new google.maps.Marker({
                                       position: new google.maps.LatLng(event.latLng.lat(),event.latLng.lng()),
                                       map: map
+
                                 });
+                                var lon=event.latLng.lng();
+                                var lat=event.latLng.lat();
+
                               });
                             }
                           </script>
@@ -604,7 +622,7 @@ ob_start();
                         </div>
                       </div>
                       <div class="botaoaddanuncio col-12">
-                        <input id="submit" type="submit" value="Adicionar Anúncio"></input>
+                        <input id="submit" type="submit" name="InserirAnu" value="Adicionar Anúncio" ></input>
                       </div>
                   </div>
               </form>
@@ -638,6 +656,16 @@ ob_start();
   });
   </script>
   <?php
+  //Id_Anuncio,Titulo,Descricao,Proprietario,
+  //Morada,Telefone,Email,Codigo_postal,Data_Submetido
+  //Disponibilidade,Estado,Preco,Fotos,Wc,Mobilia
+  //Utensilios,Internet,Rapariga,Rapaz,Despesas,Animais,Latitude,Longitude
+
+  if(isset($_POST["InserirAnu"]) && !empty($_POST["InserirAnu"])){
+
+
+}
+
   if(isset($_POST["EditarPassword"]) && !empty($_POST["EditarPassword"])){
     if(!strcmp($_POST["password1"],$_POST["password2"])){
       if(verifca_password($_POST["password1"])==true){
@@ -694,6 +722,11 @@ ob_start();
     unset($_SESSION['AE_estado_utilizador']);
     header('Location: index.php');
   }
+
+//METODO PARA VERIFICAR AS IMAGENS!!REQUIREDS!!
+function verifica_imagens(){
+
+}
 
 
       function verifca_password(){
