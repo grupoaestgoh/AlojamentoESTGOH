@@ -115,8 +115,8 @@ $anuncioSucesso="Your Advertisement Was Successfully Added!";
 
 //pagina ver_anuncios_proprietarios (gestor)
 $disponibilidade="Availability";
-$livre="Free";
-$ocupado="Busy";
+$livre="Available";
+$ocupado="Unavailable";
 $pesquisar="Search";
 $naoanuncios="There are no advertisements!";
 $placeholder_pesquisa="Title or Location";

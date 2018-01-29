@@ -306,8 +306,16 @@ ob_start();
           <div class="container">
             <div class="linhaflex">
               <div class="titulo">
+
               <?php
               print $AnuProprietarios;
+              ?>
+              </div>
+              <form class="navbar-form" action="ver_anuncios_proprietarios.php" method="post">
+                <input type="text" name="nome_pesquisa" placeholder="<?php print $placeholder_pesquisa;?>" class="form-control" ><br>
+                <input type="submit" name="btnPesquisar" class="btn btn-default" value="<?php print $pesquisar?>">
+              </form>
+              <?php
               $mybd->ligar_bd();
 
 			  if(isset($_POST["btnPesquisar"])){
@@ -319,17 +327,10 @@ ob_start();
 				    $todos_anuncios=$dao_anuncios->listar_anuncios_anunciante(-2,0);
             $mybd->desligar_bd();
 
-			  ?>
-            </div>
-			<?php
 			if($todos_anuncios == null)
         print $naoanuncios;
             else{
 			?>
-			<form class="navbar-form" action="ver_anuncios_proprietarios.php" method="post">
-				<input type="text" name="nome_pesquisa" placeholder="<?php print $placeholder_pesquisa;?>" class="form-control" ><br>
-				<input type="submit" name="btnPesquisar" class="btn btn-default" value="<?php print $pesquisar?>">
-			</form>
               <div class="card mb-3">
                 <div class="card-body">
                   <div class="table-responsive">
@@ -349,7 +350,7 @@ ob_start();
                           <th><?php print $titulo;?></th>
                           <th><?php print $Preco;?></th>
                           <th><?php print $local;?></th>
-						              <th><?php print $disponibilidade;?></th>
+						  <th><?php print $disponibilidade;?></th>
                           <th><?php print $Anunciante;?></th>
                           <th></th>
                         </tr>
@@ -360,7 +361,7 @@ ob_start();
 
               for ($i=0; $i <sizeof($todos_anuncios); $i++) {
                             $anuncios=$todos_anuncios[$i];
-							              $Proprietario=$dao_utilizadores->obter_utilizador_id($anuncios->Proprietario);
+							$Proprietario=$dao_utilizadores->obter_utilizador_id($anuncios->Proprietario);
                             echo('<tr>');
                             echo('<td>'.$anuncios->Titulo.'</td>');
                             echo('<td>'.$anuncios->Preco.'</td>');
@@ -370,23 +371,24 @@ ob_start();
 							<td>
 
 								<div>
-									<form>
+									<form action="" method="post">
+										<input type="hidden" name="idAnuA" value=<?php echo $anuncios->Id_Anuncio ?> />
 										<div class="row">
 											<div class="col-lg-12">
-												<input type="radio" name="optradio" value="livre" <?php if($anuncios->Disponibilidade == 1) print"checked" ;?>> <?php print $Ativo;?><br>
+												<input type="radio" onchange="this.form.submit();" name="optradio" value="1" <?php if($anuncios->Disponibilidade == 1) print"checked" ;?>> <?php print $livre;?><br>
 											</div>
 										</div>
 										<div class="row">
 											<div class="col-lg-12">
-												<input type="radio" name="optradio" value="ocupado" <?php if($anuncios->Disponibilidade ==2) print"checked";?>> <?php print $Inativo;?><br>
+												<input type="radio" onchange="this.form.submit();" name="optradio" value="0" <?php if($anuncios->Disponibilidade == 0) print"checked";?>> <?php print $ocupado;?><br>
 											</div>
 										</div>
 									</form>
 								</div>
 
 							</td>
-							<?php
 
+							<?php
                             echo('<td>'.$Proprietario->Nome.'</td>');
                             echo('<td><center><a data-toggle="modal" href="#a'.$anuncios->Id_Anuncio.'"><i class="fa fa-eye" style="font-size:24px"></i></a></center></td>');
                             //echo('<td><button type="button" class="btn btn-default"  data-toggle="modal" data-target=".bd-example-modal-lg"><i class="fa fa-eye" style="font-size:24px"></i></button></td>');
@@ -547,8 +549,6 @@ ob_start();
     <!-- /.container -->
 
     <?php
-
-
         if(isset($_POST["EditarPassword"]) && !empty($_POST["EditarPassword"])){
           if(!strcmp($_POST["password1"],$_POST["password2"])){
             if(verifca_password($_POST["password1"])==true){
@@ -588,42 +588,64 @@ ob_start();
               }
 
         }
+
     //desativa a conta e vai para a pagina index e elimina session
-          if(isset($_POST["DesativaConta"]) && !empty($_POST["DesativaConta"])){
-            $dao_utilizadores->alterar_estado($_SESSION["AE_id_utilizador"],3);
-            unset($_SESSION['AE_id_utilizador']);
-            unset($_SESSION['AE_nome_utilizador']);
-            unset($_SESSION['AE_email_utilizador']);
-            unset($_SESSION['AE_estado_utilizador']);
-            header('Location: index.php');
-          }
-          //termina sessão
-          if(isset($_GET["TerminarSessao"]) && !empty($_GET["TerminarSessao"])){
-            unset($_SESSION['AE_id_utilizador']);
-            unset($_SESSION['AE_nome_utilizador']);
-            unset($_SESSION['AE_email_utilizador']);
-            unset($_SESSION['AE_estado_utilizador']);
-            header('Location: index.php');
-          }
+        if(isset($_POST["DesativaConta"]) && !empty($_POST["DesativaConta"])){
+          $dao_utilizadores->alterar_estado($_SESSION["AE_id_utilizador"],3);
+          unset($_SESSION['AE_id_utilizador']);
+          unset($_SESSION['AE_nome_utilizador']);
+          unset($_SESSION['AE_email_utilizador']);
+          unset($_SESSION['AE_estado_utilizador']);
+          header('Location: index.php');
+        }
+        //termina sessão
+        if(isset($_GET["TerminarSessao"]) && !empty($_GET["TerminarSessao"])){
+          unset($_SESSION['AE_id_utilizador']);
+          unset($_SESSION['AE_nome_utilizador']);
+          unset($_SESSION['AE_email_utilizador']);
+          unset($_SESSION['AE_estado_utilizador']);
+          header('Location: index.php');
+        }
 
-          function verifca_password($pass){
-            //verifica se tem pelo menos um caracter maiusculo
-            if(preg_match('/[A-Z]/',$pass)!=1)
-              return false;// nao tem maisculas
-            //verifica se tem pelo menos 9 carcteres
-            if(strlen($pass)<8)
-              return false;//tamanho invalido
-            //verifica se tem numeros
-            if(preg_match('/[1-9]/',$pass)!=1)
-              return false;//nao tem numeros
-            return true;// (correto)
-          }
+        function verifca_password($pass){
+          //verifica se tem pelo menos um caracter maiusculo
+          if(preg_match('/[A-Z]/',$pass)!=1)
+            return false;// nao tem maisculas
+          //verifica se tem pelo menos 9 carcteres
+          if(strlen($pass)<8)
+            return false;//tamanho invalido
+          //verifica se tem numeros
+          if(preg_match('/[1-9]/',$pass)!=1)
+            return false;//nao tem numeros
+          return true;// (correto)
+        }
 
-    $rodape=false;
-    $conteudo_principal = ob_get_contents();
-    ob_end_clean();
-    //master page
-    include($layout);
+		  //altera a disponibilidade do anuncio
+		if(isset($_POST["optradio"])){
+		  if ($_POST["optradio"] == "1"){
+            $mybd->ligar_bd();
+            $anuncioEdita=$dao_anuncios->obter_anuncio($_POST["idAnuA"]);
+            $anuncioEdita->Disponibilidade=1;
+            $dao_anuncios->editar_anuncio($anuncioEdita);
+            $mybd->desligar_bd();
+	    	header("Refresh:0");
+  	      }
+		  else{
+			$mybd->ligar_bd();
+			$anuncioEdita=$dao_anuncios->obter_anuncio($_POST["idAnuA"]);
+			$anuncioEdita->Disponibilidade=0;
+			$dao_anuncios->editar_anuncio($anuncioEdita);
+			$mybd->desligar_bd();
+			header("Refresh:0");
+		  }
+		}
+
+		$rodape=false;
+		$conteudo_principal = ob_get_contents();
+		ob_end_clean();
+		//master page
+		include($layout);
+
     ?>
 
   <script>
@@ -643,3 +665,4 @@ ob_start();
   $(document).ready(function(){
       $('[data-toggle="tooltip"]').tooltip();
   });
+  </script>

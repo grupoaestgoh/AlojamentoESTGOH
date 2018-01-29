@@ -120,8 +120,8 @@ $anuncioSucesso="O seu anúncio foi submetido com sucesso!";
 
 //pagina ver_anuncios_proprietarios (gestor)
 $disponibilidade="Disponibilidade";
-$Ativo="Ativo";
-$Inativo="Inativo";
+$livre="Livre";
+$ocupado="Ocupado";
 $pesquisar="Pesquisar";
 $naoanuncios="Não tem anúncios!";
 $placeholder_pesquisa="Título ou Localidade";
