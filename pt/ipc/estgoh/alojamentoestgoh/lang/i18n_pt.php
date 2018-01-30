@@ -1,4 +1,7 @@
 <?php
+
+//LOCAL VOU FAZER O UPLOAD DAS FOTOS DOS ANUNCIOS
+  $Caminho = 'C:\ServidorWeb\htdocs\AlojamentoESTGOH\pt\ipc\estgoh\alojamentoestgoh\img\img_anuncios/';
 //titulos
 	$titulo_pagina="AlojamentoESTGOH-PaginaInicial";
 

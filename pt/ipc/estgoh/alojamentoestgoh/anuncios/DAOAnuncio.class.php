@@ -16,7 +16,7 @@ Disponibilidade
   //Insere um anuncio na base de dados
   function inserir_anuncio(Anuncio $anuncio){
     global $mybd;
-      $STH=$mybd->DBH->prepare("Insert into anuncio (uti_id,anu_titulo,anu_descricao,anu_morada,anu_email,anu_estado,anu_telefone,anu_codigopostal,anu_disponibilidade,anu_wcprivativo,anu_mobilada,anu_utensilios,anu_internet,anu_rapazes,anu_raparigas,anu_despesas,anu_animais,anu_latitude,anu_longitude,anu_data,anu_preco) values (:pr,:ti,:de,:mo,:em,:es,:te,:co,:di,.wc,:mob,:ut,:in,:rap,:ra,:des,:ani,:la,:lo,:da,:pre);");
+      $STH=$mybd->DBH->prepare("Insert into anuncio (uti_id,anu_titulo,anu_descricao,anu_morada,anu_email,anu_estado,anu_telefone,anu_codigopostal,anu_disponibilidade,anu_wcprivativo,anu_mobilada,anu_utensilios,anu_internet,anu_rapazes,anu_raparigas,anu_despesas,anu_animais,anu_latitude,anu_longitude,anu_data,anu_preco) values (:pr,:ti,:de,:mo,:em,:es,:te,:co,:di,:wc,:mob,:ut,:int,:rap,:ra,:des,:ani,:la,:lo,:da,:pre);");
     if(!$STH->execute($anuncio->to_array_sem_id()))return false;
     return true;
   }
@@ -24,7 +24,7 @@ Disponibilidade
     //Edita anuncio edita tudo excepto a data e o id do anuncio1
     function editar_anuncio(Anuncio $anuncioEdita){
     global $mybd;
-		$STH = $mybd->DBH->prepare("Update anuncio Set uti_id=:pr,anu_titulo=:ti,anu_descricao=:de,anu_morada=:mo,anu_email=:em,anu_estado=:es,anu_telefone=:te,anu_codigopostal=:co,anu_disponibilidade=:di,anu_wcprivativo=:wc,anu_mobilada=:mob,anu_utensilios=:ut,anu_internet=:in,anu_rapazes=:rap,anu_raparigas=:ra,anu_despesas=:des,anu_animais=:ani,anu_latitude=:la,anu_longitude=:lo,anu_data=:da,anu_preco=:pre Where anu_id=:an;");
+		$STH = $mybd->DBH->prepare("Update anuncio Set uti_id=:pr,anu_titulo=:ti,anu_descricao=:de,anu_morada=:mo,anu_email=:em,anu_estado=:es,anu_telefone=:te,anu_codigopostal=:co,anu_disponibilidade=:di,anu_wcprivativo=:wc,anu_mobilada=:mob,anu_utensilios=:ut,anu_internet=:int,anu_rapazes=:rap,anu_raparigas=:ra,anu_despesas=:des,anu_animais=:ani,anu_latitude=:la,anu_longitude=:lo,anu_data=:da,anu_preco=:pre Where anu_id=:an;");
 		if(!$STH->execute($anuncioEdita->to_array_com_id()))return false;
     return true;
   }

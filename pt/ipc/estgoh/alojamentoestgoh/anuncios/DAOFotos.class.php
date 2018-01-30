@@ -2,7 +2,7 @@
 class DAOFoto{
 
   //Insere um foto na base de dados
-  function inserir_anuncio(Foto $foto){
+  function inserir_foto(Foto $foto){
     global $mybd;
       $STH=$mybd->DBH->prepare("Insert into foto (anu_id,fot_caminho,fot_nome) values (:a,:c,:n);");
     if(!$STH->execute($foto->to_array_sem_id()))return false;

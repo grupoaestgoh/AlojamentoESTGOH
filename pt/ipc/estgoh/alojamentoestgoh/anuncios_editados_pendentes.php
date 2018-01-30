@@ -469,7 +469,7 @@ ob_start();
                                               echo('<div class="carousel-item');
                                               if($l==0)print " active";
                                               echo(' " >
-                                                <img src="./img/'.$foto->Caminho.'/'.$foto->Nome.'" alt="" width="100%">
+                                                <img src="'.$foto->Caminho.$foto->Nome.'" alt="" width="100%">
                                               </div>');
                                             }
                                             echo('</div>

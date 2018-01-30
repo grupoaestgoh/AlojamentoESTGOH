@@ -39,6 +39,9 @@ if(isset($_POST["codigo2"]) && !empty($_POST["codigo2"])){
 if(isset($_POST["titulo"]) && !empty($_POST["titulo"])){
   $anuncio->Titulo=$_POST["titulo"];
 }
+if(isset($_POST["preco"]) && !empty($_POST["preco"])){
+  $anuncio->Preco=$_POST["preco"];
+}
 if(isset($_POST["informacao"]) && !empty($_POST["informacao"])){
   $anuncio->Descricao=$_POST["informacao"];
 }
@@ -67,8 +70,8 @@ if(isset($_POST["animalsim"])){
   else $anuncio->Animais=2;
 }
 if(isset($_POST["raparigasim"])){
-if($anuncio->Rapariga==1)   $anuncio->Rapariga=0;
-if($anuncio->Rapariga==0)   $anuncio->Rapariga=1;
+    if($anuncio->Rapariga==1)   $anuncio->Rapariga=0;
+    if($anuncio->Rapariga==0)   $anuncio->Rapariga=1;
 }
 if(isset($_POST["rapazsim"])){
     if($anuncio->Rapaz==1)   $anuncio->Rapaz=0;
@@ -372,6 +375,18 @@ ob_start();
                </div>
              </div>
            </div>
+
+           <div id="aviso_registo_insucesso_nome" class="alert alert-success aviso_registo_insucesso_nome" role="alert">
+                 <div class="row leftCaracteris">
+                 <div class="col-lg-2 ">
+                 <img class="alertaImg" src="img/img_aplicacao/certo.png" alt="">
+                 </div>
+                 <div class="col-lg-8">
+                   <span class="glyphicon glyphicon-alert"><?php print $anuncioSucesso;?></span>
+                 </div>
+               </div>
+             </div>
+
           <div class="row">
             <div class="addanuncio col-12">
               <form id="signup" enctype="multipart/form-data" action="registo_anuncio.php" method="post">
@@ -388,11 +403,12 @@ ob_start();
                       </div>
 
                       <div class="row">
+
                         <div class="col-lg-6">
-                          <input type="PrimeiroNome" placeholder="Primeiro Nome*" name="nome" value='<?php print $_SESSION["AE_nome_utilizador"];?>' disabled   autofocus/>
+                          <span id="falhaEmail" class="falhas" /><span>
                         </div>
                         <div class="col-lg-6">
-                          <input type="UltimoNome" placeholder="Último Nome*" name="ultimonome" value='<?php print $_SESSION["AE_nome_utilizador"];?>' disabled  />
+                          <span id="falhaTelefone" class="falhas" /><span>
                         </div>
                       </div>
                       <div class="row">
@@ -401,6 +417,15 @@ ob_start();
                         </div>
                         <div class="col-lg-6">
                          <input type="telefone" id="malTelefone" placeholder="Telefone*" name="tele" <?php if($anuncio->Telefone!=null) print (" value='".$anuncio->Telefone."' "); ?>   />
+                        </div>
+                      </div>
+                      <div class="row">
+
+                        <div class="col-lg-6">
+                          <span id="falhaMorada" class="falhas" /><span>
+                        </div>
+                        <div class="col-lg-6">
+                          <span id="falhaCodigo" class="falhas" /><span>
                         </div>
                       </div>
                       <div class="row">
@@ -416,12 +441,25 @@ ob_start();
                       <div class="header">
                           <p class="bold"><?php print $anuncio1;?></p>
                       </div>
+
                       <div class="row">
+                        <div class="col-lg-12">
+                          <span id="falhaTitulo" class="falhas" /><span>
+                        </div>
                         <div class="col-lg-12">
                           <input type="morada" id="malTitulo" placeholder="Título do anúncio*"  name="titulo"<?php if($anuncio->Titulo!=null) print (" value='".$anuncio->Titulo."' "); ?>  />
                         </div>
+                        <div class="col-lg-12">
+                          <span id="falhaPreco" class="falhas" /><span>
+                        </div>
+                        <div class="col-lg-12">
+                          <input type="preco" id="malPreco" placeholder="Preço*"  name="preco"<?php if($anuncio->Preco!=null) print (" value='".$anuncio->Preco."' "); ?>  />
+                        </div>
                       </div>
                       <div class="row">
+                        <div class="col-lg-12">
+                          <span id="falhaDescricao" class="falhas" /><span>
+                        </div>
                         <div class="col-lg-12">
                           <textarea  form="signup" id="malDescricao" placeholder="  Descrição*"  name="informacao" rows="3"   ><?php if($anuncio->Descricao!=null) print ($anuncio->Descricao); ?></textarea>
                         </div>
@@ -555,6 +593,67 @@ ob_start();
                         </div>
                       </div>
 
+
+                      <div class="row abaixu">
+                        <div class="row col-12">
+                          <div class="col-12">
+                            <div class="header">
+                                <p class="bold"><?php print $Localizacao1;?></p>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-lg-12">
+                          <span id="falhaLocalizacao" class="falhas" /><span>
+                        </div>
+                        <div  id="malLocalizacao" class="row col-12">
+                          <div class="col-lg-12">
+                            <div class="centro">
+                              <div id="map">
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <input type="hidden" id="longi"  name="longi" value="<?php if($anuncio->Longitude!=null)print $anuncio->Longitude;else print("-7.861200571060181");?>" />
+                        <input type="hidden" id="lati"  name="lati" value="<?php if($anuncio->Latitude!=null)print $anuncio->Latitude;else print("40.36095028657701")?>" />
+                        <script>
+                          var previousMarker=null,latt=null,longi=null;
+                          function myMap() {
+                            lattt=document.getElementById('lati').value;
+                            logii=document.getElementById('longi').value;
+                            var mapOptions = {
+                                center: new google.maps.LatLng(lattt,logii),
+                                zoom: 17,
+                                mapTypeId: google.maps.MapTypeId.HYBRID
+                            }
+                            var map = new google.maps.Map(document.getElementById("map"), mapOptions);
+                            if (previousMarker != null)
+                              previousMarker.setMap(null);
+                            previousMarker = new google.maps.Marker({
+                                  position: new google.maps.LatLng(lattt,logii),
+                                  map: map
+                            });
+
+
+
+
+                            map.addListener("click", function(event) {
+                              if (previousMarker != null)
+                                previousMarker.setMap(null);
+                              previousMarker = new google.maps.Marker({
+                                    position: new google.maps.LatLng(event.latLng.lat(),event.latLng.lng()),
+                                    map: map
+                              });
+                               document.getElementById('longi').value = event.latLng.lng();
+                               document.getElementById('lati').value = event.latLng.lat();
+                            });
+                          }
+                        </script>
+
+
+
+                        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDUym-eQ2fwfbNuGmGYa2HJacaW5zRciLo&callback=myMap"></script>
+                      </div>
+
                       <div class="header">
                           <p class="bold"><?php print $fotos;?></p>
                           <p class="tinyy"><?php print $minimoimg;?></p>
@@ -576,62 +675,7 @@ ob_start();
 
                       ?>
                     </div>
-                        <div class="row abaixu">
-                          <div class="row col-12">
-                            <div class="col-12">
-                              <div class="header">
-                                  <p class="bold"><?php print $Localizacao1;?></p>
-                              </div>
-                            </div>
-                          </div>
-                          <div  id="malLocalizacao" class="row col-12">
-                            <div class="col-lg-12">
-                              <div class="centro">
-                                <div id="map">
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <input type="hidden" id="longi"  name="longi" value="<?php if($anuncio->Longitude!=null)print $anuncio->Longitude;else print("-7.861200571060181");?>" />
-                          <input type="hidden" id="lati"  name="lati" value="<?php if($anuncio->Latitude!=null)print $anuncio->Latitude;else print("40.36095028657701")?>" />
-                          <script>
-                            var previousMarker=null,latt=null,longi=null;
-                            function myMap() {
-                              lattt=document.getElementById('lati').value;
-                              logii=document.getElementById('longi').value;
-                              var mapOptions = {
-                                  center: new google.maps.LatLng(lattt,logii),
-                                  zoom: 17,
-                                  mapTypeId: google.maps.MapTypeId.HYBRID
-                              }
-                              var map = new google.maps.Map(document.getElementById("map"), mapOptions);
-                              if (previousMarker != null)
-                                previousMarker.setMap(null);
-                              previousMarker = new google.maps.Marker({
-                                    position: new google.maps.LatLng(lattt,logii),
-                                    map: map
-                              });
 
-
-
-
-                              map.addListener("click", function(event) {
-                                if (previousMarker != null)
-                                  previousMarker.setMap(null);
-                                previousMarker = new google.maps.Marker({
-                                      position: new google.maps.LatLng(event.latLng.lat(),event.latLng.lng()),
-                                      map: map
-                                });
-                                 document.getElementById('longi').value = event.latLng.lng();
-                                 document.getElementById('lati').value = event.latLng.lat();
-                              });
-                            }
-                          </script>
-
-
-
-                          <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDUym-eQ2fwfbNuGmGYa2HJacaW5zRciLo&callback=myMap"></script>
-                        </div>
                       </div>
                       <div id="aceite" style="display:none;">
                         <div class="row">
@@ -676,27 +720,55 @@ ob_start();
   </script>
 
   <?php
+
   //Id_Anuncio,Titulo,Descricao,Proprietario,
   //Morada,Telefone,Email,Codigo_postal,Data_Submetido
   //Disponibilidade,Estado,Preco,Fotos,Wc,Mobilia
   //Utensilios,Internet,Rapariga,Rapaz,Despesas,Animais,Latitude,Longitude
-
   if(isset($_POST["InserirAnu"]) && !empty($_POST["InserirAnu"])){
     $tudoPreenchido=true;
     $arrayObjetoFotos=[];
     $tudoPreenchido=verifica_campos_prenechidos($anuncio,$Codigo_postal2,$tudoPreenchido);//ve campos preenchidos
     if($tudoPreenchido==true){
       $arrayObjetoFotos=verifica_imagens_tamanho($dao_anuncios,$mybd,$tudoPreenchido);// ve quantas imagens colocou
+      if($arrayObjetoFotos==null)echo'<script>malFotos.style.border="2px solid red";</script>';
     }
     if($tudoPreenchido==true){
       if($arrayObjetoFotos!=null){
         //adiciona anuncio
-        //adiciona imagens nas pastas
+        $anuncio->Proprietario=$_SESSION["AE_id_utilizador"];
+        $anuncio->Codigo_postal=$anuncio->Codigo_postal."-".$Codigo_postal2;
+        $anuncio->Data_Submetido=date('Y-m-d');
+        $anuncio->Disponibilidade=1;
+        $anuncio->Estado=2;
+        arranjo_caracteristicas($anuncio);
+        $mybd->ligar_bd();
+        $dao_anuncios->inserir_anuncio($anuncio);
         //adiciona imagens na bd
+        for ($i=0; $i <sizeof($arrayObjetoFotos); $i++) {
+          $FotoObj=$arrayObjetoFotos[$i];
+          $dao_fotos->inserir_foto($FotoObj);
+        }
+        //faz upload das imagens
+        upload_imgens($arrayObjetoFotos,$Caminho);
+        $mybd->desligar_bd();
+        $anuncio=new Anuncio(null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,0,0,null,null,null,null);
+        print('<script>
+                jQuery(document).ready(function( $ ) {
+                jQuery("#aviso_registo_insucesso_nome").show();
+                });
+                </script>');
       }
     }
 }
-
+function arranjo_caracteristicas($anuncio){
+  if($anuncio->Animais==2) $anuncio->Animais=0;
+  if($anuncio->Despesas==2) $anuncio->Despesas=0;
+  if($anuncio->Utensilios==2) $anuncio->Utensilios=0;
+  if($anuncio->Internet==2) $anuncio->Internet=0;
+  if($anuncio->Wc==2) $anuncio->Wc=0;
+  if($anuncio->Mobilia==2) $anuncio->Mobilia=0;
+}
 if(isset($_POST["EditarPassword"]) && !empty($_POST["EditarPassword"])){
     if(!strcmp($_POST["password1"],$_POST["password2"])){
       if(verifca_password($_POST["password1"])==true){
@@ -753,44 +825,87 @@ if(isset($_POST["EditarPassword"]) && !empty($_POST["EditarPassword"])){
 
   function verifica_campos_prenechidos($anuncio,$Codigo_postal2,$tudo){
     //ve se se Email esta  null se sim altera border
-    if($anuncio->Email==null || verifica_tamanho_string($anuncio->Email,25)==false){
+    if($anuncio->Email==null ){
       echo'<script>malEmail.style.border="2px solid red";</script>';
       $tudo=false;
     }
+    if( verifica_tamanho_string($anuncio->Email,25)==false){
+      echo'<script>$("#falhaEmail").text("O email possui demasiados caracteres!");</script>';
+      echo'<script>malEmail.style.border="2px solid red";</script>';
+    $tudo=false;
+  }
     //ve se se Telefone esta  null se sim altera border
-    if($anuncio->Telefone==null || verifica_so_numeros($anuncio->Telefone)==false){
+    if($anuncio->Telefone==null ){
       echo'<script>malTelefone.style.border="2px solid red";</script>';
       $tudo=false;
-    }
 
+    }
+    if( verifica_so_numeros($anuncio->Telefone)==false || verifica_tamanho_string($anuncio->Telefone,9)==false){
+      echo'<script>malTelefone.style.border="2px solid red";</script>';
+      echo'<script>$("#falhaTelefone").text("O telefone só pode ter 9 numeros!");</script>';
+      $tudo=false;
+
+    }
     //ve se se Morada esta  null se sim altera border
-    if($anuncio->Morada==null || verifica_tamanho_string($anuncio->Morada,100)==false){
+    if($anuncio->Morada==null ){
       echo'<script>malMorada.style.border="2px solid red";</script>';
       $tudo=false;
     }
-    //ve se se codigopostal esta  null se sim altera border
-    if($anuncio->Codigo_postal==null || verifica_so_numeros($anuncio->Codigo_postal)==false){
-      echo'<script>malCodigo.style.border="2px solid red";</script>';
+    if( verifica_tamanho_string($anuncio->Morada,100)==false){
+      echo'<script>malMorada.style.border="2px solid red";</script>';
+      echo'<script>$("#falhaMorada").text("A morada tem um maximo de 100 caracteres!");</script>';
       $tudo=false;
     }
     //ve se se codigopostal esta  null se sim altera border
-    if($Codigo_postal2==null || verifica_so_numeros($Codigo_postal2)==false){
+    if($anuncio->Codigo_postal==null){
+      echo'<script>malCodigo.style.border="2px solid red";</script>';
+      $tudo=false;
+    }
+    if( verifica_so_numeros($anuncio->Codigo_postal)==false  ||  verifica_so_numeros($Codigo_postal2)==false){
+      echo'<script>malCodigo.style.border="2px solid red";</script>';
+      echo'<script>malCodigo2.style.border="2px solid red";</script>';
+      echo'<script>$("#falhaCodigo").text("O codigo tem de ter apenas numeros!");</script>';
+      $tudo=false;
+    }
+    //ve se se codigopostal esta  null se sim altera border
+    if($Codigo_postal2==null ){
       echo'<script>malCodigo2.style.border="2px solid red";</script>';
       $tudo=false;
     }
-    if((strlen($anuncio->Codigo_postal)+(strlen($Codigo_postal2)))>8 ){
-      echo'<script>malCodigo2.style.border="2px solid red";</script>';
+    if( (strlen($Codigo_postal2)+strlen($anuncio->Codigo_postal))>8 ){
       echo'<script>malCodigo.style.border="2px solid red";</script>';
+      echo'<script>malCodigo2.style.border="2px solid red";</script>';
+      echo'<script>$("#falhaCodigo").text("O codigo tem de ter tamanho ate 8 digitos!");</script>';
       $tudo=false;
     }
     //ve se se titulo esta  null se sim altera border
-    if($anuncio->Titulo==null || verifica_tamanho_string($anuncio->Titulo,40)==false){
+    if($anuncio->Titulo==null ){
       echo'<script>malTitulo.style.border="2px solid red";</script>';
       $tudo=false;
     }
+    if( verifica_tamanho_string($anuncio->Titulo,40)==false){
+      echo'<script>malTitulo.style.border="2px solid red";</script>';
+      echo'<script>$("#falhaTitulo").text("O titulo do anuncio tem um maximo de 40 caracteres!");</script>';
+      $tudo=false;
+    }
+    //ve se se titulo esta  null se sim altera border
+    if($anuncio->Preco==null ){
+      echo'<script>malPreco.style.border="2px solid red";</script>';
+      $tudo=false;
+    }
+    if(verifica_so_numeros($anuncio->Preco)==false){
+      echo'<script>malPreco.style.border="2px solid red";</script>';
+      echo'<script>$("#falhaPreco").text("O preço é apenas contituido por digitos!");</script>';
+      $tudo=false;
+    }
     //ve se se Descricao esta  null se sim altera border
-    if($anuncio->Descricao==null || verifica_tamanho_string($anuncio->Descricao,200)==false){
+    if( verifica_tamanho_string($anuncio->Descricao,200)==false){
       echo'<script>malDescricao.style.border="2px solid red";</script>';
+      $tudo=false;
+    }
+    if($anuncio->Descricao==null){
+      echo'<script>malDescricao.style.border="2px solid red";</script>';
+      echo'<script>$("#falhaDescricao").text("A descrição tem um maximo de 200 caracteres!");</script>';
       $tudo=false;
     }
     //ve se se Wc esta  null se sim altera border
@@ -826,14 +941,32 @@ if(isset($_POST["EditarPassword"]) && !empty($_POST["EditarPassword"])){
     //ve se se Wc esta  null se sim altera border
     if($anuncio->Latitude==null && $anuncio->Longitude==null){
       echo'<script>malLocalizacao.style.border="2px solid red";</script>';
+      echo'<script>$("#falhaLocalizacao").text("Clique no mapa a localização da casa a arrendar!");</script>';
       $tudo=false;
     }
-  //if($tudo==false) echo'<script>malFotos.style.border="2px solid red";</script>';
+  if($tudo==false) echo'<script>malFotos.style.border="2px solid red";</script>';
   return $tudo;
+}
+function upload_imgens($arrayObjetoFotos,$Caminho){//carrega as imagens para a pasta da estgoh
+
+  for ($i=0; $i <6; $i++) {
+    if(isset($_FILES["file".$i])){
+      if($_FILES["file".$i]["name"] ){
+        $FotoObj=$arrayObjetoFotos[$i];
+        $name = $FotoObj->Nome;
+        $tmp_name = $_FILES["file".$i]['tmp_name'];
+        $error = $_FILES["file".$i]['error'];
+             if ($error !== UPLOAD_ERR_OK) {
+                 echo 'Erro ao fazer o upload:', $error;
+             } elseif (move_uploaded_file($tmp_name, $Caminho . $name)) {
+              //print("<script>alert('uploaded!');</script>");
+             }
+      }
+    }
+  }
 }
 
 
-//NAO TERMINADA!!
 function verifica_imagens_tamanho($dao_anuncios,$mybd,$tudo){//ve se propriedades da imagens são aceites
     $arrayFotosCorreto=[];
     $posicao=0;
@@ -841,29 +974,31 @@ function verifica_imagens_tamanho($dao_anuncios,$mybd,$tudo){//ve se propriedade
     $mybd->ligar_bd();
 
     //verifica tipo imagens, tamanho
-    for ($i=0; $i < sizeof(6); $i++) {
-        if($_FILES["file".$i]["name"]){
-          $arr_info = pathinfo($_FILES['file0']['name']);
+    for ($i=0; $i <6; $i++) {
+      if(isset($_FILES["file".$i])){
+        if($_FILES["file".$i]["name"] ){
+          $arr_info = pathinfo($_FILES["file".$i]['name']);
             //verificacao tamanho
-            $tamanhoImg=$_FILES['file0']['size'];
+            $tamanhoImg=$_FILES["file".$i]['size'];
             //extensao da imagem
             $extensao = $arr_info["extension"];
-            print("<script>alert('".$extensao.$tamanhoImg."');</script>");
             if(($extensao=='jpg' || $extensao=='png' || $extensao=='gif') && ($tamanhoImg>10000 && $tamanhoImg<1000000) ){
                   $idAnuncioNovo=(sizeof($dao_anuncios->listar_anuncios(""))+1);
                   $nomeImg="anu_".$idAnuncioNovo."_".$posicao.".".$extensao;
-                  $arrayFotosCorreto[$posicao]=new Foto(0,$idAnuncioNovo,"img_anuncios",$nomeImg);
+                  $arrayFotosCorreto[$posicao]=new Foto(0,$idAnuncioNovo,'./img/img_anuncios/',$nomeImg);
                   $posicao++;
-                  print("<script>alert('".$nomeImg."');</script>");
             }
         }
+      }
     }
     $mybd->desligar_bd();
 
     if($posicao>=3){
       return $arrayFotosCorreto;
-    }else{ return null;
+    }else{
+      echo'<script>$("#falhaFotos").text("Deve colocar pelo menos tres fotos. Formatos permitidos-JPG/PNG/GIF. Tem de ter tamanho entre 10000 e 1000000!");</script>';
       echo'<script>malFotos.style.border="2px solid red";</script>';
+      return null;
 
     }
 }
