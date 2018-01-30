@@ -80,14 +80,72 @@ ob_start();
       </div>
 
 	  <!-- Page Heading -->
-      <h2 class="my-4">Alojamentos em Oliveira de Hospital</h2>
+    <h2 class="my-4"><?php print $alojamentosOliveira?></h2>
 
-		<form class="navbar-form" action="ver_todos_anuncios.php" method="post">
-			<input type="text" name="nome_pesquisa" placeholder="<?php print $placeholder_pesquisa;?>" class="form-control" ><br>
-			<input type="submit" name="btnPesquisar" class="btn btn-default" value="<?php print $pesquisar?>">
-		</form>
+	  <form class="navbar-form" action="ver_todos_anuncios.php" method="post">
+		<input type="text" name="nome_pesquisa" placeholder="<?php print $placeholder_pesquisa?>" class="form-control" ><br>
+		<input type="submit" name="btnPesquisar" class="btn btn-default" value="<?php print $pesquisar?>">
+	  </form>
 
-			  <!-- Alterar o formulário de pesquisa e adicionar filtros -->
+		<div class="row">
+	  <button type="button"  class="btn btn-primary" id="pesquisa_av" data-toggle="collapse" data-target="#filter-panel"><img src="img/img_aplicacao/filtro.png" height="20x"></button>
+        <div id="filter-panel" class="collapse filter-panel">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <br>
+                    <form class="form-inline" role="form">
+                        <div class="form-group">
+                            <div class="espacamento" >
+                                <label id="labelPreto"><?php print $precoMax ?>:
+                                  <input class="espacamento" type="range" name="rangeInput" min="50" max="250" step="5" value="" oninput="updateTextInput(this.value);">
+                                  <input class="caixa" type="text" size="3" id="textInput" value="150€" readonly></label>
+                            </div>
+							<div class="espacamento" >
+								<label id="labelPreto"><input class="espacamento" type="checkbox"><?php print $casabanho ?></label>
+							</div>
+                            <div class="espacamento" >
+                                <label id="labelPreto"><input class="espacamento" type="checkbox"><?php print $despesas ?></label>
+                            </div>
+							<div class="espacamento" >
+                                <label id="labelPreto"><input class="espacamento" type="checkbox"><?php print $mobilia ?></label>
+                            </div>
+							<div class="espacamento" >
+                                <label id="labelPreto"><input class="espacamento" type="checkbox"><?php print $utensiliosCoz ?></label>
+                            </div>
+                        </div>
+                    </form>
+                    <br>
+					<form class="form-inline" role="form">
+                        <div class="form-group">
+                          <div class="espacamento">
+                            <label id="labelPreto"><?php print $exclusivo ?>:</label>
+                          </div>
+                          <div class="form-check form-check-inline">
+                            <label id="labelPreto" class="form-check-label">
+                              <input class="form-check-input" type="radio" name="gender" value="Rapaz"><?php print $rapaz ?>
+                            </label>
+                          </div>
+                          <div class="form-check form-check-inline">
+                            <label id="labelPreto" class="form-check-label">
+                              <input class="form-check-input" type="radio" name="gender" value="Rapariga"><?php print $rapariga ?>
+                            </label>
+                          </div>
+                          <div class="form-check form-check-inline">
+                            <label id="labelPreto" class="form-check-label">
+                              <input class="form-check-input" type="radio" name="gender" value="Ambos"><?php print $ambos ?>
+                            </label>
+                          </div>
+                        </div>
+                    </form>
+                    <br>
+                    <div class="espacamento" >
+					                 <button type="submit" id="pesquisa_av_ok" class="btn btn-danger"><?php print $limpar ?></button>
+					                 <button type="reset"  id="pesquisa_av_ok" class="btn btn-primary"><?php print $aplicarFiltros ?></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+	  </div>
 
               <?php
               $mybd->ligar_bd();
@@ -103,7 +161,7 @@ ob_start();
 
 			if($todos_anuncios == null)
 				print $naoanuncios;
-            else{
+      else{
 				$mybd->ligar_bd();
 
 				for ($i=0; $i <sizeof($todos_anuncios); $i++) {
@@ -114,21 +172,19 @@ ob_start();
 			<div class="row">
 				<div class="col-md-6">
 					<a href="#">
-						<img class="img-fluid rounded mb-3 mb-md-0" width="400" height="240" src="https://d1bvpoagx8hqbg.cloudfront.net/originals/quarto-frente-da-universidade-guimaraes-ac1e78b0fcabc44c5fcf9a1c547236a8.jpg" alt="">
+						<img height="250" width="400" id="foto_anuncio"  src="https://d1bvpoagx8hqbg.cloudfront.net/originals/quarto-frente-da-universidade-guimaraes-ac1e78b0fcabc44c5fcf9a1c547236a8.jpg" height="42" width="42">
 					</a>
 				</div>
 				<div class="col-md-5">
-				<?php
-					echo('<a href="#" id="titulo_anuncio">'.$anuncios->Titulo.'</a>');
-					echo('<h4>'.$anuncios->Preco.'€/mês</h4>');
-					echo('<p>'.$anuncios->Descricao.'</p>');
-				?>
+					<a href="#" id="titulo_anuncio"><?php print $anuncios->Titulo ?></a>
+					<h4 id="preco_anuncio"><?php print $anuncios->Preco ?> €/<?php print $mes ?></h4>
+					<p><?php print $anuncios->Descricao ?></p>
 				</div>
 			</div>
-				<?php
+			<?php
 				}
 			}
-				?>
+			?>
     </div>
     <!-- /.container -->
 
@@ -152,6 +208,11 @@ ob_start();
     ?>
 
   <script>
+
+	function updateTextInput(val) {
+		document.getElementById('textInput').value = val+"€";
+	}
+
   $(document).ready(function() {
       $('#dataTables-example').DataTable({
           responsive: true

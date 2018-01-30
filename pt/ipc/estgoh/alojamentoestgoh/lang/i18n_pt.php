@@ -105,11 +105,11 @@ $obrigatorio="* Obrigatório";
 $proprietario="Proprietário:";
 $anuncio1="Anuncio:";
 $caracteristicasQ="Especificações do Quarto:";
-$casabanho="Casa de Banho Privativa:";
+$casabanho="Casa de banho privativa:";
 $sim="Sim";
 $nao="Não";
 $internet1="Internet:";
-$despesas="Despesas Incluídas:";
+$despesas="Despesas incluídas:";
 $mobilia="Mobília:";
 $utensilios1="Utensílios:";
 $Animais1="Animais:";
@@ -130,12 +130,21 @@ $naoanuncios="Não tem anúncios!";
 $placeholder_pesquisa="Título ou Localidade";
 
 //pagina registo_outros_gestores.phpinfo
-	$registogestor="Registo Gestor";
+$registogestor="Registo Gestor";
 
 //Pagina Auncios_editados_pendentes.php
 
-	$AnuEdiPend="Anuncios Editados Pendentes";
+$AnuEdiPend="Anuncios Editados Pendentes";
 
-	//PaginaRegistoPrimeiroAdmistrador.php
+//PaginaRegistoPrimeiroAdmistrador.php
 
+//pagina ver_todos_anuncios
+$alojamentosOliveira="Alojamentos em Oliveira de Hospital";
+$mes="mês";
+$ambos="ambos";
+$exclusivo="Exclusivo para";
+$precoMax="Preço máximo";
+$utensiliosCoz="Utensílios de cozinha";
+$limpar="Limpar";
+$aplicarFiltros="Aplicar filtros";
 ?>

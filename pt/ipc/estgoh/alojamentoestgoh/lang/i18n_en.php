@@ -97,11 +97,11 @@ $obrigatorio="* Needed";
 $proprietario="Freeholder:";
 $anuncio1="Advertisement:";
 $caracteristicasQ="Room's Specifications:";
-$casabanho="Private Bathroom:";
+$casabanho="Private bathroom:";
 $sim="Yes";
 $nao="No";
 $internet1="Internet:";
-$despesas="Rent included:";
+$despesas="Expenses included:";
 $mobilia="Furniture:";
 $utensilios1="Utensils:";
 $Animais1="Animals:";
@@ -122,12 +122,21 @@ $naoanuncios="There are no advertisements!";
 $placeholder_pesquisa="Title or Location";
 
 //pagina registo_outros_gestores.phpinfo
-	$registogestor="Register Manager";
+$registogestor="Register Manager";
 
 //Pagina Auncios_editados_pendentes.php
 
-	$AnuEdiPend="Edited Pending Advertisements";
+$AnuEdiPend="Edited Pending Advertisements";
 
-	//PaginaRegistoPrimeiroAdmistrador.php
+//PaginaRegistoPrimeiroAdmistrador.php
 
+//pagina ver_todos_anuncios
+$alojamentosOliveira="Accommodation in Oliveira de Hospital";
+$mes="mounth";
+$ambos="both";
+$exclusivo="Exclusive for";
+$precoMax="Maximum price";
+$utensiliosCoz="Kitchen utensils";
+$limpar="Reset";
+$aplicarFiltros="Apply filters";
 ?>

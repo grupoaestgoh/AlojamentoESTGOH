@@ -42,7 +42,7 @@ label{
   color: white;
 }
 
-h2, h4, h5, h6{
+h2, h5, h6{
   font-family: "Germania One", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: 700;
 }
@@ -636,6 +636,31 @@ input:-moz-placeholder {
         to(#b9c5dd));
 }
 /* Fim  CSS adicionar anuncio anunciante */
+
+/*Página ver_todos_anuncios*/
+#titulo_anuncio {
+  font-family: 'Ropa Sans', sans-serif;
+  font-size: 28px;
+  color: black;
+}
+#foto_anuncio {
+	border-radius: 5px;
+}
+.espacamento{
+  margin-left:10px;
+  margin-right:10px;
+}
+.caixa{
+  border: none;
+}
+#labelPreto {
+  color: black;
+}
+#pesquisa_av {
+  margin-left: 15px;
+  height:40px;
+  width:45px;
+}
 
 /*CSS Index*/
 .intro-divider{
