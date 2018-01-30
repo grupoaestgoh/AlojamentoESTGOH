@@ -19,12 +19,7 @@ include("./comum/carregacontroladores.php");
 //Utensilios,Internet,Rapariga,Rapaz,Despesas,Animais,Latitude,Longitude
 $anuncio=new Anuncio(null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,0,0,null,null,null,null);
 $Codigo_postal2=null;
-$arrayFotos[0]=null;
-$arrayFotos[1]=null;
-$arrayFotos[2]=null;
-$arrayFotos[3]=null;
-$arrayFotos[4]=null;
-$arrayFotos[5]=null;
+
 
 if(isset($_POST["mail"]) && !empty($_POST["mail"])){
   $anuncio->Email=$_POST["mail"];
@@ -86,25 +81,6 @@ if(isset($_POST["lati"])){
     if(strcmp($_POST["lati"],"40.36095028657701"))$anuncio->Latitude=$_POST["lati"];
 }
 
-if(isset($_POST["0"]) && strcmp($_POST["0"],"nada")){
-  $arrayFotos[0]=$_POST["0"];
-    //echo "<script>console.log(".$arrayFotos[0].")</script>";
-}
-if(isset($_POST["1"])  && strcmp($_POST["1"],"nada")){
-  $arrayFotos[1]=$_POST["1"];
-}
-if(isset($_POST["2"])  && strcmp($_POST["2"],"nada")){
-    $arrayFotos[2]=$_POST["2"];
-}
-if(isset($_POST["3"])  && strcmp($_POST["3"],"nada")){
-    $arrayFotos[3]=$_POST["3"];
-}
-if(isset($_POST["4"])  && strcmp($_POST["4"],"nada")){
-    $arrayFotos[4]=$_POST["4"];
-}
-if(isset($_POST["5"])  && strcmp($_POST["5"],"nada")){
-  $arrayFotos[5]=$_POST["5"];
-}
 
 //conteudo principal
 ob_start();
@@ -398,7 +374,7 @@ ob_start();
            </div>
           <div class="row">
             <div class="addanuncio col-12">
-              <form id="signup" action="registo_anuncio.php" method="post">
+              <form id="signup" enctype="multipart/form-data" action="registo_anuncio.php" method="post">
                   <div class="header">
                       <h3 class="baixo"><?php if(isset($_GET["id_anuncio_editar"])) print $edita; else print $insere;?></h3>
                       <p><?php if(isset($_SESSION["id_anuncio_editar"])) print $formulario;?></p>
@@ -591,7 +567,7 @@ ob_start();
                         for ($i=0; $i <6 ; $i++) {
                             echo('<div class="row abaixu">
                                 <div class="col-3">
-                                  <input type="file" name="'.($i).'" class="btn btnx";" >
+                                  <input type="file" name="file'.($i).'" class="btn btnx";" >
                                 </div>
                             </div>');
 
@@ -709,59 +685,54 @@ ob_start();
     $tudoPreenchido=true;
     $arrayObjetoFotos=[];
     $tudoPreenchido=verifica_campos_prenechidos($anuncio,$Codigo_postal2,$tudoPreenchido);//ve campos preenchidos
-    //falta verificar tamanho de strings
     if($tudoPreenchido==true){
-      $tudoPreenchido=verifica_imagens($arrayFotos);// ve quantas imagens colocou
+      $arrayObjetoFotos=verifica_imagens_tamanho($dao_anuncios,$mybd,$tudoPreenchido);// ve quantas imagens colocou
     }
     if($tudoPreenchido==true){
-      $arrayObjetoFotos=verifica_imagens_tamanho($arrayFotos,$tudoPreenchido);// ve quantas imagens colocou
-    }
-    if($arrayObjetoFotos!=null){
-      //adiciona anuncio
-      //adiciona imagens nas pastas
-      //adiciona imagens na bd
+      if($arrayObjetoFotos!=null){
+        //adiciona anuncio
+        //adiciona imagens nas pastas
+        //adiciona imagens na bd
+      }
     }
 }
 
-  if(isset($_POST["EditarPassword"]) && !empty($_POST["EditarPassword"])){
+if(isset($_POST["EditarPassword"]) && !empty($_POST["EditarPassword"])){
     if(!strcmp($_POST["password1"],$_POST["password2"])){
       if(verifca_password($_POST["password1"])==true){
       $password=password_hash($_POST["password1"],PASSWORD_DEFAULT);
       $utilizador_edita_pass=new Gestor($_SESSION['AE_id_utilizador'],"","",$password,"","");
       $dao_utilizadores->editar_utilizador($utilizador_edita_pass);
-      print('<script>
-              jQuery(document).ready(function( $ ) {
+        print('<script>
+                jQuery(document).ready(function( $ ) {
                 jQuery("#aviso_registo_sucesso").show();
-              });
-              $(document).ready(function(){
-          $("#myModal20").modal();
-      });
-          </script>');
-          header("refresh: 1;registo_anuncio.php");
-
+                });
+                $(document).ready(function(){
+                $("#myModal20").modal();
+                });
+                </script>');
+        header("refresh: 1;registo_anuncio.php");
       }else{//caracteristicas mal
         print('<script>
                 jQuery(document).ready(function( $ ) {
-                  jQuery("#aviso_registo_insucesso_password").show();
+                jQuery("#aviso_registo_insucesso_password").show();
                 });
                 $(document).ready(function(){
-          $("#myModal20").modal();
-      });
-            </script>');
-      }
-    }else{//password diferentes
-      print('<script>
-              jQuery(document).ready(function( $ ) {
-                jQuery("#aviso_login_insucesso").show();
-              });
-              $(document).ready(function(){
-          $("#myModal20").modal();
-      });
-          </script>');
-
+                $("#myModal20").modal();
+                });
+                </script>');
         }
-
-  }
+      }else{//password diferentes
+          print('<script>
+                jQuery(document).ready(function( $ ) {
+                jQuery("#aviso_login_insucesso").show();
+                });
+                $(document).ready(function(){
+                $("#myModal20").modal();
+                });
+                </script>');
+      }
+}
   //desativa a conta e vai para a pagina index e elimina session
       if(isset($_POST["DesativaConta"]) && !empty($_POST["DesativaConta"])){
         $dao_utilizadores->alterar_estado($_SESSION["AE_id_utilizador"],3);
@@ -772,13 +743,13 @@ ob_start();
         header('Location: index.php');
       }
   //termina sessão
-  if(isset($_GET["TerminarSessao"]) && !empty($_GET["TerminarSessao"])){
-    unset($_SESSION['AE_id_utilizador']);
-    unset($_SESSION['AE_nome_utilizador']);
-    unset($_SESSION['AE_email_utilizador']);
-    unset($_SESSION['AE_estado_utilizador']);
-    header('Location: index.php');
-  }
+      if(isset($_GET["TerminarSessao"]) && !empty($_GET["TerminarSessao"])){
+        unset($_SESSION['AE_id_utilizador']);
+        unset($_SESSION['AE_nome_utilizador']);
+        unset($_SESSION['AE_email_utilizador']);
+        unset($_SESSION['AE_estado_utilizador']);
+        header('Location: index.php');
+      }
 
   function verifica_campos_prenechidos($anuncio,$Codigo_postal2,$tudo){
     //ve se se Email esta  null se sim altera border
@@ -827,7 +798,6 @@ ob_start();
       echo'<script>malWc.style.border="2px solid red";</script>';
       $tudo=false;
     }
-
     //ve se se Wc esta  null se sim altera border
     if($anuncio->Internet==null){
       echo'<script>malInternet.style.border="2px solid red";</script>';
@@ -853,45 +823,49 @@ ob_start();
       echo'<script>malAnimais.style.border="2px solid red";</script>';
       $tudo=false;
     }
-
     //ve se se Wc esta  null se sim altera border
     if($anuncio->Latitude==null && $anuncio->Longitude==null){
       echo'<script>malLocalizacao.style.border="2px solid red";</script>';
       $tudo=false;
     }
-  if($tudo==false) echo'<script>malFotos.style.border="2px solid red";</script>';
-
-return $tudo;
-  }
-
-//METODO PARA VERIFICAR AS se tem 3 imagens
-function verifica_imagens($arrayFotos){
-      $count=0;
-        for ($i=0; $i < sizeof($arrayFotos); $i++) {
-          if($arrayFotos[$i]==null)$count++;
-        }
-        if($count<3)return false;
-        else  return true;
+  //if($tudo==false) echo'<script>malFotos.style.border="2px solid red";</script>';
+  return $tudo;
 }
+
+
 //NAO TERMINADA!!
-function verifica_imagens_tamanho($arrayFotos,$tudo){//ve se propriedades da imagens são aceites
-$arrayFotosCorreto=[];
-$posicao=0;
-//verifica tipo imagens, tamanho
-    for ($i=0; $i < sizeof($arrayFotos); $i++) {
-      if($arrayFotos[$i]!=null){
-        $nomeImg="";
-        $formatoImg="";
-        //verificacao tamanho
-        //verificacao tipo
-        $idAnuncioNovo=(sizeof($dao_anuncios->listar_anuncios(""))+1);
-        $nomeImg="anu_".$idAnuncioNovo."_".$posicao.".".$formatoImg;
-        $arrayFotosCorreto[$posicao]=new Foto(0,$idAnuncioNovo,"img_anuncios",$nomeImg);
-        $posicao++;
-      }
+function verifica_imagens_tamanho($dao_anuncios,$mybd,$tudo){//ve se propriedades da imagens são aceites
+    $arrayFotosCorreto=[];
+    $posicao=0;
+  //  $mybd=new BaseDados();
+    $mybd->ligar_bd();
+
+    //verifica tipo imagens, tamanho
+    for ($i=0; $i < sizeof(6); $i++) {
+        if($_FILES["file".$i]["name"]){
+          $arr_info = pathinfo($_FILES['file0']['name']);
+            //verificacao tamanho
+            $tamanhoImg=$_FILES['file0']['size'];
+            //extensao da imagem
+            $extensao = $arr_info["extension"];
+            print("<script>alert('".$extensao.$tamanhoImg."');</script>");
+            if(($extensao=='jpg' || $extensao=='png' || $extensao=='gif') && ($tamanhoImg>10000 && $tamanhoImg<1000000) ){
+                  $idAnuncioNovo=(sizeof($dao_anuncios->listar_anuncios(""))+1);
+                  $nomeImg="anu_".$idAnuncioNovo."_".$posicao.".".$extensao;
+                  $arrayFotosCorreto[$posicao]=new Foto(0,$idAnuncioNovo,"img_anuncios",$nomeImg);
+                  $posicao++;
+                  print("<script>alert('".$nomeImg."');</script>");
+            }
+        }
     }
-    if($posicao>=3)return $arrayFotosCorreto;
-    else return null;
+    $mybd->desligar_bd();
+
+    if($posicao>=3){
+      return $arrayFotosCorreto;
+    }else{ return null;
+      echo'<script>malFotos.style.border="2px solid red";</script>';
+
+    }
 }
 function verifica_so_numeros($string){
     for ($i=0; $i < strlen($string); $i++) {
