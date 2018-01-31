@@ -109,7 +109,7 @@ $obrigatorio="* Needed";
 $proprietario="Freeholder:";
 $anuncio1="Advertisement:";
 $caracteristicasQ="Room's Specifications:";
-$casabanho="Private bathroom:";
+$casabanho="Private bathroom";
 $sim="Yes";
 $nao="No";
 $Remail="E-mail*";
@@ -121,8 +121,8 @@ $Rpreco="Price*";
 $Rdescricao="Description*";
 $adicionaAnu="Add ad";
 $internet1="Internet:";
-$despesas="Expenses included:";
-$mobilia="Furniture:";
+$despesas="Expenses included";
+$mobilia="Furniture";
 $utensilios1="Utensils:";
 $Animais1="Animals:";
 $sexoPermitido="Permited Gender:";
@@ -160,4 +160,11 @@ $precoMax="Maximum price";
 $utensiliosCoz="Kitchen utensils";
 $limpar="Reset";
 $aplicarFiltros="Apply filters";
+
+//pagina meus_anuncios
+$eliminarAnu="Delete advertisement";
+$confirmaElimina="Are you sure you want to delete the ad?";
+$eliminar="Delete";
+$mostraDet="Show details";
+$escondeDet="Hide details";
 ?>
