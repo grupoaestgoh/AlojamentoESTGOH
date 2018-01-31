@@ -5,7 +5,7 @@ class DAOUtilizadores{
   1-gestor
   2-anunciantes
   3-estudante
-  
+
   Estado
   1-ativo
   2-pendente
@@ -16,7 +16,10 @@ class DAOUtilizadores{
   //Insere um utilizador na base de dados, se falhar devolve false, se tiver sucesso devolve true
   function inserir_utilizador(Utilizador $utilizador){
     global $mybd;
+    if($utilizador->Tipo!=0)
       $STH=$mybd->DBH->prepare("Insert into utilizador (uti_nome,uti_email,uti_password,uti_estado,uti_tipo,uti_inscricao) values (:n,:e,:p,0,:t,:d);");
+    else
+        $STH=$mybd->DBH->prepare("Insert into utilizador (uti_nome,uti_email,uti_password,uti_estado,uti_tipo,uti_inscricao) values (:n,:e,:p,1,:t,:d);");
     if(!$STH->execute($utilizador->to_array_sem_id()))return false;
     return true;
   }

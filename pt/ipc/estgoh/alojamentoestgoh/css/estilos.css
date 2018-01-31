@@ -144,9 +144,10 @@ body{
 
 /*CSS Nav*/
 .dados{
-    height: 280px;
+    height: 300px;
     width: 190px;
 }
+
 .notificacoes {
   width: 280px;
     height: 250px;
@@ -166,9 +167,12 @@ body{
   padding-top: 5px;
 }
 
-
 .bg-light{
-    background-color: #f8f8f8!important;
+  background-color: #f8f8f8!important;
+}
+
+.smallx{
+  font-size: 11px;
 }
 
 .navGestor{
@@ -227,10 +231,16 @@ body{
   box-shadow: 0px 5px 5px #888888;
   border-radius: 20px;
 }
+
 .textodoquarto{
   padding: 5px;
   text-align: center;
 }
+
+.padleft{
+  padding-left: 30px;
+}
+
 #icones, #icones2 {
   display: block;
 }
@@ -433,7 +443,9 @@ body{
   font-size: 15px;
   vertical-align: middle;
 }
-
+.btn-primary {
+  background-color: rgb(7, 117, 184);
+}
 .especific {
   font-size: 13px;
 }
@@ -861,7 +873,6 @@ input:-moz-placeholder {
   }
 }
 /*Fim*/
-
 
 /*Nav para gestor*/
 .modal-footer {

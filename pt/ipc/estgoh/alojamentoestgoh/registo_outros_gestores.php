@@ -149,32 +149,58 @@
 								 <span class="d-lg-none"><?php print $MeusDados; ?>
 									 <span class="badge badge-pill badge-warning">6 <?php print $novas; ?></span>
 								 </span>
-
 							 </a>
 							 <div class="dropdown-menu dados" aria-labelledby="alertsDropdown">
-								 <h6 class="dropdown-header"><?php print $MeusDados1; ?></h6>
-								 <div class="dropdown-divider"></div>
-
-								 <a class="dropdown-item"  >
-									<strong> <?php print $nome; ?></strong>
-									 <div class="dropdown-message small"><?php print $_SESSION["AE_nome_utilizador"]; ?></div><!--Tens de fazer o login no index para a session ter valor -->
+								 <div class="row">
+									 <div class="col-12">
+								 			<h6 class="dropdown-header"><?php print $MeusDados1; ?></h6>
+									 </div>
+							 	 </div>
+								 <div class="row">
+									  <div class="col-12">
+								 			<div class="dropdown-divider"></div>
+										</div>
+								 </div>
+								 <a class="dropdown-item">
+									 <div class="row">
+										 <div class="col-12 textodoquarto">
+											 <strong> <?php print $nome; ?> </strong>
+										 </div>
+									  </div>
+										<div class="row">
+										 <div class="col-12">
+										 		<div class="dropdown-message smallx textodoquarto"><?php echo $_SESSION["AE_nome_utilizador"]; ?></div><!--Tens de fazer o login no index para a session ter valor -->
+										 </div>
+									  </div>
 								 </a>
-
-								 <div class="dropdown-divider"></div>
-
-								 <a class="dropdown-item"  >
-									<strong><?php print $email; ?> </strong>
-									 <div class="dropdown-message small"><?php print $_SESSION["AE_email_utilizador"]; ?></div><!--Tens de fazer o login no index para a session ter valor -->
+								 <div class="row">
+									 <div class="col-12">
+								 	 	<div class="dropdown-divider"></div>
+									 </div>
+								 </div>
+								 <a class="dropdown-item">
+									 <div class="row">
+										 <div class="col-12 textodoquarto">
+											 <strong><?php print $email; ?> </strong>
+										 </div>
+										</div>
+										<div class="row">
+										 <div class="col-12">
+									 	 		<div class="dropdown-message textodoquarto smallx"><?php print $_SESSION["AE_email_utilizador"]; ?></div><!--Tens de fazer o login no index para a session ter valor -->
+										 </div>
+										</div>
 								 </a>
-
-
-								 <a class="dropdown-item"  >
-									 <strong>
-										 <i class="fa"></i>
-										 <button type="button" class="nav-link especialBotao"  data-toggle="modal" data-target="#myModal20"><font  size="4" color="black"><?php print $alteraDados; ?></font></button>
-									 </strong>
-
-
+								 <div class="row">
+									 <div class="col-12">
+										 <div class="dropdown-divider"></div>
+									 </div>
+								</div>
+								 <a class="dropdown-item">
+									 <div class="row">
+												<div class="col-12 textodoquarto padleft">
+												 	<button type="button" class="nav-link especialBotao"  data-toggle="modal" data-target="#myModal20"><font  size="4" color="black"><?php print $alteraDados; ?></font></button>
+												</div>
+									 </div>
 								 </a>
 							 </div>
 						 </li>
@@ -365,7 +391,7 @@
 									 </div>
 								 </div>
 							 </div>
-             <input name="registar" class="btn btnx navbar-btn"  type="submit" value="<?php print $registar; ?>">
+             <input name="registar" class="btn btn-primary navbar-btn"  type="submit" value="<?php print $registar; ?>">
           </form>
    		</div>
     </div>
@@ -423,7 +449,7 @@ if(isset($_POST["registar"]) && !empty($_POST["registar"])){
 
 			if(isset($_POST["passwordd"]) && !empty($_POST["passwordd"])){
 				$password=password_hash($_POST["passwordd"],PASSWORD_DEFAULT);
-				if(verifca_password($_POST["passwordd"])==true  && verifica_tamanho_string($password,15)==true){
+				if(verifca_password($_POST["passwordd"])==true){
 					$flag++;
 
 				}else{
@@ -444,9 +470,10 @@ if(isset($_POST["registar"]) && !empty($_POST["registar"])){
 	if($flag==3){//se estiverem os dados todos inseridos e corretos regista o utilizador
 		//criar o utilizador
 		$password=password_hash($_POST["passwordd"],PASSWORD_DEFAULT);
-		$utilizador= new utilizador(0,$_POST["nomee"],$_POST["emaill"],$password,0,date("Y-m-d"));
+		$utilizador= new utilizador(0,$_POST["nomee"],$_POST["emaill"],$password,1,date("Y-m-d"));
 		//insere o utilizador na bd
 		$dao_utilizadores->inserir_utilizador($utilizador);
+		echo("<script>console.log('PHP: ".$utilizador->Tipo."');</script>");
 		print('<script>
 						jQuery(document).ready(function( $ ) {
 								jQuery("#aviso_registo_sucesso").show();
@@ -454,12 +481,8 @@ if(isset($_POST["registar"]) && !empty($_POST["registar"])){
 				</script>');
 		//volta a pagina principal
 	}
-
 	$mybd->desligar_bd();
-
 }
-
-
 
 //funções de php
 	function verifica_nome(){
@@ -539,6 +562,8 @@ if(isset($_POST["registar"]) && !empty($_POST["registar"])){
 			return false;// nao tem maisculas
 		//verifica se tem pelo menos 9 carcteres
 		if(strlen($pass)<8)
+			return false;//tamanho invalido
+		if(strlen($pass)>15)
 			return false;//tamanho invalido
 		//verifica se tem numeros
 		if(preg_match('/[1-9]/', $pass)!=1)

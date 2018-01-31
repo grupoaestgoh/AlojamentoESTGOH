@@ -211,22 +211,22 @@ if(isset($_POST["entrar"]) && !empty($_POST["entrar"])){
 				</script>');
 				//iniciar sessão
 				if ($utilizador instanceof Anunciante) {
-					 $_SESSION["AE_id_utilizador"] = $utilizador->id_utilizador;
-					 $_SESSION["AE_nome_utilizador"] = $utilizador->nome;
-					 $_SESSION["AE_email_utilizador"] = $utilizador->email;
+					 $_SESSION["AE_id_utilizador"] = $utilizador->Id_Utilizador;
+					 $_SESSION["AE_nome_utilizador"] = $utilizador->Nome;
+					 $_SESSION["AE_email_utilizador"] = $utilizador->Email;
 					 $_SESSION["AE_estado_utilizador"] = $utilizador->Estado;
 					 $_SESSION["AE_tipo_utilizador"] = $utilizador->Tipo;
 					 $_SESSION["AE_data_incricao_utilizador"] = $utilizador->Data_Inscricao;
 					 header("Location: ./anuncios.php");
 				}
 				if ($utilizador instanceof Gestor) {
-					 $_SESSION["AE_id_utilizador"] = $utilizador->id_utilizador;
-					 $_SESSION["AE_nome_utilizador"] = $utilizador->nome;
-					 $_SESSION["AE_email_utilizador"] = $utilizador->email;
+					 $_SESSION["AE_id_utilizador"] = $utilizador->Id_Utilizador;
+					 $_SESSION["AE_nome_utilizador"] = $utilizador->Nome;
+					 $_SESSION["AE_email_utilizador"] = $utilizador->Email;
 					 $_SESSION["AE_estado_utilizador"] = $utilizador->Estado;
 					 $_SESSION["AE_tipo_utilizador"] = $utilizador->Tipo;
 					 $_SESSION["AE_data_incricao_utilizador"] = $utilizador->Data_Inscricao;
-					 header("Location: ./anuncios_novos_pendentes.php");
+					 header("Location: ./meus_anuncios.php");
 				}
 
 			}else{

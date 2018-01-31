@@ -6,7 +6,7 @@ class Gestor extends Utilizador{
   //Construtor da classe gestor
   function __construct($Id_Utilizador,$Nome,$Email,$Password,$Tipo,$Data_Inscricao,$estado){
     parent::__construct($Id_Utilizador,$Nome,$Email,$Password,$Tipo,$Data_Inscricao);
-    $this->Estado=$Estado;
+    $this->Estado=$estado;
   }
   //Devolve gestor em array sem atributo id
   public function to_array_sem_id(){
