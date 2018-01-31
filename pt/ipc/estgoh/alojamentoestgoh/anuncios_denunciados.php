@@ -284,6 +284,42 @@ ob_start();
 
    </div>
    <!-- End modal -->
+
+                                   <div class="modal fade" id="myModalEliminar" role="dialog">
+                                     <div class="modal-dialog">
+                                       <!-- Modal content-->
+                                       <div class="modal-content">
+                                         <form action="anuncios_denunciados.php" method="POST">
+                                           <div class="modal-header">
+                                             <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                             <h4 class="modal-title">Eliminar Anúncio</h4>
+                                           </div>
+                                           <div class="modal-body">
+                                             <p>Motivo da rejeição:</p>
+                                             <textarea class="form-control" rows="3" name="motivo" required></textarea>
+                                             <span id="falhamotivo" class="falhas" /><span>
+                                             <input type="hidden" class="btn btn-danger" name="idElimina2" value="<?php print$anun->Id_Anuncio;?>">
+
+                                           </div>
+                                           <div id="aviso_registo_insucesso_email" class="alert alert-success aviso_registo_insucesso_email" role="alert">
+                                                 <div class="row leftCaracteris">
+                                                 <div class="col-lg-2 ">
+                                                 <img class="alertaImg" src="img/img_aplicacao/certo.png" alt="">
+                                                 </div>
+                                                 <div class="col-lg-8">
+                                                   <span class="glyphicon glyphicon-alert"><?php print $EliminaSucesso;?></span>
+                                                 </div>
+                                               </div>
+                                             </div>
+                                           <div class="modal-footer">
+                                             <input type="submit" class="btn btn-danger" name="EliminarDenuncia" value="<?php print $Eliminar;?>">
+                                             <button type="button" class="btn btn-default" data-dismiss="modal"><?php print $Fechar;?></button>
+                                           </div>
+                                         </form>
+                                       </div>
+                                     </div>
+                                   </div>
+
     <!-- Page Content -->
     <div class="container">
       <div class="row">
@@ -312,37 +348,7 @@ ob_start();
               <div class="card mb-3">
 
                 <!-- Modal ELiminar -->
-                <div class="modal fade" id="myModalEliminar" role="dialog">
-                  <div class="modal-dialog">
-                    <!-- Modal content-->
-                    <div class="modal-content">
-                      <form action="#">
-                        <div class="modal-header">
-                          <button type="button" class="close" data-dismiss="modal">&times;</button>
-                          <h4 class="modal-title">Eliminar Anúncio</h4>
-                        </div>
-                        <div class="modal-body">
-                          <p>Motivo da rejeição:</p>
-                          <textarea class="form-control" rows="3" required></textarea>
-                        </div>
-                        <div id="Aviso3" class="alert alert-success" role="alert" style="display:none;" >
-                            <div class="row leftCaracteris">
-                            <div class="col-lg-2 ">
-                            <img class="alertaImg" src="img/certo.png" alt="">
-                            </div>
-                            <div class="col-lg-8">
-                              <span class="glyphicon glyphicon-alert">Eliminado com sucesso!</span>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="modal-footer">
-                          <button type="submit" class="btn btn-danger" onclick="Mudarestado('Aviso3')">Eliminar</button>
-                          <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
-                        </div>
-                      </form>
-                    </div>
-                  </div>
-                </div>
+
 
 
                 <div class="card-body">
@@ -350,279 +356,242 @@ ob_start();
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                       <thead>
                         <tr>
-                          <th>Motivo</th>
-                          <th>Titulo</th>
-                          <th>Preço</th>
-                          <th>Localização</th>
-                          <th>Anunciante</th>
+                          <th><?php print $motivo;?></th>
+                          <th><?php print $titulo;?></th>
+                          <th><?php print $preco;?></th>
+                          <th><?php print $localizacao;?></th>
+                          <th><?php print $anunciante;?></th>
                           <th></th>
                           <th></th>
                         </tr>
                       </thead>
                       <tfoot>
                         <tr>
-                          <th>Motivo</th>
-                          <th>Titulo</th>
-                          <th>Preço</th>
-                          <th>Localização</th>
-                          <th>Anunciante</th>
+                          <th><?php print $motivo;?></th>
+                          <th><?php print $titulo;?></th>
+                          <th><?php print $preco;?></th>
+                          <th><?php print $localizacao;?></th>
+                          <th><?php print $anunciante;?></th>
                           <th></th>
                           <th></th>
                         </tr>
                       </tfoot>
                       <tbody>
-                        <tr>
-                          <td>Esta casa não existe é falcatrua</td>
-                          <td>Tiger Nixon</td>
-                          <td>Edinburgh</td>
-                          <td>Edinburgh</td>
-                          <td>João Manuel</td>
-                          <td><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModalEliminar">Eliminar</button></td>
-                          <td><button type="button" class="btn btn-default"  data-toggle="modal" data-target=".bd-example-modal-lg"><i class="fa fa-eye" style="font-size:24px"></i></button></td>
-                          </tr>
-                        <tr>
-                          <td>Esta casa não existe é falcatrua</td>
-                          <td>Garrett Winters</td>
-                          <td>Tokyo</td>
-                          <td>Edinburgh</td>
-                          <td>João Manuel</td>
-                          <td><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModalEliminar">Eliminar</button></td>
-                          <td><button type="button" class="btn btn-default"  data-toggle="modal" data-target=".bd-example-modal-lg"><i class="fa fa-eye" style="font-size:24px"></i></button></td>
-                        </tr>
-                        <tr>
-                          <td>Esta casa não existe é falcatrua</td>
-                          <td>Ashton Cox</td>
-                          <td>San Francisco</td>
-                          <td>Edinburgh</td>
-                          <td>João Manuel</td>
-                          <td><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModalEliminar">Eliminar</button></td>
-                          <td><button type="button" class="btn btn-default"  data-toggle="modal" data-target=".bd-example-modal-lg"><i class="fa fa-eye" style="font-size:24px"></i></button></td>
-                          </tr>
+                        <?php
+                        $mybd->ligar_bd();
+                        $den=$dao_denuncias->listar_denuncias(0,0);
+                        if(sizeof($den)!=0){
+                            for ($i=0; $i <sizeof($den) ; $i++) {
+                              $denUnica=$den[$i];
+                              $anun=$dao_anuncios->obter_anuncio($denUnica->Id_Anuncio);
+                              // buscar a denuncias em array do $anun->Id_Anuncio
+                                $anunciante=$dao_utilizadores->obter_utilizador_id($anun->Proprietario);
+                              echo('<tr>
+                                <td>'.$denUnica->Descricao.'</td>
+                                <td>'.$denUnica->Titulo.'</td>
+                                <td>'.$anun->Preco.'</td>
+                                <td>'.$anun->Morada.'</td>
+                                <td>'.$anunciante->Nome.'</td>
+                                <td><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModalEliminar'.$anun->Id_Anuncio.'">Eliminar</button></td>
+                                <td><a data-toggle="modal" href="#a'.$anun->Id_Anuncio.'"><i class="fa fa-eye" style="font-size:24px"></i></a>
+                                </tr>
 
-                        <tr>
-                          <td>Esta casa não existe é falcatrua</td>
-                          <td>Lael Greer</td>
-                          <td>London</td>
-                          <td>Edinburgh</td>
-                          <td>João Manuel</td>
-                          <td><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModalEliminar">Eliminar</button></td>
-                          <td><button type="button" class="btn btn-default"  data-toggle="modal" data-target=".bd-example-modal-lg"><i class="fa fa-eye" style="font-size:24px"></i></button></td>
-                          </tr>
-                        <tr>
-                          <td>Esta casa não existe é falcatrua</td>
-                          <td>Jonas Alexander</td>
-                          <td>San Francisco</td>
-                          <td>Edinburgh</td>
-                          <td>João Manuel</td>
-                          <td><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModalEliminar">Eliminar</button></td>
-                          <td><button type="button" class="btn btn-default"  data-toggle="modal" data-target=".bd-example-modal-lg"><i class="fa fa-eye" style="font-size:24px"></i></button></td>
-                        </tr>
-                        <tr>
-                          <td>Esta casa não existe é falcatrua</td>
-                          <td>Shad Decker</td>
-                          <td>Edinburgh</td>
-                          <td>Edinburgh</td>
-                          <td>João Manuel</td>
-                          <td><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModalEliminar">Eliminar</button></td>
-                          <td><button type="button" class="btn btn-default"  data-toggle="modal" data-target=".bd-example-modal-lg"><i class="fa fa-eye" style="font-size:24px"></i></button></td>
-                          </tr>
-                        <tr>
-                          <td>Esta casa não existe é falcatrua</td>
-                          <td>Michael Bruce</td>
-                          <td>Singapore</td>
-                          <td>Edinburgh</td>
-                          <td>João Manuel</td>
-                          <td><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModalEliminar">Eliminar</button></td>
-                          <td><button type="button" class="btn btn-default"  data-toggle="modal" data-target=".bd-example-modal-lg"><i class="fa fa-eye" style="font-size:24px"></i></button></td>
-                        </tr>
-                        <tr>
-                          <td>Esta casa não existe é falcatrua</td>
-                          <td>Donna Snider</td>
-                          <td>New York</td>
-                          <td>Edinburgh</td>
-                          <td>João Manue</td>
-                          <td><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModalEliminar">Eliminar</button></td>
-                          <td><button type="button" class="btn btn-default" data-toggle="modal" data-target=".bd-example-modal-lg"><i class="fa fa-eye" style="font-size:24px"></i></button></td>
-                          </tr>
+
+                                <div class="modal fade" id="myModalEliminar'.$anun->Id_Anuncio.'" role="dialog">
+                                  <div class="modal-dialog">
+                                    <!-- Modal content-->
+                                    <div class="modal-content">
+                                      <form action="anuncios_denunciados.php" method="POST">
+                                        <div class="modal-header">
+                                          <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                          <h4 class="modal-title">Eliminar Anúncio</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                          <p>Motivo da rejeição:</p>
+                                          <textarea class="form-control" rows="3" name="motivo" required></textarea>
+                                          <input type="hidden" class="btn btn-danger" name="idElimina" value="'.$anun->Id_Anuncio.'">
+                                            <span id="falhamotivo'.$anun->Id_Anuncio.'" class="falhas" /><span>
+                                        </div>
+
+
+                                        <div id="aviso_registo_insucesso_email" class="alert alert-success aviso_registo_insucesso_email" role="alert">
+                                              <div class="row leftCaracteris">
+                                              <div class="col-lg-2 ">
+                                              <img class="alertaImg" src="img/img_aplicacao/certo.png" alt="">
+                                              </div>
+                                              <div class="col-lg-8">
+                                                <span class="glyphicon glyphicon-alert">'.$EliminaSucesso.'</span>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        <div class="modal-footer">
+                                          <input type="submit" class="btn btn-danger" name="EliminarDenuncia" value="'.$Eliminar.'">
+                                          <button type="button" class="btn btn-default" data-dismiss="modal">'.$Fechar.'</button>
+                                        </div>
+                                      </form>
+                                    </div>
+                                  </div>
+                                </div>
+
+                                ');
+
+                                //modal para ver anuncios_denunciados
+                                 echo('<div class="modal fade" id="a'.$anun->Id_Anuncio.'">
+                                          <div class="modal-dialog modal-lg">
+                                          <div class="modal-content">
+                                            <div class="modal-header divAzul">
+                                              <button type="button" class="close " data-dismiss="modal">&times;</button>
+                                              <h4 class="modal-title corBranca">'.$anuncio.'</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                              <!-- Page Content -->
+                                              <div class="container espaco">
+                                                <div class="row">
+                                                  <!-- Blog Entries Column -->
+                                                  <div class="col-md-8">
+                                                    <h1 class="my-4">'.$anun->Titulo.'
+                                                    </h1>
+                                                    <!-- Blog Post -->
+                                                    <div class="card mb-4">
+                                                      <div class="card-body">
+                                                      <div class="imagemFlex">
+
+                                                      <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                                                        <ol class="carousel-indicators" >');
+                                                        $fotosAnuncio=$dao_fotos->listar_fotos_anuncio($anun->Id_Anuncio);
+                                                        for($l=0;$l<sizeof($fotosAnuncio);$l++){
+                                                          echo('<li data-target="#carouselExampleIndicators" data-slide-to="'.$l.'"');
+                                                          if($l==0)print "class='active'";
+                                                          echo('></li>');
+                                                        }
+                                                        echo('</ol>
+                                                        <div class="carousel-inner" role="listbox">
+                                                        ');
+                                                        for($l=0;$l<sizeof($fotosAnuncio);$l++){
+                                                          $foto=$fotosAnuncio[$l];
+                                                          echo('<div class="carousel-item');
+                                                          if($l==0)print " active";
+                                                          echo(' " >
+                                                            <img src="'.$foto->Caminho.$foto->Nome.'" alt="" width="100%">
+                                                          </div>');
+                                                        }
+                                                        echo('</div>
+                                                      </div>
+                                                      </div>
+                                                      </div>
+                                                      <div class="card-body ">
+                                                        <p class="card-text">
+                                                          '.$anun->Descricao.'
+                                                      </div>
+                                                      <div class="card-footer text-muted ">
+                                                      </div>
+                                                    </div>
+                                                  </div>
+                                                  <!-- Sidebar Widgets Column -->
+                                                  <div class="col-md-4 ">
+                                                    <!-- Search Widget -->
+                                                    <div class="card my-4 ">
+                                                      <h5 class="card-header corPreta divAzul">'.$Preco.'</h5>
+                                                      <div class="card-body">
+                                                          '.$anun->Preco.''.$eurosmes.'
+                                                      </div>
+                                                    </div>
+                                                    <!-- Categories Widget -->
+                                                    <div class="card my-4 ">
+                                                      <h5 class="card-header corPreta divAzul">'.$contacto.'</h5>
+                                                      <div class="card-body">
+                                                        <div class="row">
+                                                          <div class="col-lg-12">
+                                                            <ul class="list-unstyled mb-0">
+                                                              <li>
+                                                                '.$anunciante->Nome.'
+                                                              </li>
+                                                              <li>
+                                                                '.$anun->Telefone.'
+                                                              </li>
+                                                            </ul>
+                                                          </div>
+                                                        </div>
+                                                      </div>
+                                                    </div>
+                                                    <!-- Side Widget -->
+                                                    <div class="card my-4 ">
+                                                      <h5 class="card-header corPreta divAzul">'.$caracteristicas.'</h5>
+                                                      <div class="card-body">
+                                                        <div class="row leftCaracteris">
+                                                          <div class="col-lg-6 ">
+                                                                <ul class="list-unstyled mb-0 comPontos">
+
+                                                                  <li ');
+                                                                  if($anun->Wc==true) print("class=\"fa fa-check-circle-o\""); else print("class=\"	fa fa-times-circle-o\"");
+                                                                  echo('>'.$wc.' </li>  <li ');
+                                                                  if($anun->Mobilia==true) print("class=\"fa fa-check-circle-o\""); else print("class=\"	fa fa-times-circle-o\"");
+                                                                  echo('>'. $mobilada.'  </li><li ');
+                                                                  if($anun->Utensilios==true) print("class=\"fa fa-check-circle-o\""); else print("class=\"	fa fa-times-circle-o\"");
+                                                                  echo('>'.$utensilios.'  </li><li ');
+                                                                  if($anun->Internet==true) print("class=\"fa fa-check-circle-o\""); else print("class=\"	fa fa-times-circle-o\"");
+                                                                  echo('>'.$internet.'</li>
+                                                                </ul>
+                                                            </div>
+                                                            <div class="col-lg-6 ">
+                                                                  <ul class="list-unstyled mb-0 comPontos">
+
+                                                                    <li ');
+                                                                    if($anun->Rapariga==true) print("class=\"fa fa-check-circle-o\""); else print("class=\"	fa fa-times-circle-o\"");
+                                                                    echo('>'.$raparigas.' </li>  <li ');
+                                                                    if($anun->Rapaz==true) print("class=\"fa fa-check-circle-o\""); else print("class=\"	fa fa-times-circle-o\"");
+                                                                    echo('>'. $rapazes.'  </li><li ');
+                                                                    if($anun->Despesas==true) print("class=\"fa fa-check-circle-o\""); else print("class=\"	fa fa-times-circle-o\"");
+                                                                    echo('>'.$despesas.'  </li><li ');
+                                                                    if($anun->Animais==true) print("class=\"fa fa-check-circle-o\""); else print("class=\"	fa fa-times-circle-o\"");
+                                                                    echo('>'.$Animais.'</li>
+                                                                  </ul>
+                                                              </div>
+
+                                                      </div>
+                                                      </div>
+                                                    </div>
+                                                    <div class="card my-4">
+                                                      <h5 class="card-header corPreta divAzul">'.$Localizacao.'</h5>
+                                                        <div id="map" class="card-header mapa"></div>
+                                                       <script>
+                                                         function myMap() {
+                                                       var mapCanvas = document.getElementById("map");
+                                                       var mapOptions = {
+                                                         center: new google.maps.LatLng('.$anun->Latitude.','.$anun->Longitude.'), zoom: 18, mapTypeId: google.maps.MapTypeId.HYBRID
+                                                       };
+                                                       var map = new google.maps.Map(mapCanvas, mapOptions);
+                                                       }
+                                                       </script>
+                                                       <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB7jRD8m5aG-UagIgKot__F7MkwVxS6nls&callback=myMap"></script>
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                                <!-- /.row -->
+                                              </div>
+                                              <!-- /.container -->
+                                            </div>
+                                            <div class="modal-footer">
+                                              <button type="button" class="btn btn-danger" data-dismiss="modal">'.$Fechar.'</button>
+                                            </div>
+                                          </div>
+                                          </div>
+                                          </div>');
+
+
+                            }
+                          }else{
+                            echo('<tr>  <td>');
+                            print $naoAnuDen;
+                            echo('  </td></tr>');
+                          }
+                          ?>
                       </tbody>
                     </table>
                   </div>
                 </div>
               </div>
               <!-- Modal ELiminar -->
-
-
-              <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-                <div class="modal-header">
-                  <button type="button" class="close" data-dismiss="modal">&times;</button>
-                  <h4 class="modal-title">Anuncio</h4>
-                </div>
-                <div class="modal-body">
-
-                  <!-- Page Content -->
-                  <div class="container espaco">
-
-                    <div class="row">
-
-                      <!-- Blog Entries Column -->
-                      <div class="col-md-8">
-
-                        <h1 class="my-4">Quarto perto do Pingo Doce
-                        </h1>
-
-                        <!-- Blog Post -->
-
-                        <div class="card mb-4">
-                          <div class="card-body">
-
-                          <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-                            <ol class="carousel-indicators" >
-                              <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-                              <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-                              <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-                            </ol>
-                            <div class="carousel-inner" role="listbox">
-                              <!-- Slide One - Set the background image for this slide in the line below -->
-                              <div class="carousel-item active" >
-                                <img src="img/1.jpg" alt="" width="100%">
-
-                              </div>
-                              <!-- Slide Two - Set the background image for this slide in the line below -->
-                              <div class="carousel-item" >
-                                <img src="img/2.jpg" alt="" width="100%">
-
-                              </div>
-                              <!-- Slide Three - Set the background image for this slide in the line below -->
-                              <div class="carousel-item" >
-                                <img src="img/3.jpg" alt="" width="100%">
-
-                              </div>
-                            </div>
-
-                          </div>
-                          </div>
-                          <div class="card-body">
-                            <p class="card-text">
-                              O apartamento está situado a uma distancia de 10 minutos a pé da ESTGOH, é um espaço tranquilo, com muito movimento de pessoas
-                              e bom ambiente entre vizinhos. Está perto de todos os supermercados, bares e parques.
-
-                          </div>
-                        </div>
-
-
-
-
-
-
-                      </div>
-
-                      <!-- Sidebar Widgets Column -->
-                      <div class="col-md-4">
-
-                        <!-- Search Widget -->
-                        <div class="card my-4">
-                          <h5 class="card-header corBranca">Preço</h5>
-                          <div class="card-body">
-                              2200 euros/mês
-                          </div>
-                        </div>
-
-                        <!-- Categories Widget -->
-                        <div class="card my-4">
-                          <h5 class="card-header corBranca">Contacto</h5>
-                          <div class="card-body">
-                            <div class="row">
-                              <div class="col-lg-12">
-                                <ul class="list-unstyled mb-0">
-                                  <li>
-                                    Maria Almeida
-                                  </li>
-                                  <li>
-                                    98465198
-                                  </li>
-
-                                </ul>
-                              </div>
-
-                            </div>
-                          </div>
-                        </div>
-
-                        <!-- Side Widget -->
-                        <div class="card my-4">
-                          <h5 class="card-header corBranca">Caracteristicas</h5>
-                          <div class="card-body">
-                            <div class="row leftCaracteris">
-                              <div class="col-lg-6 ">
-                                    <ul class="list-unstyled mb-0 comPontos">
-                                      <li class="fa fa-check-circle-o">
-                                        WC privativo
-                                      </li>
-                                      <li class="	fa fa-times-circle-o">
-                                          Mobilada
-                                        </li>
-                                        <li class="	fa fa-times-circle-o">
-                                            Utensilios
-                                          </li>
-                                          <li class="fa fa-check-circle-o">
-                                              Internet
-                                        </li>
-
-                                    </ul>
-                                </div>
-                                <div class="col-lg-6">
-                                      <ul class="list-unstyled mb-0 comPontos">
-                                        <li class="fa fa-times-circle-o">
-                                          Raparigas
-                                        </li>
-                                        <li class="fa fa-check-circle-o">
-                                          Rapazes
-                                        </li>
-                                        <li class="fa fa-check-circle-o">
-                                            Despesa
-                                            <li class="fa fa-times-circle-o">
-                                            Animais
-                                          </li>
-
-                                      </ul>
-                          </div>
-                          </div>
-                          </div>
-                        </div>
-                        <div class="card my-4">
-                          <h5 class="card-header corBranca">Localização</h5>
-
-                            <div id="map" class="card-header mapa"></div>
-
-                           <script>
-                             function myMap() {
-                           var mapCanvas = document.getElementById("map");
-                           var mapOptions = {
-                             center: new google.maps.LatLng(40.360336, -7.855718), zoom: 18, mapTypeId: google.maps.MapTypeId.HYBRID
-                           };
-                           var map = new google.maps.Map(mapCanvas, mapOptions);
-                           }
-                           </script>
-
-                           <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB7jRD8m5aG-UagIgKot__F7MkwVxS6nls&callback=myMap"></script>
-                        </div>
-                      </div>
-
-                    </div>
-                    <!-- /.row -->
-
-                  </div>
-                  <!-- /.container -->
-
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
-                </div>
-              </div>
-            </div>
-          </div>
 
           </div> <!-- /.linhaflex -->
         </div><!-- /.container -->
@@ -654,6 +623,37 @@ ob_start();
   </script>
 
   <?php
+  if(isset($_POST["EliminarDenuncia"]) && !empty($_POST["EliminarDenuncia"])){
+    if(verifica_tamanho_string($_POST["motivo"],100)==true){
+      $mybd->ligar_bd();
+      $anun=$dao_anuncios->obter_anuncio($_POST["idElimina"]);
+      $anun->Estado=4;
+      $dao_anuncios->editar_anuncio($anun);
+      $notificacao=new Notificacao(0,$anun->Proprietario,2,$_POST["motivo"],date('Y-m-d'),date('H:m:s'),0,5);
+      $dao_notificacao->inserir_notificacao($notificacao);
+      $dao_denuncias->alterar_estado($anun->Id_Anuncio,0);
+      $mybd->desligar_bd();
+      print('<script>
+              $(document).ready(function(){
+              $("#myModalEliminar").modal();
+              });
+              </script>');
+      print('<script>
+              jQuery(document).ready(function( $ ) {
+              jQuery("#aviso_registo_insucesso_email").show();
+              });
+              </script>');
+              header("refresh: 1;anuncios_denunciados.php");
+
+      }else{
+      echo'<script>$("#falhamotivo'.$_POST["idElimina"].'").text("O motivo tem maximo de 50 caracteres!");</script>';
+      print('<script>
+              $(document).ready(function(){
+              $("#myModalEliminar'.$_POST["idElimina"].'").modal();
+              });
+              </script>');
+    }
+}
 
   if(isset($_POST["EditarPassword"]) && !empty($_POST["EditarPassword"])){
       if(!strcmp($_POST["password1"],$_POST["password2"])){

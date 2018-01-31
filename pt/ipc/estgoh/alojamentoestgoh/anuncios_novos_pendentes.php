@@ -407,7 +407,7 @@ ob_start();
                               </div>
                               <div class="modal-body">
                                 <p>'.$motivoRej.'</p>
-                                <textarea class="form-control" rows="3" name="motivo'.$anuncios->Id_Anuncio.'" required></textarea>
+                                <textarea class="form-control" rows="3" id="malmotivo" name="motivo'.$anuncios->Id_Anuncio.'" required></textarea>
                                 <span id="falhamotivo" class="falhas" /><span>
 
                               </div>
@@ -443,7 +443,7 @@ ob_start();
                                       <div class="card mb-4">
                                         <div class="card-body">
                                         <div class="imagemFlex">
-                                        
+
                                         <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
                                           <ol class="carousel-indicators" >');
                                           for($l=0;$l<sizeof($fotosAnuncio);$l++){

@@ -165,7 +165,13 @@ $utensiliosCoz="Utensílios de cozinha";
 $limpar="Limpar";
 $aplicarFiltros="Aplicar filtros";
 //pagina anuncios Denunciados
-
+  $motivo="Motivo";
+ $titulo="Titulo";
+ $preco="Preco";
+ $localizacao="Localizacao";
+ $anunciante="Anunciante";
+ $naoAnuDen="Não tem anuncios denunciados.";
+$EliminaSucesso="Eliminado com sucesso!";
 
 //pagina ver meus anuncios
 $elimanarAnu="Eliminar anuncio";

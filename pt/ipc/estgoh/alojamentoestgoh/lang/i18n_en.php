@@ -151,6 +151,15 @@ $AnuEdiPend="Edited Pending Advertisements";
 
 //PaginaRegistoPrimeiroAdmistrador.php
 
+
+//pagina anuncios Denunciados
+  $motivo="Reason";
+ $titulo="Title";
+ $preco="Price";
+ $localizacao="Address";
+ $anunciante="Advertiser";
+$naoAnuDen="No ads reported.";
+$EliminaSucesso="Successfully deleted!";
 //pagina ver_todos_anuncios
 $alojamentosOliveira="Accommodation in Oliveira de Hospital";
 $mes="mounth";
