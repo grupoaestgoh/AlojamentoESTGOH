@@ -164,6 +164,7 @@ $precoMax="Preço máximo";
 $utensiliosCoz="Utensílios de cozinha";
 $limpar="Limpar";
 $aplicarFiltros="Aplicar filtros";
+//pagina anuncios Denunciados
 
 
 //pagina ver meus anuncios

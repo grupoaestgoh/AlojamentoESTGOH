@@ -306,7 +306,8 @@ ob_start();
           <div class="container">
             <div class="linhaflex">
               <div class="titulo">
-              Anuncios denunciados
+                <?php print $AnunDenunciados;?>
+
             </div>
               <div class="card mb-3">
 
