@@ -5,13 +5,14 @@ session_start();
 //carregar controladores
 include("./comum/carregacontroladores.php");
 
-//verifica se gestor está autenticado
-/*if (isset($_SESSION["AE_id_utilizador"]) && isset($_SESSION["AE_nome_utilizador"]) && isset($_SESSION["AE_email_utilizador"]) && isset($_SESSION["AE_estado_utilizador"])){
-  //Se não tiver sessao manda para pagina index.php
-  if($_SESSION["AE_estado_utilizador"]!=1)header("Location: ./index.php");
+///verifica se gestor está autenticado
+/*if (isset($_SESSION["AE_id_utilizador"]) && isset($_SESSION["AE_nome_utilizador"]) && isset($_SESSION["AE_email_utilizador"]) && isset($_SESSION["AE_estado_utilizador"]) && isset($_SESSION["AE_tipo_utilizador"] ) && isset($_SESSION["AE_data_incricao_utilizador"]) ){
+  //Se tiver estado !=1 e o tipo !=1 vai  para pagina index.php
+  if($_SESSION["AE_estado_utilizador"]!=1 || $_SESSION["AE_estado_utilizador"]!=1 )header("Location: ./index.php");
 }else{
   header("Location: ./index.php");
-}*/
+}
+*/
 
 
 
@@ -455,6 +456,7 @@ ob_start();
                                         <!-- Blog Post -->
                                         <div class="card mb-4">
                                           <div class="card-body">
+                                          <div class="imagemFlex">
                                           <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
                                             <ol class="carousel-indicators" >');
                                             for($l=0;$l<sizeof($fotosAnuncio);$l++){
@@ -474,6 +476,7 @@ ob_start();
                                               </div>');
                                             }
                                             echo('</div>
+                                          </div>
                                           </div>
                                           </div>
                                           <div class="card-body ">

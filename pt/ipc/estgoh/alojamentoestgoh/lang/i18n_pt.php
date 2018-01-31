@@ -82,9 +82,9 @@
 	$sucesso="Registado com sucesso!";
 	$caracPassword="Password deve ter pelo menos 1 caracter Maiúsculo e um numero num total de pelo menos oito caracteres e no maximo 15 caracteres.";
 	$PasswordIguais="As passwords tem de ser iguais!";
-	$insucesso_password="Password deve ter pelo menos 1 caracter Maiúsculo e 1 Numero e um total de pelo menos oito caracteres.";
-	$insucesso_nome="O nome só pode ser constituido por palavras.";
-	$insucesso_email="O email já se encontra registado.";
+	$insucesso_password="Password deve ter pelo menos 1 caracter Maiúsculo e 1 Numero e um total de pelo menos oito caracteres e um maximo de 15 caracteres.";
+	$insucesso_nome="O nome só pode ser constituido por palavras e tem um maximo de 50 characteres.";
+	$insucesso_email="O email já se encontra registado e o email tem um maximo de 50 caracteres!";
 	$alteradaSucessoPass="A password foi alterada com sucesso!.";
 //Pagina Auncios_novos_pendentes.php
 	$titulo="Titulo";
@@ -164,4 +164,10 @@ $precoMax="Preço máximo";
 $utensiliosCoz="Utensílios de cozinha";
 $limpar="Limpar";
 $aplicarFiltros="Aplicar filtros";
+
+
+//pagina ver meus anuncios
+$elimanarAnu="Eliminar anuncio";
+$certezaEliminaAnu="Tem  a certeza que quer eliminar o anuncio?";
+$Eliminar="Eliminar";
 ?>

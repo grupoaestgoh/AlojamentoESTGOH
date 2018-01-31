@@ -6,23 +6,37 @@ session_start();
 include("./comum/carregacontroladores.php");
 
 ///verifica se gestor está autenticado
-/*if (isset($_SESSION["AE_id_utilizador"]) && isset($_SESSION["AE_nome_utilizador"]) && isset($_SESSION["AE_email_utilizador"]) && isset($_SESSION["AE_estado_utilizador"])){
-  //Se não tiver sessao manda para pagina index.php
-  if($_SESSION["AE_estado_utilizador"]!=1 )header("Location: ./index.php");
+/*if (isset($_SESSION["AE_id_utilizador"]) && isset($_SESSION["AE_nome_utilizador"]) && isset($_SESSION["AE_email_utilizador"]) && isset($_SESSION["AE_estado_utilizador"]) && isset($_SESSION["AE_tipo_utilizador"] ) && isset($_SESSION["AE_data_incricao_utilizador"]) ){
+  //Se tiver estado !=1 e o tipo !=1 vai  para pagina index.php
+  if($_SESSION["AE_estado_utilizador"]!=1 || $_SESSION["AE_estado_utilizador"]!=1 )header("Location: ./index.php");
 }else{
   header("Location: ./index.php");
 }
 */
-//Id_Anuncio,Titulo,Descricao,Proprietario,
-//Morada,Telefone,Email,Codigo_postal,Data_Submetido
-//Disponibilidade,Estado,Preco,Fotos,Wc,Mobilia
-//Utensilios,Internet,Rapariga,Rapaz,Despesas,Animais,Latitude,Longitude
 $anuncio=new Anuncio(null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,0,0,null,null,null,null);
 $Codigo_postal2=null;
 $idanuncioEditar=0;
+
+//verifica se é para editar algum anuncio
 if(isset($_GET["id_anuncio_editar"]) && !empty($_GET["id_anuncio_editar"])){
-$idanuncioEditar=$_GET["id_anuncio_editar"];
+  $mybd->ligar_bd();
+  $anuncioVerifica=null;
+  $anuncioVerifica=$dao_anuncios->listar_anuncios_anunciante(3,-4);
+  if($anuncioVerifica!=null){
+    for ($i=0; $i <sizeof($anuncioVerifica) ; $i++) {
+      $anuncioAA=$anuncioVerifica[$i];
+      if($anuncioAA->Id_Anuncio==$_GET["id_anuncio_editar"]){
+        $idanuncioEditar=$_GET["id_anuncio_editar"];
+        $anuncio=$anuncioAA;
+      }
+    }
+  }else{
+  header('Location: meus_anuncios.php');
 }
+$mybd->desligar_bd();
+}
+//////
+
 
 if(isset($_POST["idAnu"]) && !empty($_POST["idAnu"])){
   $anuncio->Email=$_POST["idAnu"];

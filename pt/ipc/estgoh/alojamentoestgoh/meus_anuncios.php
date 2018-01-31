@@ -4,10 +4,10 @@ session_start();
 //carregar controladores
 include("./comum/carregacontroladores.php");
 
-//verifica se gestor está autenticado
-/*if (isset($_SESSION["AE_id_utilizador"]) && isset($_SESSION["AE_nome_utilizador"]) && isset($_SESSION["AE_email_utilizador"]) && isset($_SESSION["AE_estado_utilizador"])){
-  //Se não tiver sessao manda para pagina index.php
-  if($_SESSION["AE_estado_utilizador"]!=1 )header("Location: ./index.php");
+///verifica se gestor está autenticado
+/*if (isset($_SESSION["AE_id_utilizador"]) && isset($_SESSION["AE_nome_utilizador"]) && isset($_SESSION["AE_email_utilizador"]) && isset($_SESSION["AE_estado_utilizador"]) && isset($_SESSION["AE_tipo_utilizador"] ) && isset($_SESSION["AE_data_incricao_utilizador"]) ){
+  //Se tiver estado !=1 e o tipo !=1 vai  para pagina index.php
+  if($_SESSION["AE_estado_utilizador"]!=1 || $_SESSION["AE_estado_utilizador"]!=1 )header("Location: ./index.php");
 }else{
   header("Location: ./index.php");
 }
@@ -283,26 +283,7 @@ ob_start();
 
 </div>
 <!-- End modal -->
-   <!-- Modal ELiminar anuncio-->
-   <div class="modal fade " id="myModalEliminar" role="dialog">
-     <div class="modal-dialog">
-   <!-- Modal content-->
-   <div class="modal-content">
-     <div class="modal-header">
-       <button type="button" class="close" data-dismiss="modal">&times;</button>
-       <h4 class="modal-title">Eliminar Anuncio</h4>
-     </div>
-     <div class="modal-body aumenta">
-       <p>Tem a certeza que quer eliminar o anuncio?</p>
-     </div>
-     <div class="modal-footer">
-       <button type="button" class="btn btn-danger" data-dismiss="modal">Eliminar</button>
-       <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
-     </div>
-   </div>
-   </div>
-   </div>
-   <!-- fim ELiminar -->
+
     <!-- Page Content -->
     <div class="container">
       <div class="row">
@@ -324,80 +305,290 @@ ob_start();
               </div>
             </div>
             <div class="linhaflex">
-              <div class="row"> <!-- Primeira linha de items -->
+              <?php
+              //$_SESSION["AE_id_utilizador"]
+              $mybd->ligar_bd();
+              $anuncios_novos_pendentes=$dao_anuncios->listar_anuncios_anunciante(3,-4);
 
-
-                <!-- Primeiro Flex Item -->
-                <div class="col-lg-6">
-                  <div class="box">
-                      <div class="col-lg-12">
-
-                        <div class="row">
-
+                if(sizeof($anuncios_novos_pendentes)==0){
+                  echo('<tr>');
+                  echo('<td>Não tem anuncios novos pendentes!</td>');
+                  echo('</tr>');
+                }else{
+                  for ($i=0; $i <sizeof($anuncios_novos_pendentes); $i++) {
+                    $anuncios=$anuncios_novos_pendentes[$i];
+                    $fotosAnuncio=$dao_fotos->listar_fotos_anuncio($anuncios->Id_Anuncio);
+                    $Proprietario=$dao_utilizadores->obter_utilizador_id($anuncios->Proprietario);
+                    echo('<div class="row">
+                    <!-- Primeira linha de items -->
+                      <!-- Primeiro Flex Item -->
+                      <div class="col-lg-6">
+                        <div class="box">
                             <div class="col-lg-12">
-                              <div class="imagemFlex">
-                                <div id="carouselExampleIndicators1" class="carousel slide" data-ride="carousel">
-                                    <ol class="carousel-indicators">
-                                      <li data-target="#carouselExampleIndicators1" data-slide-to="0" class="active"></li>
-                                      <li data-target="#carouselExampleIndicators1" data-slide-to="1"></li>
-                                      <li data-target="#carouselExampleIndicators1" data-slide-to="2"></li>
-                                    </ol>
-                                    <div class="carousel-inner" role="listbox">
-                                      <div class="carousel-item active">
-                                        <img class="d-block img-fluid" src="img/img_aplicacao/1.jpg" alt="First slide">
-                                      </div>
-                                      <div class="carousel-item">
-                                        <img class="d-block img-fluid" src="img/img_aplicacao/2.jpg" alt="Second slide">
-                                      </div>
-                                      <div class="carousel-item">
-                                        <img class="d-block img-fluid" src="img/img_aplicacao/3.jpg" alt="Third slide">
+
+                              <div class="row">
+
+                                  <div class="col-lg-12">
+                                    <div class="imagemFlex">
+                                    ');
+                                    echo('
+
+                                    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                                      <ol class="carousel-indicators" >');
+                                      for($l=0;$l<sizeof($fotosAnuncio);$l++){
+                                        echo('<li data-target="#carouselExampleIndicators" data-slide-to="'.$l.'"');
+                                        if($l==0)print "class='active'";
+                                        echo('></li>');
+                                      }
+                                      echo('</ol>
+                                      <div class="carousel-inner" role="listbox">
+                                      ');
+                                      for($l=0;$l<sizeof($fotosAnuncio);$l++){
+                                        $foto=$fotosAnuncio[$l];
+                                        echo('<div class="carousel-item');
+                                        if($l==0)print " active";
+                                        echo(' " >
+                                          <img src="'.$foto->Caminho.$foto->Nome.'" alt="" width="100%">
+                                        </div>');
+                                      }
+                                      echo('</div>
+                                    </div>
+                                    </div>
+
+                                  </div>
+                              </div>
+                            <div class="textodoquarto">
+                             <div id="icones">
+                              <div class="row">');
+                              $arrayCarac=["Internet","Despesas","Wc","Mobilia"];
+                              $arrayCarac2=["Rapazes","Animais","Raparigas","Utensilios"];
+                              for ($i=0; $i < 4; $i++) {
+
+                                  echo('<div class="col-3">
+                                    <div class="row">
+                                      <div class="col-lg-12">
+                                        <div class="listaimovel">');
+                                        if($i==0){
+                                          if($anuncios->Internet==1)  echo('<img src="img/img_aplicacao/correct.png" alt="Tem">  ');
+                                          else  echo('<img src="img/img_aplicacao/cross.png" alt="Nao tem">  ');
+                                        }
+                                        if($i==1){
+                                          if($anuncios->Despesas==1)  echo('<img src="img/img_aplicacao/correct.png" alt="Tem">  ');
+                                          else  echo('<img src="img/img_aplicacao/cross.png" alt="Nao tem">  ');
+                                        }
+                                        if($i==2){
+                                          if($anuncios->Wc==1)  echo('<img src="img/img_aplicacao/correct.png" alt="Tem">  ');
+                                          else  echo('<img src="img/img_aplicacao/cross.png" alt="Nao tem">  ');
+                                        }
+                                        if($i==3){
+                                          if($anuncios->Mobilia==1)  echo('<img src="img/img_aplicacao/correct.png" alt="Tem">  ');
+                                          else  echo('<img src="img/img_aplicacao/cross.png" alt="Nao tem">  ');
+                                        }
+                                        echo('</div>
+                                        <p class="textoimovel">'.$arrayCarac[$i].'</p>
                                       </div>
                                     </div>
-                                    <a class="carousel-control-prev" href="#carouselExampleIndicators1" role="button" data-slide="prev">
-                                      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                      <span class="sr-only">Previous</span>
-                                    </a>
-                                    <a class="carousel-control-next" href="#carouselExampleIndicators1" role="button" data-slide="next">
-                                      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                      <span class="sr-only">Next</span>
-                                    </a>
+                                  </div>');
+                                }
+                              echo('</div>
+                              <div class="row">');
+                                  for ($i=0; $i < 4; $i++) {
+
+                                      echo('<div class="col-3">
+                                        <div class="row">
+                                          <div class="col-lg-12">
+                                            <div class="listaimovel">');
+                                            if($i==0){
+                                              if($anuncios->Rapaz==1)  echo('<img src="img/img_aplicacao/correct.png" alt="Tem">  ');
+                                              else  echo('<img src="img/img_aplicacao/cross.png" alt="Nao tem">  ');
+                                            }
+                                            if($i==1){
+                                              if($anuncios->Animais==1)  echo('<img src="img/img_aplicacao/correct.png" alt="Tem">  ');
+                                              else  echo('<img src="img/img_aplicacao/cross.png" alt="Nao tem">  ');
+                                            }
+                                            if($i==2){
+                                              if($anuncios->Rapariga==1)  echo('<img src="img/img_aplicacao/correct.png" alt="Tem">  ');
+                                              else  echo('<img src="img/img_aplicacao/cross.png" alt="Nao tem">  ');
+                                            }
+                                            if($i==3){
+                                              if($anuncios->Utensilios==1)  echo('<img src="img/img_aplicacao/correct.png" alt="Tem">  ');
+                                              else  echo('<img src="img/img_aplicacao/cross.png" alt="Nao tem">  ');
+                                            }
+                                            echo('</div>
+                                            <p class="textoimovel">'.$arrayCarac[$i].'</p>
+                                          </div>
+                                        </div>
+                                      </div>');
+                                    }
+
+                                echo('  </div>
+                              </div>
+                              <div id="MDetalhe" style="display:none;">
+                                <button type="button" class="btn btn-info" onclick="Mudarestado(\'icones\'); Mudarestado(\'EDetalhe\'); Mudarestado(\'MDetalhe\'); ">Mostrar Detalhes</button>
+                              </div>
+                              <div id="EDetalhe" style="display:block;">
+                                <button type="button" class="btn btn-info" onclick="Mudarestado(\'icones\'); Mudarestado(\'EDetalhe\'); Mudarestado(\'MDetalhe\'); ">Esconder Detalhes</button>
+                              </div>
+
+                              <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="contato">
+                                      <div class="row">
+                                        <div class="col-md-2">
+                                          <img class="imgpequena" src="img/img_aplicacao/user.png" alt="Dono">
+                                        </div>
+                                        <div class="col-md-4">
+                                          <p>Manuel Altera </p>
+                                        </div>
+                                        <div class="col-md-2">
+                                          <img class="imgpequena" src="img/img_aplicacao/telefone.png" alt="Telefone">
+                                        </div>
+                                        <div class="col-md-4">
+                                          <p>'.$anuncios->Telefone.'</p>
+                                        </div>
+                                      </div>
+                                      <div class="row">
+                                        <div class="col-md-2">
+                                          <img class="imgpequena" src="img/img_aplicacao/location.png" alt="Localização">
+                                        </div>
+                                        <div class="col-md-10">
+                                          <p class="noalign">'.$anuncios->Morada.'</p>
+                                         </div>
+                                      </div>
+                                    </div>
+                                </div>
+                              </div>
+                              <div class="row">
+                                    <div class="col-lg-12">
+                                      <div class="container">
+                                        <div class="radiodisponibilidade">
+
+                                          <form >
+                                            <div class="row">
+                                              <div class="col-6">
+                                                <label class="radio-inline">
+                                                  <input type="radio" name="optradio" onclick="MudarDisponibilidade(1);" value="1"');
+                                                  if($anuncios->Disponibilidade==1) print "checked";
+                                                  echo('>
+                                                </label>Livre
+                                              </div>
+                                              <div class="col-6">
+                                                <label class="radio-inline">
+                                                    <input type="radio" name="optradio" onclick="MudarDisponibilidade(0);" ');
+                                                    if($anuncios->Disponibilidade==0) print "checked";
+                                                    echo('>
+                                                </label>Ocupado
+                                              </div>
+                                            </div>
+                                              <input type="hidden" name="estadoAntigo" value="'.$anuncios->Disponibilidade.'">
+                                          </form>
+
+                                        </div>
+                                      </div>
+                                    </div>
+                              </div>
+                              <div class="row">
+                                    <div class="col-lg-12">
+                                      <p class="textoimovel test"> '.$anuncios->Descricao.' </p>
+                                    </div>
+                              </div>
+                            </div>
+                              <div class="row">
+                                  <div class="col-lg-12">
+                                    <div class="precodiv">
+                                      <p class="preco">'.$anuncios->Preco.'€</p>
+                                    </div>
+                                  </div>
+                              </div>
+                              <div class="row">
+                                  <div class="col-lg-12">
+                                    <div class="botoesFlex">
+                                      <div class="row">
+                                        <div class="col-lg-6">
+                                          <div class="btneditar">
+                                          <form action="meus_anuncios.php" method="POST">
+                                            <input type="hidden" name="idAnuncioEditar" value="'.$anuncios->Id_Anuncio.'">
+                                            <input type="submit" name="editarAnuncio" class="btn btn-primary" value="Editar">
+                                          </form>
+                                          </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                          <div class="btneliminar">
+                                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModalEliminar'.$anuncios->Id_Anuncio.'">Eliminar</button>
+                                          </div>
+
+                                        </div>
+                                      </div>
+                                    </div>
                                   </div>
                               </div>
                             </div>
                         </div>
-                      <div class="textodoquarto">
-                       <div id="icones">
-                        <div class="row">
-                              <div class="col-3">
-                                <div class="row">
+                      </div>
+                      <!-- Modal ELiminar anuncio-->
+                      <div class="modal fade " id="myModalEliminar'.$anuncios->Id_Anuncio.'" role="dialog">
+                        <div class="modal-dialog">
+                      <!-- Modal content-->
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal">&times;</button>
+                          <h4 class="modal-title">'.$elimanarAnu.'</h4>
+                        </div>
+                        <div class="modal-body aumenta">
+                          <p>'.$certezaEliminaAnu.'</p>
+                        </div>
+                        <div class="modal-footer">
+                        <form action="meus_anuncios.php" method="POST">
+                        <input type="submit" name="idAnuncioEliminar" class="btn btn-danger"  value="Eliminar">
+                        </form>
+                          <button type="button" class="btn btn-default" data-dismiss="modal">'.$Fechar.'</button>
+                        </div>
+                      </div>
+                      </div>
+                      </div>
+                      <!-- fim ELiminar -->
+                      <!-- /.Primeiro Flex Item -->
+                      ');
+                      if(sizeof($anuncios_novos_pendentes)%2==0){
+                      echo('<!-- Segundo Flex Item -->
+                      <div class="col-lg-6">
+                        <div class="box">
+                            <div class="col-lg-12">
+
+                              <div class="row">
+
                                   <div class="col-lg-12">
-                                    <div class="listaimovel">
-                                      <img src="img/img_aplicacao/correct.png" alt="Tem">
+                                    <div class="imagemFlex">
+                                    ');
+                                    echo('
+
+                                    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                                      <ol class="carousel-indicators" >');
+                                      for($l=0;$l<sizeof($fotosAnuncio);$l++){
+                                        echo('<li data-target="#carouselExampleIndicators" data-slide-to="'.$l.'"');
+                                        if($l==0)print "class='active'";
+                                        echo('></li>');
+                                      }
+                                      echo('</ol>
+                                      <div class="carousel-inner" role="listbox">
+                                      ');
+                                      for($l=0;$l<sizeof($fotosAnuncio);$l++){
+                                        $foto=$fotosAnuncio[$l];
+                                        echo('<div class="carousel-item');
+                                        if($l==0)print " active";
+                                        echo(' " >
+                                          <img src="'.$foto->Caminho.$foto->Nome.'" alt="" width="100%">
+                                        </div>');
+                                      }
+                                      echo('</div>
                                     </div>
-                                    <p class="textoimovel">Internet</p>
+                                    </div>
+
                                   </div>
-                                </div>
                               </div>
-                              <div class="col-3">
-                                <div class="row">
-                                    <div class="col-lg-12">
-                                      <div class="listaimovel">
-                                        <img src="img/img_aplicacao/cross.png" alt="Não Tem">
-                                      </div>
-                                      <p class="textoimovel">Despesas Incluidas</p>
-                                    </div>
-                                </div>
-                              </div>
-                              <div class="col-3">
-                                <div class="row">
-                                  <div class="col-lg-12">
-                                    <div class="listaimovel">
-                                      <img src="img/img_aplicacao/cross.png" alt="Não Tem">
-                                    </div>
-                                    <p class="textoimovel">Casa de banho</p>
-                                  </div>
-                                </div>
-                              </div>
+                            <div class="textodoquarto">
+                             <div id="icones2">
+                              <div class="row">
                               <div class="col-3">
                                 <div class="row">
                                   <div class="col-lg-12">
@@ -430,336 +621,106 @@ ob_start();
                                     </div>
                                 </div>
                               </div>
-                              <div class="col-3">
-                                <div class="row">
-                                  <div class="col-lg-12">
-                                    <div class="listaimovel">
-                                      <img src="img/img_aplicacao/cross.png" alt="Não Tem">
-                                    </div>
-                                    <p class="textoimovel">Raparigas</p>
                                   </div>
-                                </div>
                               </div>
-                              <div class="col-3">
-                                <div class="row">
-                                  <div class="col-lg-12">
-                                    <div class="listaimovel">
-                                      <img src="img/img_aplicacao/cross.png" alt="Não Tem">
-                                    </div>
-                                    <p class="textoimovel">Utensílios</p>
-                                  </div>
-                                </div>
+                              <div id="MDetalhe" style="display:none;">
+                                <button type="button" class="btn btn-info" onclick="Mudarestado(\'icones\'); Mudarestado(\'EDetalhe\'); Mudarestado(\'MDetalhe\'); ">Mostrar Detalhes</button>
                               </div>
-                            </div>
-                        </div>
-                        <div id="MDetalhe" style="display:block;">
-                          <button type="button" class="btn btn-info" onclick="Mudarestado('icones'); Mudarestado('EDetalhe'); Mudarestado('MDetalhe'); "> Esconder Detalhes</button>
-                        </div>
-                        <div id="EDetalhe" style="display:none;">
-                          <button type="button" class="btn btn-info" onclick="Mudarestado('icones'); Mudarestado('EDetalhe'); Mudarestado('MDetalhe'); ">Mostrar Detalhes</button>
-                        </div>
-                        <div class="row">
-                          <div class="col-lg-12">
-                              <div class="contato">
-                                <div class="row">
-                                  <div class="col-md-2">
-                                    <img class="imgpequena" src="img/img_aplicacao/user.png" alt="Dono">
-                                  </div>
-                                  <div class="col-md-4">
-                                    <p> André dos Pitos </p>
-                                  </div>
-                                  <div class="col-md-2">
-                                    <img class="imgpequena" src="img/img_aplicacao/telefone.png" alt="Telefone">
-                                  </div>
-                                  <div class="col-md-4">
-                                    <p> 232969989 </p>
-                                  </div>
-                                </div>
-                                <div class="row">
-                                  <div class="col-md-2">
-                                    <img class="imgpequena" src="img/img_aplicacao/location.png" alt="Localização">
-                                  </div>
-                                  <div class="col-md-10">
-                                    <p class="noalign"> Rua António Augusto Magalhães Ptª Direita</p>
-                                   </div>
-                                </div>
+                              <div id="EDetalhe" style="display:block;">
+                                <button type="button" class="btn btn-info" onclick="Mudarestado(\'icones\'); Mudarestado(\'EDetalhe\'); Mudarestado(\'MDetalhe\'); ">Esconder Detalhes</button>
                               </div>
-                          </div>
-                        </div>
-                        <div class="row">
-                              <div class="col-lg-12">
-                                <div class="container">
-                                  <div class="radiodisponibilidade">
-                                    <form>
+                              <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="contato">
                                       <div class="row">
-                                        <div class="col-6">
-                                          <label class="radio-inline">
-                                            <input type="radio" name="optradio" checked>Livre
-                                          </label>
+                                        <div class="col-md-2">
+                                          <img class="imgpequena" src="img/img_aplicacao/user.png" alt="Dono">
                                         </div>
-                                        <div class="col-6">
-                                          <label class="radio-inline">
-                                              <input type="radio" name="optradio">Ocupado
-                                          </label>
+                                        <div class="col-md-4">
+                                          <p> André dos Pitos </p>
+                                        </div>
+                                        <div class="col-md-2">
+                                          <img class="imgpequena" src="img/img_aplicacao/telefone.png" alt="Telefone">
+                                        </div>
+                                        <div class="col-md-4">
+                                          <p> 232969989 </p>
                                         </div>
                                       </div>
-                                    </form>
-                                  </div>
-                                </div>
-                              </div>
-                        </div>
-                        <div class="row">
-                              <div class="col-lg-12">
-                                <p class="textoimovel test"> Um quarto bem luxuoso que tem festas a torto e a direito, comida na cama à poisé. </p>
-                              </div>
-                        </div>
-                      </div>
-                        <div class="row">
-                            <div class="col-lg-12">
-                              <div class="precodiv">
-                                <p class="preco">1 0 0 €</p>
-                              </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-12">
-                              <div class="botoesFlex">
-                                <div class="row">
-                                  <div class="col-lg-6">
-                                    <div class="btneditar">
-                                      <button type="button" class="btn btn-primary" onclick="location.href='InserirAnuncios.html'">Editar</button>
-                                    </div>
-                                  </div>
-                                  <div class="col-lg-6">
-                                    <div class="btneliminar">
-                                      <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModalEliminar">Eliminar</button>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                        </div>
-                      </div>
-                  </div>
-                </div>
-                <!-- /.Primeiro Flex Item -->
-                <!-- Segundo Flex Item -->
-                <div class="col-lg-6">
-                  <div class="box">
-                      <div class="col-lg-12">
-
-                        <div class="row">
-
-                            <div class="col-lg-12">
-                              <div class="imagemFlex">
-                                <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-                                    <ol class="carousel-indicators">
-                                      <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-                                      <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-                                      <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-                                    </ol>
-                                    <div class="carousel-inner" role="listbox">
-                                      <div class="carousel-item active">
-                                        <img class="d-block img-fluid" src="img/img_aplicacao/1.jpg" alt="First slide">
-                                      </div>
-                                      <div class="carousel-item">
-                                        <img class="d-block img-fluid" src="img/img_aplicacao/2.jpg" alt="Second slide">
-                                      </div>
-                                      <div class="carousel-item">
-                                        <img class="d-block img-fluid" src="img/img_aplicacao/3.jpg" alt="Third slide">
-                                      </div>
-                                    </div>
-                                    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-                                      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                      <span class="sr-only">Previous</span>
-                                    </a>
-                                    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-                                      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                      <span class="sr-only">Next</span>
-                                    </a>
-                                  </div>
-                              </div>
-                            </div>
-                        </div>
-                      <div class="textodoquarto">
-                       <div id="icones2">
-                        <div class="row">
-                              <div class="col-3">
-                                <div class="row">
-                                  <div class="col-lg-12">
-                                    <div class="listaimovel">
-                                      <img src="img/img_aplicacao/correct.png" alt="Tem">
-                                    </div>
-                                    <p class="textoimovel">Internet</p>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="col-3">
-                                <div class="row">
-                                    <div class="col-lg-12">
-                                      <div class="listaimovel">
-                                        <img src="img/img_aplicacao/cross.png" alt="Não Tem">
-                                      </div>
-                                      <p class="textoimovel">Despesas Incluídas</p>
-                                    </div>
-                                </div>
-                              </div>
-                              <div class="col-3">
-                                <div class="row">
-                                  <div class="col-lg-12">
-                                    <div class="listaimovel">
-                                      <img src="img/img_aplicacao/cross.png" alt="Não Tem">
-                                    </div>
-                                    <p class="textoimovel">Casa de banho</p>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="col-3">
-                                <div class="row">
-                                  <div class="col-lg-12">
-                                    <div class="listaimovel">
-                                      <img src="img/img_aplicacao/cross.png" alt="Não Tem">
-                                    </div>
-                                    <p class="textoimovel">Mobília</p>
-                                  </div>
-                                </div>
-                              </div>
-                        </div>
-                        <div class="row">
-                              <div class="col-3">
-                                <div class="row">
-                                  <div class="col-lg-12">
-                                    <div class="listaimovel">
-                                      <img src="img/img_aplicacao/correct.png" alt="Tem">
-                                    </div>
-                                    <p class="textoimovel">Rapazes</p>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="col-3">
-                                <div class="row">
-                                    <div class="col-lg-12">
-                                      <div class="listaimovel">
-                                        <img src="img/img_aplicacao/cross.png" alt="Não Tem">
-                                      </div>
-                                      <p class="textoimovel">Animais</p>
-                                    </div>
-                                </div>
-                              </div>
-                              <div class="col-3">
-                                <div class="row">
-                                  <div class="col-lg-12">
-                                    <div class="listaimovel">
-                                      <img src="img/img_aplicacao/cross.png" alt="Não Tem">
-                                    </div>
-                                    <p class="textoimovel">Raparigas</p>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="col-3">
-                                <div class="row">
-                                  <div class="col-lg-12">
-                                    <div class="listaimovel">
-                                      <img src="img/img_aplicacao/cross.png" alt="Não Tem">
-                                    </div>
-                                    <p class="textoimovel">Utensílios</p>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                        </div>
-                        <div id="MDetalhe2" style="display:block;">
-                          <button type="button" class="btn btn-info" onclick="Mudarestado('icones2'); Mudarestado('EDetalhe2'); Mudarestado('MDetalhe2'); "> Esconder Detalhes</button>
-                        </div>
-                        <div id="EDetalhe2" style="display:none;">
-                          <button type="button" class="btn btn-info" onclick="Mudarestado('icones2'); Mudarestado('EDetalhe2'); Mudarestado('MDetalhe2'); ">Mostrar Detalhes</button>
-                        </div>
-                        <div class="row">
-                          <div class="col-lg-12">
-                              <div class="contato">
-                                <div class="row">
-                                  <div class="col-md-2">
-                                    <img class="imgpequena" src="img/img_aplicacao/user.png" alt="Dono">
-                                  </div>
-                                  <div class="col-md-4">
-                                    <p> André dos Pitos </p>
-                                  </div>
-                                  <div class="col-md-2">
-                                    <img class="imgpequena" src="img/img_aplicacao/telefone.png" alt="Telefone">
-                                  </div>
-                                  <div class="col-md-4">
-                                    <p> 232969989 </p>
-                                  </div>
-                                </div>
-                                <div class="row">
-                                  <div class="col-md-2">
-                                    <img class="imgpequena" src="img/img_aplicacao/location.png" alt="Localização">
-                                  </div>
-                                  <div class="col-md-10">
-                                    <p class="noalign"> Rua Augusto Magalhaes Das Couves Amarelas do Olho</p>
-                                   </div>
-                                </div>
-                              </div>
-                          </div>
-                        </div>
-                        <div class="row">
-                              <div class="col-lg-12">
-                                <div class="container">
-                                  <div class="radiodisponibilidade">
-                                    <form>
                                       <div class="row">
-                                        <div class="col-6">
-                                          <label class="radio-inline">
-                                            <input type="radio" name="optradio" checked>Livre
-                                          </label>
+                                        <div class="col-md-2">
+                                          <img class="imgpequena" src="img/img_aplicacao/location.png" alt="Localização">
                                         </div>
-                                        <div class="col-6">
-                                          <label class="radio-inline">
-                                              <input type="radio" name="optradio">Ocupado
-                                          </label>
+                                        <div class="col-md-10">
+                                          <p class="noalign"> Rua Augusto Magalhaes Das Couves Amarelas do Olho</p>
+                                         </div>
+                                      </div>
+                                    </div>
+                                </div>
+                              </div>
+                              <div class="row">
+                                    <div class="col-lg-12">
+                                      <div class="container">
+                                        <div class="radiodisponibilidade">
+                                          <form>
+                                            <div class="row">
+                                              <div class="col-6">
+                                                <label class="radio-inline">
+                                                  <input type="radio" name="optradio" checked>Livre
+                                                </label>
+                                              </div>
+                                              <div class="col-6">
+                                                <label class="radio-inline">
+                                                    <input type="radio" name="optradio">Ocupado
+                                                </label>
+                                              </div>
+                                            </div>
+                                          </form>
                                         </div>
                                       </div>
-                                    </form>
+                                    </div>
+                              </div>
+                              <div class="row">
+                                    <div class="col-lg-12">
+                                      <p class="textoimovel test"> Um quarto bem luxuoso que tem festas a torto e a direito, comida na cama à poisé. </p>
+                                    </div>
+                              </div>
+                            </div>
+                              <div class="row">
+                                  <div class="col-lg-12">
+                                    <div class="precodiv">
+                                      <p class="preco">1 0 0 €</p>
+                                    </div>
                                   </div>
-                                </div>
                               </div>
-                        </div>
-                        <div class="row">
-                              <div class="col-lg-12">
-                                <p class="textoimovel test"> Um quarto bem luxuoso que tem festas a torto e a direito, comida na cama à poisé. </p>
-                              </div>
-                        </div>
-                      </div>
-                        <div class="row">
-                            <div class="col-lg-12">
-                              <div class="precodiv">
-                                <p class="preco">1 0 0 €</p>
+                              <div class="row">
+                                  <div class="col-lg-12">
+                                    <div class="botoesFlex">
+                                      <div class="row">
+                                        <div class="col-lg-6">
+                                          <div class="btneditar">
+                                          <form action="meus_anuncios.php" method="POST">
+                                            <input type="submit" name="editarAnuncio" class="btn btn-primary" value="Editar">
+                                          </form>
+                                          </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                          <div class="btneliminar">
+                                            <button  class="btn btn-danger" data-toggle="modal" data-target="#myModalEliminar">Eliminar</button>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
                               </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-lg-12">
-                              <div class="botoesFlex">
-                                <div class="row">
-                                  <div class="col-lg-6">
-                                    <div class="btneditar">
-                                      <button type="button" class="btn btn-primary" onclick="location.href='InserirAnuncios.html'">Editar</button>
-                                    </div>
-                                  </div>
-                                  <div class="col-lg-6">
-                                    <div class="btneliminar">
-                                      <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModalEliminar">Eliminar</button>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                        </div>
-                      </div>
-                  </div>
-                </div>
-                <!-- /.Segundo Flex Item-->
-              </div> <!-- /.Primeira linha de items -->
+                      </div>');
+                    }
+                      echo('<!-- /.Segundo Flex Item-->
+                    </div> <!-- /.Primeira linha de items -->');
+            }
+          }
+            ?>
               <!-- Adicionar mais linhas -->
 
               <!-- Fim De Linhas -->
@@ -788,6 +749,7 @@ ob_start();
 
   <!-- Scripts -->
   <script>
+
   function Mudarestado(el) {
     var display = document.getElementById(el).style.display;
     if (display == "none")
@@ -795,9 +757,19 @@ ob_start();
     else
       document.getElementById(el).style.display = 'none';
   }
+
+
   </script>
   <!-- Fim Scripts -->
   <?php
+  if(isset($_POST["editarAnuncio"]) && !empty($_POST["editarAnuncio"])){
+    header("refresh: 0;registo_anuncio.php?id_anuncio_editar=".$_POST["idAnuncioEditar"]);
+
+}
+if(isset($_POST["idAnuncioEliminar"]) && !empty($_POST["idAnuncioEliminar"])){
+  echo "<script>alert('olas'):</script>";
+}
+
   if(isset($_POST["EditarPassword"]) && !empty($_POST["EditarPassword"])){
       if(!strcmp($_POST["password1"],$_POST["password2"])){
         if(verifca_password($_POST["password1"])==true && verifica_tamanho_string($password,15)==true){

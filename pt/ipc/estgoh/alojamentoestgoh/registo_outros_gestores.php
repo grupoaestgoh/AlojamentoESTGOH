@@ -3,10 +3,10 @@
 		session_start();
 		include("./comum/carregacontroladores.php");
 
-		//verifica se gestor está autenticado
-		/*if (isset($_SESSION["AE_id_utilizador"]) && isset($_SESSION["AE_nome_utilizador"]) && isset($_SESSION["AE_email_utilizador"]) && isset($_SESSION["AE_estado_utilizador"])){
-		  //Se não tiver sessao manda para pagina index.php
-		  if($_SESSION["AE_estado_utilizador"]!=1 )header("Location: ./index.php");
+		///verifica se gestor está autenticado
+		/*if (isset($_SESSION["AE_id_utilizador"]) && isset($_SESSION["AE_nome_utilizador"]) && isset($_SESSION["AE_email_utilizador"]) && isset($_SESSION["AE_estado_utilizador"]) && isset($_SESSION["AE_tipo_utilizador"] ) && isset($_SESSION["AE_data_incricao_utilizador"]) ){
+		  //Se tiver estado !=1 e o tipo !=1 vai  para pagina index.php
+		  if($_SESSION["AE_estado_utilizador"]!=1 || $_SESSION["AE_estado_utilizador"]!=1 )header("Location: ./index.php");
 		}else{
 		  header("Location: ./index.php");
 		}
@@ -311,7 +311,7 @@
 							<b><?php print $nome; ?></b>
 						</label>
 						<br>
-	           	<input class="form-control" type="text" placeholder="<?php print $nome;?>" name="nomee" required><br>
+	           	<input class="form-control"  type="text" placeholder="<?php print $nome;?>" name="nomee" required><br>
 	           <label class="corPreta" >
 							 <b><?php print $emailR; ?>:</b>
 						 </label>
@@ -381,8 +381,8 @@ if(isset($_POST["registar"]) && !empty($_POST["registar"])){
 	$mybd->ligar_bd();
 	$flag=0;
 	if(isset($_POST["nomee"]) && !empty($_POST["nomee"])){
-		if(verifica_nome($_POST["nomee"])==true){
-			$flag++;
+		if(verifica_nome($_POST["nomee"])==true && verifica_tamanho_string($_POST["nomee"],50)==true){
+				$flag++;
 
 		}else{
 			print('<script>
@@ -399,7 +399,7 @@ if(isset($_POST["registar"]) && !empty($_POST["registar"])){
 				</script>');
 	}
 	if(isset($_POST["emaill"]) && !empty($_POST["emaill"])){
-		if($dao_utilizadores->verificar_email($_POST["emaill"])==false){
+		if($dao_utilizadores->verificar_email($_POST["emaill"])==false  && verifica_tamanho_string($_POST["emaill"],25)==true){
 			$flag++;
 			print('<script>
 							jQuery(document).ready(function( $ ) {
@@ -422,7 +422,8 @@ if(isset($_POST["registar"]) && !empty($_POST["registar"])){
 	}
 
 			if(isset($_POST["passwordd"]) && !empty($_POST["passwordd"])){
-				if(verifca_password($_POST["passwordd"])==true){
+				$password=password_hash($_POST["passwordd"],PASSWORD_DEFAULT);
+				if(verifca_password($_POST["passwordd"])==true  && verifica_tamanho_string($password,15)==true){
 					$flag++;
 
 				}else{
@@ -457,6 +458,9 @@ if(isset($_POST["registar"]) && !empty($_POST["registar"])){
 	$mybd->desligar_bd();
 
 }
+
+
+
 //funções de php
 	function verifica_nome(){
 		$valor=$_POST["nomee"];
@@ -474,7 +478,7 @@ if(isset($_POST["registar"]) && !empty($_POST["registar"])){
 	      $dao_utilizadores->editar_utilizador($utilizador_edita_pass);
 	        print('<script>
 	                jQuery(document).ready(function( $ ) {
-	                jQuery("#aviso_registo_sucesso").show();
+	                jQuery("#aviso_editar_certo").show();
 	                });
 	                $(document).ready(function(){
 	                $("#myModal20").modal();
@@ -485,7 +489,7 @@ if(isset($_POST["registar"]) && !empty($_POST["registar"])){
 	      }else{//caracteristicas mal
 	        print('<script>
 	                jQuery(document).ready(function( $ ) {
-	                jQuery("#aviso_registo_insucesso_password").show();
+	                jQuery("#aviso_carac_pass_nova").show();
 	                });
 	                $(document).ready(function(){
 	                $("#myModal20").modal();
@@ -495,7 +499,7 @@ if(isset($_POST["registar"]) && !empty($_POST["registar"])){
 	      }else{//password diferentes
 	          print('<script>
 	                jQuery(document).ready(function( $ ) {
-	                jQuery("#aviso_login_insucesso").show();
+	                jQuery("#aviso_password_diferente").show();
 	                });
 	                $(document).ready(function(){
 	                $("#myModal20").modal();

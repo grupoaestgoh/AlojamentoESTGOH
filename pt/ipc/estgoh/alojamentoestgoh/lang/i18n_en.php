@@ -77,9 +77,9 @@
 	$nome="Name";
 	$sucesso="Registed with success!";
 	$caracPassword="Password must have 1 uppercase, 1 number and a total number of at least 8 characters and maximum 15 characters .";
-	$insucesso_password="Password must have 1 uppercase, 1 number and a total number of at least 8 characters.";
-	$insucesso_nome="Name can only have letters.";
-	$insucesso_email="Email already registed.";
+	$insucesso_password="Password must have 1 uppercase, 1 number and a total number of at least 8 characters and maximum of 15 characters.";
+	$insucesso_nome="Name can only have letters and have a maximum of 50 characters.";
+	$insucesso_email="Email already registed and the email have a maximum of 25 characters!";
 
 //Pagina Auncios_novos_pendentes.php
 	$titulo="Title";

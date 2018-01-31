@@ -232,7 +232,7 @@ body{
   text-align: center;
 }
 #icones, #icones2 {
-  display: none;
+  display: block;
 }
 .listaimovel img{
   width: 30px;

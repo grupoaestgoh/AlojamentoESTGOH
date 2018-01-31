@@ -32,13 +32,15 @@ Disponibilidade
   function listar_anuncios_anunciante($id_anunciante,$estado_anuncio){
     $arrayAnuncios=[];
     global $mybd;
-    if($id_anunciante==-2){//mostra todos anuncios de anunciantes
+    if($estado_anuncio==-4){//devolve anuncios de proprietario
+       $STH = $mybd->DBH->prepare("Select anu_id,uti_id,anu_titulo,anu_descricao,anu_morada,anu_email,anu_estado,anu_telefone,anu_codigopostal,anu_disponibilidade,anu_wcprivativo,anu_mobilada,anu_utensilios,anu_internet,anu_rapazes,anu_raparigas,anu_despesas,anu_animais,anu_latitude,anu_longitude,anu_data,anu_preco from anuncio where uti_id=? ;");
+       $STH->bindParam(1, $id_anunciante);
+     }else  if($id_anunciante==-2){//mostra todos anuncios pendentes de anunciantes
        $STH = $mybd->DBH->prepare("Select anu_id,anuncio.uti_id,anu_titulo,anu_descricao,anu_morada,anu_email,anu_estado,anu_telefone,anu_codigopostal,anu_disponibilidade,anu_wcprivativo,anu_mobilada,anu_utensilios,anu_internet,anu_rapazes,anu_raparigas,anu_despesas,anu_animais,anu_latitude,anu_longitude,anu_data,anu_preco,utilizador.uti_id from anuncio,utilizador where  utilizador.uti_id=anuncio.uti_id and uti_tipo=2 ;");
-     }else
-    if($id_anunciante==-1){//mostra anuncios anunciante por estado
+     }else if($id_anunciante==-1){//mostra anuncios anunciante por estado
        $STH = $mybd->DBH->prepare("Select anu_id,uti_id,anu_titulo,anu_descricao,anu_morada,anu_email,anu_estado,anu_telefone,anu_codigopostal,anu_disponibilidade,anu_wcprivativo,anu_mobilada,anu_utensilios,anu_internet,anu_rapazes,anu_raparigas,anu_despesas,anu_animais,anu_latitude,anu_longitude,anu_data,anu_preco from anuncio where anu_estado=?;");
-$STH->bindParam(1, $estado_anuncio);
-    }else{
+       $STH->bindParam(1, $estado_anuncio);
+     } else if($estado_anuncio!=-4){
 //mostra anuncios anunciante por estado e por utilizador
       $STH = $mybd->DBH->prepare("Select anu_id,uti_id,anu_titulo,anu_descricao,anu_morada,anu_email,anu_estado,anu_telefone,anu_codigopostal,anu_disponibilidade,anu_wcprivativo,anu_mobilada,anu_utensilios,anu_internet,anu_rapazes,anu_raparigas,anu_despesas,anu_animais,anu_latitude,anu_longitude,anu_data,anu_preco from anuncio where uti_id=? and anu_estado=?;");
     $STH->bindParam(1, $id_anunciante);
