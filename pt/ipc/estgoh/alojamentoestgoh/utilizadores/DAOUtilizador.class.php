@@ -4,7 +4,8 @@ class DAOUtilizadores{
   0-administrador
   1-gestor
   2-anunciantes
-
+  3-estudante
+  
   Estado
   1-ativo
   2-pendente
