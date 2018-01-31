@@ -555,7 +555,7 @@ ob_start();
                                              function myMap() {
                                            var mapCanvas = document.getElementById("map");
                                            var mapOptions = {
-                                             center: new google.maps.LatLng(40.360336, -7.855718), zoom: 18, mapTypeId: google.maps.MapTypeId.HYBRID
+                                             center: new google.maps.LatLng('.$anuncios->Latitude.','.$anuncios->Longitude.'), zoom: 18, mapTypeId: google.maps.MapTypeId.HYBRID
                                            };
                                            var map = new google.maps.Map(mapCanvas, mapOptions);
                                            }
