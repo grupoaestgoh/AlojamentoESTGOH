@@ -1,40 +1,40 @@
 # AlojamentoESTGOH
 
 
-Bruno: pagina index    
+1. pagina index         						            - Falta ajax 	[Bruno]
 
-Bruno: pagina registo_primeiro_gestor     [falta enviar corretamente os dados]
+2. pagina registo_primeiro_gestor         		  - Concluida
 
-Bruno: pagina home_page (todos)
+3. pagina home_page (todos)						          - Falta 			[Bruno]
 
-Bruno: pagina anuncios(anunciante)
+4. pagina anuncios(anunciante)					        - Falta 			[Bruno]
 
-Bruno: pagina adicionar_anuncio (anunciante)
-
-
-Fabio: pagina desativar_gestor (gestor)
-
-Fabio: pagina desativar_proprietario (gestor)
-
-Fabio: pagina registo_outros_gestores(gestor)
+5. pagina adicionar_anuncio (anunciante)		    - Falta 			[Bruno]
 
 
+6. pagina desativar_gestor (gestor)				      - Falta				[Fábio]
 
-Jessica: pagina  registo_anuncio(gestor)
+7. pagina desativar_proprietario (gestor)		    - Falta				[Fábio]
 
-Jessica: pagina anuncios_novos_pendentes (gestor)
-
-Jessica: pagina anuncios_editados_pendentes (gestor)
+8. pagina registo_outros_gestores(gestor)		    - Concluida
 
 
 
-Rui: pagina ver_anuncio (aluno)
+9. pagina  registo_anuncio(gestor)				      - Concluida
 
-Rui: pagina ver_todos_anuncios (aluno)
+10. pagina anuncios_novos_pendentes (gestor)	  - Concluida
 
-Rui: pagina anuncios_denunciados (gestor)
+11. pagina anuncios_editados_pendentes (gestor) - Concluida
 
 
-Miguel: pagina ver_anuncios_proprietarios (gestor)
 
-Miguel: pagina meus_anuncios(gestor)
+12. pagina ver_anuncio (aluno)					        - Falta 			[Jéssica]
+
+13. pagina ver_todos_anuncios (aluno)			      - Falta 			[Jéssica]
+
+14. pagina anuncios_denunciados (gestor)		    - Falta 			[Jéssica]
+
+
+15. pagina ver_anuncios_proprietarios (gestor)  - Falta  	    [Miguel]
+
+16. pagina meus_anuncios(gestor) 				        - Falta      	[Miguel]
