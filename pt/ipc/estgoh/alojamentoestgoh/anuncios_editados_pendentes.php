@@ -421,7 +421,8 @@ ob_start();
                                 </div>
                                 <div class="modal-body">
                                   <p>'.$motivoRej.'</p>
-                                  <textarea class="form-control" name="motivo" rows="3" required></textarea>
+                                  <textarea class="form-control" id="malmotivo" name="motivo'.$anuncios->Id_Anuncio.'" rows="3" required></textarea>
+                                  <span id="falhamotivo" class="falhas" /><span>
                                 </div>
                                 <input type="hidden" name="idAnuR" value='.$anuncios->Id_Anuncio.'>
 
@@ -613,54 +614,60 @@ ob_start();
 
   <?php
   if(isset($_POST["EditarPassword"]) && !empty($_POST["EditarPassword"])){
-    if(!strcmp($_POST["password1"],$_POST["password2"])){
-      if(verifca_password($_POST["password1"])==true){
-      $password=password_hash($_POST["password1"],PASSWORD_DEFAULT);
-      $utilizador_edita_pass=new Gestor($_SESSION['AE_id_utilizador'],"","",$password,"","");
-      $dao_utilizadores->editar_utilizador($utilizador_edita_pass);
-      print('<script>
-              jQuery(document).ready(function( $ ) {
-                jQuery("#aviso_registo_sucesso").show();
-              });
-              $(document).ready(function(){
-          $("#myModal20").modal();
-      });
-          </script>');
-          header("refresh: 1;anuncios_editados_pendentes.php");
+      if(!strcmp($_POST["password1"],$_POST["password2"])){
+        if(verifca_password($_POST["password1"])==true && verifica_tamanho_string($password,15)==true){
+        $password=password_hash($_POST["password1"],PASSWORD_DEFAULT);
+        $utilizador_edita_pass=new Gestor($_SESSION['AE_id_utilizador'],"","",$password,"","");
+        $dao_utilizadores->editar_utilizador($utilizador_edita_pass);
+          print('<script>
+                  jQuery(document).ready(function( $ ) {
+                  jQuery("#aviso_registo_sucesso").show();
+                  });
+                  $(document).ready(function(){
+                  $("#myModal20").modal();
+                  });
+                  </script>');
+          header("refresh: 1;registo_anuncio.php");
 
-      }else{//caracteristicas mal
-        print('<script>
-                jQuery(document).ready(function( $ ) {
+        }else{//caracteristicas mal
+          print('<script>
+                  jQuery(document).ready(function( $ ) {
                   jQuery("#aviso_registo_insucesso_password").show();
-                });
-                $(document).ready(function(){
-          $("#myModal20").modal();
-      });
-            </script>');
-      }
-    }else{//password diferentes
-      print('<script>
-              jQuery(document).ready(function( $ ) {
-                jQuery("#aviso_login_insucesso").show();
-              });
-              $(document).ready(function(){
-          $("#myModal20").modal();
-      });
-          </script>');
-
+                  });
+                  $(document).ready(function(){
+                  $("#myModal20").modal();
+                  });
+                  </script>');
+          }
+        }else{//password diferentes
+            print('<script>
+                  jQuery(document).ready(function( $ ) {
+                  jQuery("#aviso_login_insucesso").show();
+                  });
+                  $(document).ready(function(){
+                  $("#myModal20").modal();
+                  });
+                  </script>');
         }
-
   }
-
+  function verifica_tamanho_string($string,$maximoCaracteres){
+    if(strlen($string)>$maximoCaracteres)return false;
+    else return true;
+  }
   //desativa a conta e vai para a pagina index e elimina session
-        if(isset($_POST["DesativaConta"]) && !empty($_POST["DesativaConta"])){
-          $dao_utilizadores->alterar_estado($_SESSION["AE_id_utilizador"],3);
-          unset($_SESSION['AE_id_utilizador']);
-          unset($_SESSION['AE_nome_utilizador']);
-          unset($_SESSION['AE_email_utilizador']);
-          unset($_SESSION['AE_estado_utilizador']);
-          header('Location: index.php');
-        }
+      if(isset($_POST["DesativaConta"]) && !empty($_POST["DesativaConta"])){
+        $dao_utilizadores->alterar_estado($_SESSION["AE_id_utilizador"],3);
+        unset($_SESSION['AE_id_utilizador']);
+        unset($_SESSION['AE_nome_utilizador']);
+        unset($_SESSION['AE_email_utilizador']);
+        unset($_SESSION['AE_estado_utilizador']);
+        //adiciona um aviso para os gestores
+        $notificacao=new Notificacao(0,null,2,$naoquerusar,date('Y-m-d'),date('H:m:s'),1,6);
+        $dao_notificacao->inserir_notificacao($notificacao);
+        //mete o estado da sua conta desativacao
+        $dao_utilizadores->alterar_estado($_SESSION["AE_id_utilizador"],3);
+        header('Location: index.php');
+      }
 
         //termina sessão
         if(isset($_GET["TerminarSessao"]) && !empty($_GET["TerminarSessao"])){
@@ -679,28 +686,35 @@ ob_start();
           $anuncioEdita->Estado=1;
           $dao_anuncios->editar_anuncio($anuncioEdita);
           $dao_notificacao->inserir_notificacao(new Notificacao(0,$anuncioEdita->Proprietario,2,"Agora todos os alunos poderao ver o seu anuncio!",date("Y-m-d"),date('H:i:s'),0,1));
+          //adiciona notificação para proprietario do anuncio
+          $notificacao=new Notificacao(0,$anuncioEdita->Proprietario,2,$anuncioaprovado,date('Y-m-d'),date('H:m:s'),0,1);
+          $dao_notificacao->inserir_notificacao($notificacao);
           $mybd->desligar_bd();
           header("Refresh:0; url=anuncios_editados_pendentes.php");
         }
         //altera estado de anuncio novo pendente para inativo
         //fALTA ADICIONAR NOTIFICAÇAÕ
-            if(isset($_POST["elimina"]) && !empty($_POST["elimina"])){
-              $mybd->ligar_bd();
-              $anuncioEdita=$dao_anuncios->obter_anuncio($_POST["idAnuR"]);
-              $anuncioEdita->Estado=4;
-              $dao_anuncios->editar_anuncio($anuncioEdita);
-              $dao_notificacao->inserir_notificacao(new Notificacao(0,$anuncioEdita->Proprietario,2,$_POST["motivo"],date("Y-m-d"),date('H:i:s'),0,5));
-                    print('<script>
-                            $(document).ready(function(){
-                                $("#myModalEliminar").modal();
-                            });
-                            jQuery(document).ready(function( $ ) {
-                              jQuery("#aviso_registo_insucesso_nome").show();
-                            });
-                        </script>');
-              $mybd->desligar_bd();
-              header("refresh: 1;anuncios_editados_pendentes.php");
+          if(isset($_POST["elimina"]) && !empty($_POST["elimina"])){
+              $motivo=$_POST["motivo".$_POST["idAnuR"]];
+              if(verifica_tamanho_string($motivo,50)==true){
+                $mybd->ligar_bd();
+                $anuncioEdita=$dao_anuncios->obter_anuncio($_POST["idAnuR"]);
+                if($anuncioEdita->Estado!=4){
+                    $anuncioEdita->Estado=4;
+                    $dao_anuncios->editar_anuncio($anuncioEdita);
+                    //adiciona notificação para proprietario do anuncio
+                    $dao_notificacao->inserir_notificacao(new Notificacao(0,$anuncioEdita->Proprietario,2,$motivo,date("Y-m-d"),date('H:i:s'),0,5));
+                    print('<script>$(document).ready(function(){$("#myModalEliminar").modal();  });  jQuery(document).ready(function( $ ) {jQuery("#aviso_registo_insucesso_nome").show();});  </script>');
+                    $mybd->desligar_bd();
+                    header("refresh: 1;anuncios_editados_pendentes.php");
+                }
+            }else{
+              echo'<script>malmotivo.style.border="2px solid red";</script>';
+              echo'<script>$("#falhamotivo").text("O motivo tem maximo de 50 caracteres!");</script>';
+              echo'<script>$(document).ready(function(){  $("#b'.$_POST["idAnuR"].'").modal();});</script>';
+
             }
+          }
 
   function verifca_password(){
     //verifica se tem pelo menos um caracter maiusculo

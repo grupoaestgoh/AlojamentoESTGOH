@@ -18,6 +18,14 @@
 	$AnuNovosPend="Anúncios novos pendentes";
 	$AnuEditPend="Anúncios editados pendentes";
 	$VerAnuProprietarios="Ver Anúncios dos proprietários";
+          //(descricoes das notificaçoes)
+  $naoquerusar="O utilizador já não quer usar mais a aplicação!";
+  $anuncioaprovado="Agora todos os alunos poderao ver o seu anuncio!";
+  $anunciopendente="Anuncios esperam aprovacao!";
+  $proprietariopendente="Proprietarios querem aceder ao sistema!";
+  $denunciaAnu="Anuncios foram deunciados!";
+  $reprovadoAnu="Edite o anuncio pois não está conforme as regras!";
+        //
 	$Uti="Utilizadores";
 	$RegGestor="Registar gestor";
 	$DesaProprietario="Desativar proprietário";
@@ -72,7 +80,7 @@
 	$entrar="Entrar";
 	$nome="Nome";
 	$sucesso="Registado com sucesso!";
-	$caracPassword="Password deve ter pelo menos 1 caracter Maiúsculo e um numero num total de pelo menos oito caracteres.";
+	$caracPassword="Password deve ter pelo menos 1 caracter Maiúsculo e um numero num total de pelo menos oito caracteres e no maximo 15 caracteres.";
 	$PasswordIguais="As passwords tem de ser iguais!";
 	$insucesso_password="Password deve ter pelo menos 1 caracter Maiúsculo e 1 Numero e um total de pelo menos oito caracteres.";
 	$insucesso_nome="O nome só pode ser constituido por palavras.";
@@ -108,6 +116,14 @@ $caracteristicasQ="Especificações do Quarto:";
 $casabanho="Casa de banho privativa:";
 $sim="Sim";
 $nao="Não";
+$adicionaAnu="Adicionar Anúncio";
+$Remail="E-mail*";
+$RTelefone="Telefone*";
+$Rmorada="Morada*";
+$Rcodigo="Codigo Postal*";
+$Rtitulo="Titulo*";
+$Rpreco="Preco*";
+$Rdescricao="Descrição*";
 $internet1="Internet:";
 $despesas="Despesas incluídas:";
 $mobilia="Mobília:";
@@ -118,6 +134,7 @@ $rapaz="Rapaz";
 $rapariga="Rapariga";
 $fotos="Imagens do Quarto:";
 $minimoimg="Colocar pelo menos 3 imagens.";
+$naominimo="Se editar as fotos tera que colocar um minimo de 3 fotos, caso contrario manter se ao as antigas!";
 $Localizacao1="Localização da Casa:";
 $anuncioSucesso="O seu anúncio foi submetido com sucesso!";
 

@@ -549,45 +549,47 @@ ob_start();
     <!-- /.container -->
 
     <?php
-        if(isset($_POST["EditarPassword"]) && !empty($_POST["EditarPassword"])){
-          if(!strcmp($_POST["password1"],$_POST["password2"])){
-            if(verifca_password($_POST["password1"])==true){
-            $password=password_hash($_POST["password1"],PASSWORD_DEFAULT);
-            $utilizador_edita_pass=new Gestor($_SESSION['AE_id_utilizador'],"","",$password,"","");
-            $dao_utilizadores->editar_utilizador($utilizador_edita_pass);
+    if(isset($_POST["EditarPassword"]) && !empty($_POST["EditarPassword"])){
+        if(!strcmp($_POST["password1"],$_POST["password2"])){
+          if(verifca_password($_POST["password1"])==true && verifica_tamanho_string($password,15)==true){
+          $password=password_hash($_POST["password1"],PASSWORD_DEFAULT);
+          $utilizador_edita_pass=new Gestor($_SESSION['AE_id_utilizador'],"","",$password,"","");
+          $dao_utilizadores->editar_utilizador($utilizador_edita_pass);
             print('<script>
                     jQuery(document).ready(function( $ ) {
-                      jQuery("#aviso_registo_sucesso").show();
+                    jQuery("#aviso_registo_sucesso").show();
                     });
                     $(document).ready(function(){
-                $("#myModal20").modal();
-            });
-                </script>');
-                header("refresh: 1;ver_anuncios_proprietarios.php");
+                    $("#myModal20").modal();
+                    });
+                    </script>');
+            header("refresh: 1;registo_anuncio.php");
 
-            }else{//caracteristicas mal
-              print('<script>
-                      jQuery(document).ready(function( $ ) {
-                        jQuery("#aviso_registo_insucesso_password").show();
-                      });
-                      $(document).ready(function(){
-                $("#myModal20").modal();
-            });
-                  </script>');
+          }else{//caracteristicas mal
+            print('<script>
+                    jQuery(document).ready(function( $ ) {
+                    jQuery("#aviso_registo_insucesso_password").show();
+                    });
+                    $(document).ready(function(){
+                    $("#myModal20").modal();
+                    });
+                    </script>');
             }
           }else{//password diferentes
-            print('<script>
+              print('<script>
                     jQuery(document).ready(function( $ ) {
-                      jQuery("#aviso_login_insucesso").show();
+                    jQuery("#aviso_login_insucesso").show();
                     });
                     $(document).ready(function(){
-                $("#myModal20").modal();
-            });
-                </script>');
-
-              }
-
-        }
+                    $("#myModal20").modal();
+                    });
+                    </script>');
+          }
+    }
+    function verifica_tamanho_string($string,$maximoCaracteres){
+      if(strlen($string)>$maximoCaracteres)return false;
+      else return true;
+    }
 
     //desativa a conta e vai para a pagina index e elimina session
         if(isset($_POST["DesativaConta"]) && !empty($_POST["DesativaConta"])){
@@ -596,6 +598,11 @@ ob_start();
           unset($_SESSION['AE_nome_utilizador']);
           unset($_SESSION['AE_email_utilizador']);
           unset($_SESSION['AE_estado_utilizador']);
+          //adiciona um aviso para os gestores
+          $notificacao=new Notificacao(0,null,2,$naoquerusar,date('Y-m-d'),date('H:m:s'),1,6);
+          $dao_notificacao->inserir_notificacao($notificacao);
+          //mete o estado da sua conta desativacao
+          $dao_utilizadores->alterar_estado($_SESSION["AE_id_utilizador"],3);
           header('Location: index.php');
         }
         //termina sessão

@@ -19,8 +19,14 @@ include("./comum/carregacontroladores.php");
 //Utensilios,Internet,Rapariga,Rapaz,Despesas,Animais,Latitude,Longitude
 $anuncio=new Anuncio(null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,0,0,null,null,null,null);
 $Codigo_postal2=null;
+$idanuncioEditar=0;
+if(isset($_GET["id_anuncio_editar"]) && !empty($_GET["id_anuncio_editar"])){
+$idanuncioEditar=$_GET["id_anuncio_editar"];
+}
 
-
+if(isset($_POST["idAnu"]) && !empty($_POST["idAnu"])){
+  $anuncio->Email=$_POST["idAnu"];
+}
 if(isset($_POST["mail"]) && !empty($_POST["mail"])){
   $anuncio->Email=$_POST["mail"];
 }
@@ -413,10 +419,10 @@ ob_start();
                       </div>
                       <div class="row">
                         <div class="col-lg-6">
-                          <input type="email" id="malEmail" placeholder="E-mail" name="mail"<?php if($anuncio->Email!=null) print (" value='".$anuncio->Email."' "); ?>  />
+                          <input type="email" id="malEmail" placeholder="<?php print $Remail;?>" name="mail"<?php if($anuncio->Email!=null) print (" value='".$anuncio->Email."' "); ?>  />
                         </div>
                         <div class="col-lg-6">
-                         <input type="telefone" id="malTelefone" placeholder="Telefone*" name="tele" <?php if($anuncio->Telefone!=null) print (" value='".$anuncio->Telefone."' "); ?>   />
+                         <input type="telefone" id="malTelefone" placeholder="<?php print $RTelefone;?>" name="tele" <?php if($anuncio->Telefone!=null) print (" value='".$anuncio->Telefone."' "); ?>   />
                         </div>
                       </div>
                       <div class="row">
@@ -430,10 +436,10 @@ ob_start();
                       </div>
                       <div class="row">
                         <div class="col-lg-6">
-                          <input type="morada" id="malMorada" placeholder="Morada*"  name="morada"<?php if($anuncio->Morada!=null) print (" value='".$anuncio->Morada."' "); ?>  />
+                          <input type="morada" id="malMorada" placeholder="<?php print $Rmorada;?>*"  name="morada"<?php if($anuncio->Morada!=null) print (" value='".$anuncio->Morada."' "); ?>  />
                         </div>
                         <div class="col-lg-6">
-                          <input type="postal" id="malCodigo" placeholder="Código Postal*"   name="codigo"<?php if($anuncio->Codigo_postal!=null) print (" value='".$anuncio->Codigo_postal."' "); ?>  />
+                          <input type="postal" id="malCodigo" placeholder="<?php print $Rcodigo;?>"   name="codigo"<?php if($anuncio->Codigo_postal!=null) print (" value='".$anuncio->Codigo_postal."' "); ?>  />
                           <input type="postal2" id="malCodigo2" placeholder="" name="codigo2" <?php if($Codigo_postal2!=null) print (" value='".$Codigo_postal2."' "); ?> />
                         </div>
                       </div>
@@ -447,13 +453,13 @@ ob_start();
                           <span id="falhaTitulo" class="falhas" /><span>
                         </div>
                         <div class="col-lg-12">
-                          <input type="morada" id="malTitulo" placeholder="Título do anúncio*"  name="titulo"<?php if($anuncio->Titulo!=null) print (" value='".$anuncio->Titulo."' "); ?>  />
+                          <input type="morada" id="malTitulo" placeholder="<?php print $Rtitulo;?>"  name="titulo"<?php if($anuncio->Titulo!=null) print (" value='".$anuncio->Titulo."' "); ?>  />
                         </div>
                         <div class="col-lg-12">
                           <span id="falhaPreco" class="falhas" /><span>
                         </div>
                         <div class="col-lg-12">
-                          <input type="preco" id="malPreco" placeholder="Preço*"  name="preco"<?php if($anuncio->Preco!=null) print (" value='".$anuncio->Preco."' "); ?>  />
+                          <input type="preco" id="malPreco" placeholder="<?php print $Rpreco;?>"  name="preco"<?php if($anuncio->Preco!=null) print (" value='".$anuncio->Preco."' "); ?>  />
                         </div>
                       </div>
                       <div class="row">
@@ -461,7 +467,7 @@ ob_start();
                           <span id="falhaDescricao" class="falhas" /><span>
                         </div>
                         <div class="col-lg-12">
-                          <textarea  form="signup" id="malDescricao" placeholder="  Descrição*"  name="informacao" rows="3"   ><?php if($anuncio->Descricao!=null) print ($anuncio->Descricao); ?></textarea>
+                          <textarea  form="signup" id="malDescricao" placeholder="<?php print $Rdescricao;?>"  name="informacao" rows="3"   ><?php if($anuncio->Descricao!=null) print ($anuncio->Descricao); ?></textarea>
                         </div>
                       </div>
 
@@ -615,6 +621,8 @@ ob_start();
                         </div>
                         <input type="hidden" id="longi"  name="longi" value="<?php if($anuncio->Longitude!=null)print $anuncio->Longitude;else print("-7.861200571060181");?>" />
                         <input type="hidden" id="lati"  name="lati" value="<?php if($anuncio->Latitude!=null)print $anuncio->Latitude;else print("40.36095028657701")?>" />
+                        <input type="hidden" id="idAnu"  name="idAnu" value="<?php print $idanuncioEditar;?>" />
+
                         <script>
                           var previousMarker=null,latt=null,longi=null;
                           function myMap() {
@@ -656,7 +664,7 @@ ob_start();
 
                       <div class="header">
                           <p class="bold"><?php print $fotos;?></p>
-                          <p class="tinyy"><?php print $minimoimg;?></p>
+                          <p class="tinyy"><?php if($idanuncioEditar==0)print $minimoimg; else print $naominimo;?></p>
                       </div>
 
 
@@ -685,7 +693,7 @@ ob_start();
                         </div>
                       </div>
                       <div class="botaoaddanuncio col-12">
-                        <input id="submit" type="submit" name="InserirAnu" value="Adicionar Anúncio" ></input>
+                        <input id="submit" type="submit" name="InserirAnu" value="<?php print $adicionaAnu;?>" ></input>
                       </div>
                   </div>
               </form>
@@ -725,9 +733,9 @@ ob_start();
   //Morada,Telefone,Email,Codigo_postal,Data_Submetido
   //Disponibilidade,Estado,Preco,Fotos,Wc,Mobilia
   //Utensilios,Internet,Rapariga,Rapaz,Despesas,Animais,Latitude,Longitude
-  if(isset($_POST["InserirAnu"]) && !empty($_POST["InserirAnu"])){
-    $tudoPreenchido=true;
-    $arrayObjetoFotos=[];
+if(isset($_POST["InserirAnu"]) && !empty($_POST["InserirAnu"])){
+  $arrayObjetoFotos=[];
+  if($idanuncioEditar!=0){
     $tudoPreenchido=verifica_campos_prenechidos($anuncio,$Codigo_postal2,$tudoPreenchido);//ve campos preenchidos
     if($tudoPreenchido==true){
       $arrayObjetoFotos=verifica_imagens_tamanho($dao_anuncios,$mybd,$tudoPreenchido);// ve quantas imagens colocou
@@ -740,7 +748,7 @@ ob_start();
         $anuncio->Codigo_postal=$anuncio->Codigo_postal."-".$Codigo_postal2;
         $anuncio->Data_Submetido=date('Y-m-d');
         $anuncio->Disponibilidade=1;
-        $anuncio->Estado=2;
+        $anuncio->Estado=1;
         arranjo_caracteristicas($anuncio);
         $mybd->ligar_bd();
         $dao_anuncios->inserir_anuncio($anuncio);
@@ -760,6 +768,40 @@ ob_start();
                 </script>');
       }
     }
+  }else{
+    $existemfotos=0;
+    //se existir id anuncio a editar é diferente!!
+      $tudoPreenchido=verifica_campos_prenechidos($anuncio,$Codigo_postal2,$tudoPreenchido);//ve campos preenchidos
+      if($tudoPreenchido==true){
+        for ($i=0; $i <6; $i++) {
+          if(isset($_FILES["file".$i])){
+            if($_FILES["file".$i]["name"] ){
+              $existemfotos=1;
+            }
+          }
+        }
+        if($existemfotos==1)$arrayObjetoFotos=verifica_imagens_tamanho($dao_anuncios,$mybd,$tudoPreenchido);// ve quantas imagens colocou
+        if($arrayObjetoFotos==null)echo'<script>malFotos.style.border="2px solid red";</script>';
+      }
+      if($tudoPreenchido==true){
+        //adiciona anuncio
+        $anuncio->Proprietario=$_SESSION["AE_id_utilizador"];
+        $anuncio->Codigo_postal=$anuncio->Codigo_postal."-".$Codigo_postal2;
+        $anuncio->Data_Submetido=date('Y-m-d');
+        $anuncio->Disponibilidade=1;
+        $anuncio->Estado=1;
+        $dao_anuncios->editar_anuncio($anuncio);//edita o anuncio
+        if($arrayObjetoFotos!=null){
+          //falta remover todas as outras
+          $dao_fotos->remover_foto($idanuncioEditar);
+          //adiciona os novos
+          for ($i=0; $i <sizeof($arrayObjetoFotos); $i++) {
+            $FotoObj=$arrayObjetoFotos[$i];
+            $dao_fotos->inserir_foto($FotoObj);
+          }
+        }
+      }
+  }
 }
 function arranjo_caracteristicas($anuncio){
   if($anuncio->Animais==2) $anuncio->Animais=0;
@@ -771,7 +813,7 @@ function arranjo_caracteristicas($anuncio){
 }
 if(isset($_POST["EditarPassword"]) && !empty($_POST["EditarPassword"])){
     if(!strcmp($_POST["password1"],$_POST["password2"])){
-      if(verifca_password($_POST["password1"])==true){
+      if(verifca_password($_POST["password1"])==true && verifica_tamanho_string($password,15)==true){
       $password=password_hash($_POST["password1"],PASSWORD_DEFAULT);
       $utilizador_edita_pass=new Gestor($_SESSION['AE_id_utilizador'],"","",$password,"","");
       $dao_utilizadores->editar_utilizador($utilizador_edita_pass);
@@ -784,6 +826,7 @@ if(isset($_POST["EditarPassword"]) && !empty($_POST["EditarPassword"])){
                 });
                 </script>');
         header("refresh: 1;registo_anuncio.php");
+
       }else{//caracteristicas mal
         print('<script>
                 jQuery(document).ready(function( $ ) {
@@ -805,6 +848,7 @@ if(isset($_POST["EditarPassword"]) && !empty($_POST["EditarPassword"])){
                 </script>');
       }
 }
+
   //desativa a conta e vai para a pagina index e elimina session
       if(isset($_POST["DesativaConta"]) && !empty($_POST["DesativaConta"])){
         $dao_utilizadores->alterar_estado($_SESSION["AE_id_utilizador"],3);
@@ -812,6 +856,11 @@ if(isset($_POST["EditarPassword"]) && !empty($_POST["EditarPassword"])){
         unset($_SESSION['AE_nome_utilizador']);
         unset($_SESSION['AE_email_utilizador']);
         unset($_SESSION['AE_estado_utilizador']);
+        //adiciona um aviso para os gestores
+        $notificacao=new Notificacao(0,null,2,$naoquerusar,date('Y-m-d'),date('H:m:s'),1,6);
+        $dao_notificacao->inserir_notificacao($notificacao);
+        //mete o estado da sua conta desativacao
+        $dao_utilizadores->alterar_estado($_SESSION["AE_id_utilizador"],3);
         header('Location: index.php');
       }
   //termina sessão

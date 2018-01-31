@@ -16,6 +16,13 @@
 	$AnuEditPend="Pending Edited Advertisements";
 	$VerAnuProprietarios="See Freeholders' Advertisements";
 	$Uti="Users";
+	//(descricoes das notificaçoes)
+	$anuncioaprovado="Now all students can see your ad!";
+	$anunciopendente="Announcements await approval!";
+	$proprietariopendente="Owners want to access the system!";
+	$denunciaAnu="Announcements have been posted!";
+	$reprovadoAnu="Edit the ad because it is not according to the rules!";
+	$naoquerusar="The user no longer wants to use the application anymore!!";
 	$RegGestor="Register Manager";
 	$DesaProprietario="Disable Freeholder";
 	$DesaGestor="Disable Manager";
@@ -40,7 +47,12 @@
 	$rejeitar="Reject";
 	$certeza="Are you sure you want to disable the account?";
 	$desativar="Disable";
-
+	$anu_aprovado="Approved Ad!";
+	$anu_pendente="Tem anuncio pendente!" ;
+	$pro_pendente="Has pending!";
+	$den_denuncia="Report an ad!" ;
+	$anu_reprovado="Disapproved ad!" ;
+	$pro_desativa="Account deactivation requests!";
 
 //Rodape
 	$estgohR="Estgoh";
@@ -64,7 +76,7 @@
 	$entrar="Login";
 	$nome="Name";
 	$sucesso="Registed with success!";
-	$caracPassword="Password must have 1 uppercase, 1 number and a total number of at least 8 characters.";
+	$caracPassword="Password must have 1 uppercase, 1 number and a total number of at least 8 characters and maximum 15 characters .";
 	$insucesso_password="Password must have 1 uppercase, 1 number and a total number of at least 8 characters.";
 	$insucesso_nome="Name can only have letters.";
 	$insucesso_email="Email already registed.";
@@ -100,6 +112,14 @@ $caracteristicasQ="Room's Specifications:";
 $casabanho="Private bathroom:";
 $sim="Yes";
 $nao="No";
+$Remail="E-mail*";
+$RTelefone="Phone*";
+$Rmorada="Address*";
+$Rcodigo="Postal Code*";
+$Rtitulo="Title*";
+$Rpreco="Price*";
+$Rdescricao="Description*";
+$adicionaAnu="Add ad";
 $internet1="Internet:";
 $despesas="Expenses included:";
 $mobilia="Furniture:";
@@ -110,6 +130,7 @@ $rapaz="Boy";
 $rapariga="Girl";
 $fotos="Room's Pictures:";
 $minimoimg="Add at least 3 images.";
+$naominimo="If you edit the photos you will have to put a minimum of 3 photos, otherwise keep to the old ones!";
 $Localizacao1="House's Location:";
 $anuncioSucesso="Your Advertisement Was Successfully Added!";
 

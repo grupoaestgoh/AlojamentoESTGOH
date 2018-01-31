@@ -29,7 +29,7 @@ class DAOFoto{
 //remove uma foto de um anuncio
   function remover_foto($idFoto){
   global $mybd;
-  $STH = $mybd->DBH->prepare("Delete from foto Where fot_id=?");
+  $STH = $mybd->DBH->prepare("Delete from foto Where anu_id=?");
   $STH->bindParam(1, $idFoto);
   if(!$STH->execute())return false;
   return true;
