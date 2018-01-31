@@ -113,7 +113,7 @@ $obrigatorio="* Obrigatório";
 $proprietario="Proprietário:";
 $anuncio1="Anuncio:";
 $caracteristicasQ="Especificações do Quarto:";
-$casabanho="Casa de banho privativa";
+$casabanho="Casa de banho privativa:";
 $sim="Sim";
 $nao="Não";
 $adicionaAnu="Adicionar Anúncio";
@@ -125,8 +125,8 @@ $Rtitulo="Titulo*";
 $Rpreco="Preco*";
 $Rdescricao="Descrição*";
 $internet1="Internet:";
-$despesas="Despesas incluídas";
-$mobilia="Mobília";
+$despesas="Despesas incluídas:";
+$mobilia="Mobília:";
 $utensilios1="Utensílios:";
 $Animais1="Animais:";
 $sexoPermitido="Sexo Permitido:";
@@ -165,10 +165,9 @@ $utensiliosCoz="Utensílios de cozinha";
 $limpar="Limpar";
 $aplicarFiltros="Aplicar filtros";
 
-//pagina meus_anuncios
-$eliminarAnu="Eliminar anúncio";
-$confirmaElimina="Tem a certeza que quer eliminar o anúncio?";
-$eliminar="Eliminar";
-$mostraDet="Mostrar detalhes";
-$escondeDet="Esconder detalhes";
+
+//pagina ver meus anuncios
+$elimanarAnu="Eliminar anuncio";
+$certezaEliminaAnu="Tem  a certeza que quer eliminar o anuncio?";
+$Eliminar="Eliminar";
 ?>
