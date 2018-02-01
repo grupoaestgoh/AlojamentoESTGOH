@@ -70,9 +70,7 @@ body{
   background-color: black !important;
 }
 
-.divAzul{
-  background-color: #0775b8;
-}
+
 .divBranca{
   background-color: white!important;
 }
@@ -178,6 +176,10 @@ body{
 
 .bg-light{
   background-color: #f8f8f8!important;
+}
+
+.divAzul{
+  background-color: #0775b8 !important;
 }
 
 .smallx{
@@ -1277,3 +1279,36 @@ footer.sticky-footer {
     .nome_pesquisa{
       padding: 0px!important;
     }
+
+
+/*CSS PaginaInicialAutenticado*/
+
+#spn{
+  position: relative;
+  width: 300px;
+  margin: 2% auto 0;
+
+  z-index: 1;
+  text-align: center;
+  display:block;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+#btn {
+  cursor: pointer;
+  font-family: Montserrat, sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: #fff;
+  border: 2px solid #fff;
+  padding: 10px;
+  position: relative;
+  display: block;
+  text-align: center;
+  box-sizing: border-box;
+  z-index: 1;
+  width: 300px;
+  background-color: transparent;
+}

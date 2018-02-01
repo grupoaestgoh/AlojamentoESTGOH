@@ -154,6 +154,7 @@ $registogestor="Registo Gestor";
 $AnuEdiPend="Anuncios Editados Pendentes";
 
 //PaginaRegistoPrimeiroAdmistrador.php
+$regPrimeiroges="Registo do Gestor";
 
 //pagina ver_todos_anuncios
 $alojamentosOliveira="Alojamentos em Oliveira de Hospital";
