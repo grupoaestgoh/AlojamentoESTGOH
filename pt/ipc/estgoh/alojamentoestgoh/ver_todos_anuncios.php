@@ -21,7 +21,7 @@ if(isset($_POST['wc'])){
 	$pesquisa.=" and anu_wcprivativo=1 ";
 }
 if(isset($_POST['despesas'])){
-		$pesquisa.="and anu_despesas=1 ";
+		$pesquisa.=" and anu_despesas=1 ";
 }
 if(isset($_POST['mobilia'])){
 	 	$pesquisa.=" and anu_mobilada=1 ";
@@ -36,7 +36,7 @@ if(isset($_POST['internet'])){
 	 	$pesquisa.=" and anu_internet=1 ";
 }
 if(isset($_POST['preco'])){
-	 //	$pesquisa.=" and anu_preco<".$_POST['preco'];
+	 	$pesquisa.="and anu_preco<".$_POST['preco'];
 
 }
 if(isset($_POST['gender'])){
@@ -197,21 +197,23 @@ if(isset($_POST['gender'])){
 
               <?php
               $mybd->ligar_bd();
+							$todos_anuncios=$dao_anuncios->listar_anuncios(-1);
+
+
 							if(isset($_POST["pesquisaComFiltros"])){
 								$todos_anuncios=$dao_anuncios->listar_anuncios($pesquisa);
 						 }
-							if(isset($_POST["pesquisaSemFiltros"])){
-								$todos_anuncios=$dao_anuncios->listar_anuncios(-1);
-						 }
+
 
 			  if(isset($_POST["btnPesquisar"])){
-          if(!empty($_POST["nome_pesquisa"]))
-					     $todos_anuncios=$dao_anuncios->listar_anuncios($_POST["nome_pesquisa"]);
-          else
+          if(!empty($_POST["nome_pesquisa"]) ){
+						$frase="*".$_POST["nome_pesquisa"];
+					     $todos_anuncios=$dao_anuncios->listar_anuncios($frase);
+
+          }else{
 					$todos_anuncios=$dao_anuncios->listar_anuncios(-1);
-        }else{
-				    $todos_anuncios=$dao_anuncios->listar_anuncios(-1);
-					}
+				}
+        }
             $mybd->desligar_bd();
 
 			if($todos_anuncios == null)
@@ -255,7 +257,7 @@ if(isset($_POST['gender'])){
   <script>
 
 	function updateTextInput(val) {
-		document.getElementById('textInput').value = val+"€";
+		document.getElementById('textInput').value = val;
 	}
 
   $(document).ready(function() {
