@@ -7,38 +7,51 @@
 		$dao_utilizador=new DAOUtilizadores();
 
 		//verificar autorização
-		if (isset($_SESSION["dtd_id_utilizador"])){
+		/*if (isset($_SESSION["dtd_id_utilizador"])){
 			//se tiver sessãon vai buscar utilizador e ve o tipo para poder redirecionar para a pagina correta//Falta isso !!
 			header("Location: ./home_page.php");
 		}
 		//verifica se existe admin
 		if ($dao_utilizador->verificar_gestor() == true) {
 			header ( "Location: ./index.php" );
-		}
+		}*/
 		//conteudo principal
 		ob_start();
+		$mail="";
+		$nome="";
+		$password="";
+
+		if(isset($_POST["emailR"]) && !empty($_POST["emailR"])){
+			$mail=$_POST["emailR"];
+		}
+		if(isset($_POST["nomeR"]) && !empty($_POST["nomeR"])){
+			$nome=$_POST["nomeR"];
+		}
+		if(isset($_POST["passwordR"]) && !empty($_POST["passwordR"]) ){
+			$password=$_POST["passwordR"];
+		}
 ?>
 
     <!-- Header -->
     <header class="intro-header" >
       <div class="container">
         <div class="intro-message posicaoRA">
-          <h1>Alojamento ESTGOH</h1>
+          <h1><?php print $logotipo?></h1>
           <hr class="intro-divider aumentar">
           <ul class="list-inline intro-social-buttons ">
             <li class="list-inline-item espacosRA" style="background-color: rgba(100,100,100,0.6);">
-              <h3>Registo do Gestor</h3>
+              <h3><?php print $regPrimeiroges?></h3>
                 <hr class="intro-divider aumentar2">
               <form action="registo_primeiro_gestor.php" method="POST">
                 <br>
-                  <label><b>Email:</b></label><br>
-                  <input class="form-control" type="email" placeholder="Email" name="nomeR" required>
+                  <label><b><?php print $email?></b></label><br>
+                  <input class="form-control" type="email" placeholder="Email" value="<?php if(strcmp($mail,""))print $mail;?>"  name="emailR" required>
                   <br>
-                  <label><b>Password:</b></label><br>
-                  <input class="form-control" type="password" placeholder="Password" name="passwordR" required>
+                  <label><b><?php print $password?></b></label><br>
+                  <input class="form-control" type="password" placeholder="Password"  value="<?php if(strcmp($password,""))print $password;?>"  name="passwordR" required>
                   <br>
-                  <label><b>Nome:</b></label><br>
-                  <input class="form-control" type="nome" placeholder="Nome" name="nomeR" required>
+                  <label><b><?php print $nome?></b></label><br>
+                  <input class="form-control" type="nome" placeholder="Nome" name="nomeR"  value="<?php if(strcmp($nome,""))print $nome;?>" required>
                   <br>
 
                   <div>
@@ -97,7 +110,7 @@
 			$mybd->ligar_bd();
 			$flag=0;
 			if(isset($_POST["nomeR"]) && !empty($_POST["nomeR"])){
-				if(verifica_nome($_POST["nomeR"])==true){
+				if(verifica_nome($_POST["nomeR"])==true && verifica_tamanho_string($_POST["nomeR"],50)!=false){
 					$flag++;
 					print('<script>
 									jQuery(document).ready(function( $ ) {
@@ -119,7 +132,7 @@
 						</script>');
 			}
 			if(isset($_POST["emailR"]) && !empty($_POST["emailR"])){
-				if($dao_utilizadores->verificar_email($_POST["emailR"])==false){
+				if( verifica_tamanho_string($_POST["emailR"],25)!=false){
 					$flag++;
 					print('<script>
 									jQuery(document).ready(function( $ ) {
@@ -140,8 +153,9 @@
 								});
 						</script>');
 			}
-			if(isset($_POST["passwordR"]) && !empty($_POST["passwordR"])){
-				if(verifca_password($_POST["passwordR"])==true){
+
+			if(isset($_POST["passwordR"]) && !empty($_POST["passwordR"]) ){
+				if(verifca_password($_POST["passwordR"])==true && verifica_tamanho_string($_POST["passwordR"],15)!=false){
 					$flag++;
 					print('<script>
 									jQuery(document).ready(function( $ ) {
@@ -167,7 +181,7 @@
 				$password=password_hash($_POST["passwordR"],PASSWORD_DEFAULT);
 				$utilizador= new utilizador(0,$_POST["nomeR"],$_POST["emailR"],$password,0,date("Y-m-d"));
 				//insere o utilizador na bd
-				if($dao_utilizadores->inserir_utilizador($utilizador)==true)	header("Location: ./index.php");
+				if($dao_utilizadores->inserir_utilizador($utilizador)==true)	        header("refresh: 1;./index.php");
 			}
 			$mybd->desligar_bd();
 		}
@@ -179,7 +193,10 @@
     			return true;//nao tem numeros (correto)
     		return false;//tem numeros
     	}
-			
+			function verifica_tamanho_string($string,$maximoCaracteres){
+			  if(strlen($string)>$maximoCaracteres)return false;
+			  else return true;
+			}
     	function verifca_password(){
     		//verifica se tem pelo menos um caracter maiusculo
     		if(preg_match('/[A-Z]/', $_POST["passwordR"])!=1)
