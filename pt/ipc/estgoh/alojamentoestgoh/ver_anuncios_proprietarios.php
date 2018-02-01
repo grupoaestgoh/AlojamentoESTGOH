@@ -319,11 +319,14 @@ ob_start();
 
 			  if(isset($_POST["btnPesquisar"])){
           if(!empty($_POST["nome_pesquisa"]))
-					     $todos_anuncios=$dao_anuncios->listar_anuncios($_POST["nome_pesquisa"]);
+					     $todos_anuncios=$dao_anuncios->listar_anuncios("and (anu_titulo LIKE '%".$_POST["nome_pesquisa"]."%' OR anu_morada LIKE '%".$_POST["nome_pesquisa"]."%')");
           else
-					     $todos_anuncios=$dao_anuncios->listar_anuncios_anunciante(-2,0);
+					     $todos_anuncios=$dao_anuncios->listar_anuncios_anunciante(-1,1);
         }else
-				    $todos_anuncios=$dao_anuncios->listar_anuncios_anunciante(-2,0);
+				    $todos_anuncios=$dao_anuncios->listar_anuncios_anunciante(-1,1);
+
+
+
             $mybd->desligar_bd();
 
 			if($todos_anuncios == null)
