@@ -263,18 +263,6 @@ include("./comum/carregacontroladores.php");
 
 
 
-    <script>
-    function Mudarestado(el) {
-      var display = document.getElementById(el).style.display;
-      if (display == "none")
-        document.getElementById(el).style.display = 'block';
-      else
-        document.getElementById(el).style.display = 'none';
-    }
-    $(document).ready(function(){
-        $('[data-toggle="tooltip"]').tooltip();
-    });
-    </script>
 
 
     	<?php
@@ -284,7 +272,7 @@ include("./comum/carregacontroladores.php");
           $notificacao=new Notificacao(0,null,2,$_POST["motivo"],date('Y-m-d'),date('H:m:s'),1,4);
           $dao_notificacao->inserir_notificacao($notificacao);
           $mybd->desligar_bd();
-        / print('<script>
+         print('<script>
                   $(document).ready(function(){
                   $("#myModalEliminar").modal();
                   });

@@ -306,9 +306,9 @@ ob_start();
             </div>
             <div class="linhaflex">
               <?php
-              //$_SESSION["AE_id_utilizador"]
+              
               $mybd->ligar_bd();
-              $anuncios_novos_pendentes=$dao_anuncios->listar_anuncios_anunciante(3,-4);
+              $anuncios_novos_pendentes=$dao_anuncios->listar_anuncios_anunciante($_SESSION["AE_id_utilizador"],-4);
 
                 if(sizeof($anuncios_novos_pendentes)==0){
                   echo('<tr>');

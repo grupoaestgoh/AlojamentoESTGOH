@@ -260,22 +260,9 @@ if(isset($_POST['gender'])){
 		document.getElementById('textInput').value = val;
 	}
 
-  $(document).ready(function() {
-      $('#dataTables-example').DataTable({
-          responsive: true
-      });
-  });
 
-  function Mudarestado(el) {
-    var display = document.getElementById(el).style.display;
-    if (display == "none")
-      document.getElementById(el).style.display = 'block';
-    else
-      document.getElementById(el).style.display = 'none';
-  }
-  $(document).ready(function(){
-      $('[data-toggle="tooltip"]').tooltip();
-  });
+
+
   </script>
 
 	<?php

@@ -169,7 +169,7 @@ ob_start();
            </ul>
          </li>
          <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Example Pages">
-           <a class="nav-link "  href="desativar_proprietario.php" >
+           <a class="nav-link "  href="anuncios_denunciados.php" >
              <i class="fa fa-fw fa-file"></i>
              <span ><?php print $AnunDenunciados; ?></span>
            </a>
@@ -743,7 +743,7 @@ ob_start();
 
   <?php
 
-  
+
 if(isset($_POST["InserirAnu"]) && !empty($_POST["InserirAnu"])){
   $arrayObjetoFotos=[];
   $tudoPreenchido=false;
