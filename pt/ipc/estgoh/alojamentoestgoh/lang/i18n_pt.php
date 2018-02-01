@@ -173,6 +173,10 @@ $aplicarFiltros="Aplicar filtros";
  $naoAnuDen="Não tem anuncios denunciados.";
 $EliminaSucesso="Eliminado com sucesso!";
 
+$denunciadoSucesso="Denunciado com sucesso!";
+$denuncia="Denunciar";
+$den_anu="Denunciar Anúncio";
+$motivoDen="Motivo da denuncia:";
 //pagina ver meus anuncios
 $elimanarAnu="Eliminar anuncio";
 $certezaEliminaAnu="Tem  a certeza que quer eliminar o anuncio?";

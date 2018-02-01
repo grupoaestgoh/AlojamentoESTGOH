@@ -442,37 +442,38 @@ ob_start();
                                       <!-- Blog Post -->
                                       <div class="card mb-4">
                                         <div class="card-body">
-                                        <div class="imagemFlex">
+                                            <div class="imagemFlex">
 
-                                        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-                                          <ol class="carousel-indicators" >');
-                                          for($l=0;$l<sizeof($fotosAnuncio);$l++){
-                                            echo('<li data-target="#carouselExampleIndicators" data-slide-to="'.$l.'"');
-                                            if($l==0)print "class='active'";
-                                            echo('></li>');
-                                          }
-                                          echo('</ol>
-                                          <div class="carousel-inner" role="listbox">
-                                          ');
-                                          for($l=0;$l<sizeof($fotosAnuncio);$l++){
-                                            $foto=$fotosAnuncio[$l];
-                                            echo('<div class="carousel-item');
-                                            if($l==0)print " active";
-                                            echo(' " >
-                                              <img src="'.$foto->Caminho.$foto->Nome.'" alt="" width="100%">
-                                            </div>');
-                                          }
-                                          echo('</div>
+                                                  <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                                                        <ol class="carousel-indicators" >');
+                                                        for($l=0;$l<sizeof($fotosAnuncio);$l++){
+                                                          echo('<li data-target="#carouselExampleIndicators" data-slide-to="'.$l.'"');
+                                                          if($l==0)print "class='active'";
+                                                          echo('></li>');
+                                                        }
+                                                        echo('</ol>
+                                                                <div class="carousel-inner" role="listbox">
+                                                                      ');
+                                                                      for($l=0;$l<sizeof($fotosAnuncio);$l++){
+                                                                        $foto=$fotosAnuncio[$l];
+                                                                        echo('<div class="carousel-item');
+                                                                        if($l==0)print " active";
+                                                                        echo(' " >
+                                                                          <img src="'.$foto->Caminho.$foto->Nome.'" alt="" width="100%">
+                                                                        </div>');
+                                                                      }
+                                                              echo('</div>
+                                                    </div>
+                                              </div>
+                                            </div>
+
+                                            <div class="card-body ">
+                                              <p class="card-text">
+                                                '.$anuncios->Descricao.'
+                                            </div>
+                                            <div class="card-footer text-muted ">
+                                            </div>
                                         </div>
-                                        </div>
-                                        </div>
-                                        <div class="card-body ">
-                                          <p class="card-text">
-                                            '.$anuncios->Descricao.'
-                                        </div>
-                                        <div class="card-footer text-muted ">
-                                        </div>
-                                      </div>
                                     </div>
                                     <!-- Sidebar Widgets Column -->
                                     <div class="col-md-4 ">

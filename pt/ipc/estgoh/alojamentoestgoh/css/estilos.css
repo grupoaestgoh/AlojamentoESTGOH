@@ -25,6 +25,9 @@ body, html{
 .noalign {
   text-align: left!important;
 }
+.top{
+  margin: 0px 5px 0px 0px!important;
+}
 .hidden{
   visibility: hidden;
   width: 10px;
@@ -93,11 +96,17 @@ body{
   background-color: white;
   color: #0775b8;
 }
+.alinhacentro{
+  text-align: center!important;
 
+}
 .corAzul{
   color: #0775b8;
 }
-
+.fundoAzul{
+  background-color: #0775b8!important;
+  text-align: center!important;
+}
 .corAzul:hover{
   color: #0775b8;
 
@@ -1265,3 +1274,6 @@ footer.sticky-footer {
         text-align: center;
       }
     /*Fim CSS Paginacao */
+    .nome_pesquisa{
+      padding: 0px!important;
+    }
