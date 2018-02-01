@@ -8,7 +8,7 @@ include("./comum/carregacontroladores.php");
 ///verifica se gestor está autenticado
 /*if (isset($_SESSION["AE_id_utilizador"]) && isset($_SESSION["AE_nome_utilizador"]) && isset($_SESSION["AE_email_utilizador"]) && isset($_SESSION["AE_estado_utilizador"]) && isset($_SESSION["AE_tipo_utilizador"] ) && isset($_SESSION["AE_data_incricao_utilizador"]) ){
   //Se tiver estado !=1 e o tipo !=1 vai  para pagina index.php
-  if($_SESSION["AE_estado_utilizador"]!=1 || $_SESSION["AE_estado_utilizador"]!=1 )header("Location: ./index.php");
+  if($_SESSION["AE_estado_utilizador"]!=1 || $_SESSION["AE_tipo_utilizador"]!=1 )header("Location: ./index.php");
 }else{
   header("Location: ./index.php");
 }
@@ -21,7 +21,7 @@ $idanuncioEditar=0;
 if(isset($_GET["id_anuncio_editar"]) && !empty($_GET["id_anuncio_editar"])){
   $mybd->ligar_bd();
   $anuncioVerifica=null;
-  $anuncioVerifica=$dao_anuncios->listar_anuncios_anunciante(3,-4);
+  $anuncioVerifica=$dao_anuncios->listar_anuncios_anunciante($_SESSION["AE_id_utilizador"],-4);
   if($anuncioVerifica!=null){
     for ($i=0; $i <sizeof($anuncioVerifica) ; $i++) {
       $anuncioAA=$anuncioVerifica[$i];
@@ -113,7 +113,7 @@ ob_start();
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top navGestor" id="mainNav">
      <div class="container">
-       <a class="navbar-brand"  href="meus_anuncios.php" ><font  size="6" color="white"><?php print $logotipo; ?></font></a>
+       <a class="navbar-brand"  href="registo_anuncio.php" ><font  size="6" color="white"><?php print $logotipo; ?></font></a>
        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
          <span class="navbar-toggler-icon"></span>
        </button>
@@ -743,12 +743,10 @@ ob_start();
 
   <?php
 
-  //Id_Anuncio,Titulo,Descricao,Proprietario,
-  //Morada,Telefone,Email,Codigo_postal,Data_Submetido
-  //Disponibilidade,Estado,Preco,Fotos,Wc,Mobilia
-  //Utensilios,Internet,Rapariga,Rapaz,Despesas,Animais,Latitude,Longitude
+  
 if(isset($_POST["InserirAnu"]) && !empty($_POST["InserirAnu"])){
   $arrayObjetoFotos=[];
+  $tudoPreenchido=false;
   if($idanuncioEditar!=0){
     $tudoPreenchido=verifica_campos_prenechidos($anuncio,$Codigo_postal2,$tudoPreenchido);//ve campos preenchidos
     if($tudoPreenchido==true){
