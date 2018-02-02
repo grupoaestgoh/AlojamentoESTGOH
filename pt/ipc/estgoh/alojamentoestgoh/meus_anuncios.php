@@ -71,7 +71,7 @@ ob_start();
            <a href="registo_outros_gestores.php"><?php print $RegGestor; ?></a>
          </li>
          <li>
-           <a href="desativar_proprietario.phpl"><?php print $DesaProprietario; ?></a>
+           <a href="desativar_proprietario.php"><?php print $DesaProprietario; ?></a>
          </li>
          <li>
            <a href="desativar_gestor.php"><?php print $DesaGestor; ?></a>

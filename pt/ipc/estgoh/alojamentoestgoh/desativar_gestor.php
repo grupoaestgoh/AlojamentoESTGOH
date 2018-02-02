@@ -301,10 +301,7 @@ ob_start();
        </div>
      </div>
    </div>
-
  </div>
-
-
 </div>
 <!-- End modal -->
    </div>
@@ -369,10 +366,8 @@ ob_start();
           <form action="desativar_gestor.php" Method="POST">
 
           <div class="input-group" style="width: 260px; margin-left: -15px;">
-            <input type="submit " id="pesquisa" name="string" class="form-control" placeholder="Pesquisar">
-            <span class="input-group-btn">
-              <input class="btn btn-secondary" name="pesquisa" type="submit"><?php print $pesquisar;?></button>
-            </span>
+            <input type="text " id="string_pesquisa" name="string_pesquisa" class="form-control" placeholder="Pesquisar">
+            <input name="pesquisa" class="btn btn-secondary"  type="submit" value="<?php print $pesquisar; ?>">
           </div>
         </form>
 				</div>
@@ -388,10 +383,9 @@ ob_start();
           <?php
 $mybd->ligar_bd();
 if(isset($_POST["pesquisa"]) && !empty($_POST["pesquisa"])){
-  $Utilizadores=$dao_utilizadores->listar_utilizadores($_POST["string"]);
+  $Utilizadores=$dao_utilizadores->listar_utilizadores([1,$_POST["string_pesquisa"]]);
 }else{
   $Utilizadores=$dao_utilizadores->listar_utilizadores(1);
-
 }
 if(sizeof($Utilizadores)==0)print "Não tem gestores";
 for ($i=0; $i <sizeof($Utilizadores); $i++) {
@@ -472,7 +466,6 @@ $mybd->desligar_bd();
     echo'<script>malmotivo'.$_POST["idAnuR"].'.style.border="2px solid red";</script>';
     echo'<script>$("#falhamotivo'.$_POST["idAnuR"].'").text("O motivo tem maximo de 50 caracteres!");</script>';
     echo'<script>$(document).ready(function(){  $("#myModalDesativar'.$_POST["idAnuR"].'").modal();});</script>';
-
   }
   }
   if(isset($_POST["EditarPassword"]) && !empty($_POST["EditarPassword"])){

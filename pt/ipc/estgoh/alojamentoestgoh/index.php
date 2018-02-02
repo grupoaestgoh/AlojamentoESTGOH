@@ -355,7 +355,7 @@ if(isset($_POST["registar"]) && !empty($_POST["registar"])){
 	if($flag==3){//se estiverem os dados todos inseridos e corretos regista o utilizador
 		//criar o utilizador
 		$password=password_hash($_POST["passwordR"],PASSWORD_DEFAULT);
-		$utilizador= new utilizador(0,$_POST["nomeR"],$_POST["emailR"],$password,1,date("Y-m-d"));
+		$utilizador= new utilizador(1,$_POST["nomeR"],$_POST["emailR"],$password,2,date("Y-m-d"));
 		//insere o utilizador na bd
 		$dao_utilizadores->inserir_utilizador($utilizador);
 		print('<script>

@@ -82,9 +82,10 @@ class DAOUtilizadores{
     }else if($opcao==2){
       $STH = $mybd->DBH->prepare("Select  uti_id,uti_nome,uti_email,uti_password,uti_estado,uti_tipo,uti_inscricao from utilizador  where uti_estado='1' and uti_tipo='2' ;");
     }else{
-      $STH =$mybd->DBH->prepare("Select  uti_id,uti_nome,uti_email,uti_password,uti_estado,uti_tipo,uti_inscricao from utilizador  where uti_estado='1' and uti_tipo='2' and (uti_nome LIKE '%?%' OR uti_email LIKE '%?%');");
-      $STH->bindParam(1, $opcao);
-      $STH->bindParam(2, $opcao);
+      $STH =$mybd->DBH->prepare("Select  uti_id,uti_nome,uti_email,uti_password,uti_estado,uti_tipo,uti_inscricao from utilizador  where uti_estado='1' and uti_tipo=? and (uti_nome LIKE '%' ? '%' OR uti_email LIKE '%' ? '%');");
+      $STH->bindParam(1, $opcao[0]);
+      $STH->bindParam(2, $opcao[1]);
+      $STH->bindParam(3, $opcao[1]);
     }
     $STH->execute();
     $STH->setFetchMode(PDO::FETCH_OBJ);
