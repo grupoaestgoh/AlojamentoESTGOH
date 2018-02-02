@@ -71,7 +71,7 @@ ob_start();
                <a href="registo_outros_gestores.php"><?php print $RegGestor; ?></a>
              </li>
              <li>
-               <a href="desativa_proprietario.php"><?php print $DesaProprietario; ?></a>
+               <a href="desativar_proprietario.php"><?php print $DesaProprietario; ?></a>
              </li>
              <li>
                <a href="desativar_gestor.php"><?php print $DesaGestor; ?></a>
@@ -407,8 +407,8 @@ ob_start();
                               </div>
                               <div class="modal-body">
                                 <p>'.$motivoRej.'</p>
-                                <textarea class="form-control" rows="3" id="malmotivo" name="motivo'.$anuncios->Id_Anuncio.'" required></textarea>
-                                <span id="falhamotivo" class="falhas" /><span>
+                                <textarea class="form-control" rows="3" id="malmotivo'.$anuncios->Id_Anuncio.'" name="motivo'.$anuncios->Id_Anuncio.'" required></textarea>
+                                <span id="falhamotivo'.$anuncios->Id_Anuncio.'" class="falhas" /><span>
 
                               </div>
                               <input type="hidden" name="idAnuR" value='.$anuncios->Id_Anuncio.'>
@@ -687,8 +687,8 @@ ob_start();
                 header("refresh: 1;anuncios_novos_pendentes.php");
           }
   }else{
-    echo'<script>malmotivo.style.border="2px solid red";</script>';
-    echo'<script>$("#falhamotivo").text("O motivo tem maximo de 50 caracteres!");</script>';
+    echo'<script>malmotivo'.$_POST["idAnuR"].'.style.border="2px solid red";</script>';
+    echo'<script>$("#falhamotivo'.$_POST["idAnuR"].'").text("O motivo tem maximo de 50 caracteres!");</script>';
     echo'<script>$(document).ready(function(){  $("#b'.$_POST["idAnuR"].'").modal();});</script>';
 
   }

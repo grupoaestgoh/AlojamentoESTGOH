@@ -29,7 +29,7 @@ ob_start();
         </li>
       </ul>
       <div class="container">
-        <a class="navbar-brand"  href="./index.php" ><p class="navtitle"><?php print $logotipo; ?></p></a>
+        <a class="navbar-brand"  href="./home_page.php" ><p class="navtitle"><?php print $logotipo; ?></p></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -37,7 +37,7 @@ ob_start();
           <ul class="navbar-nav ml-auto ">
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle mr-lg-2 navGestorimg" id="alertsDropdown"   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="fa fa-user" aria-hidden="true"></i>
+                <i class="fa fa-user " aria-hidden="true"></i>
                 <span class="d-lg-none"><?php print $MeusDados; ?>
                   <span class="badge badge-pill badge-warning">6 <?php print $novas; ?></span>
                 </span>
@@ -71,7 +71,7 @@ ob_start();
               </div>
             </li>
             <li class="nav-item">
-                  <a href="anuncios_novos_pendentes.php?TerminarSessao=TS" class="nav-link navGestorimg formabotao" ><i class="fa fa-fw fa-sign-out"></i><?php print $terminaSessao; ?></a>
+                  <a href="home_page.php?TerminarSessao=TS" class="nav-link navGestorimg " ><i class="fa fa-fw fa-sign-out"></i><?php print $terminaSessao; ?></a>
             </li>
           </ul>
         </div>
@@ -85,7 +85,7 @@ ob_start();
        <div class="modal-dialog">
      <!-- Modal content-->
      <div class="modal-content">
-       <form action="anuncios_novos_pendentes.php"  Method="POST">
+       <form action="home_page.php"  Method="POST">
        <div class="modal-header">
          <button type="button" class="close" data-dismiss="modal">&times;</button>
          <h4 class="modal-title"><?php print $desativaConta; ?></h4>
@@ -110,7 +110,7 @@ ob_start();
            <h4 class="modal-title corBranca"><?php print $alteraPass;?></h4>
          </div>
          <div class="modal-body">
-           <form action="anuncios_novos_pendentes.php" method="POST">
+           <form action="home_page.php" method="POST">
              <br>
                <label class="corPreta" ><b><?php print $PassNova;?></b></label><br>
                <input class="form-control" type="password" placeholder="Password" name="password1" data-toggle="tooltip" title="Se quer alterar o email insira um novo e edite!Caso contrario deixe o inicial!">

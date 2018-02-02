@@ -182,4 +182,8 @@ $motivoDen="Motivo da denuncia:";
 $elimanarAnu="Eliminar anuncio";
 $certezaEliminaAnu="Tem  a certeza que quer eliminar o anuncio?";
 $Eliminar="Eliminar";
+$propAtivos="Proprietarios Ativos";
+$gestorAtivos="Gestores Ativos";
+$desativaGes="Desativar Gestor"
+
 ?>

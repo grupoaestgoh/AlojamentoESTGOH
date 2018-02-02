@@ -63,9 +63,9 @@ class DAOUtilizadores{
   //Altera o estado de um Utilizador do tipo Anunciante ou Gestor
   function alterar_estado($id_utilizador,$estado){
     global $mybd;
-    $STH = $mybd->DBH->prepare("Update utilizador Set uti_estado=? WHERE uti_id=?");
-    $STH->bindParam(1, $id_utilizador);
-    $STH->bindParam(2, $estado);
+    $STH = $mybd->DBH->prepare("Update utilizador Set uti_estado=? WHERE uti_id=? and uti_id!=1");
+    $STH->bindParam(2, $id_utilizador);
+    $STH->bindParam(1, $estado);
     if(!$STH->execute())return false;
     return true;
   }
@@ -75,10 +75,12 @@ class DAOUtilizadores{
     $arrayUtilizadores=[];
     global $mybd;
     //Devolve todos gestores ativos
-    if($opcao==1)$STH = $mybd->DBH->prepare("Select  uti_id,uti_nome,uti_email,uti_password,uti_estado,uti_tipo,uti_inscricao from utilizador  where uti_estado='ativo' and uti_tipo='gestor' ;");
+    if($opcao==1)$STH = $mybd->DBH->prepare("Select  uti_id,uti_nome,uti_email,uti_password,uti_estado,uti_tipo,uti_inscricao from utilizador  where uti_estado='1' and uti_tipo='1' ;");
     //Devolve todos anunciantes ativos
-    if($opcao==2)$STH = $mybd->DBH->prepare("Select  uti_id,uti_nome,uti_email,uti_password,uti_estado,uti_tipo,uti_inscricao from utilizador  where uti_estado='ativo' and uti_tipo='anunciante' ;");
-			$STH->setFetchMode(PDO::FETCH_OBJ);
+    else if($opcao==2)$STH = $mybd->DBH->prepare("Select  uti_id,uti_nome,uti_email,uti_password,uti_estado,uti_tipo,uti_inscricao from utilizador  where uti_estado='1' and uti_tipo='2' ;");
+    else $STH =$mybd->DBH->prepare("Select  uti_id,uti_nome,uti_email,uti_password,uti_estado,uti_tipo,uti_inscricao from utilizador  where uti_estado='1' and uti_tipo='2' and (uti_nome LIKE '%$opcao%' OR uti_email LIKE '%$opcao%');");
+    $STH->execute();
+      $STH->setFetchMode(PDO::FETCH_OBJ);
 			while($row = $STH->fetch()){
 				$arrayUtilizadores[sizeof($arrayUtilizadores)]=new Utilizador($row->uti_id,$row->uti_nome,$row->uti_email,$row->uti_password,$row->uti_estado,$row->uti_tipo,$row->uti_inscricao);
 			}

@@ -408,7 +408,7 @@ ob_start();
                                         </div>
                                         <div class="modal-body">
                                           <p>Motivo da rejeição:</p>
-                                          <textarea class="form-control" rows="3" name="motivo" required></textarea>
+                                          <textarea class="form-control" rows="3"  id="malmotivo'.$anun->Id_Anuncio.'" name="motivo" required></textarea>
                                           <input type="hidden" class="btn btn-danger" name="idElimina" value="'.$anun->Id_Anuncio.'">
                                             <span id="falhamotivo'.$anun->Id_Anuncio.'" class="falhas" /><span>
                                         </div>
@@ -646,6 +646,8 @@ ob_start();
               header("refresh: 1;anuncios_denunciados.php");
 
       }else{
+        echo'<script>malmotivo'.$_POST["idElimina"].'.style.border="2px solid red";</script>';
+
       echo'<script>$("#falhamotivo'.$_POST["idElimina"].'").text("O motivo tem maximo de 50 caracteres!");</script>';
       print('<script>
               $(document).ready(function(){

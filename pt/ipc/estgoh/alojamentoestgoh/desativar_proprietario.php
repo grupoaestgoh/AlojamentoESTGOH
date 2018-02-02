@@ -70,7 +70,7 @@ ob_start();
            <a href="registo_outros_gestores.php"><?php print $RegGestor; ?></a>
          </li>
          <li>
-           <a href="desativar_proprietario.phpl"><?php print $DesaProprietario; ?></a>
+           <a href="desativar_proprietario.php"><?php print $DesaProprietario; ?></a>
          </li>
          <li>
            <a href="desativar_gestor.php"><?php print $DesaGestor; ?></a>
@@ -282,7 +282,38 @@ ob_start();
 
 </div>
 <!-- End modal -->
-
+<!-- Modal ELiminar -->
+<div class="modal fade" id="myModalEliminar" role="dialog">
+  <div class="modal-dialog">
+<!-- Modal content-->
+<div class="modal-content">
+  <form action="#">
+  <div class="modal-header divAzul">
+    <button type="button" class="close" data-dismiss="modal">&times;</button>
+    <h4 class="modal-title corBranca"><?php print $DesaProprietario;?></h4>
+  </div>
+  <div class="modal-body">
+    <p><?php print $motivoRej;?></p>
+    <textarea class="form-control" rows="3" required></textarea>
+  </div>
+  <div id="aviso_registo_insucesso_nome" class="alert alert-success" role="alert" style="display:none;" >
+      <div class="row leftCaracteris">
+      <div class="col-lg-2 ">
+      <img class="alertaImg" src="img/img_aplicacao/certo.png" alt="">
+      </div>
+      <div class="col-lg-8">
+        <span class="glyphicon glyphicon-alert"><?php print $rejetadoSuce;?></span>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="submit" class="btn btn-danger" onclick="Mudarestado('Aviso3')"><?php print $rejeitar;?></button>
+    <button type="button" class="btn btn-default" data-dismiss="modal"><?php print $Fechar;?></button>
+  </div>
+</form>
+</div>
+</div>
+</div>
    <div class="container">
      <div class="row">
        <div class="col-12">
@@ -296,115 +327,95 @@ ob_start();
          </div>
        </div>
      </div>
+
+
      <div class="row">
      <div class="col-3"></div>
      <div class="col-9">
          <div class="titulo">
-    		Desativar Proprietario
+    		<?php print $DesaProprietario;?>
     	 </div>
     	    <div class="card mb-3" style="width:800px;">
-    		<div class="modal fade" id="myModalDesativar1" role="dialog">
-                      <div class="modal-dialog">
-                    <!-- Modal content-->
-                    <div class="modal-content">
-                      <form action="#">
-                      <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">Desativar Proprietário</h4>
-                      </div>
-                      <div class="modal-body">
-                        <p>Motivo da desativação:</p>
-                        <textarea class="form-control" rows="3" required></textarea>
-                      </div>
-                      <div id="Aviso3" class="alert alert-success" role="alert" style="display:none;" >
-                          <div class="row leftCaracteris">
-                          <div class="col-lg-2 ">
-                          <img class="alertaImg" src="img/certo.png" alt="">
-                          </div>
-                          <div class="col-lg-8">
-                            <span class="glyphicon glyphicon-alert">Desativado com sucesso!</span>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" onclick="Mudarestado('Aviso3')">Desativar</button>
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
-                      </div>
-                    </form>
-                    </div>
-                  </div>
-                </div>
+
     			<div class="card-header">
-    				<i class="fa fa-table"></i> Proprietários Ativos</div>
+    				<i class="fa fa-table"></i> <?php print $propAtivos;?></div>
     			<div class="card-body">
 
     			<div class="col-md-4">
     				<div class="card-title" >
+              <form action="desativar_proprietario.php" Method="POST">
+
     					<div class="input-group" style="width: 260px; margin-left: -15px;">
-    						<input type="search" id="pesquisa" class="form-control" placeholder="Pesquisar">
+    						<input type="submit " id="pesquisa" name="string" class="form-control" placeholder="Pesquisar">
     						<span class="input-group-btn">
-    							<button class="btn btn-secondary" type="button">Ok</button>
+    							<input class="btn btn-secondary" name="pesquisa" type="submit"><?php print $pesquisar;?></button>
     						</span>
     					</div>
+            </form>
     				</div>
     			</div>
 
     			<div class="table-responsive">
     				<table class="table">
     				<tr>
-    					<th>Nome</th>
-    					<th>E-mail</th>
+    					<th><?php print $nome;?></th>
+    					<th>E-<?php print $email;?></th>
     					<th></th>
     				</tr>
-    				<tr>
-    					<td>Zé João</td>
-    					<td>ze@outlook.com</td>
+
+                        <?php
+              $mybd->ligar_bd();
+              if(isset($_POST["pesquisa"]) && !empty($_POST["pesquisa"])){
+                $Utilizadores=$dao_utilizadores->listar_utilizadores($_POST["string"]);
+              }else{
+                $Utilizadores=$dao_utilizadores->listar_utilizadores(2);
+
+              }
+              if(sizeof($Utilizadores)==0)print "Não tem proprietarios";
+
+              for ($i=0; $i <sizeof($Utilizadores); $i++) {
+                $Uti=$Utilizadores[$i];
+    				echo('<tr>
+    					<td>'.$Uti->Nome.'</td>
+    					<td>'.$Uti->Email.'</td>
     					<td>
-    						<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModalDesativar1">Desativar</button>
+                <a data-toggle="modal" class="btn btn-danger" href="#myModalDesativar'.$Uti->Id_Utilizador.'">'.$desativar.'</a>
     					</td>
-    				</tr>
-    				<tr>
-    					<td>Aníbal</td>
-    					<td>anibal@gmail.com</td>
-    					<td>
-    						<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModalDesativar1">Desativar</button>
-    					</td>
-    				</tr>
-    				<tr>
-    					<td>António</td>
-    					<td>tonito@hotmail.com</td>
-    					<td>
-    						<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModalDesativar1">Desativar</button>
-    					</td>
-    				</tr>
-    				<tr>
-    					<td>Manel</td>
-    					<td>manel@gmail.com</td>
-    					<td>
-    						<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModalDesativar1">Desativar</button>
-    					</td>
-    				</tr>
-    				<tr>
-    					<td>José</td>
-    					<td>jose@gmail.com</td>
-    					<td>
-    						<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModalDesativar1">Desativar</button>
-    					</td>
-    				</tr>
-    				<tr>
-    					<td>Américo</td>
-    					<td>americo@gmail.com</td>
-    					<td>
-    						<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModalDesativar1">Desativar</button>
-    					</td>
-    				</tr>
-    				<tr>
-    					<td>Utilizador</td>
-    					<td>utilizador@gmail.com</td>
-    					<td>
-    						<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModalDesativar1">Desativar</button>
-    					</td>
-    				</tr>
+    				</tr>');
+
+            echo('<div class="modal fade" id="myModalDesativar'.$Uti->Id_Utilizador.'">
+              <div class="modal-dialog">
+            <div class="modal-content">
+              <form action="desativar_proprietario.php" Method="POST">
+
+              <div class="modal-header divAzul">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title corBranca">'.$DesaProprietario.'</h4>
+              </div>
+              <div class="modal-body">
+                <p>'.$motivoRej.'</p>
+                <textarea class="form-control" rows="3" id="malmotivo'.$Uti->Id_Utilizador.'" name="motivo'.$Uti->Id_Utilizador.'" required></textarea>
+                <span id="falhamotivo'.$Uti->Id_Utilizador.'" class="falhas" /><span>
+
+              </div>
+              <input type="hidden" name="idAnuR" value='.$Uti->Id_Utilizador.'>
+
+
+             <div class="modal-footer">
+             <input name="elimina" class="btn btn-danger"  type="submit" value='.$desativar.'>
+                <button type="button" class="btn btn-default" data-dismiss="modal">'.$Fechar.'</button>
+
+              </div>
+            </form>
+            </div>
+            </div>
+            </div>');
+          }
+
+            $mybd->desligar_bd();
+            ?>
+
+
     			</table>
               </div>
             </div>
@@ -427,7 +438,26 @@ ob_start();
       $('[data-toggle="tooltip"]').tooltip();
   });
   </script>
+
   <?php
+
+  if(isset($_POST["elimina"]) && !empty($_POST["elimina"])){
+    $motivo=$_POST["motivo".$_POST["idAnuR"]];
+    if(verifica_tamanho_string($motivo,50)==true){
+        $mybd->ligar_bd();
+              $dao_utilizadores->alterar_estado($_POST["idAnuR"], 4);
+
+              print('<script>  $(document).ready(function(){$("#myModalEliminar").modal();  });jQuery(document).ready(function( $ ) {jQuery("#aviso_registo_insucesso_nome").show();  });  </script>');
+              $mybd->desligar_bd();
+              //header("refresh: 1;desativar_proprietario.php");
+        //}
+}else{
+  echo'<script>malmotivo'.$_POST["idAnuR"].'.style.border="2px solid red";</script>';
+  echo'<script>$("#falhamotivo'.$_POST["idAnuR"].'").text("O motivo tem maximo de 50 caracteres!");</script>';
+  echo'<script>$(document).ready(function(){  $("#myModalDesativar'.$_POST["idAnuR"].'").modal();});</script>';
+
+}
+}
   if(isset($_POST["EditarPassword"]) && !empty($_POST["EditarPassword"])){
       if(!strcmp($_POST["password1"],$_POST["password2"])){
         if(verifca_password($_POST["password1"])==true && verifica_tamanho_string($password,15)==true){

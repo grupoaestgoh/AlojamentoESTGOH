@@ -363,7 +363,8 @@ ob_start();
 
               for ($i=0; $i <sizeof($todos_anuncios); $i++) {
                             $anuncios=$todos_anuncios[$i];
-							$Proprietario=$dao_utilizadores->obter_utilizador_id($anuncios->Proprietario);
+                            $fotosAnuncio=$dao_fotos->listar_fotos_anuncio($anuncios->Id_Anuncio);
+							              $Proprietario=$dao_utilizadores->obter_utilizador_id($anuncios->Proprietario);
                             echo('<tr>');
                             echo('<td>'.$anuncios->Titulo.'</td>');
                             echo('<td>'.$anuncios->Preco.'</td>');
@@ -413,35 +414,38 @@ ob_start();
                                       <!-- Blog Post -->
                                       <div class="card mb-4">
                                         <div class="card-body">
-                                        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-                                          <ol class="carousel-indicators" >
-                                            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-                                            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-                                            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-                                          </ol>
-                                          <div class="carousel-inner" role="listbox">
-                                            <!-- Slide One - Set the background image for this slide in the line below -->
-                                            <div class="carousel-item active" >
-                                              <img src="img/1.jpg" alt="" width="100%">
+                                            <div class="imagemFlex">
+
+                                                  <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                                                        <ol class="carousel-indicators" >');
+                                                        for($l=0;$l<sizeof($fotosAnuncio);$l++){
+                                                          echo('<li data-target="#carouselExampleIndicators" data-slide-to="'.$l.'"');
+                                                          if($l==0)print "class='active'";
+                                                          echo('></li>');
+                                                        }
+                                                        echo('</ol>
+                                                                <div class="carousel-inner" role="listbox">
+                                                                      ');
+                                                                      for($l=0;$l<sizeof($fotosAnuncio);$l++){
+                                                                        $foto=$fotosAnuncio[$l];
+                                                                        echo('<div class="carousel-item');
+                                                                        if($l==0)print " active";
+                                                                        echo(' " >
+                                                                          <img src="'.$foto->Caminho.$foto->Nome.'" alt="" width="100%">
+                                                                        </div>');
+                                                                      }
+                                                              echo('</div>
+                                                    </div>
+                                              </div>
                                             </div>
-                                            <!-- Slide Two - Set the background image for this slide in the line below -->
-                                            <div class="carousel-item" >
-                                              <img src="img/2.jpg" alt="" width="100%">
+
+                                            <div class="card-body ">
+                                              <p class="card-text">
+                                                '.$anuncios->Descricao.'
                                             </div>
-                                            <!-- Slide Three - Set the background image for this slide in the line below -->
-                                            <div class="carousel-item" >
-                                              <img src="img/3.jpg" alt="" width="100%">
+                                            <div class="card-footer text-muted ">
                                             </div>
-                                          </div>
                                         </div>
-                                        </div>
-                                        <div class="card-body ">
-                                          <p class="card-text">
-                                            '.$anuncios->Descricao.'
-                                        </div>
-                                        <div class="card-footer text-muted ">
-                                        </div>
-                                      </div>
                                     </div>
                                     <!-- Sidebar Widgets Column -->
                                     <div class="col-md-4 ">
@@ -514,7 +518,7 @@ ob_start();
                                            function myMap() {
                                          var mapCanvas = document.getElementById("map");
                                          var mapOptions = {
-                                           center: new google.maps.LatLng(40.360336, -7.855718), zoom: 18, mapTypeId: google.maps.MapTypeId.HYBRID
+                                           center: new google.maps.LatLng('.$anuncios->Latitude.','.$anuncios->Longitude.'), zoom: 18, mapTypeId: google.maps.MapTypeId.HYBRID
                                          };
                                          var map = new google.maps.Map(mapCanvas, mapOptions);
                                          }

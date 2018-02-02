@@ -423,7 +423,7 @@ ob_start();
                                 <div class="modal-body">
                                   <p>'.$motivoRej.'</p>
                                   <textarea class="form-control" id="malmotivo" name="motivo'.$anuncios->Id_Anuncio.'" rows="3" required></textarea>
-                                  <span id="falhamotivo" class="falhas" /><span>
+                                  <span id="falhamotivo'.$anuncios->Id_Anuncio.'" class="falhas" /><span>
                                 </div>
                                 <input type="hidden" name="idAnuR" value='.$anuncios->Id_Anuncio.'>
 
@@ -713,7 +713,7 @@ ob_start();
                 }
             }else{
               echo'<script>malmotivo.style.border="2px solid red";</script>';
-              echo'<script>$("#falhamotivo").text("O motivo tem maximo de 50 caracteres!");</script>';
+              echo'<script>$("#falhamotivo'.$_POST["idAnuR"].'").text("O motivo tem maximo de 50 caracteres!");</script>';
               echo'<script>$(document).ready(function(){  $("#b'.$_POST["idAnuR"].'").modal();});</script>';
 
             }
