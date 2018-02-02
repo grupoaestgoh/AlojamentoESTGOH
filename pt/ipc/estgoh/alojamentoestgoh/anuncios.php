@@ -7,7 +7,7 @@ include("./comum/carregacontroladores.php");
 //verifica se gestor está autenticado
 /*if (isset($_SESSION["AE_email_utilizador"]) && isset($_SESSION["AE_tipo_utilizador"]) ){
   //Se não tiver sessao manda para pagina index.php
-  if(isset($_SESSION["AE_id_utilizador"]) )header("Location: ./index.php");
+  if(isset($_SESSION["AE_id_utilizador"]) )header("Location: ./index.php");*/
     if(isset($_GET["IdAnuVer"]) ){
       $anuncio=$dao_anuncios->obter_anuncio($_GET["IdAnuVer"]);
       if($anuncio->Estado!=1)  header("Location: ./ver_todos_anuncios.php");
@@ -15,7 +15,7 @@ include("./comum/carregacontroladores.php");
     }else{
     header("Location: ./ver_todos_anuncios.php");
   }
-}else{
+/*}else{
   header("Location: ./index.php");
 }*/
 ?>
@@ -69,7 +69,7 @@ include("./comum/carregacontroladores.php");
       <div class="modal-dialog">
     <!-- Modal content-->
     <div class="modal-content">
-      <form action="anuncios.php" method="post">
+      <form name="form" action="anuncios.php?IdAnuVer=<?php   print $_GET['IdAnuVer'];  ?>" method="post">
       <div class="modal-header">
         <button type="button" class="Fechar" data-dismiss="modal">&times;</button>
         <h4 class="modal-title"><?php   print $den_anu;  ?></h4>
@@ -282,15 +282,17 @@ include("./comum/carregacontroladores.php");
                   jQuery("#aviso_registo_insucesso_email").show();
                   });
                   </script>');
-                  header('Location: ver_todos_anuncios.php?IdAnuVer=1');
+                  header('Location: ver_todos_anuncios.php');
 
           }else{
           echo'<script>$("#falhamotivo").text("O motivo tem maximo de 50 caracteres!");</script>';
+
           print('<script>
                   $(document).ready(function(){
                   $("#myModalEliminar").modal();
                   });
-                  </script>');
+                </script>');
+
         }
       }
       function verifica_tamanho_string($string,$maximoCaracteres){

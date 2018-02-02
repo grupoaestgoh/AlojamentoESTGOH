@@ -30,7 +30,7 @@
 
 
 
-12. pagina ver_anuncio (aluno)					        - Falta 			[Jéssica]
+12. pagina anuncio (aluno)					            - Concluida 	[Jéssica]
 
 13. pagina ver_todos_anuncios (aluno)			      - Concluida 	[Jéssica]
 
