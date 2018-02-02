@@ -19,7 +19,6 @@ ob_start();
 
 <!-- Navigation -->
 
-
 <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top navGestor" id="mainNav">
  <div class="container">
    <a class="navbar-brand"  href="meus_anuncios.php" ><font  size="6" color="white"><?php print $logotipo; ?></font></a>
@@ -151,32 +150,58 @@ ob_start();
          <span class="d-lg-none"><?php print $MeusDados; ?>
            <span class="badge badge-pill badge-warning">6 <?php print $novas; ?></span>
          </span>
-
        </a>
        <div class="dropdown-menu dados" aria-labelledby="alertsDropdown">
-         <h6 class="dropdown-header"><?php print $MeusDados1; ?></h6>
-         <div class="dropdown-divider"></div>
-
-         <a class="dropdown-item"  >
-          <strong> <?php print $nome; ?></strong>
-           <div class="dropdown-message small"><?php print $_SESSION["AE_nome_utilizador"]; ?></div>
+         <div class="row">
+           <div class="col-12">
+              <h6 class="dropdown-header"><?php print $MeusDados1; ?></h6>
+           </div>
+         </div>
+         <div class="row">
+            <div class="col-12">
+              <div class="dropdown-divider"></div>
+            </div>
+         </div>
+         <a class="dropdown-item">
+           <div class="row">
+             <div class="col-12 textodoquarto">
+               <strong> <?php print $nome; ?> </strong>
+             </div>
+            </div>
+            <div class="row">
+             <div class="col-12">
+                <div class="dropdown-message smallx textodoquarto"><?php echo $_SESSION["AE_nome_utilizador"]; ?></div><!--Tens de fazer o login no index para a session ter valor -->
+             </div>
+            </div>
          </a>
-
-         <div class="dropdown-divider"></div>
-
-         <a class="dropdown-item"  >
-          <strong><?php print $email; ?> </strong>
-           <div class="dropdown-message small"><?php print $_SESSION["AE_email_utilizador"]; ?></div>
+         <div class="row">
+           <div class="col-12">
+            <div class="dropdown-divider"></div>
+           </div>
+         </div>
+         <a class="dropdown-item">
+           <div class="row">
+             <div class="col-12 textodoquarto">
+               <strong><?php print $email; ?> </strong>
+             </div>
+            </div>
+            <div class="row">
+             <div class="col-12">
+                <div class="dropdown-message textodoquarto smallx"><?php print $_SESSION["AE_email_utilizador"]; ?></div><!--Tens de fazer o login no index para a session ter valor -->
+             </div>
+            </div>
          </a>
-
-
-         <a class="dropdown-item"  >
-           <strong>
-             <i class="fa"></i>
-             <button type="button" class="nav-link especialBotao"  data-toggle="modal" data-target="#myModal20"><font  size="4" color="black"><?php print $alteraDados; ?></font></button>
-           </strong>
-
-
+         <div class="row">
+           <div class="col-12">
+             <div class="dropdown-divider"></div>
+           </div>
+        </div>
+         <a class="dropdown-item">
+           <div class="row">
+                <div class="col-12 textodoquarto padleft">
+                  <button type="button" class="nav-link especialBotao"  data-toggle="modal" data-target="#myModal20"><font  size="4" color="black"><?php print $alteraDados; ?></font></button>
+                </div>
+           </div>
          </a>
        </div>
      </li>
