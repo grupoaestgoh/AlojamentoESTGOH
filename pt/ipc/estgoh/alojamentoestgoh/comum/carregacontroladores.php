@@ -4,8 +4,6 @@
 include('./comum/basedados.class.php');
 //Ficheiro de varias configurações
 include('./comum/config.php');
-
-
 include('./utilizadores/DAOutilizadores.class.php');
 include('./utilizadores/utilizador.class.php');
 include('./utilizadores/anunciante.class.php');
