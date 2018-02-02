@@ -61,7 +61,7 @@ class DAOUtilizadores{
   //Altera o estado de um Utilizador do tipo Anunciante ou Gestor
   function alterar_estado($id_utilizador,$estado){
     global $mybd;
-    $STH = $mybd->DBH->prepare("Update utilizador Set uti_estado=? WHERE uti_id=? and uti_id!=0");
+    $STH = $mybd->DBH->prepare("Update utilizador Set uti_estado=? WHERE uti_id=? and uti_tipo!=0");
     $STH->bindParam(2, $id_utilizador);
     $STH->bindParam(1, $estado);
     if(!$STH->execute()) return false;
