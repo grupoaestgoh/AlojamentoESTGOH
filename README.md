@@ -13,9 +13,9 @@
 5. pagina adicionar_anuncio (anunciante)		    - Concluida
 
 
-6. pagina desativar_gestor (gestor)				      - Concluida		[Fábio]
+6. pagina desativar_gestor (gestor)				      - Concluida		
 
-7. pagina desativar_proprietario (gestor)		    - Concluida		[Fábio]
+7. pagina desativar_proprietario (gestor)		    - Concluida		
 
 8. pagina registo_outros_gestores(gestor)		    - Falta ajax 	[Fábio]
 
@@ -29,13 +29,13 @@
 
 
 
-12. pagina anuncio (aluno)					            - Concluida 	[Jéssica]
+12. pagina ver_anuncio (aluno)					        - Concluida 	
 
-13. pagina ver_todos_anuncios (aluno)			      - Concluida 	[Jéssica]
+13. pagina ver_todos_anuncios (aluno)			      - Concluida 	
 
 14. pagina anuncios_denunciados (gestor)		    - Concluida
 
 
-15. pagina ver_anuncios_proprietarios (gestor)  - Concluida  	[Miguel]
+15. pagina ver_anuncios_proprietarios (gestor)  - Concluida  	
 
 16. pagina meus_anuncios(gestor) 				        - Falta      	[Miguel]

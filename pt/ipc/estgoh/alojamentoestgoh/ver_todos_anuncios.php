@@ -231,13 +231,13 @@ if(isset($_POST['gender'])){
 			<div class="row">
 				<div class="col-md-6">
 
-					<a href="anuncios.php?IdAnuVer=<?php print $anuncios->Id_Anuncio ?>">
+					<a href="ver_anuncio.php?IdAnuVer=<?php print $anuncios->Id_Anuncio ?>">
 						<img height="250" width="400" id="foto_anuncio"  src="<?php print $fotoPrincipal->Caminho.$fotoPrincipal->Nome ?>" height="42" width="42">
 					</a>
 
 				</div>
 				<div class="col-md-5">
-					<a href="anuncios.php?IdAnuVer=<?php print $anuncios->Id_Anuncio ?>" id="titulo_anuncio"><?php print $anuncios->Titulo ?></a>
+					<a href="ver_anuncio.php?IdAnuVer=<?php print $anuncios->Id_Anuncio ?>" id="titulo_anuncio"><?php print $anuncios->Titulo ?></a>
 					<h4 id="preco_anuncio"><?php print $anuncios->Preco ?> €/<?php print $mes ?></h4>
 					<p><?php print $anuncios->Descricao ?></p>
 				</div>
