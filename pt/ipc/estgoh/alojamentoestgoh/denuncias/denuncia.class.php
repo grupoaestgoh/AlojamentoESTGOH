@@ -20,11 +20,11 @@ class Denuncia{
     $this->Estado=$Estado;
 
   }
-  //Devolve notificacao em array sem atributo id
+  //Devolve denuncia em array sem atributo id
   public function to_array_sem_id(){
     return array("a"=>$this->Id_Anuncio,"t"=>$this->Titulo,"de"=>$this->Descricao,"da"=>$this->Data,"e"=>$this->Estado);
   }
-  //Devolve notificacao em array sem atributo id
+  //Devolve denuncia em array sem atributo id
   public function to_array_com_id(){
     return array("d"=>$this->Id_Denuncia,"a"=>$this->Id_Anuncio,"t"=>$this->Titulo,"de"=>$this->Descricao,"da"=>$this->Data,"e"=>$this->Estado);
   }

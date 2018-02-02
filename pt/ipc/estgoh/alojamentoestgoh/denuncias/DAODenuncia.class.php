@@ -11,11 +11,11 @@ Estado
   function inserir_denuncia(Denuncia $den_denuncia){
     global $mybd;
       $STH=$mybd->DBH->prepare("Insert into denuncias (anu_id,den_descricao,den_titulo,den_data,den_estado) values (:a,:t,:de,:da,:e);");
-    if(!$STH->execute($notificacao->to_array_sem_id()))return false;
+    if(!$STH->execute($den_denuncia->to_array_sem_id()))return false;
     return true;
   }
 
-    //Edita estado de notificacao
+    //Edita estado de denuncia
     function alterar_estado($id_den,$estado){
     global $mybd;
 		$STH = $mybd->DBH->prepare("Update denuncias Set den_estado=? Where anu_id=?;");
@@ -24,7 +24,7 @@ Estado
 		if(!$STH->execute())return false;
     return true;
   }
-//Lista notificaçoes
+//Lista denuncia
   function listar_denuncias($id_anuncio,$opcao){
     $arrayDenuncias=[];
     global $mybd;
