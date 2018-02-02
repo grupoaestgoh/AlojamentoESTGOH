@@ -6,7 +6,7 @@ include('./comum/basedados.class.php');
 include('./comum/config.php');
 
 
-include('./utilizadores/DAOutilizador.class.php');
+include('./utilizadores/DAOutilizadores.class.php');
 include('./utilizadores/utilizador.class.php');
 include('./utilizadores/anunciante.class.php');
 include('./utilizadores/gestor.class.php');

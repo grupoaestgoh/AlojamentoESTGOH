@@ -16,11 +16,11 @@ class DAOUtilizadores{
   //Insere um utilizador na base de dados, se falhar devolve false, se tiver sucesso devolve true
   function inserir_utilizador(Utilizador $utilizador){
     global $mybd;
-    if($utilizador->Tipo!=0)
+    if($utilizador->Tipo!=0 && $utilizador->Tipo!=1)
       $STH=$mybd->DBH->prepare("Insert into utilizador (uti_nome,uti_email,uti_password,uti_estado,uti_tipo,uti_inscricao) values (:n,:e,:p,0,:t,:d);");
     else
-        $STH=$mybd->DBH->prepare("Insert into utilizador (uti_nome,uti_email,uti_password,uti_estado,uti_tipo,uti_inscricao) values (:n,:e,:p,1,:t,:d);");
-    if(!$STH->execute($utilizador->to_array_sem_id()))return false;
+      $STH=$mybd->DBH->prepare("Insert into utilizador (uti_nome,uti_email,uti_password,uti_estado,uti_tipo,uti_inscricao) values (:n,:e,:p,1,:t,:d);");
+    if(!$STH->execute($utilizador->to_array_sem_id())) return false;
     return true;
   }
 
@@ -32,41 +32,42 @@ class DAOUtilizadores{
     $STH->execute();
     $STH->setFetchMode(PDO::FETCH_OBJ);
     while($row = $STH->fetch()){
-      if($row->uti_tipo==2)return new Anunciante($row->uti_id,$row->uti_nome,$row->uti_email,$row->uti_password,$row->uti_estado,$row->uti_tipo,$row->uti_inscricao,$row->uti_estado);
-      if($row->uti_tipo==0 || $row->uti_tipo==1)return new Gestor($row->uti_id,$row->uti_nome,$row->uti_email,$row->uti_password,$row->uti_estado,$row->uti_tipo,$row->uti_inscricao,$row->uti_estado);
+      if($row->uti_tipo==2) return new Anunciante($row->uti_id,$row->uti_nome,$row->uti_email,$row->uti_password,$row->uti_estado,$row->uti_tipo,$row->uti_inscricao,$row->uti_estado);
+      if($row->uti_tipo==0 || $row->uti_tipo==1) return new Gestor($row->uti_id,$row->uti_nome,$row->uti_email,$row->uti_password,$row->uti_estado,$row->uti_tipo,$row->uti_inscricao,$row->uti_estado);
     }
-
     return null;
   }
 
   //Obtem um Utilizador através do seu id
   function obter_utilizador_id($id_utilizador){
     global $mybd;
-    			$STH = $mybd->DBH->prepare("Select  uti_id,uti_nome,uti_email,uti_password,uti_estado,uti_tipo,uti_inscricao from utilizador  where uti_id=? ;");
-    			$STH->bindParam(1, $id_utilizador);
-    			$STH->execute();
-    			$STH->setFetchMode(PDO::FETCH_OBJ);
-    			while($row = $STH->fetch()){
-            return new Utilizador($row->uti_id,$row->uti_nome,$row->uti_email,$row->uti_password,$row->uti_estado,$row->uti_tipo,$row->uti_inscricao);
-    			}
-    			return null;
+		$STH = $mybd->DBH->prepare("Select  uti_id,uti_nome,uti_email,uti_password,uti_estado,uti_tipo,uti_inscricao from utilizador  where uti_id=? ;");
+		$STH->bindParam(1, $id_utilizador);
+		$STH->execute();
+		$STH->setFetchMode(PDO::FETCH_OBJ);
+		while($row = $STH->fetch()){
+      return new Utilizador($row->uti_id,$row->uti_nome,$row->uti_email,$row->uti_password,$row->uti_estado,$row->uti_tipo,$row->uti_inscricao);
+		}
+		return null;
   }
 
   //Edita os dados (password) de um utilizador existente na base de dados
   function editar_utilizador(Utilizador $utilizador){
     global $mybd;
-		$STH = $mybd->DBH->prepare("Update utilizador Set uti_password=:p WHERE uti_id=:i");
-		if(!$STH->execute($utilizador->to_array_com_id()))return false;
+		$STH = $mybd->DBH->prepare("Update utilizador Set uti_password=? WHERE uti_id=?");
+    $STH->bindParam(1, $utilizador->Password);
+    $STH->bindParam(2, $utilizador->Id_Utilizador);
+		if(!$STH->execute()) return false;
     return true;
   }
 
   //Altera o estado de um Utilizador do tipo Anunciante ou Gestor
   function alterar_estado($id_utilizador,$estado){
     global $mybd;
-    $STH = $mybd->DBH->prepare("Update utilizador Set uti_estado=? WHERE uti_id=? and uti_id!=1");
+    $STH = $mybd->DBH->prepare("Update utilizador Set uti_estado=? WHERE uti_id=? and uti_id!=0");
     $STH->bindParam(2, $id_utilizador);
     $STH->bindParam(1, $estado);
-    if(!$STH->execute())return false;
+    if(!$STH->execute()) return false;
     return true;
   }
 
@@ -75,15 +76,21 @@ class DAOUtilizadores{
     $arrayUtilizadores=[];
     global $mybd;
     //Devolve todos gestores ativos
-    if($opcao==1)$STH = $mybd->DBH->prepare("Select  uti_id,uti_nome,uti_email,uti_password,uti_estado,uti_tipo,uti_inscricao from utilizador  where uti_estado='1' and uti_tipo='1' ;");
+    if($opcao==1){
+      $STH = $mybd->DBH->prepare("Select  uti_id,uti_nome,uti_email,uti_password,uti_estado,uti_tipo,uti_inscricao from utilizador  where uti_estado='1' and uti_tipo='1' ;");
     //Devolve todos anunciantes ativos
-    else if($opcao==2)$STH = $mybd->DBH->prepare("Select  uti_id,uti_nome,uti_email,uti_password,uti_estado,uti_tipo,uti_inscricao from utilizador  where uti_estado='1' and uti_tipo='2' ;");
-    else $STH =$mybd->DBH->prepare("Select  uti_id,uti_nome,uti_email,uti_password,uti_estado,uti_tipo,uti_inscricao from utilizador  where uti_estado='1' and uti_tipo='2' and (uti_nome LIKE '%$opcao%' OR uti_email LIKE '%$opcao%');");
+    }else if($opcao==2){
+      $STH = $mybd->DBH->prepare("Select  uti_id,uti_nome,uti_email,uti_password,uti_estado,uti_tipo,uti_inscricao from utilizador  where uti_estado='1' and uti_tipo='2' ;");
+    }else{
+      $STH =$mybd->DBH->prepare("Select  uti_id,uti_nome,uti_email,uti_password,uti_estado,uti_tipo,uti_inscricao from utilizador  where uti_estado='1' and uti_tipo='2' and (uti_nome LIKE '%?%' OR uti_email LIKE '%?%');");
+      $STH->bindParam(1, $opcao);
+      $STH->bindParam(2, $opcao);
+    }
     $STH->execute();
-      $STH->setFetchMode(PDO::FETCH_OBJ);
-			while($row = $STH->fetch()){
-				$arrayUtilizadores[sizeof($arrayUtilizadores)]=new Utilizador($row->uti_id,$row->uti_nome,$row->uti_email,$row->uti_password,$row->uti_estado,$row->uti_tipo,$row->uti_inscricao);
-			}
+    $STH->setFetchMode(PDO::FETCH_OBJ);
+		while($row = $STH->fetch()){
+			$arrayUtilizadores[sizeof($arrayUtilizadores)]=new Utilizador($row->uti_id,$row->uti_nome,$row->uti_email,$row->uti_password,$row->uti_estado,$row->uti_tipo,$row->uti_inscricao);
+		}
     return $arrayUtilizadores;
   }
 
@@ -96,7 +103,7 @@ class DAOUtilizadores{
     while($row = $STH->fetch()){
       return true;
     }
-      return false;
+    return false;
   }
 
 //Verificar se já existe algum utilizador com esse email
@@ -109,7 +116,7 @@ class DAOUtilizadores{
     while($row = $STH->fetch()){
     	return true;
     }
-    	return false;
+    return false;
   }
 }
  ?>
