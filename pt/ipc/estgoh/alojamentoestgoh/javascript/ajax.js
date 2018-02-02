@@ -1,37 +1,24 @@
-$('#emailindex').live('change', function() {
-    //pedido ajax na página index para email
+$('#inlineFormInputGroup').blur( function() {
+    //pedido ajax para email
+    var data = {
+      "email": $('#inlineFormInputGroup').val()
+    };
+    data = $(this).serialize() + "&" + $.param(data);
     $.ajax({
-        url: "?????.php", //nome do ficheiro php
-        data: {
-            'email' : $('#emailindex').val()
-        },
+        url: './ajax.php', //nome do ficheiro php
+        type: 'POST',
         dataType: 'json',
+        data: data,
         success: function(data) {
-            if(data.result) {
-                alert('Email existe!'); //resultado se existir, alert=teste;
-            }
-            else {
-                alert('Email não existe!'); //resultado se não existir, alert=teste;
+            if(data=='1') {
+              $('img[src="./img/img_aplicacao/certo.png"]').attr('src','./img/img_aplicacao/rcross.png');
+              //resultado se existir, alert=teste;
+            } else {
+              $('img[src="./img/img_aplicacao/rcross.png"]').attr('src','./img/img_aplicacao/certo.png');
+              //resultado se não existir, alert=teste;
             }
         },
         error: function(data){
-            alert('Ocorreu um erro!');//erro, alert=teste;
         }
     });
 });
-
-//possivel codigo php para meter no outro ficheiro depois:
-
-/*
-include("./comum/carregacontroladores.php");
-include './utilizadores/DAOUtilizadore.php';
-$mybd=new BaseDados();
-$mybd->ligar_bd();
-$DaoUtilizadores=new DAOUtilizadores();
-if($DaoUtilizadores->verificar_email($_POST['emailindex']){
-  $response->result = true;
-}else{
-  $response->result = false;
-}
-echo json_encode($response);
-*/
