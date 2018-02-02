@@ -210,6 +210,13 @@
     		return true;// (correto)
     	}
 
+			print('<script>
+							jQuery(document).ready(function( $ ) {
+									jQuery("body").css("background-color","#0775b8");
+							});
+					</script>');
+
+
 			$conteudo_principal = ob_get_contents();
 			ob_end_clean();
 			//master page

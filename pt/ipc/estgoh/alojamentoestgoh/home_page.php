@@ -18,8 +18,8 @@ ob_start();
 
 ?>
     <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top"  >
-      <ul class="navbar-nav ml-auto">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top nav_home"  >
+      <ul class="navbar-nav ml-auto nav_home-nav">
         <li class="nav-item">
            <a href="?lingua=pt"> <img src="./img/img_aplicacao/pt.jpg" alt=""> </a>
         </li>
@@ -34,9 +34,9 @@ ob_start();
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
-          <ul class="navbar-nav ml-auto ">
+          <ul class="navbar-nav ml-auto nav_home-nav">
             <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle mr-lg-2 navGestorimg" id="alertsDropdown"   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <a class="nav_home-link nav-link dropdown-toggle mr-lg-2 navGestorimg" id="alertsDropdown"   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="fa fa-user " aria-hidden="true"></i>
                 <span class="d-lg-none"><?php print $MeusDados; ?>
                   <span class="badge badge-pill badge-warning">6 <?php print $novas; ?></span>
@@ -71,7 +71,7 @@ ob_start();
               </div>
             </li>
             <li class="nav-item">
-                  <a href="home_page.php?TerminarSessao=TS" class="nav-link navGestorimg " ><i class="fa fa-fw fa-sign-out"></i><?php print $terminaSessao; ?></a>
+                  <a href="home_page.php?TerminarSessao=TS" class="nav_home-link nav-link navGestorimg " ><i class="fa fa-fw fa-sign-out"></i><?php print $terminaSessao; ?></a>
             </li>
           </ul>
         </div>
@@ -282,8 +282,12 @@ ob_start();
         	}
 
 
-
-    $rodape_autenticados=true;
+    print('<script>
+            jQuery(document).ready(function( $ ) {
+                jQuery("body").css("background-color","#f8f8f8");
+            });
+        </script>');
+    $rodape=true;
     $conteudo_principal = ob_get_contents();
     ob_end_clean();
     //master page

@@ -183,7 +183,7 @@ body{
 }
 
 .smallx{
-  font-size: 11px;
+  font-size: 80%;
 }
 
 .navGestor{
@@ -753,6 +753,7 @@ input:-moz-placeholder {
   padding: 50px 0;
   border-top: 1px solid #e7e7e7;
   border-bottom: 1px solid #e7e7e7;
+  background-color: #0775b8;
 }
 
 .section-heading-spacer{
@@ -1311,4 +1312,12 @@ footer.sticky-footer {
   z-index: 1;
   width: 300px;
   background-color: transparent;
+}
+
+.nav_home{
+  background-color: white !important;
+}
+
+.nav_home .nav_home-nav .nav_home-link {
+    color: #0775b8!important;
 }

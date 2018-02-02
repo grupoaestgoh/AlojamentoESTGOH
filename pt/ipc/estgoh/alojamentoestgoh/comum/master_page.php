@@ -34,27 +34,27 @@
                       <li class=\"list-inline-item\">
                         <a class=\"corAzul\" href=\"http://websrv2.estgoh.ipc.pt/portal2/\">$estgohR</a>
                       </li>
-                      <li class=\"footer-menu-divider list-inline-item divBranca\">&sdot;</li>
+                      <li class=\"footer-menu-divider list-inline-item \">&sdot;</li>
                       <li class=\"list-inline-item\">
                         <a class=\"corAzul\" href=\"https://mailsecure.estgoh.ipc.pt/horde/imp/login.php\">$emailR</a>
                       </li>
-                      <li class=\"footer-menu-divider list-inline-item divBranca\">&sdot;</li>
+                      <li class=\"footer-menu-divider list-inline-item \">&sdot;</li>
                       <li class=\"list-inline-item\">
                         <a class=\"corAzul\" href=\"http://elearning.estgoh.ipc.pt/\">$elearningR</a>
                       </li>
-                      <li class=\"footer-menu-divider list-inline-item divBranca\">&sdot;</li>
+                      <li class=\"footer-menu-divider list-inline-item \">&sdot;</li>
                       <li class=\"list-inline-item\">
                         <a class=\"corAzul\" href=\"http://biblio.estgoh.ipc.pt/\">$bibliotecaR</a>
                       </li>
-                      <li class=\"footer-menu-divider list-inline-item divBranca\">&sdot;</li>
+                      <li class=\"footer-menu-divider list-inline-item \">&sdot;</li>
                       <li class=\"list-inline-item\">
                         <a class=\"corAzul\" href=\"http://netpa.estgoh.ipc.pt/netpa/page\">$netpaR</a>
                       </li>
-                      <li class=\"footer-menu-divider list-inline-item divBranca\">&sdot;</li>
+                      <li class=\"footer-menu-divider list-inline-item \">&sdot;</li>
                       <li class=\"list-inline-item\">
                         <a class=\"corAzul\" href=\"#sobre\">$sobreNosR</a>
                       </li>
-                      <li class=\"footer-menu-divider list-inline-item divBranca\">&sdot;</li>
+                      <li class=\"footer-menu-divider list-inline-item \">&sdot;</li>
                       <li class=\"list-inline-item\">
                         <a class=\"corAzul\" href=\"#contactos\">$contactosR</a>
                       </li>
@@ -108,48 +108,6 @@
               }
           }
 
-          if(isset($rodape_autenticados) ){
-              if($rodape_autenticados==true){
-                print "
-                <!-- Footer -->
-                  <footer class=\"panel-footer  navbar-fixed-bottom\">
-                    <div class=\"container\">
-                      <ul class=\"list-inline\">
-                        <li class=\"list-inline-item\">
-                          <a class=\"corAzul\" href=\"http://websrv2.estgoh.ipc.pt/portal2/\">$estgohR</a>
-                        </li>
-                        <li class=\"footer-menu-divider list-inline-item \">&sdot;</li>
-                        <li class=\"list-inline-item\">
-                          <a class=\"corAzul\" href=\"https://mailsecure.estgoh.ipc.pt/horde/imp/login.php\">$emailR</a>
-                        </li>
-                        <li class=\"footer-menu-divider list-inline-item \">&sdot;</li>
-                        <li class=\"list-inline-item\">
-                          <a class=\"corAzul\" href=\"http://elearning.estgoh.ipc.pt/\">$elearningR</a>
-                        </li>
-                        <li class=\"footer-menu-divider list-inline-item \">&sdot;</li>
-                        <li class=\"list-inline-item\">
-                          <a class=\"corAzul\" href=\"http://biblio.estgoh.ipc.pt/\">$bibliotecaR</a>
-                        </li>
-                        <li class=\"footer-menu-divider list-inline-item \">&sdot;</li>
-                        <li class=\"list-inline-item\">
-                          <a class=\"corAzul\" href=\"http://netpa.estgoh.ipc.pt/netpa/page\">$netpaR</a>
-                        </li>
-                        <li class=\"footer-menu-divider list-inline-item \">&sdot;</li>
-                        <li class=\"list-inline-item\">
-                          <a class=\"corAzul\" href=\"#sobre\">$sobreNosR</a>
-                        </li>
-                        <li class=\"footer-menu-divider list-inline-item \">&sdot;</li>
-                        <li class=\"list-inline-item\">
-                          <a class=\"corAzul\" href=\"#contactos\">$contactosR</a>
-                        </li>
-                      </ul>
-                      <p class=\"copyright text-muted small\">Copyright &copy; $direitosR</p>
-                    </div>
-                  </footer>
-
-                ";
-              }
-          }
 
 
 
