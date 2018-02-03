@@ -285,7 +285,7 @@ if(isset($_POST["registar"]) && !empty($_POST["registar"])){
 	$mybd->ligar_bd();
 	$flag=0;
 	if(isset($_POST["nomeR"]) && !empty($_POST["nomeR"])){
-		if(verifica_nome($_POST["nomeR"])==true){
+		if(verifica_nome($_POST["nomeR"])==true && strlen($_POST["nomeR"])<50){
 			$flag++;
 			print('<script>
 							jQuery(document).ready(function( $ ) {
@@ -307,7 +307,7 @@ if(isset($_POST["registar"]) && !empty($_POST["registar"])){
 				</script>');
 	}
 	if(isset($_POST["emailR"]) && !empty($_POST["emailR"])){
-		if($dao_utilizadores->verificar_email($_POST["emailR"])==false){
+		if($dao_utilizadores->verificar_email($_POST["emailR"])==false && strlen($_POST["emailR"])<25){
 			$flag++;
 			print('<script>
 							jQuery(document).ready(function( $ ) {
@@ -329,7 +329,7 @@ if(isset($_POST["registar"]) && !empty($_POST["registar"])){
 				</script>');
 	}
 	if(isset($_POST["passwordR"]) && !empty($_POST["passwordR"])){
-		if(verifca_password($_POST["passwordR"])==true){
+		if(verifca_password($_POST["passwordR"])==true  && strlen($_POST["passwordR"])<16){
 			$flag++;
 			print('<script>
 							jQuery(document).ready(function( $ ) {
