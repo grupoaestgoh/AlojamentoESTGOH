@@ -38,4 +38,7 @@ if (file_exists ( "./lang/i18n_" . $lingua . ".php" ))
 else
   include "./lang/i18n_pt.php"; // por defeito
 
+//layout
+$layout = "./comum/master_page.php";
+
  ?>

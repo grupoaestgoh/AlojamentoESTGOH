@@ -4,24 +4,28 @@ session_start();
 //carregar controladores
 include("./comum/carregacontroladores.php");
 
-//verifica se gestor está autenticado
-/*if (isset($_SESSION["AE_email_utilizador"]) && isset($_SESSION["AE_tipo_utilizador"]) ){
-  //Se não tiver sessao manda para pagina index.php
-  if(isset($_SESSION["AE_id_utilizador"]) )header("Location: ./index.php");*/
-    if(isset($_GET["IdAnuVer"]) ){
-      $anuncio=$dao_anuncios->obter_anuncio($_GET["IdAnuVer"]);
-      if($anuncio->Estado!=1)  header("Location: ./ver_todos_anuncios.php");
-
+//verifica se o utilizador está autenticado
+if (isset($_SESSION["AE_tipo_utilizador"]) ){
+    //Verifica se é aluno
+    if($_SESSION["AE_tipo_utilizador"]!=3){
+				header("Location: ./index.php");
     }else{
-    header("Location: ./ver_todos_anuncios.php");
-  }
-/*}else{
-  header("Location: ./index.php");
-}*/
+        //Verifica se foi passado por endereço o id do anuncio
+        if(isset($_GET["IdAnuVer"]) ){
+            $anuncio=$dao_anuncios->obter_anuncio($_GET["IdAnuVer"]);
+            //Verifica o estado do anuncio
+            if($anuncio->Estado!=1){
+                header("Location: ./ver_todos_anuncios.php");
+            }
+        }else{
+            header("Location: ./ver_todos_anuncios.php");
+        }
+    }
+}else{
+    header("Location: ./index.php");
+}
 ?>
-
     <!-- Navigation -->
-
     	<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top navGestor" id="mainNav">
           <div class="container">
             <a class="navbar-brand" href="ver_todos_anuncios.php"><font  size="6" color="white"><?php print $logotipo; ?></font></a>

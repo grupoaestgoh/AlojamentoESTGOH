@@ -4,15 +4,15 @@ session_start();
 //carregar controladores
 include("./comum/carregacontroladores.php");
 
-//verifica se gestor está autenticado
-/*if (isset($_SESSION["AE_email_utilizador"]) && isset($_SESSION["AE_tipo_utilizador"]) ){
-  //Se não tiver sessao manda para pagina index.php
-  if(isset($_SESSION["AE_id_utilizador"]) )header("Location: ./index.php");
+//verifica se o utilizador está autenticado
+if (isset($_SESSION["AE_tipo_utilizador"]) ){
+    //Verifica se é aluno
+    if($_SESSION["AE_tipo_utilizador"]!=3){
+				header("Location: ./index.php");
+    }
 }else{
-  header("Location: ./index.php");
+    header("Location: ./index.php");
 }
-
-*/
 //conteudo principal
 ob_start();
 $pesquisa="";
@@ -247,7 +247,7 @@ if(isset($_POST['gender'])){
 			}
 			?>
     </div>
-  
+
 
 
 	<?php

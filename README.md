@@ -1,8 +1,7 @@
 # AlojamentoESTGOH
 
-[Falta logs no index e no logout]
+[Criar notificaçoes]
 [Falta ajustes nos css]
-[Falta meter os redirecionamentos de paginas]
 
 1. pagina index         						            - Concluida
 

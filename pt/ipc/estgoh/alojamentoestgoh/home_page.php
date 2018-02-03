@@ -4,14 +4,11 @@ session_start();
 //carregar controladores
 include("./comum/carregacontroladores.php");
 
-///verifica se gestor está autenticado
-/*if (isset($_SESSION["AE_id_utilizador"]) && isset($_SESSION["AE_nome_utilizador"]) && isset($_SESSION["AE_email_utilizador"]) && isset($_SESSION["AE_estado_utilizador"]) && isset($_SESSION["AE_tipo_utilizador"] ) && isset($_SESSION["AE_data_incricao_utilizador"]) ){
-  //Se tiver estado !=1 e o tipo !=1 vai  para pagina index.php
-  if($_SESSION["AE_estado_utilizador"]!=1 || $_SESSION["AE_estado_utilizador"]!=1 )header("Location: ./index.php");
-}else{
+//verificar autenticação
+if (!isset($_SESSION["AE_tipo_utilizador"])){
+  //se tiver sessãon vai buscar utilizador e ve o tipo para poder redirecionar para a pagina correta//Falta isso !!
   header("Location: ./index.php");
 }
-*/
 
 //conteudo principal
 ob_start();
@@ -194,7 +191,15 @@ ob_start();
     			      </span>
     			  </li>
             <div  id="spn">
-              <a id="btn" href="#">Ver Anuncios</a>
+              <?php
+                if($_SESSION["AE_tipo_utilizador"]==3){
+                    print "<a id=\"btn\" href=\"./ver_todos_anuncios.php\">$Ver_Anuncios</a>";
+                }elseif($_SESSION["AE_tipo_utilizador"]==2){
+                    print "<a id=\"btn\" href=\"./anuncios.php\">$Ver_Anuncios</a>";
+                }else{
+                    print "<a id=\"btn\" href=\"./meus_anuncios.php\">$Ver_Anuncios</a>";
+                }
+              ?>
             </div>
     			</ul>
     			</div>

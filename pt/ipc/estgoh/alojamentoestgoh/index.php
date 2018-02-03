@@ -4,16 +4,18 @@
 	//carregar controladores
 	include("./comum/carregacontroladores.php");
 
-
-	/*//verificar autorização
-	if (isset($_SESSION["dtd_id_utilizador"])){
-		//se tiver sessãon vai buscar utilizador e ve o tipo para poder redirecionar para a pagina correta//Falta isso !!
-		header("Location: ./home_page.php");
-	}
 	//verifica se existe admin
-	if ($dao_utilizador->verificar_gestor() == false) {
-		header ( "Location: ./registo_primeiro_gestor.php?admin" );
-	}*/
+	if ($dao_utilizadores->verificar_gestor() == false) {
+		header ( "Location: ./registo_primeiro_gestor.php" );
+	}else{
+		//verificar autenticação
+		if (isset($_SESSION["AE_tipo_utilizador"])){
+			//se tiver sessãon vai buscar utilizador e ve o tipo para poder redirecionar para a pagina correta//Falta isso !!
+			header("Location: ./home_page.php");
+		}
+	}
+
+
 	//conteudo principal
 	ob_start();
 ?>
@@ -250,7 +252,7 @@ if(isset($_POST["entrar"]) && !empty($_POST["entrar"])){
 							$ldap_bind = @ldap_bind($ldap_conexao,$ldap_utilizador,$ldap_pass);
 							// testar o bind
 							if ($ldap_bind) {
-									$_SESSION["AE_email_utilizador"] = $user;
+									$_SESSION["AE_email_utilizador"] = $user."@alunos.estgoh.ipc.pt";
 									$_SESSION["AE_tipo_utilizador"] = 3;
 									header("Location: ./ver_todos_anuncios.php");
 							} else {

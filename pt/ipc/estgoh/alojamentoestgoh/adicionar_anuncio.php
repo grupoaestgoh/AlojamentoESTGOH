@@ -4,13 +4,15 @@ session_start();
 //carregar controladores
 include("./comum/carregacontroladores.php");
 
-//verifica se gestor está autenticado
-/*if (isset($_SESSION["AE_id_utilizador"]) && isset($_SESSION["AE_nome_utilizador"]) && isset($_SESSION["AE_email_utilizador"]) && isset($_SESSION["AE_estado_utilizador"])){
-	//Se não tiver sessao manda para pagina index.php
-	if($_SESSION["AE_estado_utilizador"]!=1 || $_SESSION["AE_tipo_utilizador"]!=2)header("Location: ./index.php");
+//verifica se o utilizador está autenticado
+if (isset($_SESSION["AE_tipo_utilizador"]) ){
+    //Verifica se é gestor
+    if($_SESSION["AE_tipo_utilizador"]!=2){
+				header("Location: ./index.php");
+    }
 }else{
-	header("Location: ./index.php");
-}*/
+    header("Location: ./index.php");
+}
 
 
 //conteudo principal

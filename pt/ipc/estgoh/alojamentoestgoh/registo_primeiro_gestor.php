@@ -6,29 +6,23 @@
 		include("./comum/carregacontroladores.php");
 		$dao_utilizador=new DAOUtilizadores();
 
-		//verificar autorização
-		/*if (isset($_SESSION["dtd_id_utilizador"])){
-			//se tiver sessãon vai buscar utilizador e ve o tipo para poder redirecionar para a pagina correta//Falta isso !!
-			header("Location: ./home_page.php");
+		if (isset($_SESSION["AE_tipo_utilizador"])){
+				header ( "Location: ./index.php" );
+		}elseif($dao_utilizadores->verificar_gestor() == true) {
+				header ( "Location: ./index.php" );
 		}
-		//verifica se existe admin
-		if ($dao_utilizador->verificar_gestor() == true) {
-			header ( "Location: ./index.php" );
-		}*/
 		//conteudo principal
 		ob_start();
-		$mail="";
-		$nome="";
-		$password="";
+
 
 		if(isset($_POST["emailR"]) && !empty($_POST["emailR"])){
-			$mail=$_POST["emailR"];
+			$_POST["emailR"];
 		}
 		if(isset($_POST["nomeR"]) && !empty($_POST["nomeR"])){
-			$nome=$_POST["nomeR"];
+			$_POST["nomeR"];
 		}
 		if(isset($_POST["passwordR"]) && !empty($_POST["passwordR"]) ){
-			$password=$_POST["passwordR"];
+			$_POST["passwordR"];
 		}
 ?>
 
@@ -45,13 +39,13 @@
               <form action="registo_primeiro_gestor.php" method="POST">
                 <br>
                   <label><b><?php print $email?></b></label><br>
-                  <input class="form-control" type="email" placeholder="Email" value="<?php if(strcmp($mail,""))print $mail;?>"  name="emailR" required>
+                  <input class="form-control" type="email" placeholder="Email" value="<?php if(isset($_POST["emailR"]) && !empty($_POST["emailR"])){print $_POST["emailR"]; } ?>" name="emailR" required>
                   <br>
                   <label><b><?php print $password?></b></label><br>
-                  <input class="form-control" type="password" placeholder="Password"  value="<?php if(strcmp($password,""))print $password;?>"  name="passwordR" required>
+                  <input class="form-control" type="password" placeholder="Password" value="<?php if(isset($_POST["passwordR"]) && !empty($_POST["passwordR"])){print $_POST["passwordR"]; } ?>" name="passwordR" required>
                   <br>
                   <label><b><?php print $nome?></b></label><br>
-                  <input class="form-control" type="nome" placeholder="Nome" name="nomeR"  value="<?php if(strcmp($nome,""))print $nome;?>" required>
+                  <input class="form-control" type="nome" placeholder="Nome" value="<?php if(isset($_POST["nomeR"]) && !empty($_POST["nomeR"])){print $_POST["nomeR"]; } ?>" name="nomeR"  required>
                   <br>
 
                   <div>

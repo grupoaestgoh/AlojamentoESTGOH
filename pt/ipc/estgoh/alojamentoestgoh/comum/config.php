@@ -6,9 +6,6 @@
 	$user = "root";
 	$pass = "root";
 
-//layout
-	$layout = "./comum/master_page.php";
-
 
 //internacionalização
 
