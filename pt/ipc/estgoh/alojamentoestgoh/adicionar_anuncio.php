@@ -756,7 +756,7 @@ if(isset($_POST["EditarPassword"]) && !empty($_POST["EditarPassword"])){
 
               if($arrayObjetoFotos!=null){
                 //adiciona anuncio
-                $anuncio->Proprietario=3;
+                $anuncio->Proprietario=$_SESSION["AE_id_utilizador"];
                 $anuncio->Codigo_postal=$anuncio->Codigo_postal."-".$Codigo_postal2;
                 $anuncio->Data_Submetido=date('Y-m-d');
                 $anuncio->Disponibilidade=1;
@@ -778,7 +778,7 @@ if(isset($_POST["EditarPassword"]) && !empty($_POST["EditarPassword"])){
                         jQuery("#aviso_registo_insucesso_nome").show();
                         });
                         </script>');
-                        header("refresh: 1;adicionar_anuncio.php");
+                        //header("refresh: 1;adicionar_anuncio.php");
 
               }
             }
@@ -814,7 +814,7 @@ if(isset($_POST["EditarPassword"]) && !empty($_POST["EditarPassword"])){
               if($tudoPreenchido==true){
                 //adiciona anuncio
                 $anuncio->Id_Anuncio=$_GET["id_anuncio_editar"];
-                $anuncio->Proprietario=3;
+                $anuncio->Proprietario=$_SESSION["AE_id_utilizador"];
                 $anuncio->Codigo_postal=$anuncio->Codigo_postal."-".$Codigo_postal2;
                 $anuncio->Disponibilidade=1;
                 $anuncio->Estado=3;
@@ -1038,7 +1038,7 @@ if(isset($_POST["EditarPassword"]) && !empty($_POST["EditarPassword"])){
                     $extensao = $arr_info["extension"];
                     if(($extensao=='jpg' || $extensao=='png' || $extensao=='gif') && ($tamanhoImg>10000 && $tamanhoImg<1000000) ){
 
-                          if(!isset($_GET["id_anuncio_editar"]))$idAnuncioNovo=(sizeof($dao_anuncios->listar_anuncios(""))+1);
+                          if(!isset($_GET["id_anuncio_editar"]))$idAnuncioNovo=(sizeof($dao_anuncios->listar_anuncios(" "))+1);
                           else $idAnuncioNovo=$_GET["id_anuncio_editar"];
                           $nomeImg="anu_".$idAnuncioNovo."_".$posicao.".".$extensao;
                           $arrayFotosCorreto[$posicao]=new Foto(0,$idAnuncioNovo,'./img/img_anuncios/',$nomeImg);
