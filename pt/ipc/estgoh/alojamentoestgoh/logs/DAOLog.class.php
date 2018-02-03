@@ -5,8 +5,10 @@ class DAOLogs{
   //Insere um log na base de dados
   function inserir_log(Log $log){
     global $mybd;
-      $STH=$mybd->DBH->prepare("Insert into acoes (uti_id,aca_descricao,aca_data,aca_hora) values (:u,:d,:a,:d,:h);");
-    if(!$STH->execute($log->to_array_sem_id()))return false;
+    $STH=$mybd->DBH->prepare("Insert into acoes (uti_id,aca_descricao,aca_data,aca_hora) values (:u,:a,:d,:h);");
+    if(!$STH->execute($log->to_array_sem_id())){
+      return false;
+    }
     return true;
   }
 

@@ -214,7 +214,6 @@ if(isset($_POST["entrar"]) && !empty($_POST["entrar"])){
 				</script>');
 				//iniciar sessão
 				$log=new log(-1,$utilizador->Id_Utilizador,"Iniciou sessão",date('Y-m-d'),date('H:m:s'));
-				$dao_logs->inserir_log($log);
 				$_SESSION["AE_id_utilizador"] = $utilizador->Id_Utilizador;
 				$_SESSION["AE_nome_utilizador"] = $utilizador->Nome;
 				$_SESSION["AE_email_utilizador"] = $utilizador->Email;
