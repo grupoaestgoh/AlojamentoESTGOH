@@ -187,6 +187,7 @@ $gestorAtivos="Gestores Ativos";
 $desativaGes="Desativar Gestor";
 $eliminarAnu="Eliminar Anuncio";
 
+$estado="Estado: ";
 
 //home_page
 $Ver_Anuncios="Ver Anuncios";

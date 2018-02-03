@@ -678,7 +678,7 @@ ob_start();
                 $mybd->ligar_bd();
                 $anuncioEdita=$dao_anuncios->obter_anuncio($_POST["idAnuR"]);
                 if($anuncioEdita->Estado!=4){
-                    $anuncioEdita->Estado=4;
+                    $anuncioEdita->Estado=5;
                     $dao_anuncios->editar_anuncio($anuncioEdita);
                     //adiciona notificação para proprietario do anuncio
                     $dao_notificacao->inserir_notificacao(new Notificacao(0,$anuncioEdita->Proprietario,2,$motivo,date("Y-m-d"),date('H:i:s'),0,5));

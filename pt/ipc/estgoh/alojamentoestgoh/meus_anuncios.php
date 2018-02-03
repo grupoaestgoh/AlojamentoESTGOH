@@ -583,6 +583,11 @@ ob_start();
                                 <p class="textoimovel test"><?php print $anuncios->Descricao ?></p>
                               </div>
                         </div>
+                        <div class="row">
+                              <div class="col-lg-12">
+                                <p class="textoimovel test"><?php if($anuncios->Estado==1)print "Ativo"; if($anuncios->Estado==2)print "Pendente"; if($anuncios->Estado==3)print "Pendente";  if($anuncios->Estado==5)print "Rejeitado";?></p>
+                              </div>
+                        </div>
                       </div>
                         <div class="row">
                             <div class="col-lg-12">

@@ -6,6 +6,7 @@ Estado
 2-pendente
 3-editado
 4-inativo
+5-Reprovado
 
 Disponibilidade
 1-Disponivel
