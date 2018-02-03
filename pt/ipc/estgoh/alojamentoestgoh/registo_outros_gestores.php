@@ -336,7 +336,8 @@
 						 <br>
 	           <div class="form-group input-group">
 	             <input type="email" placeholder="E-mail" class="form-control" name="emaill" id="inlineFormInputGroup" required>
-	             <div class="input-group-addon" >
+							 <script src="./javascript/ajax.js"> </script>
+	             <div class="input-group-addon" id="ajaximg" >
 								 <img class="certo" src="./img/img_aplicacao/certo.png" alt="">
 							 </div>
 	           </div>
