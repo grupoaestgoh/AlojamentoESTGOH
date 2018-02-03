@@ -10,6 +10,7 @@ if (!isset($_SESSION["AE_tipo_utilizador"])){
   header("Location: ./index.php");
 }
 
+
 //conteudo principal
 ob_start();
 

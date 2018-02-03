@@ -6,7 +6,7 @@
 		//verifica se o utilizador está autenticado
 		if (isset($_SESSION["AE_tipo_utilizador"]) ){
 		    //Verifica se é gestor
-		    if($_SESSION["AE_tipo_utilizador"]!=0 || $_SESSION["AE_tipo_utilizador"]!=1){
+		    if($_SESSION["AE_tipo_utilizador"]!=0 && $_SESSION["AE_tipo_utilizador"]!=1){
 						header("Location: ./index.php");
 		    }
 		}else{
@@ -20,7 +20,7 @@
 <!-- Navigation -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top navGestor" id="mainNav">
  <div class="container">
-   <a class="navbar-brand"  href="AnunciosGestor.html" ><font  size="6" color="white"><?php print $logotipo?></font></a>
+   <a class="navbar-brand"  href="registo_outros_gestores.php" ><font  size="6" color="white"><?php print $logotipo?></font></a>
    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
      <span class="navbar-toggler-icon"></span>
    </button>

@@ -1,5 +1,6 @@
 # AlojamentoESTGOH
 
+[Falta aviso de registado com sucesso no index]
 [Falta ajustes nos css]
 
 1. pagina index         						            - Concluida

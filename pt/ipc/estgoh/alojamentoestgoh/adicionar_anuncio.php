@@ -342,7 +342,7 @@ if(isset($_POST["lati"])){
 		<div class="col-lg-3 mesquerda">
 			<h1 class="my-4"> </h1>
 			<div class="list-group">
-				<a href="./AnunciosAnunciante.html" class="list-group-item"><?php print $MeusAnu;?></a>
+				<a href="./anuncios.php" class="list-group-item"><?php print $MeusAnu;?></a>
 				<a href="#" class="list-group-item active"><?php print $adicionaAnu;?></a>
 			</div>
 		</div>
