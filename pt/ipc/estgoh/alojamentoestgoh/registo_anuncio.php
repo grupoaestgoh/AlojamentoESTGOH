@@ -27,7 +27,7 @@ if(isset($_GET["id_anuncio_editar"]) && !empty($_GET["id_anuncio_editar"])){
   $guarda2="";
 
   $anuncioVerifica=null;
-  $anuncioVerifica=$dao_anuncios->listar_anuncios_anunciante($_SESSION["id_anuncio_editar"],-4);
+  $anuncioVerifica=$dao_anuncios->listar_anuncios_anunciante($_SESSION["AE_id_utilizador"],-4);
   if($anuncioVerifica!=null){
     for ($i=0; $i <sizeof($anuncioVerifica) ; $i++) {
       $anuncioAA=$anuncioVerifica[$i];
@@ -788,7 +788,7 @@ if(isset($_POST["InserirAnu"]) && !empty($_POST["InserirAnu"])){
                 jQuery("#aviso_registo_insucesso_nome").show();
                 });
                 </script>');
-                header("refresh: 1;registo_anuncio.php");
+              //  header("refresh: 1;registo_anuncio.php");
 
       }
     }
@@ -977,7 +977,13 @@ if(isset($_POST["EditarPassword"]) && !empty($_POST["EditarPassword"])){
       $tudo=false;
 
     }
-    if( (strlen($Codigo_postal2)+strlen($anuncio->Codigo_postal))!=7 ){
+    if( (strlen($anuncio->Codigo_postal))!=4 ){
+      echo'<script>malCodigo.style.border="2px solid red";</script>';
+      echo'<script>$("#falhaCodigo").text("O codigo tem de ter tamanho ate 8 digitos!");</script>';
+      $tudo=false;
+
+    }
+    if( strlen($Codigo_postal2)!=3 ){
       echo'<script>malCodigo.style.border="2px solid red";</script>';
       echo'<script>malCodigo2.style.border="2px solid red";</script>';
       echo'<script>$("#falhaCodigo").text("O codigo tem de ter tamanho ate 8 digitos!");</script>';
