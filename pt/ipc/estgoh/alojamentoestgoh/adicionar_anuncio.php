@@ -32,7 +32,9 @@ if(isset($_GET["id_anuncio_editar"]) && !empty($_GET["id_anuncio_editar"])){
   $guarda2="";
 
   $anuncioVerifica=null;//IMPORTANTE $_SESSION["id_anuncio_editar"]
-  $anuncioVerifica=$dao_anuncios->listar_anuncios_anunciante(3,-4);
+  $anuncioVerifica=$dao_anuncios->listar_anuncios_anunciante($_SESSION["AE_id_utilizador"],-4);
+  $tem=0;
+
   if($anuncioVerifica!=null){
     for ($i=0; $i <sizeof($anuncioVerifica) ; $i++) {
       $anuncioAA=$anuncioVerifica[$i];
@@ -51,11 +53,14 @@ if(isset($_GET["id_anuncio_editar"]) && !empty($_GET["id_anuncio_editar"])){
         if($anuncio->Mobilia==0)$anuncio->Mobilia=2;
         if($anuncio->Utensilios==0)$anuncio->Utensilios=2;
         if($anuncio->Animais==0)$anuncio->Animais=2;
+        $tem=1;
 
 
 
       }
     }
+    if($tem==0)header('Location: meus_anuncios.php');
+
   }else{
   header('Location: meus_anuncios.php');
 }
@@ -778,7 +783,7 @@ if(isset($_POST["EditarPassword"]) && !empty($_POST["EditarPassword"])){
                         jQuery("#aviso_registo_insucesso_nome").show();
                         });
                         </script>');
-                        header("refresh: 1;adicionar_anuncio.php");
+                      //  header("refresh: 1;adicionar_anuncio.php");
 
               }
             }
@@ -914,7 +919,13 @@ if(isset($_POST["EditarPassword"]) && !empty($_POST["EditarPassword"])){
               $tudo=false;
 
             }
-            if( (strlen($Codigo_postal2)+strlen($anuncio->Codigo_postal))!=7 ){
+            if( (strlen($anuncio->Codigo_postal))!=4 ){
+              echo'<script>malCodigo.style.border="2px solid red";</script>';
+              echo'<script>$("#falhaCodigo").text("O codigo tem de ter tamanho ate 8 digitos!");</script>';
+              $tudo=false;
+
+            }
+            if( strlen($Codigo_postal2)!=3 ){
               echo'<script>malCodigo.style.border="2px solid red";</script>';
               echo'<script>malCodigo2.style.border="2px solid red";</script>';
               echo'<script>$("#falhaCodigo").text("O codigo tem de ter tamanho ate 8 digitos!");</script>';
@@ -1021,43 +1032,47 @@ if(isset($_POST["EditarPassword"]) && !empty($_POST["EditarPassword"])){
           }
         }
 
-        function verifica_imagens_tamanho($dao_anuncios,$mybd,$tudo){//ve se propriedades da imagens são aceites
-            $arrayFotosCorreto=[];
-            $posicao=0;
-          //  $mybd=new BaseDados();
-            $mybd->ligar_bd();
+
 
             //verifica tipo imagens, tamanho
-            for ($i=0; $i <6; $i++) {
-              if(isset($_FILES["file".$i])){
-                if($_FILES["file".$i]["name"] ){
-                  $arr_info = pathinfo($_FILES["file".$i]['name']);
-                    //verificacao tamanho
-                    $tamanhoImg=$_FILES["file".$i]['size'];
-                    //extensao da imagem
-                    $extensao = $arr_info["extension"];
-                    if(($extensao=='jpg' || $extensao=='png' || $extensao=='gif') && ($tamanhoImg>10000 && $tamanhoImg<1000000) ){
+            function verifica_imagens_tamanho($dao_anuncios,$mybd,$tudo){//ve se propriedades da imagens são aceites
+                $arrayFotosCorreto=[];
+                $posicao=0;
+              //  $mybd=new BaseDados();
+                $mybd->ligar_bd();
 
-                          if(!isset($_GET["id_anuncio_editar"]))$idAnuncioNovo=(sizeof($dao_anuncios->listar_anuncios(" "))+1);
-                          else $idAnuncioNovo=$_GET["id_anuncio_editar"];
-                          $nomeImg="anu_".$idAnuncioNovo."_".$posicao.".".$extensao;
-                          $arrayFotosCorreto[$posicao]=new Foto(0,$idAnuncioNovo,'./img/img_anuncios/',$nomeImg);
-                          $posicao++;
+                //verifica tipo imagens, tamanho
+                for ($i=0; $i <6; $i++) {
+                  if(isset($_FILES["file".$i])){
+                    if($_FILES["file".$i]["name"] ){
+                      $arr_info = pathinfo($_FILES["file".$i]['name']);
+                        //verificacao tamanho
+                        $tamanhoImg=$_FILES["file".$i]['size'];
+                        //extensao da imagem
+                        $extensao = $arr_info["extension"];
+                        if(($extensao=='jpg' || $extensao=='png' || $extensao=='gif') && ($tamanhoImg>10000 && $tamanhoImg<1000000) ){
+
+                              if(!isset($_GET["id_anuncio_editar"]))$idAnuncioNovo=(sizeof($dao_anuncios->listar_anuncios(""))+1);
+                              else $idAnuncioNovo=$_GET["id_anuncio_editar"];
+                              $nomeImg="anu_".$idAnuncioNovo."_".$posicao.".".$extensao;
+                              $arrayFotosCorreto[$posicao]=new Foto(0,$idAnuncioNovo,'./img/img_anuncios/',$nomeImg);
+                              $posicao++;
+                        }
                     }
+                  }
                 }
-              }
-            }
-            $mybd->desligar_bd();
+                $mybd->desligar_bd();
 
-            if($posicao>=3){
-              return $arrayFotosCorreto;
-            }else{
-              echo'<script>$("#falhaFotos").text("Deve colocar pelo menos tres fotos. Formatos permitidos-JPG/PNG/GIF. Tem de ter tamanho entre 10000 e 1000000!");</script>';
-              echo'<script>malFotos.style.border="2px solid red";</script>';
-              return null;
+                if($posicao>=3){
+                  return $arrayFotosCorreto;
+                }else{
+                  echo'<script>$("#falhaFotos").text("Deve colocar pelo menos tres fotos. Formatos permitidos-JPG/PNG/GIF. Tem de ter tamanho entre 10000 e 1000000!");</script>';
+                  echo'<script>malFotos.style.border="2px solid red";</script>';
+                  return null;
 
+                }
             }
-        }
+
 
 				function verifica_so_numeros($string){
 				    for ($i=0; $i < strlen($string); $i++) {
