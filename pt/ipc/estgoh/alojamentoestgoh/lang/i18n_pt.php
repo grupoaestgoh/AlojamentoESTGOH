@@ -184,6 +184,7 @@ $certezaEliminaAnu="Tem  a certeza que quer eliminar o anuncio?";
 $Eliminar="Eliminar";
 $propAtivos="Proprietarios Ativos";
 $gestorAtivos="Gestores Ativos";
-$desativaGes="Desativar Gestor"
+$desativaGes="Desativar Gestor";
+$eliminarAnu="Eliminar Anuncio";
 
 ?>

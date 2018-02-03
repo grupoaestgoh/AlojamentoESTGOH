@@ -111,7 +111,7 @@ ob_start();
          //
          $mybd->ligar_bd();
 
-         $notificacoes_uti=$dao_notificacao->listar_notificacoes(-1);//para anunciantes -$_SESSION["AE_id_utilizador"]
+         $notificacoes_uti=$dao_notificacao->listar_notificacoes(-1);
          if (sizeof($notificacoes_uti)>0) {
            for($i=0;$i<sizeof($notificacoes_uti);$i++){
              $notificacao=$notificacoes_uti[$i];
@@ -310,8 +310,7 @@ ob_start();
 			  <?php
               $mybd->ligar_bd();
 
-			  $todos_anuncios=$dao_anuncios->listar_anuncios_anunciante(3,1);
-			  //$todos_anuncios=$dao_anuncios->listar_anuncios_anunciante($_SESSION["AE_id_utilizador"],-4);
+			  $todos_anuncios=$dao_anuncios->listar_anuncios_anunciante(3,-6);//$_SESSION["AE_id_utilizador"]
 
 			  if($todos_anuncios == null)
 				print $naoanuncios;
@@ -320,7 +319,6 @@ ob_start();
 					$anuncios=$todos_anuncios[$i];
 					$Proprietario=$dao_utilizadores->obter_utilizador_id($anuncios->Proprietario);
 					$fotosAnuncio=$dao_fotos->listar_fotos_anuncio($anuncios->Id_Anuncio);
-					$fotos=$fotosAnuncio[$i];
 			  ?>
 
                 <!-- Primeiro Flex Item -->
@@ -344,7 +342,8 @@ ob_start();
 									  <div class="carousel-item <?php if($l==0) echo "active";?>">
 									  	<img src="<?php echo $foto->Caminho; echo $foto->Nome?>" alt="" width="100%">
 									  </div>
-									  <?php } ?>
+									  <?php
+                  } ?>
                                     </div>
                                     <a class="carousel-control-prev" href="#carouselExampleIndicators1<?php echo $anuncios->Id_Anuncio;?>" role="button" data-slide="prev">
                                       <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -597,7 +596,7 @@ ob_start();
                                     <div class="row">
                                         <div class="col-lg-6">
                                           <div class="btneditar">
-                                          <form action="meus_anuncios.php" method="POST">
+                                          <form action="registo_anuncio.php?id_anuncio_editar= <?php print$anuncios->Id_Anuncio ?>" method="POST">
                                             <input type="hidden" name="idAnuncioEditar" value="<?php echo $anuncios->Id_Anuncio;?>">
                                             <input type="submit" name="editarAnuncio" class="btn btn-primary" value="<?php print $editar ?>">
                                           </form>
@@ -653,21 +652,7 @@ ob_start();
               <!-- Fim De Linhas -->
           </div> <!-- /.linhaflex div -->
          </div><!-- /.container -->
-         <div class="row">
-           <div class="col-lg-12">
-             <div class="paginacao">
-               <ul class="pagination">
-                 <li><a href="#"><</a></li>
-                 <li class="active"><a href="#">1</a></li>
-                 <li><a href="#">2</a></li>
-                 <li><a href="#">3</a></li>
-                 <li><a href="#">4</a></li>
-                 <li><a href="#">5</a></li>
-                 <li><a href="#">></a></li>
-               </ul>
-             </div>
-           </div>
-         </div>
+
         </div>
         <!--Fim Secção da direita -->
       </div>
@@ -686,9 +671,7 @@ ob_start();
   </script>
   <!-- Fim Scripts -->
   <?php
-  if(isset($_POST["editarAnuncio"]) && !empty($_POST["editarAnuncio"])){
-    header("refresh: 0;registo_anuncio.php?id_anuncio_editar=".$_POST["idAnuncioEditar"]);
-  }
+
 
   if(isset($_POST["idAnuncioEliminar"]) && !empty($_POST["idAnuncioEliminar"])){
     echo "<script>alert('olas'):</script>";

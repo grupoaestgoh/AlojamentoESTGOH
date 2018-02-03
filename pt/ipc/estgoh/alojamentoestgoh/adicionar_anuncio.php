@@ -22,16 +22,40 @@ $Codigo_postal2=null;
 $idanuncioEditar=0;
 
 //verifica se é para editar algum anuncio
+$anuncio=new Anuncio(null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,0,0,null,null,null,null);
+$Codigo_postal2=null;
+$idanuncioEditar=0;
+if(!isset($_POST["InserirAnu"]) && empty($_POST["InserirAnu"])){
+
+//verifica se é para editar algum anuncio
 if(isset($_GET["id_anuncio_editar"]) && !empty($_GET["id_anuncio_editar"])){
   $mybd->ligar_bd();
-  $anuncioVerifica=null;
-  $anuncioVerifica=$dao_anuncios->listar_anuncios_anunciante($_SESSION["AE_id_utilizador"],-4);
+  $guarda="";
+  $guarda2="";
+
+  $anuncioVerifica=null;//IMPORTANTE $_SESSION["id_anuncio_editar"]
+  $anuncioVerifica=$dao_anuncios->listar_anuncios_anunciante(3,-4);
   if($anuncioVerifica!=null){
     for ($i=0; $i <sizeof($anuncioVerifica) ; $i++) {
       $anuncioAA=$anuncioVerifica[$i];
       if($anuncioAA->Id_Anuncio==$_GET["id_anuncio_editar"]){
         $idanuncioEditar=$_GET["id_anuncio_editar"];
         $anuncio=$anuncioAA;
+        for ($i=0; $i <strlen($anuncio->Codigo_postal); $i++) {
+          if($i<4)$guarda.=$anuncio->Codigo_postal[$i];
+          if($i>4)$guarda2.=$anuncio->Codigo_postal[$i];
+        }
+        $anuncio->Codigo_postal=$guarda;
+        $Codigo_postal2=$guarda2;
+        if($anuncio->Wc==0)$anuncio->Wc=2;
+        if($anuncio->Internet==0)$anuncio->Internet=2;
+        if($anuncio->Despesas==0)$anuncio->Despesas=2;
+        if($anuncio->Mobilia==0)$anuncio->Mobilia=2;
+        if($anuncio->Utensilios==0)$anuncio->Utensilios=2;
+        if($anuncio->Animais==0)$anuncio->Animais=2;
+
+
+
       }
     }
   }else{
@@ -39,7 +63,7 @@ if(isset($_GET["id_anuncio_editar"]) && !empty($_GET["id_anuncio_editar"])){
 }
 $mybd->desligar_bd();
 }
-
+}
 
 if(isset($_POST["idAnu"]) && !empty($_POST["idAnu"])){
   $anuncio->Email=$_POST["idAnu"];
@@ -85,8 +109,10 @@ if(isset($_POST["mobiliasim"])){
   else $anuncio->Mobilia=2;
 }
 if(isset($_POST["utensiliosim"])){
-  if(!strcmp("sim",$_POST["utensiliosim"]))$anuncio->Utensilios=1;
+
+  if(!strcmp("sim",$_POST["utensiliosim"]) )$anuncio->Utensilios=1;
   else $anuncio->Utensilios=2;
+
 }
 if(isset($_POST["animalsim"])){
   if(!strcmp("sim",$_POST["animalsim"]))$anuncio->Animais=1;
@@ -106,6 +132,7 @@ if(isset($_POST["longi"])){
 if(isset($_POST["lati"])){
     if(strcmp($_POST["lati"],"40.36095028657701"))$anuncio->Latitude=$_POST["lati"];
 }
+
 ?>
 
 <!-- Navigation -->
@@ -349,7 +376,7 @@ if(isset($_POST["lati"])){
 					</div>
 					<div class="row">
             <div class="addanuncio col-12">
-              <form id="signup" enctype="multipart/form-data" action="adicionar_anuncio.php" method="post">
+              <form id="signup" enctype="multipart/form-data" action="adicionar_anuncio.php<?php if(isset($_GET['id_anuncio_editar'])) print "?id_anuncio_editar=".$_GET["id_anuncio_editar"];?>" method="post">
                   <div class="header">
                       <h3 class="baixo"><?php if(isset($_GET["id_anuncio_editar"])) print $edita; else print $insere;?></h3>
                       <p><?php if(isset($_SESSION["id_anuncio_editar"])) print $formulario;?></p>
@@ -718,265 +745,328 @@ if(isset($_POST["EditarPassword"]) && !empty($_POST["EditarPassword"])){
 					$dao_utilizadores->alterar_estado($_SESSION["AE_id_utilizador"],3);
 					header('Location: index.php');
 				}
-				if(isset($_POST["InserirAnu"]) && !empty($_POST["InserirAnu"])){
-				  $arrayObjetoFotos=[];
-				  $tudoPreenchido=false;
-				  if($idanuncioEditar!=0){
-				    $tudoPreenchido=verifica_campos_prenechidos($anuncio,$Codigo_postal2,$tudoPreenchido);//ve campos preenchidos
-				    if($tudoPreenchido==true){
-				      $arrayObjetoFotos=verifica_imagens_tamanho($dao_anuncios,$mybd,$tudoPreenchido);// ve quantas imagens colocou
-				      if($arrayObjetoFotos==null)echo'<script>malFotos.style.border="2px solid red";</script>';
-				    }
-				    if($tudoPreenchido==true){
-				      if($arrayObjetoFotos!=null){
-				        //adiciona anuncio
-				        $anuncio->Proprietario=$_SESSION["AE_id_utilizador"];
-				        $anuncio->Codigo_postal=$anuncio->Codigo_postal."-".$Codigo_postal2;
-				        $anuncio->Data_Submetido=date('Y-m-d');
-				        $anuncio->Disponibilidade=1;
-				        $anuncio->Estado=1;
-				        arranjo_caracteristicas($anuncio);
-				        $mybd->ligar_bd();
-				        $dao_anuncios->inserir_anuncio($anuncio);
-				        //adiciona imagens na bd
-				        for ($i=0; $i <sizeof($arrayObjetoFotos); $i++) {
-				          $FotoObj=$arrayObjetoFotos[$i];
-				          $dao_fotos->inserir_foto($FotoObj);
-				        }
-				        //faz upload das imagens
-				        upload_imgens($arrayObjetoFotos,$Caminho);
-				        $mybd->desligar_bd();
-				        $anuncio=new Anuncio(null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,0,0,null,null,null,null);
-				        print('<script>
-				                jQuery(document).ready(function( $ ) {
-				                jQuery("#aviso_registo_insucesso_nome").show();
-				                });
-				                </script>');
-				      }
-				    }
-				  }else{
-				    $existemfotos=0;
-				    //se existir id anuncio a editar é diferente!!
-				      $tudoPreenchido=verifica_campos_prenechidos($anuncio,$Codigo_postal2,$tudoPreenchido);//ve campos preenchidos
-				      if($tudoPreenchido==true){
-				        for ($i=0; $i <6; $i++) {
-				          if(isset($_FILES["file".$i])){
-				            if($_FILES["file".$i]["name"] ){
-				              $existemfotos=1;
-				            }
-				          }
-				        }
-				        if($existemfotos==1)$arrayObjetoFotos=verifica_imagens_tamanho($dao_anuncios,$mybd,$tudoPreenchido);// ve quantas imagens colocou
-				        if($arrayObjetoFotos==null)echo'<script>malFotos.style.border="2px solid red";</script>';
-				      }
-				      if($tudoPreenchido==true){
-				        //adiciona anuncio
-				        $anuncio->Proprietario=$_SESSION["AE_id_utilizador"];
-				        $anuncio->Codigo_postal=$anuncio->Codigo_postal."-".$Codigo_postal2;
-				        $anuncio->Data_Submetido=date('Y-m-d');
-				        $anuncio->Disponibilidade=1;
-				        $anuncio->Estado=1;
-				        $dao_anuncios->editar_anuncio($anuncio);//edita o anuncio
-				        if($arrayObjetoFotos!=null){
-				          //falta remover todas as outras
-				          $dao_fotos->remover_foto($idanuncioEditar);
-				          //adiciona os novos
-				          for ($i=0; $i <sizeof($arrayObjetoFotos); $i++) {
-				            $FotoObj=$arrayObjetoFotos[$i];
-				            $dao_fotos->inserir_foto($FotoObj);
-				          }
-				        }
-				      }
-				  }
-				}
-				function arranjo_caracteristicas($anuncio){
-				  if($anuncio->Animais==2) $anuncio->Animais=0;
-				  if($anuncio->Despesas==2) $anuncio->Despesas=0;
-				  if($anuncio->Utensilios==2) $anuncio->Utensilios=0;
-				  if($anuncio->Internet==2) $anuncio->Internet=0;
-				  if($anuncio->Wc==2) $anuncio->Wc=0;
-				  if($anuncio->Mobilia==2) $anuncio->Mobilia=0;
-				}
-				function verifica_campos_prenechidos($anuncio,$Codigo_postal2,$tudo){
-					//ve se se Email esta  null se sim altera border
-					if($anuncio->Email==null ){
-						echo'<script>malEmail.style.border="2px solid red";</script>';
-						$tudo=false;
-					}
-					if( verifica_tamanho_string($anuncio->Email,25)==false){
-						echo'<script>$("#falhaEmail").text("O email possui demasiados caracteres!");</script>';
-						echo'<script>malEmail.style.border="2px solid red";</script>';
-					$tudo=false;
-				}
-					//ve se se Telefone esta  null se sim altera border
-					if($anuncio->Telefone==null ){
-						echo'<script>malTelefone.style.border="2px solid red";</script>';
-						$tudo=false;
-
-					}
-					if( verifica_so_numeros($anuncio->Telefone)==false || verifica_tamanho_string($anuncio->Telefone,9)==false){
-						echo'<script>malTelefone.style.border="2px solid red";</script>';
-						echo'<script>$("#falhaTelefone").text("O telefone só pode ter 9 numeros!");</script>';
-						$tudo=false;
-
-					}
-					//ve se se Morada esta  null se sim altera border
-					if($anuncio->Morada==null ){
-						echo'<script>malMorada.style.border="2px solid red";</script>';
-						$tudo=false;
-					}
-					if( verifica_tamanho_string($anuncio->Morada,100)==false){
-						echo'<script>malMorada.style.border="2px solid red";</script>';
-						echo'<script>$("#falhaMorada").text("A morada tem um maximo de 100 caracteres!");</script>';
-						$tudo=false;
-					}
-					//ve se se codigopostal esta  null se sim altera border
-					if($anuncio->Codigo_postal==null){
-						echo'<script>malCodigo.style.border="2px solid red";</script>';
-						$tudo=false;
-					}
-					if( verifica_so_numeros($anuncio->Codigo_postal)==false  ||  verifica_so_numeros($Codigo_postal2)==false){
-						echo'<script>malCodigo.style.border="2px solid red";</script>';
-						echo'<script>malCodigo2.style.border="2px solid red";</script>';
-						echo'<script>$("#falhaCodigo").text("O codigo tem de ter apenas numeros!");</script>';
-						$tudo=false;
-					}
-					//ve se se codigopostal esta  null se sim altera border
-					if($Codigo_postal2==null ){
-						echo'<script>malCodigo2.style.border="2px solid red";</script>';
-						$tudo=false;
-					}
-					if( (strlen($Codigo_postal2)+strlen($anuncio->Codigo_postal))>8 ){
-						echo'<script>malCodigo.style.border="2px solid red";</script>';
-						echo'<script>malCodigo2.style.border="2px solid red";</script>';
-						echo'<script>$("#falhaCodigo").text("O codigo tem de ter tamanho ate 8 digitos!");</script>';
-						$tudo=false;
-					}
-					//ve se se titulo esta  null se sim altera border
-					if($anuncio->Titulo==null ){
-						echo'<script>malTitulo.style.border="2px solid red";</script>';
-						$tudo=false;
-					}
-					if( verifica_tamanho_string($anuncio->Titulo,40)==false){
-						echo'<script>malTitulo.style.border="2px solid red";</script>';
-						echo'<script>$("#falhaTitulo").text("O titulo do anuncio tem um maximo de 40 caracteres!");</script>';
-						$tudo=false;
-					}
-					//ve se se titulo esta  null se sim altera border
-					if($anuncio->Preco==null ){
-						echo'<script>malPreco.style.border="2px solid red";</script>';
-						$tudo=false;
-					}
-					if(verifica_so_numeros($anuncio->Preco)==false){
-						echo'<script>malPreco.style.border="2px solid red";</script>';
-						echo'<script>$("#falhaPreco").text("O preço é apenas contituido por digitos!");</script>';
-						$tudo=false;
-					}
-					//ve se se Descricao esta  null se sim altera border
-					if( verifica_tamanho_string($anuncio->Descricao,200)==false){
-						echo'<script>malDescricao.style.border="2px solid red";</script>';
-						$tudo=false;
-					}
-					if($anuncio->Descricao==null){
-						echo'<script>malDescricao.style.border="2px solid red";</script>';
-						echo'<script>$("#falhaDescricao").text("A descrição tem um maximo de 200 caracteres!");</script>';
-						$tudo=false;
-					}
-					//ve se se Wc esta  null se sim altera border
-					if($anuncio->Wc==null){
-						echo'<script>malWc.style.border="2px solid red";</script>';
-						$tudo=false;
-					}
-					//ve se se Wc esta  null se sim altera border
-					if($anuncio->Internet==null){
-						echo'<script>malInternet.style.border="2px solid red";</script>';
-						$tudo=false;
-					}
-					//ve se se Wc esta  null se sim altera border
-					if($anuncio->Despesas==null){
-						echo'<script>malDespesas.style.border="2px solid red";</script>';
-						$tudo=false;
-					}
-					//ve se se Wc esta  null se sim altera border
-					if($anuncio->Mobilia==null){
-						echo'<script>malMobilia.style.border="2px solid red";</script>';
-						$tudo=false;
-					}
-					//ve se se Wc esta  null se sim altera border
-					if($anuncio->Utensilios==null){
-						echo'<script>malUtensilios.style.border="2px solid red";</script>';
-						$tudo=false;
-					}
-					//ve se se Wc esta  null se sim altera border
-					if($anuncio->Animais==null){
-						echo'<script>malAnimais.style.border="2px solid red";</script>';
-						$tudo=false;
-					}
-					//ve se se Wc esta  null se sim altera border
-					if($anuncio->Latitude==null && $anuncio->Longitude==null){
-						echo'<script>malLocalizacao.style.border="2px solid red";</script>';
-						echo'<script>$("#falhaLocalizacao").text("Clique no mapa a localização da casa a arrendar!");</script>';
-						$tudo=false;
-					}
-				if($tudo==false) echo'<script>malFotos.style.border="2px solid red";</script>';
-				return $tudo;
-				}
-
-				function upload_imgens($arrayObjetoFotos,$Caminho){//carrega as imagens para a pasta da estgoh
-
-				  for ($i=0; $i <6; $i++) {
-				    if(isset($_FILES["file".$i])){
-				      if($_FILES["file".$i]["name"] ){
-				        $FotoObj=$arrayObjetoFotos[$i];
-				        $name = $FotoObj->Nome;
-				        $tmp_name = $_FILES["file".$i]['tmp_name'];
-				        $error = $_FILES["file".$i]['error'];
-				             if ($error !== UPLOAD_ERR_OK) {
-				                 echo 'Erro ao fazer o upload:', $error;
-				             } elseif (move_uploaded_file($tmp_name, $Caminho . $name)) {
-				              //print("<script>alert('uploaded!');</script>");
-				             }
-				      }
-				    }
-				  }
-				}
 
 
-				function verifica_imagens_tamanho($dao_anuncios,$mybd,$tudo){//ve se propriedades da imagens são aceites
-				    $arrayFotosCorreto=[];
-				    $posicao=0;
-				  //  $mybd=new BaseDados();
-				    $mybd->ligar_bd();
 
-				    //verifica tipo imagens, tamanho
-				    for ($i=0; $i <6; $i++) {
-				      if(isset($_FILES["file".$i])){
-				        if($_FILES["file".$i]["name"] ){
-				          $arr_info = pathinfo($_FILES["file".$i]['name']);
-				            //verificacao tamanho
-				            $tamanhoImg=$_FILES["file".$i]['size'];
-				            //extensao da imagem
-				            $extensao = $arr_info["extension"];
-				            if(($extensao=='jpg' || $extensao=='png' || $extensao=='gif') && ($tamanhoImg>10000 && $tamanhoImg<1000000) ){
-				                  $idAnuncioNovo=(sizeof($dao_anuncios->listar_anuncios(""))+1);
-				                  $nomeImg="anu_".$idAnuncioNovo."_".$posicao.".".$extensao;
-				                  $arrayFotosCorreto[$posicao]=new Foto(0,$idAnuncioNovo,'./img/img_anuncios/',$nomeImg);
-				                  $posicao++;
-				            }
-				        }
-				      }
-				    }
-				    $mybd->desligar_bd();
+        if(isset($_POST["InserirAnu"]) && !empty($_POST["InserirAnu"])){
+          $arrayObjetoFotos=[];
+          $tudoPreenchido=true;
 
-				    if($posicao>=3){
-				      return $arrayFotosCorreto;
-				    }else{
-				      echo'<script>$("#falhaFotos").text("Deve colocar pelo menos tres fotos. Formatos permitidos-JPG/PNG/GIF. Tem de ter tamanho entre 10000 e 1000000!");</script>';
-				      echo'<script>malFotos.style.border="2px solid red";</script>';
-				      return null;
+          if(!isset($_GET["id_anuncio_editar"]) && empty($_GET["id_anuncio_editar"])){
 
-				    }
-				}
+            $tudoPreenchido=verifica_campos_prenechidos($anuncio,$Codigo_postal2,$tudoPreenchido);//ve campos preenchidos
+
+            if($tudoPreenchido==true){
+              $arrayObjetoFotos=verifica_imagens_tamanho($dao_anuncios,$mybd,$tudoPreenchido);// ve quantas imagens colocou
+              if($arrayObjetoFotos==null)echo'<script>malFotos.style.border="2px solid red";</script>';
+
+            }
+            if($tudoPreenchido==true){
+
+              if($arrayObjetoFotos!=null){
+                //adiciona anuncio
+                $anuncio->Proprietario=3;
+                $anuncio->Codigo_postal=$anuncio->Codigo_postal."-".$Codigo_postal2;
+                $anuncio->Data_Submetido=date('Y-m-d');
+                $anuncio->Disponibilidade=1;
+                $anuncio->Estado=1;
+                arranjo_caracteristicas($anuncio);
+                $mybd->ligar_bd();
+                $dao_anuncios->inserir_anuncio($anuncio);
+                //adiciona imagens na bd
+                for ($i=0; $i <sizeof($arrayObjetoFotos); $i++) {
+                  $FotoObj=$arrayObjetoFotos[$i];
+                  $dao_fotos->inserir_foto($FotoObj);
+                }
+                //faz upload das imagens
+                upload_imgens($arrayObjetoFotos,$Caminho);
+                $mybd->desligar_bd();
+                $anuncio=new Anuncio(null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,0,0,null,null,null,null);
+                print('<script>
+                        jQuery(document).ready(function( $ ) {
+                        jQuery("#aviso_registo_insucesso_nome").show();
+                        });
+                        </script>');
+                        header("refresh: 1;registo_anuncio.php");
+
+              }
+            }
+          }else{
+
+
+            $existemfotos=0;
+
+            //se existir id anuncio a editar é diferente!!
+              $tudoPreenchido=verifica_campos_prenechidos($anuncio,$Codigo_postal2,$tudoPreenchido);//ve campos preenchidos
+              if($tudoPreenchido==true){
+
+                for ($i=0; $i <6; $i++) {
+                  if(isset($_FILES["file".$i])){
+                    if($_FILES["file".$i]["name"] ){
+                      $existemfotos=1;
+                    }
+                  }
+                }
+
+                if($existemfotos==1){
+                  print("<script>alert('entrou')</script>");
+
+                  $arrayObjetoFotos=verifica_imagens_tamanho($dao_anuncios,$mybd,$tudoPreenchido);// ve quantas imagens colocou
+                  if($arrayObjetoFotos==null){
+                    echo'<script>malFotos.style.border="2px solid red";</script>';
+                    $tudoPreenchido=false;
+                  }
+                }
+              }
+              $mybd->ligar_bd();
+
+              if($tudoPreenchido==true){
+                //adiciona anuncio
+                $anuncio->Id_Anuncio=$_GET["id_anuncio_editar"];
+                $anuncio->Proprietario=3;
+                $anuncio->Codigo_postal=$anuncio->Codigo_postal."-".$Codigo_postal2;
+                $anuncio->Disponibilidade=1;
+                $anuncio->Estado=3;
+                $anuncio->Data=date("H:m:s");
+                arranjo_caracteristicas($anuncio);
+
+                $dao_anuncios->editar_anuncio($anuncio);//edita o anuncio
+
+                if($arrayObjetoFotos!=null){
+                  //falta remover todas as outras
+
+                  $dao_fotos->remover_foto($_GET["id_anuncio_editar"]);
+                  //adiciona os novos
+                  for ($i=0; $i <sizeof($arrayObjetoFotos); $i++) {
+                    $FotoObj=$arrayObjetoFotos[$i];
+                    $dao_fotos->inserir_foto($FotoObj);
+                  }
+                  upload_imgens($arrayObjetoFotos,$Caminho);
+
+                }
+                print('<script>
+                        jQuery(document).ready(function( $ ) {
+                        jQuery("#aviso_registo_insucesso_nome").show();
+                        });
+                        </script>');
+               header("refresh: 1;registo_anuncio.php");
+                //        if(true==)
+
+              }
+              $mybd->desligar_bd();
+
+          }
+
+        }
+        function arranjo_caracteristicas($anuncio){
+          if($anuncio->Animais==2) $anuncio->Animais=0;
+          if($anuncio->Despesas==2) $anuncio->Despesas=0;
+          if($anuncio->Utensilios==2) $anuncio->Utensilios=0;
+          if($anuncio->Internet==2) $anuncio->Internet=0;
+          if($anuncio->Wc==2) $anuncio->Wc=0;
+          if($anuncio->Mobilia==2) $anuncio->Mobilia=0;
+        }
+
+          function verifica_campos_prenechidos($anuncio,$Codigo_postal2,$tudo){
+            //ve se se Email esta  null se sim altera border
+            if($anuncio->Email==null ){
+              echo'<script>malEmail.style.border="2px solid red";</script>';
+              $tudo=false;
+
+            }
+            if( verifica_tamanho_string($anuncio->Email,25)==false){
+              echo'<script>$("#falhaEmail").text("O email possui demasiados caracteres!");</script>';
+              echo'<script>malEmail.style.border="2px solid red";</script>';
+            $tudo=false;
+
+          }
+            //ve se se Telefone esta  null se sim altera border
+            if($anuncio->Telefone==null ){
+              echo'<script>malTelefone.style.border="2px solid red";</script>';
+              $tudo=false;
+
+            }
+            if( verifica_so_numeros($anuncio->Telefone)==false || strlen($anuncio->Telefone)!=9){
+              echo'<script>malTelefone.style.border="2px solid red";</script>';
+              echo'<script>$("#falhaTelefone").text("O telefone só pode ter 9 numeros!");</script>';
+              $tudo=false;
+
+            }
+            //ve se se Morada esta  null se sim altera border
+            if($anuncio->Morada==null ){
+              echo'<script>malMorada.style.border="2px solid red";</script>';
+              $tudo=false;
+
+            }
+            if( verifica_tamanho_string($anuncio->Morada,100)==false){
+              echo'<script>malMorada.style.border="2px solid red";</script>';
+              echo'<script>$("#falhaMorada").text("A morada tem um maximo de 100 caracteres!");</script>';
+              $tudo=false;
+
+            }
+            //ve se se codigopostal esta  null se sim altera border
+            if($anuncio->Codigo_postal==null){
+              echo'<script>malCodigo.style.border="2px solid red";</script>';
+              $tudo=false;
+
+            }
+            if( verifica_so_numeros($anuncio->Codigo_postal)==false  ||  verifica_so_numeros($Codigo_postal2)==false){
+              echo'<script>malCodigo.style.border="2px solid red";</script>';
+              echo'<script>malCodigo2.style.border="2px solid red";</script>';
+              echo'<script>$("#falhaCodigo").text("O codigo tem de ter apenas numeros!");</script>';
+              $tudo=false;
+
+            }
+            //ve se se codigopostal esta  null se sim altera border
+            if($Codigo_postal2==null ){
+              echo'<script>malCodigo2.style.border="2px solid red";</script>';
+              $tudo=false;
+
+            }
+            if( (strlen($Codigo_postal2)+strlen($anuncio->Codigo_postal))!=7 ){
+              echo'<script>malCodigo.style.border="2px solid red";</script>';
+              echo'<script>malCodigo2.style.border="2px solid red";</script>';
+              echo'<script>$("#falhaCodigo").text("O codigo tem de ter tamanho ate 8 digitos!");</script>';
+              $tudo=false;
+
+            }
+            //ve se se titulo esta  null se sim altera border
+            if($anuncio->Titulo==null ){
+              echo'<script>malTitulo.style.border="2px solid red";</script>';
+              $tudo=false;
+
+            }
+            if( verifica_tamanho_string($anuncio->Titulo,40)==false){
+              echo'<script>malTitulo.style.border="2px solid red";</script>';
+              echo'<script>$("#falhaTitulo").text("O titulo do anuncio tem um maximo de 40 caracteres!");</script>';
+              $tudo=false;
+
+            }
+            //ve se se titulo esta  null se sim altera border
+            if($anuncio->Preco==null ){
+              echo'<script>malPreco.style.border="2px solid red";</script>';
+              $tudo=false;
+
+            }
+            if(verifica_so_numeros($anuncio->Preco)==false){
+              echo'<script>malPreco.style.border="2px solid red";</script>';
+              echo'<script>$("#falhaPreco").text("O preço é apenas contituido por digitos!");</script>';
+              $tudo=false;
+
+            }
+            //ve se se Descricao esta  null se sim altera border
+            if( verifica_tamanho_string($anuncio->Descricao,200)==false){
+              echo'<script>malDescricao.style.border="2px solid red";</script>';
+              $tudo=false;
+
+            }
+            if($anuncio->Descricao==null){
+              echo'<script>malDescricao.style.border="2px solid red";</script>';
+              echo'<script>$("#falhaDescricao").text("A descrição tem um maximo de 200 caracteres!");</script>';
+              $tudo=false;
+
+            }
+            //ve se se Wc esta  null se sim altera border
+            if($anuncio->Wc==null){
+              echo'<script>malWc.style.border="2px solid red";</script>';
+              $tudo=false;
+
+            }
+            //ve se se Wc esta  null se sim altera border
+            if($anuncio->Internet==null){
+              echo'<script>malInternet.style.border="2px solid red";</script>';
+              $tudo=false;
+
+            }
+            //ve se se Wc esta  null se sim altera border
+            if($anuncio->Despesas==null){
+              echo'<script>malDespesas.style.border="2px solid red";</script>';
+              $tudo=false;
+
+            }
+            //ve se se Wc esta  null se sim altera border
+            if($anuncio->Mobilia==null){
+              echo'<script>malMobilia.style.border="2px solid red";</script>';
+              $tudo=false;
+
+            }
+            //ve se se Wc esta  null se sim altera border
+            if($anuncio->Utensilios==null){
+              echo'<script>malUtensilios.style.border="2px solid red";</script>';
+              $tudo=false;
+            }
+            //ve se se Wc esta  null se sim altera border
+            if($anuncio->Animais==null){
+              echo'<script>malAnimais.style.border="2px solid red";</script>';
+              $tudo=false;
+            }
+            //ve se se Wc esta  null se sim altera border
+            if($anuncio->Latitude==null && $anuncio->Longitude==null){
+              echo'<script>malLocalizacao.style.border="2px solid red";</script>';
+              echo'<script>$("#falhaLocalizacao").text("Clique no mapa a localização da casa a arrendar!");</script>';
+              $tudo=false;
+
+            }
+          if(!isset($_GET["id_anuncio_editar"]))if($tudo==false) echo'<script>malFotos.style.border="2px solid red";</script>';
+          return $tudo;
+        }
+
+        function upload_imgens($arrayObjetoFotos,$Caminho){//carrega as imagens para a pasta da estgoh
+
+          for ($i=0; $i <6; $i++) {
+            if(isset($_FILES["file".$i])){
+              if($_FILES["file".$i]["name"] ){
+                $FotoObj=$arrayObjetoFotos[$i];
+                $name = $FotoObj->Nome;
+                $tmp_name = $_FILES["file".$i]['tmp_name'];
+                $error = $_FILES["file".$i]['error'];
+                     if ($error !== UPLOAD_ERR_OK) {
+                         echo 'Erro ao fazer o upload:', $error;
+                     } elseif (move_uploaded_file($tmp_name, $Caminho . $name)) {
+                      //print("<script>alert('uploaded!');</script>");
+                     }
+              }
+            }
+          }
+        }
+
+        function verifica_imagens_tamanho($dao_anuncios,$mybd,$tudo){//ve se propriedades da imagens são aceites
+            $arrayFotosCorreto=[];
+            $posicao=0;
+          //  $mybd=new BaseDados();
+            $mybd->ligar_bd();
+
+            //verifica tipo imagens, tamanho
+            for ($i=0; $i <6; $i++) {
+              if(isset($_FILES["file".$i])){
+                if($_FILES["file".$i]["name"] ){
+                  $arr_info = pathinfo($_FILES["file".$i]['name']);
+                    //verificacao tamanho
+                    $tamanhoImg=$_FILES["file".$i]['size'];
+                    //extensao da imagem
+                    $extensao = $arr_info["extension"];
+                    if(($extensao=='jpg' || $extensao=='png' || $extensao=='gif') && ($tamanhoImg>10000 && $tamanhoImg<1000000) ){
+
+                          if(!isset($_GET["id_anuncio_editar"]))$idAnuncioNovo=(sizeof($dao_anuncios->listar_anuncios(""))+1);
+                          else $idAnuncioNovo=$_GET["id_anuncio_editar"];
+                          $nomeImg="anu_".$idAnuncioNovo."_".$posicao.".".$extensao;
+                          $arrayFotosCorreto[$posicao]=new Foto(0,$idAnuncioNovo,'./img/img_anuncios/',$nomeImg);
+                          $posicao++;
+                    }
+                }
+              }
+            }
+            $mybd->desligar_bd();
+
+            if($posicao>=3){
+              return $arrayFotosCorreto;
+            }else{
+              echo'<script>$("#falhaFotos").text("Deve colocar pelo menos tres fotos. Formatos permitidos-JPG/PNG/GIF. Tem de ter tamanho entre 10000 e 1000000!");</script>';
+              echo'<script>malFotos.style.border="2px solid red";</script>';
+              return null;
+
+            }
+        }
 
 				function verifica_so_numeros($string){
 				    for ($i=0; $i < strlen($string); $i++) {
