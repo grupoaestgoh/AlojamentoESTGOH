@@ -28,6 +28,7 @@ if(isset($_GET["id_anuncio_editar"]) && !empty($_GET["id_anuncio_editar"])){
 
   $anuncioVerifica=null;
   $anuncioVerifica=$dao_anuncios->listar_anuncios_anunciante($_SESSION["AE_id_utilizador"],-4);
+  $tem=0;
   if($anuncioVerifica!=null){
     for ($i=0; $i <sizeof($anuncioVerifica) ; $i++) {
       $anuncioAA=$anuncioVerifica[$i];
@@ -46,11 +47,12 @@ if(isset($_GET["id_anuncio_editar"]) && !empty($_GET["id_anuncio_editar"])){
         if($anuncio->Mobilia==0)$anuncio->Mobilia=2;
         if($anuncio->Utensilios==0)$anuncio->Utensilios=2;
         if($anuncio->Animais==0)$anuncio->Animais=2;
-
+        $tem=1;
 
 
       }
     }
+    if($tem==0)header('Location: meus_anuncios.php');
   }else{
   header('Location: meus_anuncios.php');
 }

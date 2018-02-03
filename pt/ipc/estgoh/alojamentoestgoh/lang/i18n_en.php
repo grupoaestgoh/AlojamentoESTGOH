@@ -1,4 +1,6 @@
 <?php
+$Caminho = './img/';
+
 //titulos
 	$titulo_pagina="AlojamentoESTGOH-HomePage";
 
