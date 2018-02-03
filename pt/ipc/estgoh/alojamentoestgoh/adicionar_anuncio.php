@@ -787,7 +787,7 @@ if(isset($_POST["EditarPassword"]) && !empty($_POST["EditarPassword"])){
                         jQuery("#aviso_registo_insucesso_nome").show();
                         });
                         </script>');
-                        header("refresh: 1;registo_anuncio.php");
+                        header("refresh: 1;adicionar_anuncios.php");
 
               }
             }
@@ -849,7 +849,7 @@ if(isset($_POST["EditarPassword"]) && !empty($_POST["EditarPassword"])){
                         jQuery("#aviso_registo_insucesso_nome").show();
                         });
                         </script>');
-               header("refresh: 1;registo_anuncio.php");
+               header("refresh: 1;adicionar_anuncios.php");
                 //        if(true==)
 
               }

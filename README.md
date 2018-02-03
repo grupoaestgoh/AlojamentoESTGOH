@@ -7,7 +7,7 @@
 
 3. pagina home_page (todos)						          - Falta 			[Bruno]
 
-4. pagina anuncios(anunciante)					        - Falta 			[Bruno]
+4. pagina anuncios(anunciante)					        - Concluida 	[Bruno]
 
 
 5. pagina adicionar_anuncio (anunciante)		    - Concluida
@@ -38,4 +38,4 @@
 
 15. pagina ver_anuncios_proprietarios (gestor)  - Concluida  	
 
-16. pagina meus_anuncios(gestor) 				        - Falta      	[Miguel]
+16. pagina meus_anuncios(gestor) 				        - Concluido      	[Miguel]

@@ -310,7 +310,7 @@ ob_start();
 			  <?php
               $mybd->ligar_bd();
 
-			  $todos_anuncios=$dao_anuncios->listar_anuncios_anunciante(3,-6);//$_SESSION["AE_id_utilizador"]
+			  $todos_anuncios=$dao_anuncios->listar_anuncios_anunciante($_SESSION["AE_id_utilizador"],-6);//
 
 			  if($todos_anuncios == null)
 				print $naoanuncios;
@@ -651,6 +651,8 @@ ob_start();
 
               <!-- Fim De Linhas -->
           </div> <!-- /.linhaflex div -->
+
+
          </div><!-- /.container -->
 
         </div>
