@@ -44,11 +44,11 @@ vermelho
     global $mybd;
     //lista para gestores
     if($id_utilizador==-1){
-      $STH = $mybd->DBH->prepare("Select not_id,uti_id,not_descricao,not_estado,not_data,not_hora,not_tipo,not_cor from notificacao where not_tipo=1 order by not_cor asc;");
+      $STH = $mybd->DBH->prepare("Select not_id,uti_id,not_descricao,not_estado,not_data,not_hora,not_tipo,not_cor from notificacao where not_tipo=1 order by not_id desc;");
 
     }else{
       //lista para anunciante especifico
-      $STH = $mybd->DBH->prepare("Select not_id,uti_id,not_descricao,not_estado,not_data,not_hora,not_tipo,not_cor from notificacao where uti_id=?  order by not_cor asc;");
+      $STH = $mybd->DBH->prepare("Select not_id,uti_id,not_descricao,not_estado,not_data,not_hora,not_tipo,not_cor from notificacao where uti_id=?  order by not_id desc;");
       $STH->bindParam(1, $id_utilizador);
     }
     $STH->execute();

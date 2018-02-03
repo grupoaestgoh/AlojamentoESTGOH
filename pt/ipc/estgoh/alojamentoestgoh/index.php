@@ -3,7 +3,7 @@
 	session_start();
 	//carregar controladores
 	include("./comum/carregacontroladores.php");
-	$dao_utilizador=new DAOUtilizadores();
+
 
 	/*//verificar autorização
 	if (isset($_SESSION["dtd_id_utilizador"])){
@@ -211,25 +211,20 @@ if(isset($_POST["entrar"]) && !empty($_POST["entrar"])){
 						});
 				</script>');
 				//iniciar sessão
+				$log=new log(-1,$utilizador->Id_Utilizador,"Iniciou sessão",date('Y-m-d'),date('H:m:s'));
+				$dao_logs->inserir_log($log);
+				$_SESSION["AE_id_utilizador"] = $utilizador->Id_Utilizador;
+				$_SESSION["AE_nome_utilizador"] = $utilizador->Nome;
+				$_SESSION["AE_email_utilizador"] = $utilizador->Email;
+				$_SESSION["AE_estado_utilizador"] = $utilizador->Estado;
+				$_SESSION["AE_tipo_utilizador"] = $utilizador->Tipo;
+				$_SESSION["AE_data_incricao_utilizador"] = $utilizador->Data_Inscricao;
 				if ($utilizador instanceof Anunciante) {
-					 $_SESSION["AE_id_utilizador"] = $utilizador->Id_Utilizador;
-					 $_SESSION["AE_nome_utilizador"] = $utilizador->Nome;
-					 $_SESSION["AE_email_utilizador"] = $utilizador->Email;
-					 $_SESSION["AE_estado_utilizador"] = $utilizador->Estado;
-					 $_SESSION["AE_tipo_utilizador"] = $utilizador->Tipo;
-					 $_SESSION["AE_data_incricao_utilizador"] = $utilizador->Data_Inscricao;
 					 header("Location: ./anuncios.php");
 				}
 				if ($utilizador instanceof Gestor) {
-					 $_SESSION["AE_id_utilizador"] = $utilizador->Id_Utilizador;
-					 $_SESSION["AE_nome_utilizador"] = $utilizador->Nome;
-					 $_SESSION["AE_email_utilizador"] = $utilizador->Email;
-					 $_SESSION["AE_estado_utilizador"] = $utilizador->Estado;
-					 $_SESSION["AE_tipo_utilizador"] = $utilizador->Tipo;
-					 $_SESSION["AE_data_incricao_utilizador"] = $utilizador->Data_Inscricao;
 					 header("Location: ./meus_anuncios.php");
 				}
-
 			}else{
 				print('<script>
 								jQuery(document).ready(function( $ ) {
@@ -239,10 +234,10 @@ if(isset($_POST["entrar"]) && !empty($_POST["entrar"])){
 			}
 		}else{
 			$array_email=explode("@",$_POST['emailL']);
-			$utilizador=$array_email[0];
+			$user=$array_email[0];
 			$password=$_POST['passwordL'];
 			$ldap_host = "192.168.135.1";
-			$ldap_utilizador  = 'uid='.$utilizador.',ou=Users,dc=estgoh,dc=ipc.pt';
+			$ldap_utilizador  = 'uid='.$user.',ou=Users,dc=estgoh,dc=ipc.pt';
 			$ldap_pass = $password;
 			// efetuar a conexao ao ldap
 			$ldap_conexao = ldap_connect($ldap_host) or die("Could not connect to LDAP server.");
@@ -255,8 +250,8 @@ if(isset($_POST["entrar"]) && !empty($_POST["entrar"])){
 							$ldap_bind = @ldap_bind($ldap_conexao,$ldap_utilizador,$ldap_pass);
 							// testar o bind
 							if ($ldap_bind) {
-									$_SESSION["AE_email_utilizador"] = $utilizador->email;
-									$_SESSION["AE_tipo_utilizador"] = $utilizador->Tipo;
+									$_SESSION["AE_email_utilizador"] = $user;
+									$_SESSION["AE_tipo_utilizador"] = 3;
 									header("Location: ./ver_todos_anuncios.php");
 							} else {
 								print('<script>

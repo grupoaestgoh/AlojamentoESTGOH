@@ -12,15 +12,15 @@ class DAOLogs{
 
 
 //Lista log
-  function listar_logs($nome_Pessoa){
+  function listar_logs($opcao){
     $arraylogs=[];
     global $mybd;
     //lista todods logs
-    if($nome_Pessoa==1){
+    if($opcao==0){
       $STH = $mybd->DBH->prepare("Select aca_id,uti_id,aca_descricao,aca_data,aca_hora from acoes;");
     }else {
-      $STH = $mybd->DBH->prepare("Select aca_id,acoes.uti_id,aca_descricao,aca_data,aca_hora,utilizador.uti_id,uti_nome from acoes,utilizador where acoes.uti_id=utilizador.uti_id and (uti_nome LIKE '%$opcao%' );");
-      $STH->bindParam(1, $id_anuncio);
+      $STH = $mybd->DBH->prepare("Select aca_id,acoes.uti_id,aca_descricao,aca_data,aca_hora,utilizador.uti_id,uti_nome from acoes,utilizador where acoes.uti_id=utilizador.uti_id and acoes.uti_id=?;");
+      $STH->bindParam(1, $opcao);
     }
     $STH->execute();
       $STH->setFetchMode(PDO::FETCH_OBJ);
