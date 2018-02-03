@@ -694,7 +694,7 @@ if(isset($_POST["EditarPassword"]) && !empty($_POST["EditarPassword"])){
     if(!strcmp($_POST["password1"],$_POST["password2"])){
       if(verifca_password($_POST["password1"])==true && verifica_tamanho_string($password,15)==true){
         $password=password_hash($_POST["password1"],PASSWORD_DEFAULT);
-        $utilizador_edita_pass=new Gestor($_SESSION['AE_id_utilizador'],"","",$password,"","");
+        $utilizador_edita_pass=new Utilizador($_SESSION['AE_id_utilizador'],"","",$password,"","");
         $dao_utilizadores->editar_utilizador($utilizador_edita_pass);
         print('<script>
                 jQuery(document).ready(function( $ ) {
