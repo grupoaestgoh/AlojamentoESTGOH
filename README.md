@@ -1,12 +1,14 @@
 # AlojamentoESTGOH
 
 [Falta logs no index e no logout]
+[Falta ajustes nos css]
+[Falta meter os redirecionamentos de paginas]
 
-1. pagina index         						            - Falta css	[Bruno]
+1. pagina index         						            - Concluida
 
 2. pagina registo_primeiro_gestor         		  - Concluida
 
-3. pagina home_page (todos)						          - Falta css		[Bruno]
+3. pagina home_page (todos)						          - Concluida
 
 4. pagina anuncios(anunciante)					        - Concluida
 
