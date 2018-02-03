@@ -373,7 +373,7 @@ if(isset($_POST["lati"])){
 							<img class="alertaImg" src="img/img_aplicacao/certo.png" alt="">
 							</div>
 							<div class="col-lg-8">
-								<span class="glyphicon glyphicon-alert"><?php if(!isset($_GET["id_anuncio_editar"]) print $anuncioSucesso; else $editadoSucesso;?></span>
+								<span class="glyphicon glyphicon-alert"><?php if(!isset($_GET["id_anuncio_editar"]) print $anuncioSucesso; else print $editadoSucesso;?></span>
 							</div>
 						</div>
 					</div>
