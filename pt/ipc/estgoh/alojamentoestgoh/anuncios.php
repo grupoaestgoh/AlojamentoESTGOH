@@ -231,8 +231,8 @@ ob_start();
 <div class="col-lg-3 mesquerda">
 <h1 class="my-4"> </h1>
 <div class="list-group">
-  <a href="./anuncios.php" class="list-group-item"><?php print $MeusAnu;?></a>
-  <a href="./adicionar_anuncio.php" class="list-group-item active"><?php print $adicionaAnu;?></a>
+  <a href="./anuncios.php" class="list-group-item active"><?php print $MeusAnu;?></a>
+  <a href="./adicionar_anuncio.php" class="list-group-item "><?php print $adicionaAnu;?></a>
 </div>
 </div>
 <!-- /.col-lg-3 -->
