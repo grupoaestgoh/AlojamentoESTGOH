@@ -190,5 +190,5 @@ $eliminarAnu="Eliminar Anuncio";
 
 //home_page
 $Ver_Anuncios="Ver Anuncios";
-
+$editadoSucesso="Editado com sucesso!";
 ?>

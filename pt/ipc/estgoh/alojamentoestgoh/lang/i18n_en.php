@@ -171,4 +171,5 @@ $precoMax="Maximum price";
 $utensiliosCoz="Kitchen utensils";
 $limpar="Reset";
 $aplicarFiltros="Apply filters";
+$editadoSucesso="Edited successfully!";
 ?>
