@@ -1,13 +1,14 @@
 # AlojamentoESTGOH
 
+[Falta logs no index e no logout]
 
-1. pagina index         						            - Falta ajax 	[Bruno]
+1. pagina index         						            - Falta css	[Bruno]
 
 2. pagina registo_primeiro_gestor         		  - Concluida
 
-3. pagina home_page (todos)						          - Falta 			[Bruno]
+3. pagina home_page (todos)						          - Falta css		[Bruno]
 
-4. pagina anuncios(anunciante)					        - Concluida 	[Bruno]
+4. pagina anuncios(anunciante)					        - Concluida
 
 
 5. pagina adicionar_anuncio (anunciante)		    - Concluida
@@ -17,7 +18,7 @@
 
 7. pagina desativar_proprietario (gestor)		    - Concluida		
 
-8. pagina registo_outros_gestores(gestor)		    - Falta ajax 	[Fábio]
+8. pagina registo_outros_gestores(gestor)		    - Concluida
 
 
 
@@ -38,4 +39,4 @@
 
 15. pagina ver_anuncios_proprietarios (gestor)  - Concluida  	
 
-16. pagina meus_anuncios(gestor) 				        - Concluido      	[Miguel]
+16. pagina meus_anuncios(gestor) 				        - Concluido

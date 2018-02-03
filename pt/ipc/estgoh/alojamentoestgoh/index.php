@@ -123,9 +123,10 @@
 			      <label class="corPreta" ><b><?php print $email; ?>:</b></label>
 			      <br>
 			      <div class="form-group input-group">
-							<input class="form-control" id="inlineFormInputGroup" type="text" name="emailR" placeholder="Email"  required>
-			        <div class="input-group-addon" >
-								<img id="img_email" class="certo" src="./img/img_aplicacao/certo.png" alt="">
+							<input type="email" placeholder="E-mail" class="form-control" name="emailR" id="inlineFormInputGroup" required>
+							<script src="./javascript/ajax.js"> </script>
+							<div class="input-group-addon" id="ajaximg" >
+								<img class="certo" src="./img/img_aplicacao/certo.png" alt="">
 							</div>
 			      </div>
 			      <label class="corPreta"><b><?php print $password; ?>:</b></label>

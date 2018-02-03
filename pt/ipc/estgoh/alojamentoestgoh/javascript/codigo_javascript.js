@@ -1,25 +1,25 @@
 var sections = $('section')
-          , nav = $('nav')
-          , nav_height = nav.outerHeight();
+, nav = $('nav')
+, nav_height = nav.outerHeight();
 
-        $(window).on('scroll', function () {
-          var cur_pos = $(this).scrollTop();
+$(window).on('scroll', function () {
+  var cur_pos = $(this).scrollTop();
 
-          sections.each(function() {
-            var top = $(this).offset().top - nav_height,
-                bottom = top + $(this).outerHeight();
+  sections.each(function() {
+    var top = $(this).offset().top - nav_height,
+        bottom = top + $(this).outerHeight();
 
-            if (cur_pos >= top && cur_pos <= bottom) {
-              nav.find('a').removeClass('active');
-              sections.removeClass('active');
+    if (cur_pos >= top && cur_pos <= bottom) {
+      nav.find('a').removeClass('active');
+      sections.removeClass('active');
 
-              $(this).addClass('active');
-              nav.find('a[href="#'+$(this).attr('id')+'"]').addClass('active');
+      $(this).addClass('active');
+      nav.find('a[href="#'+$(this).attr('id')+'"]').addClass('active');
 
 
-            }
-          });
-        });
+    }
+  });
+});
 
 function Mudarestado(el) {
   var display = document.getElementById(el).style.display;
@@ -27,4 +27,9 @@ function Mudarestado(el) {
     document.getElementById(el).style.display = 'block';
   else
     document.getElementById(el).style.display = 'none';
+}
+
+
+function updateTextInput(val) {
+  document.getElementById('textInput').value = val;
 }

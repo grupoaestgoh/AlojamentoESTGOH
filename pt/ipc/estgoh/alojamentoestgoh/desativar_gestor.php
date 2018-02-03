@@ -199,7 +199,7 @@ ob_start();
        </div>
      </li>
      <li class="nav-item">
-           <a href="desativar_gestor.php?TerminarSessao=TS" class="nav-link navGestorimg formabotao" ><i class="fa fa-fw fa-sign-out"></i><?php print $terminaSessao; ?></a>
+           <a href="./comum/logout.php" class="nav-link navGestorimg formabotao" ><i class="fa fa-fw fa-sign-out"></i><?php print $terminaSessao; ?></a>
      </li>
    </ul>
  </div>
@@ -423,19 +423,7 @@ ob_start();
   </div>
 </div>
 
-<!-- ????????????? Tirar!-->
-<script>
-  function Mudarestado(el) {
-    var display = document.getElementById(el).style.display;
-    if (display == "none")
-      document.getElementById(el).style.display = 'block';
-    else
-      document.getElementById(el).style.display = 'none';
-  }
-  $(document).ready(function(){
-      $('[data-toggle="tooltip"]').tooltip();
-  });
-</script>
+
 
 <?php
 
@@ -512,14 +500,6 @@ ob_start();
     header('Location: index.php');
   }
 
-  //termina sessão
-  if(isset($_GET["TerminarSessao"]) && !empty($_GET["TerminarSessao"])){
-    unset($_SESSION['AE_id_utilizador']);
-    unset($_SESSION['AE_nome_utilizador']);
-    unset($_SESSION['AE_email_utilizador']);
-    unset($_SESSION['AE_estado_utilizador']);
-    header('Location: index.php');
-  }
 
   function verifca_password($pass){
     //verifica se tem pelo menos um caracter maiusculo

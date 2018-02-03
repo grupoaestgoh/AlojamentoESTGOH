@@ -17,10 +17,6 @@ include("./comum/carregacontroladores.php");
 ob_start();
 
 
-$anuncio=new Anuncio(null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,0,0,null,null,null,null);
-$Codigo_postal2=null;
-$idanuncioEditar=0;
-
 //verifica se é para editar algum anuncio
 $anuncio=new Anuncio(null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,0,0,null,null,null,null);
 $Codigo_postal2=null;
@@ -235,7 +231,7 @@ if(isset($_POST["lati"])){
 				 </div>
 			 </li>
 			 <li class="nav-item">
-				 <a href="adicionar_anuncio.php?TerminarSessao=TS" class="nav-link navGestorimg formabotao" ><i class="fa fa-fw fa-sign-out"></i><?php print $terminaSessao; ?></a>
+				 <a href="./comum/logout.php" class="nav-link navGestorimg formabotao" ><i class="fa fa-fw fa-sign-out"></i><?php print $terminaSessao; ?></a>
 
 			 </li>
 		 </ul>
@@ -724,13 +720,6 @@ if(isset($_POST["EditarPassword"]) && !empty($_POST["EditarPassword"])){
                 </script>');
       }
 }
-		if(isset($_GET["TerminarSessao"]) && !empty($_GET["TerminarSessao"])){
-			unset($_SESSION['AE_id_utilizador']);
-			unset($_SESSION['AE_nome_utilizador']);
-			unset($_SESSION['AE_email_utilizador']);
-			unset($_SESSION['AE_estado_utilizador']);
-			header('Location: index.php');
-		}
 		//desativa a conta e vai para a pagina index e elimina session
 				if(isset($_POST["DesativaConta"]) && !empty($_POST["DesativaConta"])){
 					$dao_utilizadores->alterar_estado($_SESSION["AE_id_utilizador"],3);

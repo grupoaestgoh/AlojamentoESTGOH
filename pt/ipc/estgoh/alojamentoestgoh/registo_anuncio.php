@@ -292,7 +292,7 @@ ob_start();
            </div>
          </li>
          <li class="nav-item">
-           <a href="registo_anuncio.php?TerminarSessao=TS" class="nav-link navGestorimg formabotao" ><i class="fa fa-fw fa-sign-out"></i><?php print $terminaSessao; ?></a>
+           <a href="./comum/logout.php" class="nav-link navGestorimg formabotao" ><i class="fa fa-fw fa-sign-out"></i><?php print $terminaSessao; ?></a>
 
          </li>
        </ul>
@@ -744,25 +744,6 @@ ob_start();
 
 
 
-  <script>
-  $(document).ready(function() {
-      $('#dataTables-example').DataTable({
-          responsive: true
-      });
-  });
-
-  function Mudarestado(el) {
-    var display = document.getElementById(el).style.display;
-    if (display == "none")
-      document.getElementById(el).style.display = 'block';
-    else
-      document.getElementById(el).style.display = 'none';
-  }
-  $(document).ready(function(){
-      $('[data-toggle="tooltip"]').tooltip();
-  });
-  </script>
-
   <?php
 
 
@@ -936,14 +917,7 @@ if(isset($_POST["EditarPassword"]) && !empty($_POST["EditarPassword"])){
         $dao_utilizadores->alterar_estado($_SESSION["AE_id_utilizador"],3);
         header('Location: index.php');
       }
-  //termina sessão
-      if(isset($_GET["TerminarSessao"]) && !empty($_GET["TerminarSessao"])){
-        unset($_SESSION['AE_id_utilizador']);
-        unset($_SESSION['AE_nome_utilizador']);
-        unset($_SESSION['AE_email_utilizador']);
-        unset($_SESSION['AE_estado_utilizador']);
-        header('Location: index.php');
-      }
+
 
   function verifica_campos_prenechidos($anuncio,$Codigo_postal2,$tudo){
     //ve se se Email esta  null se sim altera border

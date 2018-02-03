@@ -56,7 +56,7 @@ include("./comum/carregacontroladores.php");
                    </div>
                  </li>
                  <li class="nav-item">
-                       <a href="ver_anuncios_proprietarios.php?TerminarSessao=TS" class="nav-link navGestorimg formabotao" ><i class="fa fa-fw fa-sign-out"></i><?php print $terminaSessao; ?></a>
+                       <a href="./comum/logout.php" class="nav-link navGestorimg formabotao" ><i class="fa fa-fw fa-sign-out"></i><?php print $terminaSessao; ?></a>
                  </li>
               </ul>
             </div>
@@ -299,14 +299,7 @@ include("./comum/carregacontroladores.php");
         if(strlen($string)>$maximoCaracteres)return false;
         else return true;
       }
-    			//termina sessão
-    			if(isset($_GET["TerminarSessao"]) && !empty($_GET["TerminarSessao"])){
-    				unset($_SESSION['AE_id_utilizador']);
-    				unset($_SESSION['AE_nome_utilizador']);
-    				unset($_SESSION['AE_email_utilizador']);
-    				unset($_SESSION['AE_estado_utilizador']);
-    				header('Location: index.php');
-    			}
+
 
     	$rodape=true;
     	$conteudo_principal = ob_get_contents();
