@@ -681,19 +681,15 @@ ob_start();
     else return true;
   }
   //desativa a conta e vai para a pagina index e elimina session
-      if(isset($_POST["DesativaConta"]) && !empty($_POST["DesativaConta"])){
-        $dao_utilizadores->alterar_estado($_SESSION["AE_id_utilizador"],3);
-        unset($_SESSION['AE_id_utilizador']);
-        unset($_SESSION['AE_nome_utilizador']);
-        unset($_SESSION['AE_email_utilizador']);
-        unset($_SESSION['AE_estado_utilizador']);
-        //adiciona um aviso para os gestores
-        $notificacao=new Notificacao(0,null,2,$naoquerusar,date('Y-m-d'),date('H:m:s'),1,6);
-        $dao_notificacao->inserir_notificacao($notificacao);
-        //mete o estado da sua conta desativacao
-        $dao_utilizadores->alterar_estado($_SESSION["AE_id_utilizador"],3);
-        header('Location: index.php');
-      }
+  if(isset($_POST["DesativaConta"]) && !empty($_POST["DesativaConta"])){
+    //adiciona um aviso para os gestores
+    $notificacao=new Notificacao(0,null,2,$naoquerusar,date('Y-m-d'),date('H:m:s'),1,6);
+    $dao_notificacao->inserir_notificacao($notificacao);
+    //mete o estado da sua conta desativacao
+    $dao_utilizadores->alterar_estado($_SESSION["AE_id_utilizador"],3);
+    session_destroy();
+    header('Location: index.php');
+  }
 
 
         function verifca_password($pass){
