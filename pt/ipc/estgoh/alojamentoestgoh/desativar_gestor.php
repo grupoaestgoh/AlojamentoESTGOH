@@ -458,8 +458,7 @@ ob_start();
                   $("#myModal20").modal();
                   });
                 </script>');
-        header("refresh: 1;registo_anuncio.php");
-        }else{//caracteristicas mal
+header("refresh: 1;");        }else{//caracteristicas mal
           print('<script>
                   jQuery(document).ready(function( $ ) {
                   jQuery("#aviso_registo_insucesso_password").show();

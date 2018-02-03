@@ -499,7 +499,7 @@
 		                $("#myModal20").modal();
 		                });
 		                </script>');
-		      header("refresh: 1;registo_anuncio.php");
+header("refresh: 1;");
 	      }else{//caracteristicas mal
 	        print('<script>
 	                jQuery(document).ready(function( $ ) {
