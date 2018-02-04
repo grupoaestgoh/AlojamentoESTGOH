@@ -695,8 +695,9 @@ if(isset($_POST["EditarPassword"]) && !empty($_POST["EditarPassword"])){
       if(verifca_password($_POST["password1"])==true && verifica_tamanho_string($_POST["password1"],15)==true){
         $password=password_hash($_POST["password1"],PASSWORD_DEFAULT);
         $utilizador_edita_pass=new Utilizador($_SESSION['AE_id_utilizador'],"","",$password,"","");
+        $mybd->ligar_bd();
         $dao_utilizadores->editar_utilizador($utilizador_edita_pass);
-        print('<script>
+        $mybd->desligar_bd();        print('<script>
                 jQuery(document).ready(function( $ ) {
                 jQuery("#aviso_registo_sucesso").show();
                 });
@@ -761,7 +762,7 @@ if(isset($_POST["EditarPassword"]) && !empty($_POST["EditarPassword"])){
                 $anuncio->Codigo_postal=$anuncio->Codigo_postal."-".$Codigo_postal2;
                 $anuncio->Data_Submetido=date('Y-m-d');
                 $anuncio->Disponibilidade=1;
-                $anuncio->Estado=1;
+                $anuncio->Estado=2;
                 arranjo_caracteristicas($anuncio);
                 $mybd->ligar_bd();
                 $dao_anuncios->inserir_anuncio($anuncio);

@@ -604,8 +604,10 @@ ob_start();
         if(verifca_password($_POST["password1"])==true && verifica_tamanho_string($_POST["password1"],15)==true){
         $password=password_hash($_POST["password1"],PASSWORD_DEFAULT);
         $utilizador_edita_pass=new Utilizador($_SESSION['AE_id_utilizador'],"","",$password,"","");
+        $mybd->ligar_bd();
         $dao_utilizadores->editar_utilizador($utilizador_edita_pass);
-          print('<script>
+        $mybd->desligar_bd();
+                  print('<script>
                   jQuery(document).ready(function( $ ) {
                   jQuery("#aviso_registo_sucesso").show();
                   });
@@ -659,10 +661,8 @@ ob_start();
           $anuncioEdita=$dao_anuncios->obter_anuncio($_POST["idAnuA"]);
           $anuncioEdita->Estado=1;
           $dao_anuncios->editar_anuncio($anuncioEdita);
-          $dao_notificacao->inserir_notificacao(new Notificacao(0,$anuncioEdita->Proprietario,2,"Agora todos os alunos poderao ver o seu anuncio!",date("Y-m-d"),date('H:i:s'),0,1));
+          $dao_notificacao->inserir_notificacao(new Notificacao(0,$anuncioEdita->Proprietario,0,"Agora todos os alunos poderao ver o seu anuncio!",date("Y-m-d"),date('H:i:s'),0,1));
           //adiciona notificação para proprietario do anuncio
-          $notificacao=new Notificacao(0,$anuncioEdita->Proprietario,2,$anuncioaprovado,date('Y-m-d'),date('H:m:s'),0,1);
-          $dao_notificacao->inserir_notificacao($notificacao);
           $mybd->desligar_bd();
           header("Refresh:0; url=anuncios_editados_pendentes.php");
         }
@@ -677,7 +677,7 @@ ob_start();
                     $anuncioEdita->Estado=5;
                     $dao_anuncios->editar_anuncio($anuncioEdita);
                     //adiciona notificação para proprietario do anuncio
-                    $dao_notificacao->inserir_notificacao(new Notificacao(0,$anuncioEdita->Proprietario,2,$motivo,date("Y-m-d"),date('H:i:s'),0,5));
+                    $dao_notificacao->inserir_notificacao(new Notificacao(0,$anuncioEdita->Proprietario,0,$motivo,date("Y-m-d"),date('H:i:s'),0,5));
                     print('<script>$(document).ready(function(){$("#myModalEliminar").modal();  });  jQuery(document).ready(function( $ ) {jQuery("#aviso_registo_insucesso_nome").show();});  </script>');
                     $mybd->desligar_bd();
                     header("refresh: 1;anuncios_editados_pendentes.php");
@@ -692,13 +692,13 @@ ob_start();
 
   function verifca_password(){
     //verifica se tem pelo menos um caracter maiusculo
-    if(preg_match('/[A-Z]/',$pass)!=1)
+    if(preg_match('/[A-Z]/',$_POST["password1"])!=1)
       return false;// nao tem maisculas
     //verifica se tem pelo menos 9 carcteres
-    if(strlen($pass)<8)
+    if(strlen($_POST["password1"])<8)
       return false;//tamanho invalido
     //verifica se tem numeros
-    if(preg_match('/[1-9]/',$pass)!=1)
+    if(preg_match('/[1-9]/',$_POST["password1"])!=1)
       return false;//nao tem numeros
     return true;// (correto)
   }
