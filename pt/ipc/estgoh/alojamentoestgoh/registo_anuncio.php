@@ -1097,7 +1097,7 @@ function verifica_imagens_tamanho($dao_anuncios,$mybd,$tudo){//ve se propriedade
             $tamanhoImg=$_FILES["file".$i]['size'];
             //extensao da imagem
             $extensao = $arr_info["extension"];
-            if(($extensao=='jpg' || $extensao=='png' || $extensao=='gif') && ($tamanhoImg>10000 && $tamanhoImg<1000000) ){
+            if(($extensao=='jpg' || $extensao=='png' || $extensao=='gif') && ($tamanhoImg>1000 && $tamanhoImg<10000000) ){
                   if(!isset($_GET["id_anuncio_editar"])){
                     $array_anuncios=$dao_anuncios->listar_anuncios("");
                     $idAnuncioNovo=(sizeof($array_anuncios))+1;

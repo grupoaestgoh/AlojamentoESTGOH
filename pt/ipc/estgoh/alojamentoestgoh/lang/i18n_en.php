@@ -55,6 +55,8 @@ $Caminho = './img/img_anuncios/';
 	$den_denuncia="Report an ad!" ;
 	$anu_reprovado="Disapproved ad!" ;
 	$pro_desativa="Account deactivation requests!";
+$PasswordIguais="The passwords must be equal!";
+$alteradaSucessoPass="The password has been changed successfully!";
 
 //Rodape
 	$estgohR="Estgoh";
