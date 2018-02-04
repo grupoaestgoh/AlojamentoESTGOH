@@ -19,45 +19,37 @@ $anuncio=new Anuncio(null,null,null,null,null,null,null,null,null,null,null,null
 $Codigo_postal2=null;
 $idanuncioEditar=0;
 if(!isset($_POST["InserirAnu"]) && empty($_POST["InserirAnu"])){
-
-//verifica se é para editar algum anuncio
-if(isset($_GET["id_anuncio_editar"]) && !empty($_GET["id_anuncio_editar"])){
-  $mybd->ligar_bd();
-  $guarda="";
-  $guarda2="";
-
-  $anuncioVerifica=null;
-  $anuncioVerifica=$dao_anuncios->listar_anuncios_anunciante($_SESSION["AE_id_utilizador"],-4);
-  $tem=0;
-  if($anuncioVerifica!=null){
-    for ($i=0; $i <sizeof($anuncioVerifica) ; $i++) {
-      $anuncioAA=$anuncioVerifica[$i];
-      if($anuncioAA->Id_Anuncio==$_GET["id_anuncio_editar"]){
-        $idanuncioEditar=$_GET["id_anuncio_editar"];
-        $anuncio=$anuncioAA;
-        for ($i=0; $i <strlen($anuncio->Codigo_postal); $i++) {
-          if($i<4)$guarda.=$anuncio->Codigo_postal[$i];
-          if($i>4)$guarda2.=$anuncio->Codigo_postal[$i];
+  //verifica se é para editar algum anuncio
+  if(isset($_GET["id_anuncio_editar"]) && !empty($_GET["id_anuncio_editar"])){
+    $mybd->ligar_bd();
+    $anuncioVerifica=null;//IMPORTANTE $_SESSION["id_anuncio_editar"]
+    $anuncioVerifica=$dao_anuncios->obter_anuncio($_GET["id_anuncio_editar"]);
+    $tem=0;
+    if($anuncioVerifica!=null){
+      if($anuncioVerifica->Proprietario==$_SESSION["AE_id_utilizador"]){
+        if($anuncioVerifica->Id_Anuncio==$_GET["id_anuncio_editar"]){
+          $idanuncioEditar=$_GET["id_anuncio_editar"];
+          $anuncio=$anuncioVerifica;
+          $array_codigopostal=explode("-",$anuncio->Codigo_postal);
+          $anuncio->Codigo_postal=$array_codigopostal[0];
+          $Codigo_postal2=$array_codigopostal[1];
+          if($anuncio->Wc==0)$anuncio->Wc=2;
+          if($anuncio->Internet==0)$anuncio->Internet=2;
+          if($anuncio->Despesas==0)$anuncio->Despesas=2;
+          if($anuncio->Mobilia==0)$anuncio->Mobilia=2;
+          if($anuncio->Utensilios==0)$anuncio->Utensilios=2;
+          if($anuncio->Animais==0)$anuncio->Animais=2;
+          $tem=1;
         }
-        $anuncio->Codigo_postal=$guarda;
-        $Codigo_postal2=$guarda2;
-        if($anuncio->Wc==0)$anuncio->Wc=2;
-        if($anuncio->Internet==0)$anuncio->Internet=2;
-        if($anuncio->Despesas==0)$anuncio->Despesas=2;
-        if($anuncio->Mobilia==0)$anuncio->Mobilia=2;
-        if($anuncio->Utensilios==0)$anuncio->Utensilios=2;
-        if($anuncio->Animais==0)$anuncio->Animais=2;
-        $tem=1;
-
-
       }
+      if($tem==0){
+        header('Location: meus_anuncios.php');
+      }
+    }else{
+      header('Location: meus_anuncios.php');
     }
-    if($tem==0)header('Location: meus_anuncios.php');
-  }else{
-  header('Location: meus_anuncios.php');
-}
-$mybd->desligar_bd();
-}
+    $mybd->desligar_bd();
+  }
 }
 //////
 
@@ -812,7 +804,7 @@ if(isset($_POST["InserirAnu"]) && !empty($_POST["InserirAnu"])){
         }
 
         if($existemfotos==1){
-          print("<script>alert('entrou')</script>");
+
 
           $arrayObjetoFotos=verifica_imagens_tamanho($dao_anuncios,$mybd,$tudoPreenchido);// ve quantas imagens colocou
           if($arrayObjetoFotos==null){
@@ -1106,9 +1098,13 @@ function verifica_imagens_tamanho($dao_anuncios,$mybd,$tudo){//ve se propriedade
             //extensao da imagem
             $extensao = $arr_info["extension"];
             if(($extensao=='jpg' || $extensao=='png' || $extensao=='gif') && ($tamanhoImg>10000 && $tamanhoImg<1000000) ){
-
-                  if(!isset($_GET["id_anuncio_editar"]))$idAnuncioNovo=(sizeof($dao_anuncios->listar_anuncios(""))+1);
-                  else $idAnuncioNovo=$_GET["id_anuncio_editar"];
+                  if(!isset($_GET["id_anuncio_editar"])){
+                    $array_anuncios=$dao_anuncios->listar_anuncios_anunciante($_SESSION["AE_id_utilizador"],-4);
+                    $ultimo_anuncio=end($array_anuncios);
+                    $idAnuncioNovo=$ultimo_anuncio->Id_Anuncio;
+                  }else{
+                    $idAnuncioNovo=$_GET["id_anuncio_editar"];
+                  }
                   $nomeImg="anu_".$idAnuncioNovo."_".$posicao.".".$extensao;
                   $arrayFotosCorreto[$posicao]=new Foto(0,$idAnuncioNovo,'./img/img_anuncios/',$nomeImg);
                   $posicao++;
