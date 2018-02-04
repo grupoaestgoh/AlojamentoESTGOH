@@ -285,7 +285,7 @@ if(isset($_POST["registar"]) && !empty($_POST["registar"])){
 	$mybd->ligar_bd();
 	$flag=0;
 	if(isset($_POST["nomeR"]) && !empty($_POST["nomeR"])){
-		if(verifica_nome($_POST["nomeR"])==true && strlen($_POST["nomeR"])<50){
+		if(verifica_nome($_POST["nomeR"])==true && strlen($_POST["nomeR"])<51){
 			$flag++;
 			print('<script>
 							jQuery(document).ready(function( $ ) {
@@ -307,7 +307,7 @@ if(isset($_POST["registar"]) && !empty($_POST["registar"])){
 				</script>');
 	}
 	if(isset($_POST["emailR"]) && !empty($_POST["emailR"])){
-		if($dao_utilizadores->verificar_email($_POST["emailR"])==false && strlen($_POST["emailR"])<25){
+		if($dao_utilizadores->verificar_email($_POST["emailR"])==false && strlen($_POST["emailR"])<26){
 			$flag++;
 			print('<script>
 							jQuery(document).ready(function( $ ) {
