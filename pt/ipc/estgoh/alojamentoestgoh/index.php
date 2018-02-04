@@ -316,7 +316,7 @@ if(isset($_POST["registar"]) && !empty($_POST["registar"])){
 				</script>');
 	}
 	if(isset($_POST["emailR"]) && !empty($_POST["emailR"])){
-		if($dao_utilizadores->verificar_email($_POST["emailR"])==false && strlen($_POST["emailR"])<26){
+		if($dao_utilizadores->verificar_email($_POST["emailR"])==false && strlen($_POST["emailR"])<26 &&  !strpos($_POST["emailR"],'estgoh.ipc.pt') ){
 			$flag++;
 			print('<script>
 							jQuery(document).ready(function( $ ) {
