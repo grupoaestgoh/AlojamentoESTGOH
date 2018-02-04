@@ -648,7 +648,7 @@ if(isset($_POST["lati"])){
                         for ($i=0; $i <6 ; $i++) {
                             echo('<div class="row abaixu">
                                 <div class="col-3">
-                                  <input type="file" name="file'.($i).'" class="btn btnx";" >
+                                <input id="file'.$i.'" onchange="verifica('.$i.');" type="file" name="file'.($i).'" class="btn btnx";" >
                                 </div>
                             </div>');
 
@@ -676,7 +676,16 @@ if(isset($_POST["lati"])){
 		 </div><!-- /.container -->
 		</div>
 		<!-- /.col-lg-9 -->
+    <script>
+    function verifica(el){
+    var file = document.getElementById('file'+el).files[0];
 
+      if( file.size > 4194304) {
+      alert("Tamanho maximo permitido por imagem 4MB!");
+       document.getElementById('file'+el).value=null;
+     }
+    }
+    </script>
 <?php
 //termina sessão
 
@@ -1033,7 +1042,7 @@ if(isset($_POST["EditarPassword"]) && !empty($_POST["EditarPassword"])){
                 $tamanhoImg=$_FILES["file".$i]['size'];
                 //extensao da imagem
                 $extensao = $arr_info["extension"];
-                if(($extensao=='jpg' || $extensao=='png' || $extensao=='gif') && ($tamanhoImg>1000 && $tamanhoImg<10000000) ){
+                if(($extensao=='jpg' || $extensao=='png' || $extensao=='gif') && ($tamanhoImg>1000 && $tamanhoImg<4194304) ){
                       if(!isset($_GET["id_anuncio_editar"])){
                         $array_anuncios=$dao_anuncios->listar_anuncios("");
                         $idAnuncioNovo=(sizeof($array_anuncios))+1;
@@ -1052,7 +1061,7 @@ if(isset($_POST["EditarPassword"]) && !empty($_POST["EditarPassword"])){
         if($posicao>=3){
           return $arrayFotosCorreto;
         }else{
-          echo'<script>$("#falhaFotos").text("Deve colocar pelo menos tres fotos. Formatos permitidos-JPG/PNG/GIF. Tem de ter tamanho entre 10000 e 1000000!");</script>';
+          echo'<script>$("#falhaFotos").text("Deve colocar pelo menos tres fotos. Formatos permitidos-JPG/PNG/GIF. Tem de ter tamanho entre 10000 e 4194304!");</script>';
           echo'<script>malFotos.style.border="2px solid red";</script>';
           return null;
 
