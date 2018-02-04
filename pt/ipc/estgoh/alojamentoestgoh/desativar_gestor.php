@@ -306,7 +306,7 @@ ob_start();
           <h4 class="modal-title corBranca"><?php print $desativaGes;?></h4>
         </div>
         <div class="modal-body">
-          <p><?php print $motivoRej;?></p>
+          <p><?php print $motivoDesa;?></p>
           <textarea class="form-control" rows="3" required></textarea>
         </div>
         <div id="aviso_registo_insucesso_nome" class="alert alert-success" role="alert" style="display:none;" >
@@ -320,7 +320,7 @@ ob_start();
            </div>
         </div>
         <div class="modal-footer">
-          <button type="submit" class="btn btn-danger" onclick="Mudarestado('Aviso3')"><?php print $rejeitar;?></button>
+          <button type="submit" class="btn btn-danger" onclick="Mudarestado('Aviso3')"><?php print $desativar;?></button>
           <button type="button" class="btn btn-default" data-dismiss="modal"><?php print $Fechar;?></button>
         </div>
       </form>
@@ -396,10 +396,10 @@ ob_start();
                     <form action="desativar_gestor.php" Method="POST">
                       <div class="modal-header divAzul">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title corBranca">'.$rejeitarAnu.'</h4>
+                        <h4 class="modal-title corBranca">'.$desativaGes.'</h4>
                       </div>
                       <div class="modal-body">
-                        <p>'.$motivoRej.'</p>
+                        <p>'.$motivoDesa.'</p>
                         <textarea class="form-control" rows="3" id="malmotivo'.$Uti->Id_Utilizador.'" name="motivo'.$Uti->Id_Utilizador.'" required></textarea>
                         <span id="falhamotivo'.$Uti->Id_Utilizador.'" class="falhas" /><span>
                       </div>

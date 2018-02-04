@@ -45,6 +45,7 @@ $Caminho = './img/img_anuncios/';
 	$alteradaSucesso="Edited with success!";
 	$rejeitarAnu="Reject Advertisement";
 	$motivoRej="Reason for rejection:";
+	$motivoDesa="Reason for desativation:";
 	$rejetadoSuce="Rejected with success!";
 	$rejeitar="Reject";
 	$certeza="Are you sure you want to disable the account?";

@@ -47,6 +47,7 @@
 	$alteradaSucesso="Alterada com Sucesso!";
 	$rejeitarAnu="Rejeitar Anúncio";
 	$motivoRej="Motivo da rejeição:";
+  $motivoDesa="Motivo da desativação:";
 	$rejetadoSuce="Rejeitado com sucesso!";
 	$rejeitar="Rejeitar";
 	$certeza="Tem a certeza que quer desativar a conta?";
