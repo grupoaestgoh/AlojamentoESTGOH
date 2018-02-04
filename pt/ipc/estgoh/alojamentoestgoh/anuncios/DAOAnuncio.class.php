@@ -27,7 +27,7 @@ Disponibilidade
     //Edita anuncio edita tudo excepto a data e o id do anuncio1
     function editar_anuncio(Anuncio $anuncioEdita){
     global $mybd;
-		$STH = $mybd->DBH->prepare("Update anuncio Set anu_titulo=:ti,anu_descricao=:de,anu_morada=:mo,anu_email=:em,anu_estado=:es,anu_telefone=:te,anu_codigopostal=:co,anu_wcprivativo=:wc,anu_mobilada=:mob,anu_utensilios=:ut,anu_despesas=:des,anu_animais=:ani,anu_latitude=:la,anu_longitude=:lo,anu_preco=:pre,anu_internet=:inte,anu_rapazes=:rap,anu_raparigas=:ra Where anu_id=:an;");
+		$STH = $mybd->DBH->prepare("Update anuncio Set anu_titulo=:ti,anu_descricao=:de,anu_morada=:mo,anu_email=:em,anu_estado=:es,anu_telefone=:te,anu_codigopostal=:co,anu_wcprivativo=:wc,anu_mobilada=:mob,anu_utensilios=:ut,anu_despesas=:des,anu_animais=:ani,anu_latitude=:la,anu_longitude=:lo,anu_preco=:pre,anu_internet=:inte,anu_rapazes=:rap,anu_raparigas=:ra,anu_disponibilidade=:di Where anu_id=:an;");
     if(!$STH->execute($anuncioEdita->to_array_com_id()))return false;
     return true;//
   }

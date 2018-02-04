@@ -60,7 +60,7 @@ class Anuncio{
   }
   //Devolve utilizador em array com atributo id
   public function to_array_com_id(){
-    return array("an"=>$this->Id_Anuncio,"ti"=>$this->Titulo,"de"=>$this->Descricao,"mo"=>$this->Morada,"em"=>$this->Email,"es"=>$this->Estado,"te"=>$this->Telefone,"co"=>$this->Codigo_postal,"wc"=>$this->Wc,"mob"=>$this->Mobilia,"ut"=>$this->Utensilios,"des"=>$this->Despesas,"ani"=>$this->Animais,"la"=>$this->Latitude,"lo"=>$this->Longitude,"pre"=>$this->Preco,"inte"=>$this->Internet,"ra"=>$this->Rapariga,"rap"=>$this->Rapaz);
+    return array("an"=>$this->Id_Anuncio,"ti"=>$this->Titulo,"de"=>$this->Descricao,"mo"=>$this->Morada,"em"=>$this->Email,"es"=>$this->Estado,"te"=>$this->Telefone,"co"=>$this->Codigo_postal,"wc"=>$this->Wc,"mob"=>$this->Mobilia,"ut"=>$this->Utensilios,"des"=>$this->Despesas,"ani"=>$this->Animais,"la"=>$this->Latitude,"lo"=>$this->Longitude,"pre"=>$this->Preco,"inte"=>$this->Internet,"ra"=>$this->Rapariga,"rap"=>$this->Rapaz,"di"=>$this->Disponibilidade);
 }//
 }
  ?>

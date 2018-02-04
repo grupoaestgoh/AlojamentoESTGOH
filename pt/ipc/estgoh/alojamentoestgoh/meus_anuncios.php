@@ -752,8 +752,7 @@ ob_start();
         $dao_anuncios->editar_anuncio($anuncioEdita);
         $mybd->desligar_bd();
 	   	header("Refresh:0");
-  	  }
-	  else{
+  	  }else{
 		$mybd->ligar_bd();
 		$anuncioEdita=$dao_anuncios->obter_anuncio($_POST["idAnuA"]);
 		$anuncioEdita->Disponibilidade=0;
