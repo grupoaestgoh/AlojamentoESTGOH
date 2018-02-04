@@ -729,12 +729,14 @@ if(isset($_POST["EditarPassword"]) && !empty($_POST["EditarPassword"])){
 }
 		//desativa a conta e vai para a pagina index e elimina session
     if(isset($_POST["DesativaConta"]) && !empty($_POST["DesativaConta"])){
+      $mybd->ligar_bd();
       //adiciona um aviso para os gestores
       $notificacao=new Notificacao(0,null,2,$naoquerusar,date('Y-m-d'),date('H:m:s'),1,6);
       $dao_notificacao->inserir_notificacao($notificacao);
       //mete o estado da sua conta desativacao
       $dao_utilizadores->alterar_estado($_SESSION["AE_id_utilizador"],3);
-      session_destroy();
+      $mybd->desligar_bd();
+          session_destroy();
       header('Location: index.php');
     }
 
