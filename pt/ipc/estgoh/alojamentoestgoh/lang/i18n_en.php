@@ -1,5 +1,5 @@
 <?php
-$Caminho = './img/';
+$Caminho = './img/img_anuncios/';
 
 //titulos
 	$titulo_pagina="AlojamentoESTGOH-HomePage";

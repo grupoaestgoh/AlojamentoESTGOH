@@ -550,6 +550,12 @@ ob_start();
                                            center: new google.maps.LatLng('.$anuncios->Latitude.','.$anuncios->Longitude.'), zoom: 18, mapTypeId: google.maps.MapTypeId.HYBRID
                                          };
                                          var map = new google.maps.Map(mapCanvas, mapOptions);
+                                         if (previousMarker != null)
+                                           previousMarker.setMap(null);
+                                         previousMarker = new google.maps.Marker({
+                                               position: new google.maps.LatLng('.$anuncios->Latitude.','.$anuncios->Longitude.'),
+                                               map: map
+                                         });
                                          }
                                          </script>
                                          <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB7jRD8m5aG-UagIgKot__F7MkwVxS6nls&callback=myMap"></script>
