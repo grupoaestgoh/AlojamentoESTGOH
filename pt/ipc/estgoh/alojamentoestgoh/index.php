@@ -206,6 +206,8 @@ if(isset($_POST["entrar"]) && !empty($_POST["entrar"])){
 		//criar o utilizador
 		$utilizador=$dao_utilizadores->obter_utilizador($_POST["emailL"],"");
 		if($utilizador!=null){
+			if($utilizador->Estado==1){
+
 			if(password_verify($_POST["passwordL"], $utilizador->Password)==true){
 				print('<script>
 						jQuery(document).ready(function( $ ) {
@@ -234,6 +236,13 @@ if(isset($_POST["entrar"]) && !empty($_POST["entrar"])){
 								});
 						</script>');
 			}
+		}else{
+			print('<script>
+							jQuery(document).ready(function( $ ) {
+									jQuery("#aviso_login_insucesso").show();
+							});
+					</script>');
+		}
 		}else{
 			$array_email=explode("@",$_POST['emailL']);
 			$user=$array_email[0];
