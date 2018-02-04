@@ -95,7 +95,6 @@ Disponibilidade
     global $mybd;
     if($opcao==-1 && $saber==2){
       $STH = $mybd->DBH->prepare("Select anu_id,uti_id,anu_titulo,anu_descricao,anu_morada,anu_email,anu_estado,anu_telefone,anu_codigopostal,anu_disponibilidade,anu_wcprivativo,anu_mobilada,anu_utensilios,anu_internet,anu_rapazes,anu_raparigas,anu_despesas,anu_animais,anu_latitude,anu_longitude,anu_data,anu_preco from anuncio where anu_estado=1;");
-      //echo('<script>alert("caraclho") </script>');
     }else  if(!strcmp($opcao,"") && $saber==0){
    //devolve todos os anuncios
       $STH = $mybd->DBH->prepare("Select anu_id,uti_id,anu_titulo,anu_descricao,anu_morada,anu_email,anu_estado,anu_telefone,anu_codigopostal,anu_disponibilidade,anu_wcprivativo,anu_mobilada,anu_utensilios,anu_internet,anu_rapazes,anu_raparigas,anu_despesas,anu_animais,anu_latitude,anu_longitude,anu_data,anu_preco from anuncio;");
@@ -104,7 +103,7 @@ Disponibilidade
       $STH = $mybd->DBH->prepare($query);
     }else if($saber==1){
 
-      //pesquisa todos os anuncios
+      //pesquisa todos os anuncios com pesquisa de nome
       $STH = $mybd->DBH->prepare("Select anu_id,uti_id,anu_titulo,anu_descricao,anu_morada,anu_email,anu_estado,anu_telefone,anu_codigopostal,anu_disponibilidade,anu_wcprivativo,anu_mobilada,anu_utensilios,anu_internet,anu_rapazes,anu_raparigas,anu_despesas,anu_animais,anu_latitude,anu_longitude,anu_data,anu_preco from anuncio WHERE (anu_titulo LIKE '%$opcao%' OR anu_morada LIKE '%$opcao%') and anu_estado=1;");
       $STH->bindParam(1, $opcao);
     }

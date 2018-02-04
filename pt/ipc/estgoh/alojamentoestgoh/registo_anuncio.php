@@ -782,7 +782,7 @@ if(isset($_POST["InserirAnu"]) && !empty($_POST["InserirAnu"])){
                 jQuery("#aviso_registo_insucesso_nome").show();
                 });
                 </script>');
-              //  header("refresh: 1;registo_anuncio.php");
+                header("refresh: 1;registo_anuncio.php");
 
       }
     }
@@ -1099,9 +1099,8 @@ function verifica_imagens_tamanho($dao_anuncios,$mybd,$tudo){//ve se propriedade
             $extensao = $arr_info["extension"];
             if(($extensao=='jpg' || $extensao=='png' || $extensao=='gif') && ($tamanhoImg>10000 && $tamanhoImg<1000000) ){
                   if(!isset($_GET["id_anuncio_editar"])){
-                    $array_anuncios=$dao_anuncios->listar_anuncios_anunciante($_SESSION["AE_id_utilizador"],-4);
-                    $ultimo_anuncio=end($array_anuncios);
-                    $idAnuncioNovo=$ultimo_anuncio->Id_Anuncio;
+                    $array_anuncios=$dao_anuncios->listar_anuncios("");
+                    $idAnuncioNovo=(sizeof($array_anuncios))+1;
                   }else{
                     $idAnuncioNovo=$_GET["id_anuncio_editar"];
                   }
