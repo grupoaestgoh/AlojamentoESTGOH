@@ -301,7 +301,7 @@ ob_start();
         </div>
       </div>
       <div class="row">
-        <div class="col-lg-2"></div>
+        <div class="col-lg-3"></div>
         <div class="col-lg-9">
           <div class="container">
             <div class="linhaflex">
@@ -330,9 +330,7 @@ ob_start();
 
             $mybd->desligar_bd();
 
-			if($todos_anuncios == null)
-        print $naoanuncios;
-            else{
+
 			?>
               <div class="card mb-3">
                 <div class="card-body">
@@ -359,7 +357,13 @@ ob_start();
                         </tr>
                       </tfoot>
                       <tbody>
+
 						          <?php
+                      if($todos_anuncios == null){
+                        print $naoanuncios;
+                      }else{
+
+
 						  $mybd->ligar_bd();
 
               for ($i=0; $i <sizeof($todos_anuncios); $i++) {
@@ -552,8 +556,8 @@ ob_start();
         </div><!-- /.container -->
        </div> <!-- /.col-lg-9 -->
       </div>
-    </div>
     <!-- /.container -->
+  </div>
 
     <?php
     if(isset($_POST["EditarPassword"]) && !empty($_POST["EditarPassword"])){

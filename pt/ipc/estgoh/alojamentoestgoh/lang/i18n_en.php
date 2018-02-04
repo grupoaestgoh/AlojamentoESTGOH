@@ -135,6 +135,9 @@ $minimoimg="Add at least 3 images.";
 $naominimo="If you edit the photos you will have to put a minimum of 3 photos, otherwise keep to the old ones!";
 $Localizacao1="House's Location:";
 $anuncioSucesso="Your Advertisement Was Successfully Added!";
+$propAtivos="Active freholder";
+$gestorAtivos="Active managers";
+$desativaGes="Disable managers";
 
 //pagina ver_anuncios_proprietarios (gestor)
 $disponibilidade="Availability";
