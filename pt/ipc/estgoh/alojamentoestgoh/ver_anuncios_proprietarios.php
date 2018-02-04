@@ -436,7 +436,7 @@ ob_start();
                                                                         echo('<div class="carousel-item');
                                                                         if($l==0)print " active";
                                                                         echo(' " >
-                                                                          <img src="'.$foto->Caminho.$foto->Nome.'" alt="" width="100%">
+                                                                          <img src="'.$foto->Caminho.$foto->Nome.'" alt="" height="200px" width="400px" >
                                                                         </div>');
                                                                       }
                                                               echo('</div>

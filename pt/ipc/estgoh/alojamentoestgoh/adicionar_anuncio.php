@@ -767,6 +767,8 @@ if(isset($_POST["EditarPassword"]) && !empty($_POST["EditarPassword"])){
             arranjo_caracteristicas($anuncio);
             $mybd->ligar_bd();
             $dao_anuncios->inserir_anuncio($anuncio);
+            $notificacao=new Notificacao(0,null,2,$anu_pendente,date('Y-m-d'),date('H:m:s'),1,2);
+            $dao_notificacao->inserir_notificacao($notificacao);
             //adiciona imagens na bd
             for ($i=0; $i <sizeof($arrayObjetoFotos); $i++) {
               $FotoObj=$arrayObjetoFotos[$i];
@@ -825,7 +827,8 @@ if(isset($_POST["EditarPassword"]) && !empty($_POST["EditarPassword"])){
             arranjo_caracteristicas($anuncio);
 
             $dao_anuncios->editar_anuncio($anuncio);//edita o anuncio
-
+            $notificacao=new Notificacao(0,null,2,$anu_pendente,date('Y-m-d'),date('H:m:s'),1,2);
+            $dao_notificacao->inserir_notificacao($notificacao);
             if($arrayObjetoFotos!=null){
               //falta remover todas as outras
 

@@ -341,7 +341,7 @@ ob_start();
 									  <?php for($l=0;$l<sizeof($fotosAnuncio);$l++){
 									  	$foto=$fotosAnuncio[$l]; ?>
 									  <div class="carousel-item <?php if($l==0) echo "active";?>">
-									  	<img src="<?php echo $foto->Caminho; echo $foto->Nome?>" alt="" width="100%">
+									  	<img src="<?php echo $foto->Caminho; echo $foto->Nome?>" alt="" height="200px" width="400px">
 									  </div>
 									  <?php
                   } ?>
@@ -610,7 +610,7 @@ ob_start();
                                         </div>
                                         <div class="col-lg-6">
                                           <div class="btneliminar">
-                                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModalEliminar<?php echo $anuncios->Id_Anuncio;?>">Eliminar</button>
+                                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModalEliminar<?php echo $anuncios->Id_Anuncio;?>"><?php print $Eliminar ?></button>
                                           </div>
 
                                         </div>
