@@ -9,7 +9,7 @@ Estado
   //Insere um denuncia na base de dados
   function inserir_denuncia(Denuncia $den_denuncia){
     global $mybd;
-      $STH=$mybd->DBH->prepare("Insert into denuncias (anu_id,den_descricao,den_titulo,den_data,den_estado) values (:a,:t,:de,:da,:e);");
+      $STH=$mybd->DBH->prepare("Insert into denuncias (anu_id,den_decricao,den_titulo,den_data,den_estado) values (:a,:de,:t,:da,:e);");
     if(!$STH->execute($den_denuncia->to_array_sem_id()))return false;
     return true;
   }
@@ -29,7 +29,6 @@ Estado
     global $mybd;
     //lista para gestores
       $STH = $mybd->DBH->prepare("Select den_id,anu_id,den_decricao,den_titulo,den_data,den_estado from denuncias where  den_estado=1;");
-      $STH->bindParam(1, $id_anuncio);
 
     $STH->execute();
       $STH->setFetchMode(PDO::FETCH_OBJ);

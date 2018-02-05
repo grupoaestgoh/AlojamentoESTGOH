@@ -226,21 +226,18 @@ ob_start();
   <!-- End modal -->
 <!-- Page Content -->
 <div id="fadanun" class="container">
-<div class="row">
 
-<div class="col-lg-3 mesquerda">
-<h1 class="my-4"> </h1>
-<div class="list-group">
-  <a href="./anuncios.php" class="list-group-item active"><?php print $MeusAnu;?></a>
-  <a href="./adicionar_anuncio.php" class="list-group-item "><?php print $adicionaAnu;?></a>
-</div>
-</div>
+  <div class="col-lg-3 mesquerda">
+    <h1 class="my-4"> </h1>
+    <div class="list-group">
+      <a href="./anuncios.php" class="list-group-item active"><?php print $MeusAnu;?></a>
+      <a href="./adicionar_anuncio.php" class="list-group-item "><?php print $adicionaAnu;?></a>
+    </div>
+  </div>
 <!-- /.col-lg-3 -->
         <!--Secção da direita -->
-        <div class="col-lg-9">
-          <div class="container">
-            <div class="row">
-              <div class="col-12">
+        <div  class="container">
+
                 <div class="bandeira">
                   <a href="?lingua=pt">
     									<img  src="img/img_aplicacao/pt.jpg" alt="">
@@ -250,7 +247,7 @@ ob_start();
     							</a>
                 </div>
               </div>
-            </div>
+
             <div class="linhaflex">
               <div class="row"> <!-- Primeira linha de items -->
 
@@ -604,13 +601,10 @@ ob_start();
               <!-- Fim De Linhas -->
           </div> <!-- /.linhaflex div -->
 
-         </div><!-- /.container -->
 
         </div>
         <!--Fim Secção da direita -->
 
-      </div>
-    </div>
     <!-- Fim do Page Content -->
 
 
@@ -724,7 +718,7 @@ ob_start();
  		header("Refresh:0");
  	}
 
-       $rodape=false;
+       $rodape=true;
        $conteudo_principal = ob_get_contents();
        ob_end_clean();
        //master page

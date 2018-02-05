@@ -737,18 +737,17 @@ ob_start();
       </div>
     </div>
     <!-- /.container -->
+    <script>
+    function verifica(el){
+    var file = document.getElementById('file'+el).files[0];
 
+      if( file.size > 4194304) {
+      alert("Tamanho maximo permitido por imagem 4MB!");
+       document.getElementById('file'+el).value=null;
+     }
+    }
+    </script>
 
-<script>
-function verifica(el){
-var file = document.getElementById('file'+el).files[0];
-
-  if( file.size > 4194304) {
-  alert("Tamanho maximo permitido por imagem 4MB!");
-   document.getElementById('file'+el).value=null;
- }
-}
-</script>
   <?php
 
 

@@ -14,7 +14,21 @@
 		}
 
 		//conteudo principal
+		$mailG=null;
+		$passG=null;
+		$nomeG=null;
+
 		ob_start();
+
+		if(isset($_POST["emaill"]) && !empty($_POST["emaill"])){
+		$mailG=$_POST["emaill"];
+		}
+		if(isset($_POST["nomee"]) && !empty($_POST["nomee"])){
+		  $nomeG=$_POST["nomee"];
+		}
+		if(isset($_POST["passwordd"]) && !empty($_POST["passwordd"])){
+		  $passG=$_POST["passwordd"];
+		}
 ?>
 
 <!-- Navigation -->
@@ -329,14 +343,14 @@
 						   <b><?php print $nome; ?></b>
 						 </label>
 						 <br>
-						 <input class="form-control"  type="text" placeholder="<?php print $nome;?>" name="nomee" required>
+						 <input class="form-control"  type="text" placeholder="<?php print $nome;?>" name="nomee" <?php if($nomeG!=null) print (" value='".$nomeG."' "); ?>  required>
 						 <br>
 	           <label class="corPreta" >
 							 <b><?php print $emailR; ?>:</b>
 						 </label>
 						 <br>
 	           <div class="form-group input-group">
-	             <input type="email" placeholder="E-mail" class="form-control" name="emaill" id="inlineFormInputGroup" required>
+	             <input type="email" placeholder="E-mail" class="form-control" name="emaill" id="inlineFormInputGroup" <?php if($mailG!=null) print (" value='".$mailG."' "); ?> required>
 							 <script src="./javascript/ajax.js"> </script>
 	             <div class="input-group-addon" id="ajaximg" >
 								 <img class="certo" src="./img/img_aplicacao/certo.png" alt="">
@@ -344,7 +358,7 @@
 	           </div>
            	<label class="corPreta"><b><?php print $password; ?></b></label>
 						<br>
-           	<input class="form-control" type="password" placeholder="Password" name="passwordd" required>
+           	<input class="form-control" type="password" placeholder="Password" name="passwordd" <?php if($passG!=null) print (" value='".$passG."' "); ?> required>
 						<br>
 						<div id="aviso_registo_insucesso_email" class="alert alert-danger aviso_registo_insucesso_email" role="alert">
 						  <div class="row leftCaracteris">

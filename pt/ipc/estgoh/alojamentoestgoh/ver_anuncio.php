@@ -24,6 +24,8 @@ if (isset($_SESSION["AE_tipo_utilizador"]) ){
 }else{
     header("Location: ./index.php");
 }
+ob_start();
+
 ?>
     <!-- Navigation -->
     	<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top navGestor" id="mainNav">
@@ -275,6 +277,9 @@ if (isset($_SESSION["AE_tipo_utilizador"]) ){
           $mybd->ligar_bd();
           $notificacao=new Notificacao(0,null,2,$_POST["motivo"],date('Y-m-d'),date('H:m:s'),1,4);
           $dao_notificacao->inserir_notificacao($notificacao);
+          $denuncia=new Denuncia(0,$_GET["IdAnuVer"],"Denuncia de um anuncio",$_POST["motivo"],date('Y-m-d'),1);
+          $dao_denuncias->inserir_denuncia($denuncia);
+
           $mybd->desligar_bd();
          print('<script>
                   $(document).ready(function(){
@@ -286,7 +291,7 @@ if (isset($_SESSION["AE_tipo_utilizador"]) ){
                   jQuery("#aviso_registo_insucesso_email").show();
                   });
                   </script>');
-                  header('Location: ver_todos_anuncios.php');
+                //  header('Location: ver_todos_anuncios.php');
 
           }else{
           echo'<script>$("#falhamotivo").text("O motivo tem maximo de 50 caracteres!");</script>';

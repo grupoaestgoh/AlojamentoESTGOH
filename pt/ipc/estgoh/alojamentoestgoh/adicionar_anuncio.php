@@ -5,14 +5,14 @@ session_start();
 include("./comum/carregacontroladores.php");
 
 //verifica se o utilizador está autenticado
-if (isset($_SESSION["AE_tipo_utilizador"]) ){
+/*if (isset($_SESSION["AE_tipo_utilizador"]) ){
     //Verifica se é gestor
     if($_SESSION["AE_tipo_utilizador"]!=2){
 				header("Location: ./index.php");
     }
 }else{
     header("Location: ./index.php");
-}
+}*/
 
 
 //conteudo principal
@@ -332,31 +332,29 @@ if(isset($_POST["lati"])){
         <!-- End modal -->
 <!-- Page Content -->
 <div id="fadanun" class="container">
-	<div class="row">
 
-		<div class="col-lg-3 mesquerda">
-			<h1 class="my-4"> </h1>
-			<div class="list-group">
-				<a href="./anuncios.php" class="list-group-item"><?php print $MeusAnu;?></a>
-				<a href="#" class="list-group-item active"><?php print $adicionaAnu;?></a>
-			</div>
-		</div>
-		<!-- /.col-lg-3 -->
+  <div class="col-lg-3 mesquerda">
+    <h1 class="my-4"> </h1>
+    <div class="list-group">
+      <a href="./anuncios.php" class="list-group-item "><?php print $MeusAnu;?></a>
+      <a href="./adicionar_anuncio.php" class="list-group-item active"><?php print $adicionaAnu;?></a>
+    </div>
+  </div>
+<!-- /.col-lg-3 -->
+        <!--Secção da direita -->
+        <div  class="container">
 
-		<div class="col-lg-9">
-			<div class="container">
-				<div class="row">
-					<div class="col-12">
-						<div class="bandeira">
-							<a href="?lingua=pt">
-									<img  src="img/img_aplicacao/pt.jpg" alt="">
-							</a>
-							<a href="?lingua=en">
-								<img src="img/img_aplicacao/UK.jpg" alt="">
-							</a>
-						</div>
-					</div>
-				</div>
+                <div class="bandeira">
+                  <a href="?lingua=pt">
+                      <img  src="img/img_aplicacao/pt.jpg" alt="">
+                  </a>
+                  <a href="?lingua=en">
+                    <img src="img/img_aplicacao/UK.jpg" alt="">
+                  </a>
+                </div>
+              </div>
+
+
 				<div id="aviso_registo_insucesso_nome" class="alert alert-success aviso_registo_insucesso_nome" role="alert">
 							<div class="row leftCaracteris">
 							<div class="col-lg-2 ">
@@ -368,7 +366,6 @@ if(isset($_POST["lati"])){
 						</div>
 					</div>
 					<div class="row">
-            <div class="addanuncio col-12">
               <form id="signup" enctype="multipart/form-data" action="adicionar_anuncio.php<?php if(isset($_GET['id_anuncio_editar'])) print "?id_anuncio_editar=".$_GET["id_anuncio_editar"];?>" method="post">
                   <div class="header">
                       <h3 class="baixo"><?php if(isset($_GET["id_anuncio_editar"])) print $edita; else print $insere;?></h3>
@@ -671,21 +668,19 @@ if(isset($_POST["lati"])){
                       </div>
                   </div>
               </form>
-            </div>
           </div>
 		 </div><!-- /.container -->
-		</div>
 		<!-- /.col-lg-9 -->
-    <script>
-    function verifica(el){
-    var file = document.getElementById('file'+el).files[0];
+<script>
+function verifica(el){
+var file = document.getElementById('file'+el).files[0];
 
-      if( file.size > 4194304) {
-      alert("Tamanho maximo permitido por imagem 4MB!");
-       document.getElementById('file'+el).value=null;
-     }
-    }
-    </script>
+  if( file.size > 4194304) {
+  alert("Tamanho maximo permitido por imagem 4MB!");
+   document.getElementById('file'+el).value=null;
+ }
+}
+</script>
 <?php
 //termina sessão
 

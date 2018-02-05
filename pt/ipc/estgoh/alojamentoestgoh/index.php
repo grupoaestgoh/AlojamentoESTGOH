@@ -15,7 +15,20 @@
 		}
 	}
 
+	$mailG=null;
+	$passG=null;
+	$nomeG=null;
+			if(isset($_POST["nomeR"]) && !empty($_POST["nomeR"])){
+			$nomeG=$_POST["nomeR"];
+			}
+			if(isset($_POST["passwordR"]) && !empty($_POST["passwordR"])){
 
+				$passG=$_POST["passwordR"];
+			}
+			if(isset($_POST["emailR"]) && !empty($_POST["emailR"])){
+
+				$mailG=$_POST["emailR"];
+			}
 	//conteudo principal
 	ob_start();
 ?>
@@ -125,7 +138,7 @@
 			      <label class="corPreta" ><b><?php print $email; ?>:</b></label>
 			      <br>
 			      <div class="form-group input-group">
-							<input type="email" placeholder="E-mail" class="form-control" name="emailR" id="inlineFormInputGroup" required>
+							<input type="email" placeholder="E-mail" class="form-control" name="emailR" id="inlineFormInputGroup"  <?php if($mailG!=null) print (" value='".$mailG."' "); ?>  required>
 							<script src="./javascript/ajax.js"> </script>
 							<div class="input-group-addon" id="ajaximg" >
 								<img class="certo" src="./img/img_aplicacao/certo.png" alt="">
@@ -133,11 +146,11 @@
 			      </div>
 			      <label class="corPreta"><b><?php print $password; ?>:</b></label>
 						<br>
-			      <input class="form-control" type="password" placeholder="Password" name="passwordR" required>
+			      <input class="form-control" type="password" placeholder="Password" name="passwordR"  <?php if($passG!=null) print (" value='".$passG."' "); ?> required>
 			      <br>
 			      <label class="corPreta"><b><?php print $nome; ?>:</b></label>
 						<br>
-			      <input class="form-control" type="text" placeholder="Nome" name="nomeR" required>
+			      <input class="form-control" type="text" placeholder="Nome" name="nomeR" <?php if($nomeG!=null) print (" value='".$nomeG."' "); ?>  required>
 			      <br>
 			      <div>
 							<div id="aviso_registo_sucesso" class="alert alert-success aviso_registo_sucesso" role="alert">
@@ -371,7 +384,7 @@ if(isset($_POST["registar"]) && !empty($_POST["registar"])){
 						});
 				</script>');
 		//volta a pagina principal
-		header("Location: ./index.php");
+		//header("Location: ./index.php");
 	}
 	$mybd->desligar_bd();
 }

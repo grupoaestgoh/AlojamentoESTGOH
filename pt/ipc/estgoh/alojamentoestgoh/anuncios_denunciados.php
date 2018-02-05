@@ -4,7 +4,7 @@ session_start();
 //carregar controladores
 include("./comum/carregacontroladores.php");
 
-//verifica se o utilizador está autenticado
+//erifica se o utilizador está autenticado
 if (isset($_SESSION["AE_tipo_utilizador"]) ){
     //Verifica se é gestor
     if($_SESSION["AE_tipo_utilizador"]!=0 && $_SESSION["AE_tipo_utilizador"]!=1){
