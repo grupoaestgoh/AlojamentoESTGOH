@@ -3,7 +3,7 @@
 
   //carregar controladores para fazer logout
 	include('./basedados.class.php');
-  include('../logs/DAOLog.class.php');
+  include('../logs/daolog.class.php');
   include('../logs/log.class.php');
   include('./config.php');
   $mybd = new BaseDados();
