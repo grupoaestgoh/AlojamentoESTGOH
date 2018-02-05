@@ -232,12 +232,12 @@ if(isset($_POST['gender'])){
 
 
 
-
 						if(isset($_GET["PaginaO"]) && !empty($_GET["PaginaO"])){
 							$pagina=$_GET["PaginaO"];
 
 							if($pagina>0 && $pagina<($numPaginas+1)){
 								if(is_numeric ($pagina )){
+									print ("<script>alert('".$pagina.$numPaginas."')</script>");
 
 							if($pagina==$numPaginas && $pagina==1){
 							if((sizeof($todos_anuncios))%5!=0)
@@ -264,12 +264,81 @@ if(isset($_POST['gender'])){
 							}
 						}else{
 							$pagina=1;
+							if($pagina==$numPaginas && $pagina==1){
+							if((sizeof($todos_anuncios))%5!=0)
+								$numMaximo=(sizeof($todos_anuncios))-1;
+							}else if($pagina==$numPaginas && $pagina!=1){
+								if((sizeof($todos_anuncios))%5==0){
+									$numMaximo=(sizeof($todos_anuncios)-1);
+									$numMinimo=$numMaximo-4;
+
+								}else{
+										 $numMaximo=(sizeof($todos_anuncios)-1);
+									for ($i=0; $i <= $numMaximo; $i++) {
+											if(($i%5)==0 && $i!=0) $numMinimo=($i);
+									}
+
+								}
+
+							}else  if($pagina!=$numPaginas && $pagina!=1){
+								for ($i=0; $i <= sizeof($todos_anuncios); $i++) {
+										if(($i%5)==0 && $i!=0) $numMaximo=($i)-1;
+								}
+								$numMinimo=$numMaximo-4;
+
+							}
 						}
 						}else{
 							$pagina=1;
+							if($pagina==$numPaginas && $pagina==1){
+							if((sizeof($todos_anuncios))%5!=0)
+								$numMaximo=(sizeof($todos_anuncios))-1;
+							}else if($pagina==$numPaginas && $pagina!=1){
+								if((sizeof($todos_anuncios))%5==0){
+									$numMaximo=(sizeof($todos_anuncios)-1);
+									$numMinimo=$numMaximo-4;
+
+								}else{
+										 $numMaximo=(sizeof($todos_anuncios)-1);
+									for ($i=0; $i <= $numMaximo; $i++) {
+											if(($i%5)==0 && $i!=0) $numMinimo=($i);
+									}
+
+								}
+
+							}else  if($pagina!=$numPaginas && $pagina!=1){
+								for ($i=0; $i <= sizeof($todos_anuncios); $i++) {
+										if(($i%5)==0 && $i!=0) $numMaximo=($i)-1;
+								}
+								$numMinimo=$numMaximo-4;
+
+							}
 						}
 						}else{
 						$pagina=1;
+						if($pagina==$numPaginas && $pagina==1){
+						if((sizeof($todos_anuncios))%5!=0)
+							$numMaximo=(sizeof($todos_anuncios))-1;
+						}else if($pagina==$numPaginas && $pagina!=1){
+							if((sizeof($todos_anuncios))%5==0){
+								$numMaximo=(sizeof($todos_anuncios)-1);
+								$numMinimo=$numMaximo-4;
+
+							}else{
+									 $numMaximo=(sizeof($todos_anuncios)-1);
+								for ($i=0; $i <= $numMaximo; $i++) {
+										if(($i%5)==0 && $i!=0) $numMinimo=($i);
+								}
+
+							}
+
+						}else  if($pagina!=$numPaginas && $pagina!=1){
+							for ($i=0; $i <= sizeof($todos_anuncios); $i++) {
+									if(($i%5)==0 && $i!=0) $numMaximo=($i)-1;
+							}
+							$numMinimo=$numMaximo-4;
+
+						}
 
 						}
 
