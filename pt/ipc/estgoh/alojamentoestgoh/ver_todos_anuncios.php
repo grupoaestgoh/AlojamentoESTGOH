@@ -5,18 +5,22 @@ session_start();
 include("./comum/carregacontroladores.php");
 
 //verifica se o utilizador está autenticado
-if (isset($_SESSION["AE_tipo_utilizador"]) ){
+/*if (isset($_SESSION["AE_tipo_utilizador"]) ){
     //Verifica se é aluno
     if($_SESSION["AE_tipo_utilizador"]!=3){
 				header("Location: ./index.php");
     }
 }else{
     header("Location: ./index.php");
-}
+}*/
 //conteudo principal
 ob_start();
 $pesquisa="";
-
+$pagina=1;
+$numPaginas=1;
+$numMaximo=4;
+$totalP=0;
+$numMinimo=0;
 if(isset($_POST['wc'])){
 	$pesquisa.=" and anu_wcprivativo=1 ";
 }
@@ -201,6 +205,46 @@ if(isset($_POST['gender'])){
               <?php
               $mybd->ligar_bd();
 							$todos_anuncios=$dao_anuncios->listar_anuncios(-1);
+              $numPaginas=(int)(sizeof($todos_anuncios)/5);
+
+              if($numPaginas==0)$numPaginas=1;
+
+              if($numPaginas<(sizeof($todos_anuncios)/5))$numPaginas=$numPaginas+1;
+
+
+
+
+              if(isset($_GET["PaginaO"]) && !empty($_GET["PaginaO"])){
+                if($pagina>0 && $pagina<($numPaginas+1)){
+                $pagina=$_GET["PaginaO"];
+                print("<script>alert('".$pagina.$numPaginas.$pagina."')</script>");
+
+                if($pagina==$numPaginas && $pagina==1){
+                if((sizeof($todos_anuncios))%5!=0)
+                  $numMaximo=(sizeof($todos_anuncios))-1;
+                }else if($pagina==$numPaginas && $pagina!=1){
+                  if((sizeof($todos_anuncios))%5==0){
+                    $numMaximo=(sizeof($todos_anuncios)-1);
+                    $numMinimo=$numMaximo-4;
+
+                  }else{
+                       $numMaximo=(sizeof($todos_anuncios)-1);
+                    for ($i=0; $i <= $numMaximo; $i++) {
+                        if(($i%5)==0 && $i!=0) $numMinimo=($i);
+                    }
+
+                  }
+
+                }else  if($pagina!=$numPaginas && $pagina!=1){
+                  for ($i=0; $i <= sizeof($todos_anuncios); $i++) {
+                      if(($i%5)==0 && $i!=0) $numMaximo=($i)-1;
+                  }
+                  $numMinimo=$numMaximo-4;
+
+                }
+              }
+              }
+
 
 
 							if(isset($_POST["pesquisaComFiltros"])){
@@ -224,7 +268,7 @@ if(isset($_POST['gender'])){
       else{
 				$mybd->ligar_bd();
 
-				for ($i=0; $i <sizeof($todos_anuncios); $i++) {
+				for ($i=$numMinimo; $i <$numMaximo+1; $i++) {
 					$anuncios=$todos_anuncios[$i];
 					$Proprietario=$dao_utilizadores->obter_utilizador_id($anuncios->Proprietario);
 					$fotosAnuncio=$dao_fotos->listar_fotos_anuncio($anuncios->Id_Anuncio);
@@ -247,12 +291,32 @@ if(isset($_POST['gender'])){
 					<p><?php print $anuncios->Descricao ?></p>
 				</div>
 			</div>
+
     </div>
 
 			<?php
 				}
 			}
 			?>
+    <div class="row">
+
+      <div class="col-lg-3 mx-auto">
+        <ul class="pagination pagination-lg " >
+          <?php
+
+              if($pagina!=1) print('<li><a href="ver_todos_anuncios.php?PaginaO='.($pagina-1).'"><</a></li>');
+
+                echo('<li class="active" ');
+
+                echo('><a href="ver_todos_anuncios.php?PaginaO='.($pagina).'">'.($pagina).'</a></li>');
+
+
+                if( $pagina!=$numPaginas) print('<li><a href="ver_todos_anuncios.php?PaginaO='.($pagina+1).'">></a></li>');
+
+        ?>
+        </ul>
+    </div>
+  </div>
 
 
 

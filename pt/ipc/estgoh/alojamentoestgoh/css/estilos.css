@@ -28,6 +28,9 @@ body, html{
 .top{
   margin: 0px 5px 0px 0px!important;
 }
+.centro{
+  text-align: center;
+}
 .hidden{
   visibility: hidden;
   width: 10px;
@@ -105,6 +108,7 @@ body{
   background-color: #0775b8!important;
   text-align: center!important;
 }
+
 .corAzul:hover{
   color: #0775b8;
 
