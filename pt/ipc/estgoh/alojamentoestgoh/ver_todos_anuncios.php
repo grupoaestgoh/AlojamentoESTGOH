@@ -205,55 +205,6 @@ if(isset($_POST['gender'])){
               <?php
               $mybd->ligar_bd();
 							$todos_anuncios=$dao_anuncios->listar_anuncios(-1);
-              $numPaginas=(int)(sizeof($todos_anuncios)/5);
-
-              if($numPaginas==0)$numPaginas=1;
-
-              if($numPaginas<(sizeof($todos_anuncios)/5))$numPaginas=$numPaginas+1;
-
-
-
-
-              if(isset($_GET["PaginaO"]) && !empty($_GET["PaginaO"])){
-								$pagina=$_GET["PaginaO"];
-
-                if($pagina>0 && $pagina<($numPaginas+1)){
-									if(is_numeric ($pagina )){
-
-									print("<script>alert('".$pagina."')</script>");
-                if($pagina==$numPaginas && $pagina==1){
-                if((sizeof($todos_anuncios))%5!=0)
-                  $numMaximo=(sizeof($todos_anuncios))-1;
-                }else if($pagina==$numPaginas && $pagina!=1){
-                  if((sizeof($todos_anuncios))%5==0){
-                    $numMaximo=(sizeof($todos_anuncios)-1);
-                    $numMinimo=$numMaximo-4;
-
-                  }else{
-                       $numMaximo=(sizeof($todos_anuncios)-1);
-                    for ($i=0; $i <= $numMaximo; $i++) {
-                        if(($i%5)==0 && $i!=0) $numMinimo=($i);
-                    }
-
-                  }
-
-                }else  if($pagina!=$numPaginas && $pagina!=1){
-                  for ($i=0; $i <= sizeof($todos_anuncios); $i++) {
-                      if(($i%5)==0 && $i!=0) $numMaximo=($i)-1;
-                  }
-                  $numMinimo=$numMaximo-4;
-
-                }
-							}else{
-								$pagina=$_GET["PaginaO"];
-							}
-              }else{
-								$pagina=$_GET["PaginaO"];
-							}
-						}else{
-							$pagina=1;
-
-						}
 
 
 
@@ -272,6 +223,57 @@ if(isset($_POST['gender'])){
 				}
         }
             $mybd->desligar_bd();
+
+						$numPaginas=(int)(sizeof($todos_anuncios)/5);
+
+						if($numPaginas==0)$numPaginas=1;
+
+						if($numPaginas<(sizeof($todos_anuncios)/5))$numPaginas=$numPaginas+1;
+
+
+
+
+						if(isset($_GET["PaginaO"]) && !empty($_GET["PaginaO"])){
+							$pagina=$_GET["PaginaO"];
+
+							if($pagina>0 && $pagina<($numPaginas+1)){
+								if(is_numeric ($pagina )){
+
+								print("<script>alert('".$pagina."')</script>");
+							if($pagina==$numPaginas && $pagina==1){
+							if((sizeof($todos_anuncios))%5!=0)
+								$numMaximo=(sizeof($todos_anuncios))-1;
+							}else if($pagina==$numPaginas && $pagina!=1){
+								if((sizeof($todos_anuncios))%5==0){
+									$numMaximo=(sizeof($todos_anuncios)-1);
+									$numMinimo=$numMaximo-4;
+
+								}else{
+										 $numMaximo=(sizeof($todos_anuncios)-1);
+									for ($i=0; $i <= $numMaximo; $i++) {
+											if(($i%5)==0 && $i!=0) $numMinimo=($i);
+									}
+
+								}
+
+							}else  if($pagina!=$numPaginas && $pagina!=1){
+								for ($i=0; $i <= sizeof($todos_anuncios); $i++) {
+										if(($i%5)==0 && $i!=0) $numMaximo=($i)-1;
+								}
+								$numMinimo=$numMaximo-4;
+
+							}
+						}else{
+							$pagina=$_GET["PaginaO"];
+						}
+						}else{
+							$pagina=$_GET["PaginaO"];
+						}
+						}else{
+						$pagina=1;
+
+						}
+
 
 			if($todos_anuncios == null)
 				print $naoanuncios;
