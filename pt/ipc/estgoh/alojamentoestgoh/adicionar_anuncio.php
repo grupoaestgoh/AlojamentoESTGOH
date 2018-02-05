@@ -5,14 +5,14 @@ session_start();
 include("./comum/carregacontroladores.php");
 
 //verifica se o utilizador está autenticado
-/*if (isset($_SESSION["AE_tipo_utilizador"]) ){
+if (isset($_SESSION["AE_tipo_utilizador"]) ){
     //Verifica se é gestor
     if($_SESSION["AE_tipo_utilizador"]!=2){
 				header("Location: ./index.php");
     }
 }else{
     header("Location: ./index.php");
-}*/
+}
 
 
 //conteudo principal
@@ -131,7 +131,7 @@ if(isset($_POST["lati"])){
 <!-- Navigation -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top divAzul" id="mainNav">
 	<div class="container">
-		<a class="navbar-brand"  href="adicionar_anuncio.php" ><font  size="6" color="white"><?php print $logotipo; ?></font></a>
+		<a class="navbar-brand"  href="meus_anuncios.php" ><font  size="6" color="white"><?php print $logotipo; ?></font></a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>

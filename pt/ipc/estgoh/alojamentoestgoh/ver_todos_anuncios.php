@@ -5,14 +5,14 @@ session_start();
 include("./comum/carregacontroladores.php");
 
 //verifica se o utilizador está autenticado
-/*if (isset($_SESSION["AE_tipo_utilizador"]) ){
+if (isset($_SESSION["AE_tipo_utilizador"]) ){
     //Verifica se é aluno
     if($_SESSION["AE_tipo_utilizador"]!=3){
 				header("Location: ./index.php");
     }
 }else{
     header("Location: ./index.php");
-}*/
+}
 //conteudo principal
 ob_start();
 $pesquisa="";
