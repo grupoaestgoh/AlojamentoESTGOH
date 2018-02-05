@@ -239,7 +239,6 @@ if(isset($_POST['gender'])){
 							if($pagina>0 && $pagina<($numPaginas+1)){
 								if(is_numeric ($pagina )){
 
-								print("<script>alert('".$pagina."')</script>");
 							if($pagina==$numPaginas && $pagina==1){
 							if((sizeof($todos_anuncios))%5!=0)
 								$numMaximo=(sizeof($todos_anuncios))-1;
