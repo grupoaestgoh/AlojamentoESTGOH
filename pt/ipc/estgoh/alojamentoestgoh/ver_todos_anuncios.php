@@ -217,7 +217,6 @@ if(isset($_POST['gender'])){
               if(isset($_GET["PaginaO"]) && !empty($_GET["PaginaO"])){
                 if($pagina>0 && $pagina<($numPaginas+1)){
                 $pagina=$_GET["PaginaO"];
-                print("<script>alert('".$pagina.$numPaginas.$pagina."')</script>");
 
                 if($pagina==$numPaginas && $pagina==1){
                 if((sizeof($todos_anuncios))%5!=0)
