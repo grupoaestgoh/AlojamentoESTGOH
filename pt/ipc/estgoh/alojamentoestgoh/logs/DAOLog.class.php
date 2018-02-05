@@ -1,7 +1,6 @@
 <?php
 class DAOLogs{
 
-
   //Insere um log na base de dados
   function inserir_log(Log $log){
     global $mybd;
