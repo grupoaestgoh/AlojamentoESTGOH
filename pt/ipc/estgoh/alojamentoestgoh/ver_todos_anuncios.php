@@ -263,10 +263,10 @@ if(isset($_POST['gender'])){
 
 							}
 						}else{
-							$pagina=$_GET["PaginaO"];
+							$pagina=1;
 						}
 						}else{
-							$pagina=$_GET["PaginaO"];
+							$pagina=1;
 						}
 						}else{
 						$pagina=1;
