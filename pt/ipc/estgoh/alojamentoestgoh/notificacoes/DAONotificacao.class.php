@@ -20,7 +20,6 @@ vermelho
 
 */
 
-
   //Insere um notificacao na base de dados
   function inserir_notificacao(Notificacao $notificacao){
     global $mybd;
