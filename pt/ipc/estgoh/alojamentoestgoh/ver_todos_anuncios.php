@@ -215,9 +215,12 @@ if(isset($_POST['gender'])){
 
 
               if(isset($_GET["PaginaO"]) && !empty($_GET["PaginaO"])){
-                if($pagina>0 && $pagina<($numPaginas+1)){
-                $pagina=$_GET["PaginaO"];
+								$pagina=$_GET["PaginaO"];
 
+                if($pagina>0 && $pagina<($numPaginas+1)){
+									if(is_numeric ($pagina )){
+
+									print("<script>alert('".$pagina."')</script>");
                 if($pagina==$numPaginas && $pagina==1){
                 if((sizeof($todos_anuncios))%5!=0)
                   $numMaximo=(sizeof($todos_anuncios))-1;
@@ -241,8 +244,16 @@ if(isset($_POST['gender'])){
                   $numMinimo=$numMaximo-4;
 
                 }
-              }
-              }
+							}else{
+								$pagina=$_GET["PaginaO"];
+							}
+              }else{
+								$pagina=$_GET["PaginaO"];
+							}
+						}else{
+							$pagina=1;
+
+						}
 
 
 
