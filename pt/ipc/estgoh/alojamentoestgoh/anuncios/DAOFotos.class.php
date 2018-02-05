@@ -10,7 +10,7 @@ class DAOFoto{
   }
 
     //Edita anuncio
-    function editar_fotos_anuncio($idFoto){
+  function editar_fotos_anuncio($idFoto){
     global $mybd;
 		$STH = $mybd->DBH->prepare("Update foto Set anu_id=:a,fot_caminho=:c,fot_nome=:n Where fot_id=?");
     $STH->bindParam(1, $idFoto);

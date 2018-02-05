@@ -12,7 +12,6 @@ class DAOUtilizadores{
   3-desativacao
   4-inativo
   */
-
   //Insere um utilizador na base de dados, se falhar devolve false, se tiver sucesso devolve true
   function inserir_utilizador(Utilizador $utilizador){
     global $mybd;

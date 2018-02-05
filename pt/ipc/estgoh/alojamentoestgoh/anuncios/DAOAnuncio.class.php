@@ -13,7 +13,6 @@ Disponibilidade
 2-Indisponivél
 */
 
-
   //Insere um anuncio na base de dados
   function inserir_anuncio(Anuncio $anuncio){
     global $mybd;
