@@ -1,7 +1,7 @@
 <?php
   include('./comum/basedados.class.php');
   include('./comum/config.php');
-  include('./utilizadores/DAOutilizadores.class.php');
+  include('./utilizadores/daoutilizadores.class.php');
 
   $mybd=new BaseDados();
   $mybd->ligar_bd();
