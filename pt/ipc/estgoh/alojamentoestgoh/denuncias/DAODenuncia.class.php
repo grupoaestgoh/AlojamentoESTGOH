@@ -6,6 +6,7 @@ Estado
 2-inativa
 */
 
+
   //Insere um denuncia na base de dados
   function inserir_denuncia(Denuncia $den_denuncia){
     global $mybd;

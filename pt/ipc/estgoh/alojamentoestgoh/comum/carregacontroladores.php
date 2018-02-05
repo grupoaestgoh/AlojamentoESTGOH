@@ -5,20 +5,20 @@ include('./comum/config.php');
 
 //Ficheiros das classes
 include('./comum/basedados.class.php');
-include('./utilizadores/daoutilizadores.class.php');
+include('./utilizadores/DAOutilizadores.class.php');
 include('./utilizadores/utilizador.class.php');
 include('./utilizadores/anunciante.class.php');
 include('./utilizadores/gestor.class.php');
 include('./utilizadores/estudante.class.php');
 include('./anuncios/anuncio.class.php');
 include('./anuncios/foto.class.php');
-include('./anuncios/daoanuncio.class.php');
-include('./anuncios/daofotos.class.php');
-include('./notificacoes/daonotificacao.class.php');
+include('./anuncios/DAOAnuncio.class.php');
+include('./anuncios/DAOFotos.class.php');
+include('./notificacoes/DAONotificacao.class.php');
 include('./notificacoes/notificacao.class.php');
-include('./denuncias/daodenuncia.class.php');
+include('./denuncias/DAODenuncia.class.php');
 include('./denuncias/denuncia.class.php');
-include('./logs/daolog.class.php');
+include('./logs/DAOLog.class.php');
 include('./logs/log.class.php');
 
 
