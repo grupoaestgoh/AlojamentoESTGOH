@@ -291,7 +291,7 @@ ob_start();
                   jQuery("#aviso_registo_insucesso_email").show();
                   });
                   </script>');
-                //  header('Location: ver_todos_anuncios.php');
+                  header("refresh: 1;ver_todos_anuncios.php");
 
           }else{
           echo'<script>$("#falhamotivo").text("O motivo tem maximo de 50 caracteres!");</script>';
